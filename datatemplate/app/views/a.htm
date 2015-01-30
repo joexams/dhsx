@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+var availableTags = [
+    "C#",
+    "C++",
+    "Java",
+    "JavaScript",
+    "ASP",
+    "ASP.NET",
+    "JSP",
+    "PHP",
+    "Python",
+    "Ruby"
+];
+$("#autocomplete").autocomplete({
+    source: availableTags
+});
+</script>
+<input type="text" name="search_menu" id="autocomplete" class="form-control" value="查找模版表" onfocus="if (value =='查找模版表'){value =''}" onblur="if (value ==''){value='查找模版表'}">

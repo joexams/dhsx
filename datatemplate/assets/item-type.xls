@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:html="http://www.w3.org/TR/REC-html40">
+<Worksheet ss:Name="Sheet1">
+<Table>
+<Row>
+<Cell><Data ss:Type="String">类型ID</Data></Cell>
+<Cell><Data ss:Type="String">物品类别标识</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">1</Data></Cell>
+<Cell><Data ss:Type="String">weapon</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2</Data></Cell>
+<Cell><Data ss:Type="String">cloth</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">3</Data></Cell>
+<Cell><Data ss:Type="String">pei_jian</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">4</Data></Cell>
+<Cell><Data ss:Type="String">cap</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">5</Data></Cell>
+<Cell><Data ss:Type="String">bing_fu</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">6</Data></Cell>
+<Cell><Data ss:Type="String">guan_yin</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">7</Data></Cell>
+<Cell><Data ss:Type="String">fubenwuping</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">8</Data></Cell>
+<Cell><Data ss:Type="String">fubenyuanbao</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">9</Data></Cell>
+<Cell><Data ss:Type="String">fubenlingpai</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">10</Data></Cell>
+<Cell><Data ss:Type="String">fubentongqian</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">11</Data></Cell>
+<Cell><Data ss:Type="String">fubenxingxing</Data></Cell>
+</Row>
+</Table>
+</Worksheet>
+</Workbook>

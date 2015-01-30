@@ -1,0 +1,31 @@
+<div class="footer">
+    <div class="footer-inner">
+        <div class="footer-content">
+            <span class="bigger-120">
+                    © 2014
+                </span>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<script>
+$(function(){
+    $.history.init(Ga.common.pageload);
+    $( "#autocomplete" ).autocomplete({
+		  source: base+'/table/search_menu',
+		  autoFocus: true,
+		  delay:500,
+		  messages:{
+	        noResults:'',
+	        results:function(){}},
+		  select: function(e, ui) {
+		      window.open(base+'/'+ui.item.parentid+'#/table/show/'+ui.item.name,'_self'); 
+		    }
+		});
+});
+</script>
+</body>
+
+</html>

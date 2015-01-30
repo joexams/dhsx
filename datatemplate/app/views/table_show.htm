@@ -1,0 +1,342 @@
+<style>table label{margin:0;};</style>
+<p>
+<a href="<?php echo $base; ?>/table/download/<?php echo $tablename ?>" class="btn btn-success" target="_blank"><i class="glyphicon glyphicon-download"></i>导出Excel数据</a>
+&nbsp;&nbsp;
+
+<span class="btn btn-danger fileinput-button">
+    <i class="glyphicon glyphicon-upload"></i>
+    <span>导入Excel数据</span>
+    <input id="fileupload" type="file" name="file">
+</span>
+<?php if ($search_col) { ?>
+<span>
+	<?php echo $fields_arr[$search_col]['field_comment'] ?>:
+</span>
+<span class="btn">
+    <input type="text" id="search-info" name="search-info" value="" class="fill form-control">
+</span>
+<span class="btn">
+    <button type="button" class="btn btn-info" id="search-btn" data="<?php echo $search_col;?>"><i class="glyphicon glyphicon-ok-circle"></i> 搜索</button>
+</span>
+<?php } ?>
+<span class="pull-right">
+<button type="button" name="truncate" class="btn btn-default" id="truncate"><i class="glyphicon glyphicon-remove-circle"></i> 清空表数据</button>
+</span>
+</p>
+
+<?php if ($search_arr) { ?>
+
+<?php foreach ($search_arr as $key => $value): ?>
+
+<p class="bootstrap-tagsinput" datafield="<?php echo $key; ?>">
+<span class="label" style="background:#FFF;color:#7b8996"><?php echo $fields_arr[$key]['field_comment']?>:</span>
+	<?php foreach ($value as $row): ?>
+	
+	<a href="#<?php echo $PATH ?>?<?php echo $key.'='.$row['id']?>" class="search" dataid="<?php echo $row['id']; ?>"><span class="label tag label-info <?php echo isset($search_id[$key]) && $row['id']==$search_id[$key] ?'tag-hover': ''; ?>"> <?php echo $row['name'] ?></span></a>
+	<?php endforeach ?>
+</p>
+<?php endforeach ?>
+<?php } ?>
+
+<form action="<?php echo $PATH; ?>" method="post" id="post_form">
+<div style="overflow: auto;">
+<table class="table table-striped table-hover">
+	<thead>
+		<tr>
+		<?php foreach ($fields as $key => $field): ?>
+
+		<?php if (strtolower($field['Extra']) == 'auto_increment' || strtolower($field['Key']) == 'pri') { ?>
+			<th style="min-width: 100px;"><label for="checkall-la" style="line-height: 1;margin-bottom: 0;"><input type="checkbox" name="checkall" class="checkall" id="checkall-la" value="1"> 删除</label></th>
+		<?php } ?>
+
+		<?php if (isset($fields_arr[$field['Field']]) && !$fields_arr[$field['Field']]['display']) continue;?>
+			<?php if (isset($fields_arr[$field['Field']])) { ?>
+			<th <?php echo $fields_arr[$field['Field']]['input_width'] ? ' style="min-width: '.round($fields_arr[$field['Field']]['input_width']).'px;"' : ''; ?>>
+			<?php echo $fields_arr[$field['Field']]['field_comment'] ?: (strtoupper($field['Comment']?: $field['Field'])) ; ?></th>
+			<?php }else { ?>
+			<th><?php echo strtoupper($field['Comment']?: $field['Field']) ; ?></th>
+			<?php } ?>
+		<?php endforeach ?>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody id="rowtbody">
+	<?php if ($data) { ?>
+	<?php foreach ($data['list'] as $key => $value): ?>
+	<tr>
+		<input type="hidden" class="change" name="change[<?php echo $key ?>]" value="0">
+		<?php foreach ($fields as $field): ?>
+
+		<?php if (strtolower($field['Extra']) == 'auto_increment' || strtolower($field['Key']) == 'pri') { ?>
+			<td><label for="ckb_<?php echo $field['Field'] ?>_<?php echo $key ?>"><input type="checkbox" name="delids[<?php echo $field['Field'] ?>][]" value="<?php echo $value[$field['Field']]; ?>" id="ckb_<?php echo $field['Field'] ?>_<?php echo $key ?>">
+			<?php
+				$id = $value[$field['Field']];
+				echo $value[$field['Field']];
+			?>
+			<input type="hidden" name="list[<?php echo $key ?>][<?php echo $field['Field'] ?>]" value="<?php echo $value[$field['Field']] ?>">
+			</label>
+			</td>
+		<?php } ?>
+
+		<?php if (!$fields_arr[$field['Field']]['display']) continue;?>
+		<td>
+		<?php if (strtolower($field['Extra']) == 'auto_increment') { ?>
+		<label>
+		<?php echo $value[$field['Field']]; ?>
+		</label>
+		<?php }else { ?>
+
+			<?php if ($fields_arr[$field['Field']]['input_type'] == 'input') { ?>
+
+				<input type="text" name="list[<?php echo $key ?>][<?php echo $field['Field'] ?>]" value="<?php echo $value[$field['Field']] ?>" class="fill field form-control" <?php echo $fields_arr[$field['Field']]['tips'] ? 'data-toggle="tooltip" data-placement="top" title="'.$fields_arr[$field['Field']]['tips'].'"' : '' ?>>
+
+			<?php }else if ($fields_arr[$field['Field']]['input_type'] == 'textarea') { ?>
+
+				<textarea name="list[<?php echo $key ?>][<?php echo $field['Field'] ?>]" cols="10" rows="1" class="fill field form-control" <?php echo $fields_arr[$field['Field']]['tips'] ? 'data-toggle="tooltip" data-placement="top" title="'.$fields_arr[$field['Field']]['tips'].'"' : '' ?>><?php echo $value[$field['Field']] ?></textarea>
+
+			<?php }else if ($fields_arr[$field['Field']]['input_type'] == 'select') { ?>
+
+				<?php if ($fields_arr[$field['Field']]['select']) { ?>
+				<select name="list[<?php echo $key ?>][<?php echo $field['Field'] ?>]" class="fill field form-control">
+
+					<?php if ($fields_arr[$field['Field']]['default']) {  ?>
+						<?php foreach ($fields_arr[$field['Field']]['default'] as $dsvalue): ?>
+						<option value="<?php echo $dsvalue['id'] ?>"><?php echo $dsvalue['name']; ?></option>
+						<?php endforeach ?>
+					<?php } ?>
+
+					<?php foreach ($fields_arr[$field['Field']]['select'] as $fsvalue): ?>
+					<option value="<?php echo $fsvalue['id'] ?>" <?php echo $fsvalue['id']== $value[$field['Field']]? 'selected' : ''; ?>><?php echo $fsvalue['name'] ?></option>
+					<?php endforeach ?>
+
+				</select>
+				<?php } ?>
+
+			<?php }else if($fields_arr[$field['Field']]['input_type'] == 'checkbox') { ?>
+
+				<?php foreach ($fields_arr[$field['Field']]['checkbox'] as $fsvalue): ?>
+					<?php list($id, $name) = explode('|', $fsvalue); ?>
+					<label for="ckb_<?php echo $field['Field'] ?>_<?php echo $key ?>"><input type="checkbox" id="ckb_<?php echo $field['Field'] ?>_<?php echo $key ?>" name="list[<?php echo $key ?>][<?php echo $field['Field'] ?>]" value="<?php echo $id ?>" <?php echo $id == $value[$field['Field']]? 'checked' : ''; ?> class="fill field"><?php echo $name ?></label>
+				<?php endforeach ?>
+
+			<?php } ?>
+
+		<?php } ?>
+		</td>
+		<?php endforeach ?>
+		<td>&nbsp;</td>
+	</tr>
+	<?php endforeach ?>
+	<?php } ?>
+	</tbody>
+    <tfoot id="tfoot">
+		<tr>
+		<?php foreach ($fields as $field): ?>
+
+		<?php if (strtolower($field['Extra']) == 'auto_increment' || strtolower($field['Key']) == 'pri') { ?>
+			<td><strong class="green">新增记录</strong></td>
+		<?php } ?>
+		<?php if (!$fields_arr[$field['Field']]['display']) continue;?>
+		<td>
+		<?php if (strtolower($field['Extra']) == 'auto_increment') { ?>
+
+		<?php }else { ?>
+
+			<?php if ($fields_arr[$field['Field']]['input_type'] == 'input') { ?>
+
+				<input type="text" name="info[<?php echo $field['Field'] ?>]" value="<?php echo $fields_arr[$field['Field']]['default_value']?>" class="fill form-control" <?php echo $fields_arr[$field['Field']]['tips'] ? 'data-toggle="tooltip" data-placement="top" title="'.$fields_arr[$field['Field']]['tips'].'"' : '' ?>>
+
+			<?php }else if ($fields_arr[$field['Field']]['input_type'] == 'textarea') { ?>
+
+				<textarea name="info[<?php echo $field['Field'] ?>]" cols="10" rows="1" class="fill form-control" <?php echo $fields_arr[$field['Field']]['tips'] ? 'data-toggle="tooltip" data-placement="top" title="'.$fields_arr[$field['Field']]['tips'].'"' : '' ?>><?php echo $fields_arr[$field['Field']]['default_value']?></textarea>
+
+			<?php }else if ($fields_arr[$field['Field']]['input_type'] == 'select') { ?>
+
+				<?php if ($fields_arr[$field['Field']]['select']) { ?>
+				<select name="info[<?php echo $field['Field'] ?>]" class="fill form-control">
+
+					<?php if (isset($fields_arr[$field['Field']]['default'])) {  ?>
+						<?php foreach ($fields_arr[$field['Field']]['default'] as $dsvalue): ?>
+						<option value="<?php echo $dsvalue['id'] ?>"><?php echo $dsvalue['name']; ?></option>
+						<?php endforeach ?>
+					<?php } ?>
+
+					<?php foreach ($fields_arr[$field['Field']]['select'] as $fsvalue): ?>
+					<option value="<?php echo $fsvalue['id'] ?>" <?php echo isset($search_id[$field['Field']]) && $fsvalue['id']==$search_id[$field['Field']] ? 'selected' : ($fields_arr[$field['Field']]['default_value'] == $fsvalue['id']?' selected' : '') ?>><?php echo $fsvalue['name']; ?></option>
+					<?php endforeach ?>
+
+				</select>
+				<?php } ?>
+
+			<?php }else if($fields_arr[$field['Field']]['input_type'] == 'checkbox') { ?>
+
+				<?php foreach ($fields_arr[$field['Field']]['checkbox'] as $fsvalue): ?>
+					<?php list($id, $name) = explode('|', $fsvalue); ?>
+					<label for="ckb"><input type="checkbox" id="ckb" class="fill" name="info[<?php echo $field['Field'] ?>]" value="<?php echo $id ?>" <?php echo $fields_arr[$field['Field']]['default_value'] == $id ? 'checked' : '' ?>><?php echo $name ?></label>
+				<?php endforeach ?>
+
+			<?php } ?>
+		<?php } ?>
+		</td>
+		<?php endforeach ?>
+		<td>&nbsp;</td>
+		</tr>
+    </tfoot>
+</table>
+</div>
+
+<p>
+<div class="pagination pull-left" style="margin-top:0"></div>
+<div class="pull-right">
+<input type="hidden" name="tablename" value="<?php echo $tablename ?>">
+<button type="submit" class="btn btn-info" name="btnsave"><i class="glyphicon glyphicon-ok-circle"></i> 保存数据</button>
+</div>
+</p>
+<br>
+<br>
+</form>
+
+<script src="<?php echo $base ?>/static/js/jquery.ui.widget.js"></script>
+<script src="<?php echo $base ?>/static/js/jquery.iframe-transport.js"></script>
+<script src="<?php echo $base ?>/static/js/jquery.fileupload.js"></script>
+<script>
+
+Ga.field = {
+    pagesize: <?php echo $perpage ?: 0; ?>,
+    total: <?php echo $data['total']?: 0; ?>,
+    page: <?php echo $data['pos']+1; ?>,
+    pagecount: <?php echo $data['count']?: 0; ?>
+};
+
+if (Ga.field.pagecount > 1) {
+    $('.pagination').pager({
+        pagenumber: Ga.field.page,
+        pagecount: Ga.field.pagecount,
+        pagecallback: showList
+    });
+}
+
+function showList(pos)
+{
+	pos = (pos > 0) ? pos-1 : pos;
+	Ga.field.page = pos;
+	var url = window.location.href;
+	if (url.indexOf("?")>0){
+		var parms = url.split("?");
+		Ga.common.pageload('<?php echo $PATH ?>?page='+pos+'&'+parms[1]);
+	}else{
+		Ga.common.pageload('<?php echo $PATH ?>?page='+pos);
+	}	
+}
+
+$(function(){
+    'use strict';
+    $('#fileupload').fileupload({
+        url: '<?php echo $base ?>/table/upload/<?php echo $tablename?>',
+        type: 'post',
+        dataType: 'json',
+        done: function (e, data) {
+            Ga.common.show(data.result);
+           	if (data.result.forward != undefined && data.result.forward.length > 0) {
+           		setTimeout(function(){
+           			Ga.common.pageload(data.result.forward);
+           		}, 3000);
+            }
+        },
+        fail: function (e, data) {
+        	console.log(data.textStatus);
+        	Ga.common.show({status: 0, text: '导入数据读取失败。'});
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+	$('#post_form').submit(function(e) {
+		e.preventDefault();
+		Ga.handle.submit({
+			maskEid: 'post_form',
+	        url: '<?php echo $base ?>/table/rows/save',
+	        query: $(this).serialize(),
+	        callback: function(data) {
+	        	$('.change').each(function(index, el) {
+	        		console.log($(this).val());
+	        		$(this).val(0);
+	        	});
+	        }
+		});
+	});
+
+	$('#truncate').on('click', function(e) {
+		e.preventDefault();
+		if (confirm("确定清空数据表？删除后不能恢复哦！")) {
+			Ga.common.ajax({
+				url: base+'/table/truncate/<?php echo $tablename?>',
+				type: 'POST',
+				dataType: 'json'
+			});
+		}
+	});
+
+	$('.checkall').on('change', function(e) {
+		e.preventDefault();
+		var checked = $(this).prop('checked');
+		$('#rowtbody input:checkbox').each(function(index, el) {
+			if (checked) {
+				$(this).prop('checked', 'checked');
+			}else {
+				$(this).prop('checked', '');
+			}
+		});
+	});
+
+	$('#rowtbody').on('change', '.field', function(e) {
+		e.preventDefault();
+		$(this).parent().parent().find('.change').val(1);
+	});
+
+	$('table').on('change', '.fill', function(e) {
+		e.preventDefault();
+		var txt_value = $(this).val();
+		var value_list = txt_value.split('\t');
+		if (value_list.length > 2) {
+			$(this).parent().parent().find('.fill').each(function(index, el) {
+				$(this).val(value_list[index]);
+			});
+		}
+	});
+
+	$('table').on('focus', '.fill', function(e) {
+		e.preventDefault();
+		$(this).tooltip('show');
+	});
+
+//	$('.search').on('click', function(e) {
+//		var url  = $(this).attr('href');
+//        url = url.substr(1);
+//
+//		Ga.common.pageload(url);
+//	});
+	$('#search-btn').on('click', function(e) {
+		var search_text = $("#search-info").val();
+		var search_col = $(this).attr('data');
+		var url = "<?php echo $PATH ?>"+"?"+search_col+"="+search_text;
+		Ga.common.pageload(url);
+	});
+	var tdNum = $("table tbody tr:first td").length;
+	$('table tbody').on('click','.fill',function(e){
+		e.preventDefault();
+		$("table td").each(function(i){
+	        if (i%tdNum == window.event.srcElement.parentElement.cellIndex){
+	            $(this).css("background","#EEEEEE");
+	        }else{
+	        	$(this).removeAttr("style");
+	        }
+	    });
+	});
+//	$('table tbody').on('mouseout','.fill',function(e){
+//		e.preventDefault();
+//		$("table td").each(function(i){
+//	        $(this).removeAttr("style");
+//	    });
+//	});
+});
+</script>

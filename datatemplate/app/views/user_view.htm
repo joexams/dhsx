@@ -1,0 +1,117 @@
+<div class="page-header"><h1>账号列表 <?php if ($ADMINID == $SESSION['user_id']) { ?><a href="javascript:;" class="btn btn-sm btn-info" id="btn-create"><span class="fui-new"></span> 添加账号</a><?php } ?></h1></div>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>账号</th>
+            <th>姓名</th>
+            <th>状态</th>
+            <th>锁定？</th>
+            <th>最后登录时间</th>
+            <th>最后登录IP</th>
+            <th>创建人</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody id="list">
+
+    </tbody>
+</table>
+<div class="pagination pull-right">
+</div>
+<script type="text/x-tmpl-mustache" id="tpl_user_list">
+<tr>
+<td>${user_id}</td>
+<td>${username}</td>
+<td>${realname}</td>
+<td>
+{{if status == 2}}
+<span class="label btn-warning">刷新</span>
+{{else}}
+<span class="label btn-success">正常</span>
+{{/if}}
+</td>
+<td>
+{{if lock == 1}}
+<span class="label btn-danger">锁定</span>
+{{else}}
+<span class="label btn-success">正常</span>
+{{/if}}
+</td>
+<td>${datetime}</td>
+<td>${last_login_ip}</td>
+<td><span class="label btn-info">${create_user}</span></td>
+<td>
+    <div class="action-buttons" data-id="${user_id}" data-name="${username}">
+    <a href="javascript:;" class="label btn-success modify" title="修改"><span class="fui-pencil2"></span></a>&nbsp;&nbsp;
+    <a href="javascript:;" class="label btn-danger remove" title="删除"><span class="fui-cross2"></span></a>
+    </div>
+</td>
+</tr>
+</script>
+<script>
+Ga.user = {
+    pagesize: <?php echo $perpage ?: 0; ?>,
+    total: 0,
+    page: 0,
+    pagecount: 0
+};
+
+Ga.user.showList = function(pos){
+    Ga.common.ajax({
+        maskEid: 'list',
+        url: base+'/user/view',
+        queryData: 'page='+pos,
+        callback: function(data){
+            if (data.status == 1) {
+                $( "#list").empty().append($( "#tpl_user_list" ).tmpl( data.text.list ));
+
+                Ga.user.page = data.text.pos > 0 ? data.text.pos + 1 : 1;
+                Ga.user.total = data.text.count;
+                Ga.user.pagecount = Math.ceil(Ga.user.total/Ga.user.pagesize);
+
+                if (Ga.user.pagecount > 1) {
+                    $('.pagination').pager({
+                        pagenumber: Ga.user.page,
+                        pagecount: Ga.user.pagecount,
+                        pagecallback: showList
+                    });
+                }
+            }
+        }
+    }, 1);
+}
+
+$(function(){
+    Ga.user.showList(0);
+<?php if ($ADMINID == $SESSION['user_id']) { ?>
+    $('#btn-create').on('click', function(e) {
+        e.preventDefault();
+
+        Ga.handle.create({
+          title: '添加账号',
+          url: base+'/user/create'
+        });
+    });
+<?php } ?>
+    $('#list').on('click', 'a.modify', function(e) {
+        e.preventDefault();
+
+        Ga.handle.modify({
+          title: '修改账号【'+$(this).parent().attr('data-name')+'】',
+          url: base+'/user/modify',
+          query: 'id='+$(this).parent().attr('data-id')
+        });
+    });
+
+    $('#list').on('click', 'a.remove', function(e) {
+        e.preventDefault();
+
+        Ga.handle.remove({
+          msg: '您确定删除账号【'+$(this).parent().attr('data-name')+'】？',
+          url: base+'/user/delete',
+          query: 'id='+$(this).parent().attr('data-id')
+        });
+    });
+});
+</script>

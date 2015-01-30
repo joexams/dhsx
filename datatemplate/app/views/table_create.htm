@@ -1,0 +1,98 @@
+<div class="alert alert-warning alert-dismissible fade in" role="alert">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+  <strong>提示：</strong> 一级和二级菜单为界面栏目分类，第三级才是真正数据表配置
+</div>
+<form class="form-inline" id="post_login_submit" method="post" action="">
+<div class="modal-body" id="modal-mask">
+<table class="table table-hover">
+<thead>
+  <tr>
+    <th>父级菜单</th>
+    <th>表注释</th>
+    <th>表名</th>
+    <th>参数串</th>
+    <th>排序</th>
+    <th>&nbsp;</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>
+      <select name="parentid" id="parentid" class="form-control">
+        <option value="0">默认一级权限栏目</option>
+        <?php echo \Base::instance()->decode($tableTree); ?>
+      </select>
+    </td>
+    <td>
+      <input type="text" class="form-control" id="comment" name="comment" value="<?php echo isset($tableInfo->comment)?$tableInfo->comment:'' ?>" placeholder="表注释">
+    </td>
+    <td>
+      <input type="text" class="form-control" id="name" name="name" value="<?php echo isset($tableInfo->name)?$tableInfo->name:'' ?>" placeholder="表名">
+    </td>
+    <td>
+      <input type="text" class="form-control" id="querystring" name="querystring" value="<?php echo isset($tableInfo->querystring)?$tableInfo->querystring: '' ?>" placeholder="参数串">
+    </td>
+    <td>
+      <input type="text" class="form-control" id="sort" name="sort" value="<?php echo isset($tableInfo->sort)?$tableInfo->sort: 0 ?>" placeholder="排序" style="width:60px;">
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+</tbody>
+<tfoot id="step-area" <?php if (!isset($fields) || !$fields) { ?>style="display:none;"<?php } ?>>
+  <tr>
+    <td colspan="6" class="center">
+      <button type="button" id="btn-step" class="btn btn-info">下一步，配置数据录入字段</button>
+    </td>
+  </tr>
+</tfoot>
+</table>
+
+<div id="fields-area">
+  <?php echo \View::instance()->render('table_fields.htm'); ?>
+</div>
+</div>
+<div class="modal-footer">
+  <input type="hidden" name="id" value="<?php echo isset($tableInfo->id)?$tableInfo->id: 0 ?>">
+  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+  <button type="submit" id="loading-btn" class="btn btn-primary" data-loading-text="正在提交中..."><?php echo !isset($tableInfo) ? '创 建' : '保 存' ?></button>
+</div>
+</form>
+<script>
+  var sint = setTimeout(function(){
+    $('.alert').alert('close');
+  }, 10000);
+  $('.alert').on('closed.bs.alert', function () {
+    clearTimeout(sint);
+  });
+  $('#post_login_submit').submit(function(e) {
+    e.preventDefault();
+    Ga.handle.submit({
+      url: base+'<?php echo !isset($tableInfo) ? '/table/create' : '/table/modify' ?>',
+      query: $(this).serialize()
+    });
+  });
+
+  $('#name').on('keyup', function(e) {
+    e.preventDefault();
+    if ($(this).val() != '') {
+      $("#step-area").show();
+    }else {
+      $("#step-area").hide();
+    }
+  });
+
+  $('#btn-step').on('click', function(e) {
+    e.preventDefault();
+    var table_name = $('#name').val();
+    if (table_name) {
+      Ga.common.ajax({
+        url: base+'/table/fields',
+        dataType: 'html',
+        queryData: 'table_name='+table_name,
+        callback: function(data){
+          $("#fields-area").html(data);
+        }
+      }, 1);
+    }
+  });
+</script>

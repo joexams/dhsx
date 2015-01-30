@@ -1,0 +1,27 @@
+<table border="1">
+  <thead>
+    <tr>
+    <?php foreach ($fields as $key => $field): ?>
+    <?php if (isset($fields_arr[$field['Field']]) && !$fields_arr[$field['Field']]['display']) continue;?>
+      <?php if (isset($fields_arr[$field['Field']])) { ?>
+      <th>
+      <?php echo $fields_arr[$field['Field']]['field_comment'] ?: (strtoupper($field['Comment']?: $field['Field'])) ; ?></th>
+      <?php }else { ?>
+      <th><?php echo strtoupper($field['Comment']?: $field['Field']) ; ?></th>
+      <?php } ?>
+    <?php endforeach ?>
+    </tr>
+  </thead>
+  <tbody>
+    <?php for ($i=0; $i<10; $i++) { ?>
+    <tr>
+    <?php foreach ($fields as $key => $field): ?>
+    <?php if (isset($fields_arr[$field['Field']]) && !$fields_arr[$field['Field']]['display']) continue;?>
+      <?php if (isset($fields_arr[$field['Field']])) { ?>
+      <td></td>
+      <?php } ?>
+    <?php endforeach ?>
+    </tr>
+    <?php } ?>
+  </tbody>
+</table>

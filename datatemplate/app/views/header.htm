@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?php echo $SITETITLE; ?></title>
+    <link href="<?php echo $base ?>/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $base ?>/static/css/flat-ui.min.css" rel="stylesheet">
+    <link href="<?php echo $base ?>/static/css/custom.css" rel="stylesheet">
+    <link href="<?php echo $base ?>/static/css/jquery-ui.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="<?php echo $base ?>/static/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="<?php echo $base ?>/static/js/respond.min.js"></script>
+    <![endif]-->
+    <script>var base = '<?php echo $base; ?>'</script>
+</head>
+
+<body>
+    <script type="text/javascript" src="<?php echo $base ?>/static/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="<?php echo $base ?>/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo $base ?>/static/js/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="<?php echo $base ?>/static/js/jquery.history.js"></script>
+    <script type="text/javascript" src="<?php echo $base ?>/static/js/jquery.pager.js"></script>
+    <script type="text/javascript" src="<?php echo $base ?>/static/js/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="<?php echo $base ?>/static/js/custom.js"></script>
+    <script type="text/javascript" src="<?php echo $base ?>/static/js/jquery-ui.min.js"></script>
+
+    <header class="navbar navbar-inverse navbar-embossed navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <nav class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>&nbsp;</li>
+                    <li<?php echo !$currentid? ' class="active"' : '';?>>
+                        <a href="<?php echo $base; ?>/">系统管理</a>
+                    </li>
+                    <?php if ($navbar) { ?>
+                    <?php foreach ($navbar as $key => $value): ?>
+                    <li<?php echo $value['id'] == $currentid? ' class="active"' : '';?>>
+                        <a href="<?php echo $base; ?>/<?php echo $key; ?>"><?php echo $value['name'] ?></a>
+                    </li>
+                    <?php endforeach ?>
+                    <?php } ?>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="<?php echo $base ?>/logout"><span class="fui-power"></span> 
+                        退出</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container-fluid" style="padding:0;">
+        <div class="sidebar responsive">
+            <ul class="nav nav-list" style="top: 0px;" id="sidebar">
+            	<li>
+            		<input type="text" name="search_menu" id="autocomplete" class="form-control" value="查找模版表" onfocus="if (value =='查找模版表'){value =''}" onblur="if (value ==''){value='查找模版表'}">
+            	</li>
+                <?php if  (!$currentid) { ?>
+                <li class="hsub open">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="menu-icon fui-star"></span>
+                        <span class="menu-text">
+                            系统管理
+                        </span>
+                        <b class="menu-icon fui-arrow-down2"></b>
+                    </a>
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                    <li><a href="#/table/view"><span class="menu-icon fui-arrow-right2"></span> 菜单管理</a>
+                            <b class="arrow"></b></li>
+                    <li><a href="#/user/view"><span class="menu-icon fui-arrow-right2"></span> 账号列表</a>
+                            <b class="arrow"></b></li>
+                    <li><a href="#/log/handle"><span class="menu-icon fui-arrow-right2"></span> 操作日志</a>
+                            <b class="arrow"></b></li>
+                    </ul>
+                </li>
+                <?php } ?>
+
+            <?php if ($sidebar) { ?>
+                <?php foreach ($sidebar as $key=>$value): ?>
+                <li class="hsub open">
+                    <a href="javascript:;" class="dropdown-toggle">
+                    <span class="menu-icon <?php echo  $value['icon'] ? $value['icon'] : 'fui-star' ?>"></span>
+                    <span class="menu-text">
+                        <?php echo $value[ 'name']; ?>
+                    </span>
+                    <b class="menu-icon fui-arrow-down2"></b>
+                </a>
+                    <?php if ($value[ 'subside']) { ?>
+                    <b class="arrow"></b>
+                    <ul class="submenu">
+                        <?php foreach ($value[ 'subside'] as $subkey=>$subside): ?>
+                        <?php if ($subside[ 'display']=='none' ) continue; ?>
+                        <li>
+                            <a href="#/table/show/<?php echo $subside['tablename'] ?>">
+                                <span class="menu-icon fui-arrow-right2"></span>
+                                <?php echo $subside[ 'name'] ?>
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <?php endforeach ?>
+                    </ul>
+                    <?php } ?>
+                </li>
+                <?php endforeach ?>
+            <?php } ?>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="page-content" id="container">
