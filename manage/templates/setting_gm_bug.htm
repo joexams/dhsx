@@ -1,0 +1,95 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="7">玩家反馈记录</th>
+  </tr> 
+  <tr class="title_3">
+    <td colspan="7">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')"> 	
+	<!--{if $adminWebType == 's'}-->
+	<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+	 <option class="select">运营平台</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	  
+	<!--{else}-->
+	<input name="cid" type="hidden" value="{$cid}" />
+	<!--{/if}-->	
+	<select name="sid" id = "sid">
+	<option  value="">全部服务器</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<select name="type">
+	<option  value="">全部类型</option>
+	 <option value="1" {if $type == 1} selected="selected" {/if}>BUG</option>
+	 <option value="2" {if $type == 2} selected="selected" {/if}>投诉</option>
+	 <option value="3" {if $type == 3} selected="selected" {/if}>建议</option>
+	 <option value="4" {if $type == 4} selected="selected" {/if}>其它</option>
+	</select>
+	<select name="status">
+	 <option value="0" {if $status == 0} selected="selected" {/if}>新提交</option>
+	 <option value="1" {if $status == 1} selected="selected" {/if}>已回复</option>
+	 <option value="-1" {if $status == -1} selected="selected" {/if}>被屏蔽</option>
+	 <option value="3" {if $status == 3} selected="selected" {/if}>全部</option>
+	</select>
+	
+	<input type="submit" name="Submit" id="Submit" value=" 查 询 " class="button"/>
+	<input name="in" type="hidden" value="setting" />
+	<input name="action" type="hidden" value="GmBug" />
+	选择服务器后才能查看反馈
+	</form>	</td>
+  </tr>   
+<form method="post" action="?in=setting" name="form"  onSubmit="setSubmit('Submit')">      
+  <tr class="title_2" align="center">
+  	<td width="50">ID</td>
+	<td width="60">反馈类型</td>
+	<td width="100">反馈玩家</td>
+	<td width="150">反馈时间</td>
+	<td align="left">反馈内容</td>
+	<td align="left">回复</td>
+	<td width="50">回复</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td"  align="center">
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择"/></td>
+	<td width="60"><!--{if $rs[type]=='1'}-->BUG<!--{/if}--><!--{if $rs[type]=='2'}-->投诉<!--{/if}--><!--{if $rs[type]=='3'}-->建议<!--{/if}--><!--{if $rs[type]=='4'}-->其它<!--{/if}--></td>
+ 	<td align="left"><a href="?in=player&action=PlayerView&cid={$cid}&sid={$sid}&uid={$rs[player_id]}" title="查看玩家信息" target="_blank"><strong style="font-size:14px;">{$rs[username]}</strong>  ({$rs[nickname]})</a> <!--{if $rs[vip_level]}--><span class="redtext">(VIP:{$rs[vip_level]})</span><!--{/if}--></td> 
+	<td>{echo date('Y-m-d H:i:s',$rs[submit_time])}</td>
+	<td align="left" valign="top"><div style="word-break: break-all; word-wrap:break-word;">{echo htmlspecialchars($rs[content])}</div></td>
+	<td valign="top" class="bluetext" align="left">
+	<!--{if $rs[reply_content]}-->
+	<strong>{$rs[reply_user]}:</strong>{echo dehtml($rs[reply_content])}<br /><span class="smalltext">{echo date('Y-m-d H:i:s',$rs[reply_time])}</span>
+	<!--{else}--><span class="graytext">未回复</span><!--{/if}-->	</td>	
+	<td><a href="javascript:void(0)" onclick="pmwin('open','call.php?action=CallGmReply&cid={$cid}&sid={$sid}&id={$rs[id]}')" class="title_menu">回复</a></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="7" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="7"  align="center">暂无记录</td>
+  </tr>			  
+  <!--{/if}--> 
+ 
+  <tr>
+    <td colspan="7" align="center">
+	<input type="hidden" name="sid" value="{$sid}" />
+	<input type="hidden" name="cid" value="{$cid}" />
+	<input type="hidden" name="action" value="DelGmBug" />
+	<select name="type">
+	 <!--{if $adminWebType != 'u'}--><option value="1" >删除</option><!--{/if}-->
+	 <option value="2" >屏蔽(不显示到玩家游戏界面反馈问题列表中)</option>
+	</select>	
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr> 
+  
+</form>   
+</table>

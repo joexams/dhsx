@@ -1,0 +1,76 @@
+<form method="post" action="?in=mission" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="7">副本</th>
+  </tr>
+  <tr align="center" class="title_2">
+	<td width="35">删除</td>
+    <td width="100">ID</td>
+    <td width="150">副本名称</td>
+	<td width="150">副本权值</td>
+    <td width="150">任务权值</td>
+    <td width="150">奖励礼包</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+  	<input name="id_old[]" type="hidden" value="{$rs[id]}"/>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/></td>
+    <td>{$rs[id]}</td>
+
+    <td>
+	<select name="name[]" >
+	 <option class="select">选择副本</option>
+	 <!--{loop $mission_list $mrs}-->
+	 <option value="{$mrs[id]}" {if $mrs[id] == $rs[name]}selected="selected"{/if}>{$mrs[text]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	</td>
+	<td><input name="lock[]" type="text" value="{$rs[lock]}"  size="20"/></td>
+	<td><input name="quest_lock[]" type="text" value="{$rs[quest_lock]}"  size="20"/></td>
+	<td>
+	<select name="award_gift_id[]" >
+	 <option class="select">选择奖励礼包</option>
+	 <!--{loop $mission_area_list $mars}-->
+	 <option value="{$mars[id]}" {if $mars[id] == $rs[mission_area_id]}selected="selected"{/if}>{$mars[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	</td>
+    <td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallMissionAreaMonster&id={$rs[id]}')" class="list_menu">副本区域</a></td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="7" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>    
+    <td>
+	<select name="name_n" >
+	 <option class="select">选择副本</option>
+	 <!--{loop $mission_list $mrs}-->
+	 <option value="{$mrs[id]}">{$mrs[text]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	</td>	
+	<td><input name="lock_n" type="text" value=""  size="20"/></td>
+	<td><input name="quest_lock_n" type="text" value=""  size="20"/></td>
+	<td>
+	<select name="award_gift_id_n" >
+	 <option class="select">选择奖励礼包</option>
+	 <!--{loop $mission_area_list $mars}-->
+	 <option value="{$mars[id]}">{$mars[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	</td>
+    <td colspan="2">&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="7" align="center">
+	<input type="hidden" name="action" value="SetMission" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

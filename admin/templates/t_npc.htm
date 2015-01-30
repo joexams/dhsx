@@ -1,0 +1,71 @@
+<form method="post" action="?in=npc" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="9">NPC列表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="150">名称</td>
+    <td width="100">标识</td>
+    <td width="250">对话</td>
+	<td width="150">响应对话</td>
+    <td width="150">商人</td>
+    <td width="150">功能</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+    <td><input name="sign[]" type="text" value="{$rs[sign]}"  size="10"/></td>
+    <td><textarea name="dialog[]" cols="30" rows="2" ondblclick="textareasize(this)">{$rs[dialog]}</textarea></td>
+    <td><input name="player_dialog[]" type="text" value="{$rs[player_dialog]}"  size="20"/></td>
+	<td><input name="shop_name[]" type="text" value="{$rs[shop_name]}"  size="20"/></td>
+    <td>
+	<select name="npc_func_id[]" >
+	 <option class="select">选择功能</option>
+	 <!--{loop $npc_function_list $nfrs}-->
+	 <option value="{$nfrs[id]}"  {if $nfrs[id] == $rs[npc_func_id]}selected="selected"{/if}>{$nfrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="9" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+	<td><input name="sign_n" type="text" value=""  size="10"/></td>
+    <td><textarea name="dialog_n" cols="30" rows="2" ondblclick="textareasize(this)">{$rs[chat]}</textarea></td>
+    <td><input name="shop_name_n" type="text" value=""  size="20"/></td>
+	<td><input name="player_dialog_n" type="text" value=""  size="20"/></td>
+    <td>
+	<select name="npc_func_id_n" >
+	 <option class="select">选择功能</option>
+	 <!--{loop $npc_function_list $nfrs}-->
+	 <option value="{$nfrs[id]}">{$nfrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>		
+	</td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="9" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="9" align="center">
+	<input type="hidden" name="action" value="SetNPC" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

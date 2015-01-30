@@ -1,0 +1,35 @@
+<form action="?in=code" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2">添加新手卡</th>
+    </tr>
+    	
+    <tr>
+      <td width="100" align="right"><strong>服务器</strong></td>
+      <td>
+		<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+		 <option class="select">运营平台</option>
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}">{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>
+		</td>
+    </tr>
+   <tr>
+      <td align="right"><strong>表后缀</strong></td>
+      <td><input name="bhz" type="text" value="qq" size="10"/></td>
+   </tr>
+   <tr>
+      <td align="right"><strong>新手卡前缀</strong></td>
+      <td><input name="cqz" type="text" value="qq" size="10"/></td>
+   </tr>
+   <tr>
+      <td align="right"><strong>生成数量</strong></td>
+      <td><input name="num" type="text" value="0" size="5" maxlength="5"/> <span class="graytext">一次输入最高请勿超过10000，超过10000请提交后再追加</span></td>
+   </tr>
+    <tr>
+      <td><input name="action" type="hidden" value="SaveCodeQQAdd"/></td>
+      <td class="bluetext"><input type="submit" name="Submit" id="Submit" value=" 发 布 " class="button"/></td>
+    </tr>
+  </table>
+</form >

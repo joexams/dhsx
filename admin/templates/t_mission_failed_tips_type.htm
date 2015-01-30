@@ -1,0 +1,43 @@
+<form method="post" action="?in=mission" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="7">副本战败提示类型</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="35">删除</td>
+    <td width="150">提示标识</td>
+    <td width="150">提示名称</td>
+	<td width="250">描述</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td><input name="tips_sign[]" type="text" value="{$rs[tips_sign]}"  size="20"/></td>
+    <td><input name="tips_name[]" type="text" value="{$rs[tips_name]}"  size="20"/></td>
+	<td><textarea name="description[]" cols="30" rows="3">{$rs[description]}</textarea></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="8" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+    <td><input name="tips_sign_n" type="text" value=""  size="20"/></td>
+    <td><input name="tips_name_n" type="text" value=""  size="20"/></td>
+	<td><textarea name="description_n" cols="30" rows="3"></textarea></td>
+    <td>&nbsp;</td>
+    </tr>  
+  <tr>
+    <td colspan="8" align="center">
+	<input type="hidden" name="action" value="SetMissionFailedTipsType" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

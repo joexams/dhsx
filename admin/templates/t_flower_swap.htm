@@ -1,0 +1,104 @@
+<form method="post" action="?in=item" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="16">印花兑换</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="50">奖励铜钱</td>
+    <td width="50">奖励阅历</td>
+	<td width="50">奖励体力</td>
+	<td width="50">奖励声望</td>	
+    <td width="50">奖励仙令</td>
+    <td width="50">奖励境界点</td>
+    <td width="50">奖励灵石</td>
+    <td width="50">奖励物品</td>
+    <td width="50">奖励物品数量</td>
+    <td width="50">兑换所需印花</td>
+    <td width="50">兑换所需元宝</td>
+    <td width="50">奖励命格碎片</td>
+    <td width="50">帧数</td>
+    <td width="50">功能开放</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[id]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="award_coin[]" type="text" value="{$rs[award_coin]}"  size="10"/></td>
+    <td><input name="award_skill[]" type="text" value="{$rs[award_skill]}"  size="10"/></td>
+    <td><input name="award_power[]" type="text" value="{$rs[award_power]}"  size="10"/></td>
+    <td><input name="award_fame[]" type="text" value="{$rs[award_fame]}"  size="10"/></td>
+    <td><input name="award_xian_ling[]" type="text" value="{$rs[award_xian_ling]}"  size="10"/></td>
+    <td><input name="award_state_point[]" type="text" value="{$rs[award_state_point]}"  size="10"/></td>
+    <td><input name="award_stone[]" type="text" value="{$rs[award_stone]}"  size="10"/></td>
+    <td>
+     <select name="award_item[]" >
+     <option value="0">选择物品</option>
+     <!--{loop $item_list $irs}-->
+     <option value="{$irs[id]}" {if $irs[id] == $rs[award_item]}selected="selected"{/if}>{$irs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+    </td>
+    <td><input name="award_item_count[]" type="text" value="{$rs[award_item_count]}"  size="10"/></td>
+    <td><input name="need_flower[]" type="text" value="{$rs[need_flower]}"  size="10"/></td>
+    <td><input name="need_ingot[]" type="text" value="{$rs[need_ingot]}"  size="10"/></td>
+    <td><input name="award_fate_scrap[]" type="text" value="{$rs[award_fate_scrap]}"  size="10"/></td>
+    <td><input name="framerate[]" type="text" value="{$rs[framerate]}"  size="10"/></td>
+    <td>
+     <select name="game_function[]" >
+     <option value="0">功能开放</option>
+     <!--{loop $game_function $grs}-->
+     <option value="{$grs[id]}" {if $grs[id] == $rs[game_function]}selected="selected"{/if}>{$grs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+    </td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="16" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="award_coin_n" type="text" value=""  size="10"/></td>
+    <td><input name="award_skill_n" type="text" value=""  size="10"/></td>
+    <td><input name="award_power_n" type="text" value=""  size="10"/></td>
+    <td><input name="award_fame_n" type="text" value=""  size="10"/></td>
+    <td><input name="award_xian_ling_n" type="text" value=""  size="10"/></td>
+    <td><input name="award_state_point_n" type="text" value=""  size="10"/></td>
+    <td><input name="award_stone_n" type="text" value=""  size="10"/></td>
+    <td>
+     <select name="award_item_n" >
+     <option  value="0" class="select">选择物品</option>
+     <!--{loop $item_list $irs}-->
+     <option value="{$irs[id]}">{$irs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+    </td>
+    <td><input name="award_item_count_n" type="text" value=""  size="10"/></td>
+    <td><input name="need_flower_n" type="text" value=""  size="10"/></td>
+    <td><input name="need_ingot_n" type="text" value=""  size="10"/></td>
+    <td><input name="award_fate_scrap_n" type="text" value=""  size="10"/></td>
+    <td><input name="framerate_n" type="text" value=""  size="10"/></td>
+    <td>
+     <select name="game_function_n" >
+     <option value="0">功能开放</option>
+     <!--{loop $game_function $grs}-->
+     <option value="{$grs[id]}">{$grs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+    </td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="16" align="center">
+	<input type="hidden" name="action" value="SetFlowerSwap" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

@@ -1,0 +1,31 @@
+<table width="100%" class="table" style="margin-bottom:5px;">
+  <tr>
+    <th colspan="3">服务器列表 > 负责人</th>
+  </tr>
+  <tr class="title_2" align="center">
+    <td width="50">ID</td>
+    <td width="100">负责人</td>
+    <td align="left">权限</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+    <td>{$rs[adminID]}</td>
+    <td><strong>{$rs[adminName]}</strong></td>
+    <td align="left">
+		<!--{if $rs[servers_power_list]}-->
+		  <!--{loop $rs[servers_power_list] $prs}-->
+			{$prs[pname]}<!--{if $prs[ptype]==2}--><!--{eval $prs[powerLook]=$prs[power].'-look'}--><!--{if in_array($prs[powerLook],$rs[serversPowerArr])}--><span class="graytext">(只看)</span><!--{/if}--><!--{/if}-->/
+		  <!--{/loop}-->
+		<!--{else}-->
+		-
+		<!--{/if}--> 
+	</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="3">暂无相关信息</td>
+  </tr>
+  <!--{/if}-->
+</table>

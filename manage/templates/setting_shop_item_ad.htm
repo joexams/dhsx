@@ -1,0 +1,51 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table" >
+<form method="post" action="?in=setting" name="form" id="form"  onSubmit="setSubmit('Submit')">
+  <tr>
+    <th colspan="3">商城广告设置</th>
+  </tr>
+  <!--{if $adminWebType == 's'}-->
+  <tr>
+  <td align="right" valign="top" width="100px">{lang COMPANY}</td>
+  <td  colspan="2">
+      
+    <select name="cid" id="cid" onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+     <option class="select">{lang COMPANY}</option>
+     <!--{loop $company_list $crs}-->
+     <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+     <!--{/loop}-->  
+    </select>   
+  </td>
+  </tr> 
+  <!--{else}-->
+  <input name="cid" type="hidden" value="{$cid}" />
+  <!--{/if}-->
+
+  <tr>
+  <td align="right" valign="top" width="100">{lang SERVER}</td>
+  <td colspan="2">
+  <span class="graytext">{lang MORECHOOSE}</span><br />
+  <select id = "sid" name="servers[]" size="10" multiple="multiple" style="width:500px;">
+  <!--{if $servers_list}-->
+   <!--{loop $servers_list $srs}-->
+   <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+   <!--{/loop}--> 
+   <!--{/if}-->
+  </select> 
+  </td>
+  </tr> 
+
+  <tr>
+    <td align="right" valign="top">商城广告</td>
+    <td>
+      <!--{loop $adlist $ad}-->
+      <input type="checkbox" name="ads[]" value="{$ad[id]}">{$ad[name]} <br>
+      <!--{/loop}-->
+    </td>
+  </tr>
+  <tr>
+	<td><input type="hidden" name="action" value="SetShopItemAd" /></td>
+    <td  colspan="2"><input type="submit" id="Submit" name="Submit" value="{lang SUBMITOK}" onClick='javascript: return confirm("{lang DOYOUDO}");'  class="button"/></td>
+  </tr>
+</form>
+</table>

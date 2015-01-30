@@ -1,0 +1,165 @@
+<form action="?in=server" method="post" name="form" onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="2">服务器 > <span class="yellowtext">{$rs[name]}</span> 添加</th>
+  </tr>
+   <tr>
+    <td align="right" width="100"><strong>代号</strong></td>
+	<td>
+	<input name="name" id="name_e_{$sid}" type="text" value="{$slug}s0"  size="30" onBlur="$('db_name_e_{$sid}').value = 'gamedb_'+ this.value;"/>
+	</td>
+  </tr>  
+   <tr>
+    <td align="right" width="100"><strong>服务器名</strong></td>
+	<td><input name="o_name" type="text" value="{$rs[o_name]}"  size="50"/></td>
+  </tr>  
+  <tr>
+    <td align="right"><strong>游戏地址</strong></td>
+	<td><textarea name="server" id="server_{$rs[sid]}" cols="31" rows="5" onBlur="checkservers({$rs[sid]})"></textarea><br /><span id="server_{$rs[sid]}_show" class="redtext"></span><br /><span class="graytext">一个一行</span></td>
+  </tr>  
+  <tr>
+    <td align="right"><strong>开服日期</strong></td>
+	<td><input name="open_date"  id="open_date" type="text" value="{echo date('Y-m-d H:i',strtotime($mrs[open_date]))}"  size="30" onclick="showcalendar(event, this,true)" readonly/> <span class="graytext">小于此日期前的充值不结算</span></td>
+  </tr>  
+  <tr>
+    <td align="right"><strong>版本</strong></td>
+	<td>
+	<select name="server_ver">
+	<option value="000" class="select">未配置</option>
+	<!--{if $servers_address_ver_list}-->
+	 <!--{loop $servers_address_ver_list $svrs}-->
+	 <option value="{$svrs[name]}">{$svrs[name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	</td>
+  </tr> 
+  <tr>
+    <td align="right"><strong>公开</strong></td>
+	<td>
+	<input name="private" type="radio" value="0" checked="checked"/> 私有
+	<input name="private" type="radio" value="1"/> 公开
+	<span class="graytext">1)是否在微小客户端显示;2)是否执行远程抓取数据</span>	</td>
+  </tr>   
+     
+  <tr>
+    <td align="right"><strong>开关</strong></td>
+	<td>
+	<input name="open" type="radio" value="0" checked="checked"/> 关闭
+	<input name="open" type="radio" value="1" /> 开启
+	<span class="graytext">用于服务器是否配置好</span>	</td>
+  </tr>
+  <tr>
+    <td align="right"><strong>测试服</strong></td>
+	<td>
+	<input name="test" type="radio" value="1" /> 测试
+	<input name="test" type="radio" value="0" checked="checked"/> 正常
+	<span class="graytext">是否测试服：不开收费请设置为测试；设置为正常则会进行开服时间来判断充值是否为测试</span>	</td>
+  </tr> 
+   <tr>
+    <td align="right" valign="top"><strong>可设置测试号</strong></td>
+	<td><input name="test_player" type="text" value="10"  size="30"/> 人 <span class="graytext">非0则该服按此设置</span></td>
+  </tr>
+      
+   <tr class="title_3">
+    <td colspan="2"><strong>默认活动设置</strong> (非特殊情况请勿关闭活动)</td>
+  </tr>    
+  <tr>
+    <td align="right"><strong>首充活动</strong></td>
+	<td>
+	<input name="first_pay_act" type="radio" value="0" /> 关闭
+	<input name="first_pay_act" type="radio" value="1" checked="checked"/> 开启
+	<span class="graytext">玩家第一次充值将获得首充礼包</span>
+	</td>
+  </tr>  
+  <tr>
+    <td align="right"><strong>等级排行活动</strong></td>
+	<td>
+	<input name="level_act" type="radio" value="0" checked="checked" /> 关闭
+	<input name="level_act" type="radio" value="1"/> 开启
+	<span class="graytext">开服前4天等级排行前3名给予奖励</span>
+	</td>
+  </tr> 
+  <tr>
+    <td align="right"><strong>副本排行活动</strong></td>
+	<td>
+	<input name="mission_act" type="radio" value="0" checked="checked"/> 关闭
+	<input name="mission_act" type="radio" value="1"/> 开启
+	<span class="graytext">开服前4天等级副本前3名给予奖励</span>
+	</td>
+  </tr>  
+  <tr>
+    <td align="right"><strong>新手卡活动</strong></td>
+	<td>
+	<input name="new_card_act" type="radio" value="0" checked="checked"/> 关闭
+	<input name="new_card_act" type="radio" value="1"/> 开启
+	<span class="graytext">玩家可通过获取到的新手卡到游戏中领取礼包，若选择[关闭]请到[兑换券]栏目里删除</span>
+	</td>
+  </tr>        
+   <tr class="title_3">
+    <td colspan="2"><strong>API</strong></td>
+  </tr> 
+   <tr>
+    <td align="right" valign="top"><strong>地址</strong></td>
+	<td>
+	<select name="api_server" id="api_server_e_{$sid}">
+	<option value="000" class="select">未配置</option>
+	<!--{if $servers_address_api_list}-->
+	 <!--{loop $servers_address_api_list $sars}-->
+	 <option value="{$sars[name]}">{$sars[name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	
+	</td>
+  </tr>
+   <tr>
+    <td align="right" valign="top"><strong>端口</strong></td>
+	<td><input name="api_port" id="api_port_e_{$sid}" type="text" value=""  size="30"/></td>
+  </tr>
+   <tr>
+    <td align="right" valign="top"><strong>密码</strong></td>
+	<td><input name="api_pwd" type="text" value="ybybyb"  size="30"/></td>   
+  </tr>      
+   <tr class="title_3">
+    <td colspan="2"><strong>数据库(从)</strong></td>
+  </tr> 
+   
+   <tr>
+    <td align="right" valign="top"><strong>数据库地址</strong></td>
+	<td>
+	<select name="db_server" id="db_server_e_{$sid}">
+	<option value="000" class="select">未配置</option>
+	<!--{if $servers_address_db_list}-->
+	 <!--{loop $servers_address_db_list $sars}-->
+	 <option value="{$sars[name]}">{$sars[name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<a onclick="selectAjax('s_call.php?action=CallTestDB&sid={$sid}', 'showDB{$sid}','db_server_e_{$sid}|db_name_e_{$sid}|db_root_e_{$sid}|db_pwd_e_{$sid}');">[测试数据库]</a> <span id="showDB{$sid}"></span>
+	</td>
+  </tr>     
+   <tr>
+    <td align="right" valign="top"><strong>数据库名</strong></td>
+	<td><input name="db_name" id="db_name_e_{$sid}" type="text" value="gamedb_{$slug}s0"  size="40"/></td>
+  </tr>     
+   <tr>
+    <td align="right" valign="top"><strong>数据帐号</strong></td>
+	<td><input name="db_root" id="db_root_e_{$sid}" type="text" value="root"  size="40"/></td>
+  </tr>     
+   <tr>
+    <td align="right" valign="top"><strong>数据库密码</strong></td>
+	<td><input name="db_pwd" id="db_pwd_e_{$sid}" type="text" value="_-[[J|z(,U_ytT%=9Cqs"  size="40"/>	</td>
+  </tr>     
+  
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+	<input type="hidden" name="action" value="SaveServersAdd" />
+	<input type="hidden" name="cid" value="{$cid}" />
+	<input type="hidden" name="id" value="{$id}" />
+	<input type="hidden" name="slug" value="{$rs[slug]}" />
+	<input type="submit" id="Submit" name="Submit" value="确认添加" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/>
+	</td>
+  </tr>
+</table>

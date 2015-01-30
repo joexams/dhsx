@@ -1,0 +1,176 @@
+<table class="menu_table">
+  <!--{if !webAdmin('c_company','y')}-->
+  <tr class="title_2">
+	<td><a href="?in=company&cid={$cid}">{lang PTXXSZ}</a><!--{if $company[link] == '||||||' || !$company[link]}--><br /><span class="redtext">({lang XXWPZ})</span><!--{/if}--></td>
+  </tr> 
+  <!--{/if}--> 
+   <tr>
+	<td><a href="?in=server&cid={$cid}">{lang SERVERLIST}</a></td>
+  </tr>   
+  <!--{if !webAdmin('c_admin','y')}--> 
+   <tr>
+	<td><a href="?in=setting&action=AddAdmin&cid={$cid}" title="{lang ADD}" class="right greentext"><strong>(+)</strong></a><a href="?in=setting&action=Admin&cid={$cid}">{lang KFGL}</a></td>
+  </tr>  
+   <!--{/if}-->  
+  <!--{if !webAdmin('c_gift','y')}--> 
+   <tr>
+	<td><!--{if !webAdmin('c_gift_set','y')}--><a href="?in=setting&action=GiftDataAdd&cid={$cid}" title="{lang ADD}" class="right greentext"><strong>(+)</strong></a><!--{/if}--><a href="?in=setting&action=GiftData&cid={$cid}">{lang PARTYLIST}</a></td>
+  </tr>  
+  <!--{/if}-->  
+   <tr>
+	<td><a href="?in=server&action=ServersAdminData&cid={$cid}">{lang CZJL}</a></td>
+  </tr>            
+</table>   
+<!--{if !webAdmin('c_data','y')}--> 
+<table class="menu_table">
+  <tr>
+    <th>{lang XXTJ}</th>
+  </tr>  
+  <tr>
+	<td><a href="?in=data&action=DataServers&cid={$cid}">{lang PTSJHZ}</a></td>
+  </tr>  
+  <tr>
+	<td><a href="?in=data&action=DataDayData&cid={$cid}">{lang PTSJMRHZ}</a></td>
+  </tr>
+  <tr>
+	<td><a href="?in=data&action=DataPayOrder&cid={$cid}">{lang PTCZPH}</a></td>
+  </tr>  
+  <tr>
+	<td><a href="?in=data&action=DataPay&cid={$cid}">{lang PTCZJL}</a></td>
+  </tr>   
+</table>
+<!--{/if}-->
+<table class="menu_table">
+  <tr>
+    <th>{lang CZ}</th>
+  </tr>     
+  <!--{if !webAdmin('increase_ingot','y')}--> 
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=ingot&cid={$cid}">{lang SYB}</a></td>
+  </tr> 
+  <!--{/if}-->
+  <!--{if !webAdmin('del_ingot','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=delingot&cid={$cid}">{lang KYB}</a></td>
+  </tr>  
+  <!--{/if}-->
+  <!--{if !webAdmin('increase_coins','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=coins&cid={$cid}">{lang STQ}</a></td>
+  </tr> 
+  <!--{/if}-->
+  <!--{if !webAdmin('del_coins','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=delcoins&cid={$cid}">{lang KTQ}</a></td>
+  </tr> 
+  <!--{/if}-->
+  <!--{if !webAdmin('increase_item','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=item&cid={$cid}">{lang SZB}</a></td>
+  </tr> 
+  <!--{/if}-->
+  <!--{if !webAdmin('increase_soul','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=soul&cid={$cid}">{lang SLJ}</a></td>
+  </tr> 
+  <!--{/if}-->  
+   <!--{if !webAdmin('increase_stone','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=stone&cid={$cid}">赠送灵石</a></td>
+  </tr> 
+  <!--{/if}-->   
+  <!--{if !webAdmin('increase_exp','y')}-->  
+  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=exp&cid={$cid}">{lang SJY}</a></td>
+  </tr> 
+  <!--{/if}-->
+  <!--{if !webAdmin('increase_mg','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=mg&cid={$cid}">{lang SMG}</a></td>
+  </tr> 
+  <!--{/if}-->
+  <!--{if !webAdmin('del_mg','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=delmg&cid={$cid}">{lang KMG}</a></td>
+  </tr> 
+  <!--{/if}-->    
+  <!--{if !webAdmin('increase_thew','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=thew&cid={$cid}">{lang STL}</a></td>
+  </tr>  
+  <!--{/if}-->
+  <!--{if !webAdmin('increase_repute','y')}-->  
+    <tr>
+	<td><a href="?in=setting&action=Increase&type=repute&cid={$cid}">{lang SSW}</a></td>
+  </tr>     	  	  
+  <!--{/if}-->
+  <!--{if !webAdmin('increase_skill','y')}--> 
+  <tr>
+	<td><a href="?in=setting&action=Increase&type=skill&cid={$cid}">{lang SYL}</a></td>
+  </tr>    
+  <!--{/if}--> 
+  <!--{if !webAdmin('increase_point','y')}--> 
+  <tr>
+	<td><a href="?in=setting&action=Increase&type=point&cid={$cid}">{lang SJJD}</a></td>
+  </tr>    
+  <!--{/if}-->  
+  <!--{if !webAdmin('increase_roll','y')}--> 
+  <tr>
+	<td><a href="?in=setting&action=Increase&type=roll&cid={$cid}">{lang SBBCS}</a></td>
+  </tr>    
+  <!--{/if}-->
+  <!--{if !webAdmin('increase_achievement','y')}--> 
+  <tr>
+	<td><a href="?in=setting&action=Increase&type=achievement&cid={$cid}">{lang WJCJ}</a></td>
+  </tr>    
+  <!--{/if}-->   
+  <!--{if !webAdmin('increase_rura','y')}--> 
+  <tr>
+	<td><a href="?in=setting&action=Increase&type=rura&cid={$cid}">赠送武魂</a></td>
+  </tr>    
+  <!--{/if}--> 
+   <!--{if !webAdmin('increase_times','y')}--> 
+  <tr>
+	<td><a href="?in=setting&action=Increase&type=times&cid={$cid}">送喂养次数</a></td>
+  </tr>    
+  <!--{/if}-->   
+  <!--{if !webAdmin('c_bulletin','y')}--> 
+   <tr>
+	<td style="border-top:3px solid #CECFDA;"><a href="?in=setting&action=Bulletin&cid={$cid}">{lang FGG}</a></td>
+  </tr>  
+  <!--{/if}--> 
+  
+  <!--{if !webAdmin('c_upvip','y')}--> 
+   <tr>
+	<td><a href="?in=setting&action=UpVip&cid={$cid}">{lang TVIP}</a></td>
+  </tr>  
+  <!--{/if}-->   
+  <!--{if !webAdmin('c_out','y')}--> 
+   <tr>
+	<td><a href="?in=setting&action=PlayerOut&cid={$cid}">{lang JYDJ}</a></td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if !webAdmin('c_test','y')}--> 
+   <tr>
+	<td><a href="?in=setting&action=PlayerTest&cid={$cid}">{lang SZCSH}</a></td>
+  </tr>  
+  <!--{/if}-->   
+  <!--{if !webAdmin('star','y')}--> 
+   <tr>
+	<td><a href="?in=setting&action=PlayerStar&cid={$cid}">{lang SZMXH}</a></td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if !webAdmin('game_data','y')}--> 
+   <tr>
+	<td><a href="?in=setting&action=GameData&cid={$cid}">{lang YXSZ}</a></td>
+  </tr>  
+  <!--{/if}-->      
+  <!--{if !webAdmin('s_shop_item_ad','y')}--> 
+   <tr>
+  <td><a href="?in=setting&action=ShopItemAd">商城广告设置</a></td>
+  </tr>  
+  <!--{/if}-->   
+</table>
+
+ 

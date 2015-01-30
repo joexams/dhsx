@@ -1,0 +1,57 @@
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="9">如来上香属性表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	  <td width="35">删除</td>
+    <td width="150">名称</td>
+    <td width="110">需要消耗的阅历数量</td>
+    <td width="110">需要消耗的元宝数量</td>
+    <td width="100">奖励的声望值</td>
+    <td width="100">增加的香火值</td>
+    <td width="100">需要的VIP等级</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+  	<td>{$rs[id]}<input name="id_old[]" type="hidden" value="{$rs[id]}"/></td>
+  	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}" size="10" /></td>
+    <td><input name="skill[]" type="text" value="{$rs[skill]}" size="10" /></td>
+    <td><input name="ingot[]" type="text" value="{$rs[ingot]}" size="10" /></td>
+    <td><input name="fame[]" type="text" value="{$rs[fame]}" size="10" /></td>
+    <td><input name="incense[]" type="text" value="{$rs[incense]}" size="10" /></td>
+    <td><input name="vip_level[]" type="text" value="{$rs[vip_level]}" size="10" /></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="9" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="name_n" type="text" value="" size="10" /></td>
+    <td><input name="skill_n" type="text" value="" size="10" /></td>
+    <td><input name="ingot_n" type="text" value="" size="10" /></td>
+    <td><input name="fame_n" type="text" value="" size="10" /></td>
+    <td><input name="incense_n" type="text" value="" size="10" /></td>
+    <td><input name="vip_level_n" type="text" value="" size="10" /></td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="9" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="9" align="center">
+	<input type="hidden" name="action" value="SetRulaiIncenseAttr" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

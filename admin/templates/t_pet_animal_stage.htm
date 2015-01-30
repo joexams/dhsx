@@ -1,0 +1,48 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=pet" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="4"><span class="bluetext">{$name}</span> 的阶段信息</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="50">删除</td>
+    <td width="100">阶段</td>
+    <td width="150">所需经验值</td>
+    <td>&nbsp;</td>
+    </tr>
+  
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td><input type="hidden" name="lv[]" value="{$rs[pet_animal_lv]}"/><input type="checkbox" name="id_del[]" value="{$rs[pet_animal_lv]},{$rs[stage]}" title="选择删除"/></td>
+    <td><input type="hidden" name="stage[]" value="{$rs[stage]}"/><strong>{$rs[stage]}</strong></td>
+    <td><input name="exp[]" type="text" value="{$rs[exp]}"  size="20"/></td>
+	<td>&nbsp;</td>
+	</tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="7" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->  
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td>新增→</td>
+    <td><input name="stage_n" type="text" value=""  size="10"/></td>
+    <td><input name="exp_n" type="text" value=""  size="20"/></td>
+	<td>&nbsp;</td>
+	</tr>  
+  <tr>
+    <td colspan="5" align="center">
+	<input name="lv_n" type="hidden" value="{$lv}"/>
+	<input type="hidden" name="action" value="SetPetAnimalStage" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

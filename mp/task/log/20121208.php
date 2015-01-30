@@ -1,0 +1,1 @@
+<?php exit;?>	2012-12-08 07:47:39	4	player no exists	appid=100616996&billno=-APPDJ18129-20121208-07473954070-TC&contractid=100616996T2201211130001&openid=FC9B5B1E4A0604BA94E09BD57B064AF4&payitem=1493&providetype=2&ts=1354924059&version=v3&zoneid=0&sig=CqbT0sGcsyHPCUIQYgt7fh346x4%3D

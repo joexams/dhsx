@@ -1,0 +1,135 @@
+<table class="table">
+  <tr>
+    <th colspan="11"><a href="?in=research">奇术列表</a><!--{if $name}--> ＞ 搜索 <span class="bluetext">{$name}</span><!--{/if}--></th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="11">
+	<span class="right" style="padding:3px;">
+	<form action="" method="get" name="forms" onSubmit="setSubmit('Submits')">
+	<select name="type_id" >
+	 <option class="select">选择类型</option>
+	 <!--{loop $research_type_list $rtrs}-->
+	 <option value="{$rtrs[id]}" {if $rtrs[id] == $type_id}selected="selected"{/if}>{$rtrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	<input name="name" type="text" value="{$name}" size="20" maxlength="20"  /> 
+	<input type="submit" id="Submits" name="Submits" value="搜索" class="button"/>
+	<input name="in" type="hidden" value="research" />
+	</form>	
+	</span>	
+	 <a href="?in=research" class="{if !$type_id} title_menu_on {else} title_menu {/if}">所有</a>
+	<!--{if $research_type_list}-->
+	  <!--{loop $research_type_list $rtrs}-->
+	  <a href="?in=research&type_id={$rtrs[id]}" class="{if $type_id == $rtrs[id]} title_menu_on {else} title_menu {/if}">{$rtrs[name]}</a>
+	  <!--{/loop}-->
+	<!--{/if}-->	</td>
+  </tr>  
+<form method="post" action="?in=research" name="form"  onSubmit="setSubmit('Submit')">
+  
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+	<td width="80">排序</td>
+    <td width="150">名称</td>
+    <td width="100">类型</td>
+    <td width="100" title="奇术影响的数值种类">影响种类</td>
+    <td width="100" title="开启该奇术需要的玩家等级">开启等级</td>
+    <td >详细说明</td>
+    <td width="80">数值类型</td>
+	<td width="80">关联阵法</td>
+    <td width="60">等级</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="order[]" type="text" value="{$rs[order]}"  size="5"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+    <td>
+	<select name="research_type_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $research_type_list $trs}-->
+	 <option value="{$trs[id]}"  {if $trs[id] == $rs[research_type_id]}selected="selected"{/if}>{$trs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>
+	<select name="research_data_type_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $research_data_type_list $dtrs}-->
+	 <option value="{$dtrs[id]}"  {if $dtrs[id] == $rs[research_data_type_id]}selected="selected"{/if}>{$dtrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="player_level[]" type="text" value="{$rs[player_level]}"  size="5"/></td>
+    <td><textarea name="content[]"  cols="30" rows="2" ondblclick="textareasize(this)">{$rs[content]}</textarea></td>
+    <td>
+	<select name="addition_type_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $addition_type_list $atrs}-->
+	 <option value="$atrs[id]"  {if $atrs[id] == $rs[addition_type_id]}selected="selected"{/if}>{$atrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>
+	<select name="deploy_mode_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $deploy_mode_list $dmrs}-->
+	 <option value="$dmrs[id]"  {if $dmrs[id] == $rs[deploy_mode_id]}selected="selected"{/if}>{$dmrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>	
+		
+    <td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallResearchLevelData&id={$rs[id]}&addition_type_id={$rs[addition_type_id]}&name={$rs[name_url]}')" class="list_menu">等级</a></td>	
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="11" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="order_n" type="text" value=""  size="5"/></td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+    <td>
+	<select name="research_type_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $research_type_list $trs}-->
+	 <option value="{$trs[id]}"  {if $trs[id] == $type_id}selected="selected"{/if}>{$trs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>
+	<select name="research_data_type_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $research_data_type_list $dtrs}-->
+	 <option value="{$dtrs[id]}" >{$dtrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="player_level_n" type="text" value=""  size="5"/></td>
+    <td><textarea name="content_n"  cols="30" rows="2" ondblclick="textareasize(this)"></textarea></td>
+    <td>
+	<select name="addition_type_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $addition_type_list $atrs}-->
+	 <option value="$atrs[id]" >{$atrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>
+	<select name="deploy_mode_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $deploy_mode_list $dmrs}-->
+	 <option value="$dmrs[id]" >{$dmrs[name]}</option>
+	 <!--{/loop}-->	
+	</select>	</td>		
+    <td>&nbsp;</td>	
+   </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="11" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	     
+  <tr>
+    <td colspan="11" align="center">
+	<input type="hidden" name="action" value="SetResearch" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>
+</form>
+</table>

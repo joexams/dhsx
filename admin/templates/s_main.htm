@@ -1,0 +1,124 @@
+<table class="table">
+
+  <tr>
+
+    <th colspan="3">列表</th>
+  </tr>
+
+  <tr >
+
+	<td width="100" align="center"><strong>服务器标题</strong></td>
+
+	<td>
+
+	<form method="post" action="?in=confing" name="form">
+
+	<input name="indextitle" type="text" value="{$indextitle}" size="80" />
+
+	<input type="submit" name="Submit" value="修改" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/>
+
+	<input type="hidden" name="action" value="saveConfing" />
+
+	<input type="hidden" name="type" value="title" />
+	</form>	</td>
+
+    <td>&nbsp;</td>
+  </tr>  
+
+  <tr >
+
+	<td width="100" align="center"><strong>设置接口</strong></td>
+
+	<td>
+
+	<form method="post" action="?in=confing" name="form">
+
+	<textarea name="operatorInfoText" cols="81" rows="5">{$operatorInfoText}</textarea>
+
+	<input type="submit" name="Submit" value="修改" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/>
+
+	<input type="hidden" name="action" value="saveConfing" />
+
+	<input type="hidden" name="type" value="text" />
+	</form>	</td>
+
+    <td class="bluetext">
+
+	USKEY    = 与运营商通讯接口密钥<br />
+
+	IPALLOW  = 允许访问接口的IP,多个以","分隔<br />
+
+	CLOSEPWD = 关闭停机维护密码<br />
+
+	CONFIG_MONEYRATIO = 奥金币与真实货币兑换比率 (100为1货币兑换100奥金)	</td>
+  </tr>
+
+  <tr >
+
+	<td width="100" align="center"><strong>客户端地址</strong></td>
+
+	<td>
+
+	<form method="post" action="?in=confing" name="form">
+
+	<input name="clientfiles" type="text" value="{$clientfiles}" size="80" />
+
+	<input type="submit" name="Submit" value="修改" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/>
+
+	<input type="hidden" name="action" value="saveConfing" />
+
+	<input type="hidden" name="type" value="files" />
+	</form>	</td>
+
+    <td>&nbsp;</td>
+  </tr>   	
+
+  <tr >
+
+	<td width="100" align="center"><strong>登陆口</strong></td>
+
+	<td>
+
+	<form method="post" action="?in=confing" name="form">
+
+	<input name="loginUrl" type="text" value="{$loginUrl}" size="80" />
+
+	<input type="submit" name="Submit" value="修改" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/>
+
+	<input type="hidden" name="action" value="saveConfing" />
+
+	<input type="hidden" name="type" value="url" />
+	</form>	</td>
+
+    <td>&nbsp;</td>
+  </tr>	
+
+	  
+  <tr >
+
+	<td width="100" align="center"><strong>登陆公告</strong></td>
+
+	<td>
+
+	<form method="post" action="?in=confing" name="form">
+
+	<textarea name="notice" cols="81" rows="5">{$notice}</textarea>
+
+	<input type="submit" name="Submit" value="修改" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/>
+
+	<input type="hidden" name="action" value="saveConfing" />
+
+	<input type="hidden" name="type" value="notice" />
+	</form>	</td>
+
+    <td>&nbsp;</td>
+  </tr>  
+
+
+
+  
+
+</table>
+
+
+

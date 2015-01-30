@@ -1,0 +1,72 @@
+<form method="post" action="?in=regions" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="10">九界隐藏关卡表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="50">删除</td>
+    <td width="50">等级</td>
+    <td width="150">名字</td>
+    <td width="100">开启需要九界等级</td>
+    <td width="100">开启需要关卡等级</td>
+    <td width="150">怪物团</td>
+    <td width="100">奖励声望</td>
+    <td width="100">奖励武魂</td>
+    <td width="100">提示</td>
+    <td>&nbsp;</td>
+    </tr>
+  
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td><input type="hidden" name="id[]" value="{$rs[id]}"/><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td><strong>{$rs[id]}</strong></td>
+    <td><input type="text" name="name[]" value="{$rs[name]}" size="20"/></td>
+    <td><input type="text" name="region_id[]" value="{$rs[region_id]}" size="10"/></td>
+    <td><input type="text" name="level_id[]" value="{$rs[level_id]}" size="10"/></td>
+    <td><select name="monster_team_id[]" >
+	 <option class="select" value="0">选择怪物团</option>
+   <!--{loop $mission_scene_list $mrs}-->
+   <option value="{$mrs[id]}"  {if $mrs[id] == $rs[monster_team_id]}selected="selected"{/if}>{$mrs[scene_name]}</option>
+   <!--{/loop}-->  
+	</select></td>
+    <td><input type="text" name="award_fame[]" value="{$rs[award_fame]}" size="10"/></td>
+    <td><input type="text" name="award_aura[]" value="{$rs[award_aura]}" size="10"/></td>
+    <td><textarea name="tips[]" cols="35" rows="2">{$rs[tips]}</textarea></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->  
+  <!--{else}-->
+  <tr>
+	<td colspan="10" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td>新增→</td>
+	<td><input name="id_n" type="text" value=""  size="5"/></td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+    <td><input name="region_id_n" type="text" value=""  size="10"/></td>
+    <td><input name="level_id_n" type="text" value=""  size="10"/></td>
+    <td><select name="monster_team_id_n" >
+	 <option class="select" value="0">选择怪物团</option>
+   <!--{loop $mission_scene_list $mrs}-->
+   <option value="{$mrs[id]}" >{$mrs[scene_name]}</option>
+   <!--{/loop}-->  
+	</select></td>
+    <td><input type="text" name="award_fame_n" value="" size="10"/></td>
+    <td><input type="text" name="award_aura_n" value="" size="10"/></td>
+    <td><textarea name="tips_n" cols="35" rows="2"></textarea></td>
+	<td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="10" align="center">
+	<input type="hidden" name="action" value="SetNineRegionsHiddenLevel" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

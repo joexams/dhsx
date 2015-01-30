@@ -1,0 +1,74 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit2')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="10"><span class="bluetext">{$name}</span> 的答案</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="35">删除</td>
+    <td title="事件答案界面标识,A或B">标识</td>
+    <td title="事件答案描述">描述</td>
+    <td>奖励描述</td>
+    <td>铜钱</td>
+    <td>经验</td>
+    <td>声望</td>
+    <td>体力</td>
+    <td>阅历</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input type="hidden" name="id[]" value="{$rs[id]}" /></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td>
+	<select name="event_answer_sign[]" >
+	 <option value="A" {if $rs[event_answer_sign] == 'A'}selected="selected"{/if}>A</option>
+	 <option value="B" {if $rs[event_answer_sign] == 'B'}selected="selected"{/if}>B</option>
+	</select>		
+	</td>
+    <td><textarea name="event_answer[]" cols="20" rows="2" ondblclick="textareasize(this)">{$rs[event_answer]}</textarea></td>
+    <td><input name="award[]" type="text" value="{$rs[award]}"  size="20"/></td>
+    <td><input name="coin[]" type="text" value="{$rs[coin]}"  size="4"/></td>
+    <td><input name="exp[]" type="text" value="{$rs[exp]}"  size="4"/></td>
+    <td><input name="fame[]" type="text" value="{$rs[fame]}"  size="4"/></td>
+    <td><input name="power[]" type="text" value="{$rs[power]}"  size="4"/></td>
+    <td><input name="skill[]" type="text" value="{$rs[skill]}"  size="4"/></td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="10" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="event_answer_sign_n" >
+	 <option value="A">A</option>
+	 <option value="B">B</option>
+	</select>		
+	</td>
+    <td><textarea name="event_answer_n" cols="20" rows="2" ondblclick="textareasize(this)"></textarea></td>
+    <td><input name="award_n" type="text" value=""  size="20"/></td>
+    <td><input name="coin_n" type="text" value=""  size="4"/></td>
+    <td><input name="exp_n" type="text" value=""  size="4"/></td>
+    <td><input name="fame_n" type="text" value=""  size="4"/></td>
+    <td><input name="power_n" type="text" value=""  size="4"/></td>
+    <td><input name="skill_n" type="text" value=""  size="4"/></td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->      
+  <tr>
+    <td colspan="10" align="center">
+	<input name="event_id" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetTravelEventAnswer" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit2" name="Submit2" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

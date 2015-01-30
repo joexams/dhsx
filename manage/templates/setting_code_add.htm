@@ -1,0 +1,96 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<form action="?in=code" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2"><a href="?in=code">兑换券批次</a> ＞ 兑换券发布</th>
+    </tr>
+    	
+    <tr>
+      <td width="100" align="right"><strong>服务器</strong></td>
+      <td>
+		<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+		 <option class="select">运营平台</option>
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>	  
+		<select name="sid" id = "sid" onChange="selectAjax('player_call.php?action=callItemType','type_id','sid',1);$('item_id').options.length = 0;">
+		<option value="" class="select">选择服务器</option>
+		<!--{if $servers_list}-->
+		 <!--{loop $servers_list $srs}-->
+		 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->
+		</select>	  </td>
+    </tr>
+    <tr>
+      <td align="right"><strong>用途说明</strong></td>
+      <td> <input name="name" type="text" value="新手卡大放送" size="40"/> <span class="graytext">本批兑换券用途</span></td>
+    </tr>  
+     <tr>
+      <td align="right"><strong>兑换物品</strong></td>
+      <td>
+	  <!--{if $adminWebType == 'dfh3jfdgfgdfg'}-->
+		<select name="type_id" id="type_id" onChange="selectAjax('player_call.php?action=callItem','item_id','type_id|sid',1)">
+		 <option class="select">选择类型</option> 
+		</select>	  
+		<select name="item_id"  id="item_id" onchange="selectInput(this,'item_name')">
+		 <option class="select">选择{$typename}</option>
+		</select>
+		<input name="item_name" id="item_name" type="hidden" value=""/>	
+	  <!--{else}-->
+	  <strong>神秘礼包</strong> (包含58元宝和一品武力、绝技、法术丹各一颗)
+	  <input name="item_id" id="item_id" type="hidden" value="520"/>
+	<input name="item_name" id="item_name" type="hidden" value="神秘礼包"/>	
+	  <!--{/if}-->
+	<!--span class="graytext">不赠送装备可不操作此项</span--></td>
+   </tr>
+     <tr>
+      <td align="right"><strong>兑换数量</strong></td>
+      <td> <input name="item_val" type="text" value="1" size="5" readonly/></td>
+   </tr>
+   
+     <!--tr>
+      <td align="right"><strong>获取元宝</strong></td>
+      <td><input name="ingot" type="text" value="0" size="40"/></td>
+   </tr>
+     <tr>
+      <td align="right"><strong>获取铜钱</strong></td>
+      <td><input name="coins" type="text" value="0" size="40"/></td>
+   </tr--> 
+   <!--{if $adminWebType == 's'}-->    
+   <tr>
+      <td align="right"><strong>生成数量</strong></td>
+      <td><input name="num" type="text" value="0" size="5" maxlength="5"/> <span class="graytext">一次输入最高请勿超过10000，超过10000请提交后再追加</span></td>
+   </tr>
+   <!--{/if}-->
+   <tr>
+      <td align="right"><strong>自主生成</strong></td>
+      <td>
+	  <!--{if $adminWebType == 's'}-->
+		<select name="juche">
+		 <option value="1" >支持</option> 
+		 <option value="0">不支持</option> 
+		</select>	
+		<span class="graytext">设置为[支持]，玩家可在运营平台提供的生成页面自主生成兑换券，一个号只能生成一个(生成公式：md5(游戏登陆帐号_游戏服二级域名))</span>
+	  <!--{else}-->
+	  <input name="juche" type="hidden" value="1" />支持
+	  <!--{/if}-->	  	  
+	  </td>
+   </tr>   
+   <tr>
+      <td align="right"><strong>过期时间</strong></td>
+      <td> <input name="edate" id="edate" type="text" onclick="showcalendar(event, this)"   value="9999-01-01" size="10" readonly />	   <span class="graytext">本批兑换券在此日期后过期，不选择为永久不过期</span></td>
+   </tr>              
+    <tr>
+      <td><input name="action" type="hidden" value="SaveCodeAdd"/></td>
+      <td class="bluetext"><input type="submit" name="Submit" id="Submit" value=" 发 布 " class="button"/> <!--{if $adminWebType == 's'}-->注意：若你是要再添加同次活动的兑换券则请勿进行此操作，请选择[追加/修改]进行添加操作！<!--{else}-->发布后该服将允许玩家在游戏内通过在平台生成的兑换券领取礼包！<!--{/if}--></td>
+    </tr>
+  </table>
+</form >
+<script language="javascript">
+ function selectInput(choose,id)
+ {  
+   $(id).value = (choose.options[choose.selectedIndex].text); 
+ }
+</script>

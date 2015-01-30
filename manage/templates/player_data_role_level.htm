@@ -1,0 +1,37 @@
+<table class="table">   
+  <tr>
+    <th colspan="6">{lang HUOBAN} <span class="yellowtext">{$name}</span> {lang DJTJ}</th>
+  </tr>  
+  <tr align="center" class="title_2">
+    <td width="100">{lang LEVEL}</td>
+    <td width="100">{lang ZMRS}</td>
+    <td width="100">{lang ZDRS}</td>
+    <td width="100">{lang LDRS}</td>
+    <td width="80">{lang LDBL}</td>
+    <td>&nbsp;</td>
+  </tr>
+   <tr class="redtext td4"  align="center">
+	<td ><strong>{lang ZONGJI}</strong></td>
+	<td >{$role_count}</td>
+	<td class="greentext">{$role_in_count}</td>
+	<td class="bluetext">{$role_out_count}</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_arrray}-->
+  <!--{loop $list_arrray $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className=""  align="center">
+    <td class="td4">Lv.<strong>{$rs[level]}</strong></td>
+	<td>{$rs[role_count]}</td>
+	<td class="greentext">{$rs[role_in_count]}</td>
+	<td class="bluetext">{$rs[role_out_count]}</td>
+	<td class="graytext">{echo round(($rs[role_out_count]/$rs[role_count])*100,2)}%</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="6"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>

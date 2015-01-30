@@ -1,0 +1,104 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="7">{lang WJFK}</th>
+  </tr> 
+  <tr class="title_3">
+    <td colspan="7">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')"> 	
+	<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+	 <option class="select" value="0">{lang COMPANY}</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	  
+	
+	<select name="sid" id = "sid">
+	<option  value="0">{lang ALLSERVER}</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<select name="type">
+	<option  value="">{lang TYPE}</option>
+	 <option value="1" {if $type == 1} selected="selected" {/if}>BUG</option>
+	 <option value="2" {if $type == 2} selected="selected" {/if}>{lang BTS}</option>
+	 <option value="3" {if $type == 3} selected="selected" {/if}>{lang BJY}</option>
+	 <option value="4" {if $type == 4} selected="selected" {/if}>{lang BQT}</option>
+	</select>
+	<select name="status">
+	 <option value="0" {if $status == 0} selected="selected" {/if}>{lang BXTJ}</option>
+	 <option value="1" {if $status == 1} selected="selected" {/if}>{lang BYHF}</option>
+	 <option value="-1" {if $status == -1} selected="selected" {/if}>{lang BBPB}</option>
+	 <option value="3" {if $status == 3} selected="selected" {/if}>{lang ALL}</option>
+	</select>
+	{lang USER}：	
+	<input name="username" type="text" value="{$username}" size="20" maxlength="20"  />	
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="bug" />
+	<input name="action" type="hidden" value="Bug" />
+	</form>	</td>
+  </tr>   
+<form method="post" action="?in=bug" name="form"  onSubmit="setSubmit('Submit')">      
+  <tr class="title_2" align="center">
+  	<td width="50">ID</td>
+	<td width="60">{lang TYPE}</td>
+	<td width="100">{lang SERVER}</td>
+	<td width="100">{lang USER}</td>
+	<td align="left">{lang BFKNR}</td>
+	<td align="left">{lang REPLYCONTENT}</td>
+	<td width="50">{lang REPLY}</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td"  align="center">
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="{lang CHOOSE}"/></td>
+	<td><!--{if $rs[type]=='1'}-->BUG<!--{/if}--><!--{if $rs[type]=='2'}-->{lang BTS}<!--{/if}--><!--{if $rs[type]=='3'}-->{lang BJY}<!--{/if}--><!--{if $rs[type]=='4'}-->{lang BQT}<!--{/if}--></td>
+	<td>{$s[$rs[sid]][company_name]}-{$s[$rs[sid]][servers_name]}</td>
+ 	<td align="left" nowrap="nowrap"><a href="?in=player&action=PlayerView&cid={$rs[cid]}&sid={$rs[sid]}&uid={$rs[player_id]}" target="_blank"><strong style="font-size:14px;">{$rs[username]}</strong>  ({$rs[nickname]})</a> <!--{if $v[$rs[sid].'_'.$rs[player_id]][player_id] == $rs[player_id]}--><span class="redtext">({lang BPAYUSER})</span><!--{/if}--><br /><a href="?in=bug&cid={$rs[cid]}&sid={$rs[sid]}&type=&status=3&username={$rs[username]}&action=Bug" class="graytext">{lang SERACHALLBUG}</a></td> 
+	<td align="left" valign="top"><div style="word-break: break-all; word-wrap:break-word;">{echo htmlspecialchars($rs[content])}<br /><span class="smalltext graytext">{echo date('Y-m-d H:i:s',$rs[submit_time])}</span></div></td>
+	<td valign="top" class="bluetext" align="left">
+	<!--{if $rs[status] == -1}-->
+		<span class="redtext">{lang BBPB}</span>
+	<!--{else}-->
+		<!--{if $rs[is_over] == 1 && !$pj[$rs[pj]]}-->
+		<span class="right graytext">未评价</span>
+		<!--{else}-->
+		<span class="right greentext">{echo $pj[$rs[pj]]}</span>
+		<!--{/if}-->
+		<!--{if $rs[reply_content]}-->
+		
+		<strong>{$rs[reply_user]}:</strong>{echo dehtml($rs[reply_content])}<br /><span class="smalltext">{echo date('Y-m-d H:i:s',$rs[reply_time])}</span>
+		<!--{/if}-->
+	<!--{/if}-->
+	</td>	
+	<td><a href="javascript:void(0)" onclick="pmwin('open','call.php?action=CallReplyBug&cid={$rs[cid]}&sid={$rs[sid]}&id={$rs[id]}')" class="title_menu">{lang REPLY}</a></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="7" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="7"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+ 
+  <tr>
+    <td colspan="7">
+	<input type="hidden" name="sid" value="{$sid}" />
+	<input type="hidden" name="cid" value="{$cid}" />
+	<input type="hidden" name="action" value="DelBug" />
+	<select name="type">
+	 <!--{if $adminWebType != 'u'}--><option value="1" >{lang DEL}</option><!--{/if}-->
+	 <option value="2" >{lang BBPBMSG}</option>
+	 <option value="3" >{lang QXPB}</option>
+	</select>	
+	<input type="submit" id="Submit" name="Submit" value="{lang SUBMITOK}" onClick='javascript: return confirm("{lang DOYOUDO}");'  class="button"/></td>
+  </tr> 
+  
+</form>   
+</table>

@@ -1,0 +1,47 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="6"><a href="?in=gift&action=GiftDataAdd" class="right"><span class="yellowtext">[+ 添加活动模版]</span></a>活动模版</th>
+  </tr>
+       
+
+  <tr class="title_2" align="center">
+    <td width="50">ID</td>
+	<td >活动类型</td>
+	<td >活动主题/提示内容</td>
+    <td >赠送</td>
+    <!--{if !webAdmin('gift_set','y')}-->
+    <td >修改</td>
+    <td>删除</td>
+	<!--{/if}-->
+  </tr> 
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="" >
+    <td>{$rs[id]}</td>
+	<td class="bluetext"><!--{if $rs[type] == 1}-->首充送礼<!--{/if}--><!--{if $rs[type] == 2}-->礼券兑换<!--{/if}--><!--{if $rs[type] == 3}-->等级排行<!--{/if}--><!--{if $rs[type] == 4}-->普通副本排行<!--{/if}--><!--{if $rs[type] == 5}-->声望排行<!--{/if}--></td>
+	<td align="left"><strong>{$rs[name]}</strong><br /><span class="graytext">{$rs[message]}</span></td>
+	<td>
+	<!--{if $rs[type] == 3 || $rs[type] == 4 || $rs[type] == 5}-->
+	赠送[<!--{if $rs[gift_type] == 1}-->元宝<!--{/if}--><!--{if $rs[gift_type] == 2}-->物品<!--{/if}--><!--{if $rs[gift_type] == 3}-->元宝+物品<!--{/if}-->]给前{$rs[order_limit]}名玩家
+	<!--{else}-->
+	<!--{if $rs[gift_type] == 1}-->元宝({$rs[ingot]}<!--{if $rs[ingot_rate] == 1}-->%<!--{/if}-->)<!--{/if}-->
+	<!--{if $rs[gift_type] == 2}-->物品({$rs[gift_name]})<!--{/if}-->
+	<!--{if $rs[gift_type] == 3}-->元宝({$rs[ingot]}<!--{if $rs[ingot_rate] == 1}-->%<!--{/if}-->)+物品({$rs[gift_name]})<!--{/if}-->
+	<!--{/if}-->	</td>
+    <!--{if !webAdmin('gift_set','y') || !webAdmin('gift_set','y')}-->
+	<td><a href="?in=gift&action=GiftDataEdit&cid={$rs[cid]}&sid={$rs[sid]}&id={$rs[id]}" class="title_menu" >修改</a></td>
+    <td><a href="?in=gift&action=DelGiftData&cid={$rs[cid]}&sid={$rs[sid]}&id={$rs[id]}" class="list_red" onclick='javascript: return confirm("确定删除活动模版吗？这将使已使用该模版的游戏服活动失效！");'>×</a></td>
+	<!--{/if}-->
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="6">暂无相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="6" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+</table>

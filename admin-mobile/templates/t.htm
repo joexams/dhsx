@@ -1,0 +1,35 @@
+{template top}
+<!--模版数据-->
+<table cellpadding="0" cellspacing="0" class="table2">
+  <tr>
+    <td width="120" valign="top" id="leftmenu">{eval include_once($menu)}</td>
+    <td width="8" valign="top" title="关闭/打开边栏"><a href="#" onclick="CheckShowLeft();"><span id ="nnn">＜</span></a></td>
+    <td valign="top" id="header">{eval include_once($contentUrl)}</td>
+  </tr>
+  <tr><td><a onclick="window.scroll(0,0);return false" title="返回顶部" href="#header" class="gotop">T</a></td></tr>
+</table>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+var jq = jQuery.noConflict();
+jq( "#autocomplete" ).autocomplete({
+  source: "search_menu.php",
+  autoFocus: true,
+  select: function(e, ui) {
+      window.open(ui.item.url,'_self'); 
+    }
+});
+</script>
+<script language="javascript" type="text/javascript">
+function CheckShowLeft(){
+	if ($('leftmenu').style.display == 'none') {
+		$('leftmenu').style.display = 'block';
+		$('nnn').innerHTML = '＜';
+	}else{
+		$('leftmenu').style.display = 'none';
+		$('nnn').innerHTML = '＞';
+	}
+}
+</script>
+{template bot}

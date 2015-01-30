@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DAD9979F-E3B2-4BCF-B3D1-62E3C48C2478}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProtoRunner</RootNamespace>
+    <AssemblyName>ProtoRunner</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ScintillaNet">
+      <HintPath>..\Vender\ScintillaNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FlashPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FlashPanel.Designer.cs">
+      <DependentUpon>FlashPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScriptPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScriptPanel.Designer.cs">
+      <DependentUpon>ScriptPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TracePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TracePanel.Designer.cs">
+      <DependentUpon>TracePanel.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FlashPanel.resx">
+      <DependentUpon>FlashPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="ScriptPanel.resx">
+      <DependentUpon>ScriptPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TracePanel.resx">
+      <DependentUpon>TracePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disk_multiple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_page.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_find.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_redo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cassini\Cassini.csproj">
+      <Project>{03F662B9-5868-4417-9136-950E6FDE8F86}</Project>
+      <Name>Cassini</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HelperCore\HelperCore.vs.csproj">
+      <Project>{94CD0AED-EFF2-4532-833E-5E2FA83F59B2}</Project>
+      <Name>HelperCore.vs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProtoSpec\ProtoSpec.vs.csproj">
+      <Project>{5BD84C83-8D20-4790-A425-4C3495779469}</Project>
+      <Name>ProtoSpec.vs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinFormsUI\WinFormsUI.csproj">
+      <Project>{C75532C4-765B-418E-B09B-46D36B2ABDB1}</Project>
+      <Name>WinFormsUI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxSHDocVw">
+      <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="AxShockwaveFlashObjects">
+      <Guid>{D27CDB6B-AE6D-11CF-96B8-444553540000}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="SHDocVw">
+      <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="ShockwaveFlashObjects">
+      <Guid>{D27CDB6B-AE6D-11CF-96B8-444553540000}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_refresh_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_find.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\world_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\application_put.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\application_get.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_add.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

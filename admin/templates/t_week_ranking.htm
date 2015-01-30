@@ -1,0 +1,49 @@
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="8">周排行表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+	<td width="100">排序</td>
+    <td width="150">排行榜类型</td>
+    <td width="250">描述</td>
+    <td width="150">奖励</td>
+    <td width="150">当日奖励</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="lock[]" type="text" value="{$rs[lock]}"  size="10"/></td>
+    <td><input name="sign[]" type="text" value="{$rs[sign]}"  size="20"/></td>
+    <td><input name="desc[]" type="text" value="{$rs[desc]}"  size="30"/></td>
+     <td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallWeekRankingAward&id={$rs[id]}&desc={$rs[desc_url]}')" class="list_menu">奖励</a></td>
+     <td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallWeekRankingDayAward&id={$rs[id]}&desc={$rs[desc_url]}')" class="list_menu">当日奖励</a></td>
+   <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="8" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="lock_n" type="text" value=""  size="10"/></td>
+    <td><input name="sign_n" type="text" value=""  size="20"/></td>
+    <td><input name="desc_n" type="text" value=""  size="30"/></td>
+   <td>&nbsp;</td>
+   <td>&nbsp;</td>
+   <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="8" align="center">
+	<input type="hidden" name="action" value="SetWeekRanking" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

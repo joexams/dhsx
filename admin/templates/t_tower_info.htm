@@ -1,0 +1,63 @@
+<form method="post" action="?in=tower" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table" id="table">
+  <tr>
+    <th colspan="8">爬塔信息</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="50">道途/层</td>
+	<td width="35">删除</td>
+    <td width="100">道途</td>
+    <td width="150">兑换灵件</td>
+	<td width="100">需要灵石</td>
+	<td width="100">每日领取灵石</td>
+	<td>&nbsp;</td>
+	</tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[tower_layer]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[tower_layer]}" title="选择删除{$rs[tower_layer]}"/></td>
+    <td><input name="tower_layer[]" type="text" value="{$rs[tower_layer]}"  size="10" readonly/></td>
+    <td>
+	<select name="swap_soul_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $soul_list $srs}-->
+	 <option value="{$srs[id]}"  {if $srs[id] == $rs[swap_soul_id]}selected="selected"{/if}>{$srs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="swap_count[]" type="text" value="{$rs[swap_count]}"  size="10"/></td>
+    <td><input name="day_stone_count[]" type="text" value="{$rs[day_stone_count]}"  size="10"/></td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="8" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="tower_layer_n" type="text" value=""  size="10"/></td>
+	<td>
+	<select name="swap_soul_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $soul_list $srs}-->
+	 <option value="{$srs[id]}">{$srs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="swap_count_n" type="text" value=""  size="10"/></td>
+    <td><input name="day_stone_count_n" type="text" value=""  size="10"/></td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="8" align="center" id="hiddenarea">
+	<input type="hidden" name="action" value="SetTowerInfo" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

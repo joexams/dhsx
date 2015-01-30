@@ -1,0 +1,111 @@
+<form method="post" action="?in=weapon" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="14">神兵信息表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="50">名字</td>
+    <td width="50">描述</td>
+	<td width="50">神兵类型</td>
+	<td width="50">附加效果</td>	
+    <td width="50">兑换需要功勋值</td>
+    <td width="50">需要激活神兵</td>
+    <td width="50">需要神兵等级</td>
+    <td width="50">等级</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[id]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="10"/></td>
+    <td><input name="description[]" type="text" value="{$rs[description]}"  size="10"/></td>
+    <td>
+       <select name="type[]" >
+       <option value="0">选择类型</option>
+       <option value="1" {if 1 == $rs[type]}selected="selected"{/if}>天罡</option>
+       <option value="2" {if 2 == $rs[type]}selected="selected"{/if}>地煞</option>
+      </select>
+    </td>
+    <td>
+     <select name="effect[]" >
+     <option value="0">选择效果</option>
+     <!--{loop $effect_list $irs}-->
+     <option value="{$irs[id]}" {if $irs[id] == $rs[effect]}selected="selected"{/if}>{$irs[description]}</option>
+     <!--{/loop}--> 
+    </select>
+    </td>
+    <td><input name="need_feats[]" type="text" value="{$rs[need_feats]}"  size="10"/></td>
+    <td><input name="need_weapon[]" type="text" value="{$rs[need_weapon]}"  size="10"/></td>
+    <td><input name="need_weapon_lv[]" type="text" value="{$rs[need_weapon_lv]}"  size="10"/></td>
+    <td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallEnhanceWeaponLevelup&id={$rs[id]}&name={$rs[name_url]}&effect={$rs[effect]}')" class="list_menu">等级</a></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="14" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+   <td><input name="name_n" type="text" value=""  size="10"/></td>
+    <td><input name="description_n" type="text" value=""  size="10"/></td>
+    <td>
+       <select name="type_n" >
+       <option value="0">选择类型</option>
+       <option value="1">天罡</option>
+       <option value="2">地煞</option>
+      </select>
+    </td>
+    <td>
+     <select name="effect_n" >
+     <option value="0">选择效果</option>
+     <!--{loop $effect_list $irs}-->
+     <option value="{$irs[id]}">{$irs[description]}</option>
+     <!--{/loop}--> 
+    </select>
+    </td>
+    <td><input name="need_feats_n" type="text" value=""  size="10"/></td>
+    <td><input name="need_weapon_n" type="text" value=""  size="10"/></td>
+    <td><input name="need_weapon_lv_n" type="text" value=""  size="10"/></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="14" align="center">
+	<input type="hidden" name="action" value="SetEnhanceWeapon" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>
+
+<script language="javascript">
+    
+    function fill_data (army_type, text_id,id) {
+        
+    ele = document.getElementById(text_id);
+    
+      text_value = ele.value;
+      values = text_value.split('\t');
+      var l = 8;
+      if (values.length != l) {
+        //alert('参数无效');
+        ele.focus();
+        return true;
+      }
+      document.getElementById(army_type +  '_need_crystal_' + id).value        = values[0];
+      document.getElementById(army_type +  '_need_jade_' + id).value        = values[1];
+      document.getElementById(army_type +  '_prob_' + id).value        = values[2];
+      document.getElementById(army_type +  '_value_' + id).value        = values[3];
+      document.getElementById(army_type +  '_value2_' + id).value        = values[4];
+      document.getElementById(army_type +  '_inc_health_' + id).value        = values[5];
+      
+      document.getElementById(army_type +  '_inc_atk_' + id).value        = values[6];
+      document.getElementById(army_type +  '_inc_def_' + id).value        = values[7];
+    }
+
+</script>

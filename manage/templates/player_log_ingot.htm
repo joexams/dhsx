@@ -1,0 +1,119 @@
+{template player_log_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">
+  <tr class="title_3">
+    <td colspan="10">
+	<form action="" method="get" name="form" id="form" onSubmit="setSubmit('Submit')">
+	{lang WJCX}：<select name="usertype" id="usertype" >
+	<option value="1" {if $usertype == 1} selected="selected" {/if}>{lang USERNAME}</option>
+	<option value="2" {if $usertype == 2} selected="selected" {/if}>{lang USERNICK}</option>
+	</select>
+	<input name="username" type="text" value="{$username}" size="20" maxlength="20"  /> <!--{if $username || $tidArr != ','}-->{lang YBJLMSG}<!--{/if}--><br />
+	{lang WJLX}：<select name="vip" id="vip" >
+	<option value="0" {if !$vip} selected="selected" {/if}>{lang ALL}</option>
+	<option value="1" {if $vip == 1} selected="selected" {/if}>{lang BPAYUSER}</option>
+	</select>	<br />
+	{lang TIMERANGE}：<input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly /><br />
+	{lang CZLX}：({lang CZLXMSG})<br />
+	{lang XFLX}：<br />
+	<!--{if $ingot_change_type0_array}-->
+	<!--{eval $i=1}-->
+	<!--{loop $ingot_change_type0_array $ictrs}-->
+	<input type="checkbox" id="tid_box_{$ictrs[id]}" {if in_array($ictrs[id],$tidArrList)} checked {/if} style="display:none;"/>
+	<a href="javascript:void(0)" id="tid_{$ictrs[id]}" class="{if in_array($ictrs[id],$tidArrList)} title_menu_on {else} title_menu {/if}" onclick="setTidArr({$ictrs[id]})" >{$ictrs[name]}</a>
+	<!--{if $i % 6 == 0}--><br /><!--{/if}-->
+	<!--{eval $i++}-->	
+	<!--{/loop}-->
+	<!--{/if}-->
+	<br />
+	{lang HQLX}：<br />
+	<!--{if $ingot_change_type1_array}-->
+	<!--{loop $ingot_change_type1_array $ictrs}-->
+	<input type="checkbox" id="tid_box_{$ictrs[id]}" {if in_array($ictrs[id],$tidArrList)} checked {/if} style="display:none;"/>
+	<a href="javascript:void(0)" id="tid_{$ictrs[id]}" class="{if in_array($ictrs[id],$tidArrList)} title_menu_on {else} title_menu {/if}" onclick="setTidArr({$ictrs[id]})" >{$ictrs[name]}</a>
+	<!--{/loop}-->
+	<!--{/if}--><br />	
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Logs" />
+	<input name="type" type="hidden" value="ingot" />
+	<input name="tidArr" id="tidArr" value="{$tidArr}" style="display:none;">
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr>   
+  <tr class="title_2" align="center">
+    <td width="35">ID</td>
+    <td >{lang CZSJ}</td>
+    <td >赠送元宝变动</td>
+    <td >充值元宝变动</td>
+	<td >当前赠送元宝</td>
+	<td >当前充值元宝</td>
+	<td >{lang CZLX}</td>
+    <td >{lang USER}</td>
+	<td >{lang USERID}</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{eval $i=0}-->
+  <!--{loop $list_array $mrs}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}"  align="center" >
+	<td>{$mrs[id]}</td>
+	<td>{echo date('Y-m-d H:i:s',$mrs[change_time])}</td>
+	<td >
+	<!--{if $mrs[value] >= 0}-->
+	<strong class="greentext">+{$mrs[value]}</strong>
+	<!--{else}-->
+	<strong class="bluetext">{$mrs[value]}</strong>
+	<!--{/if}-->
+	</td>
+	<td >
+	<!--{if $mrs[change_charge_value] >= 0}-->
+	<strong class="greentext">+{$mrs[change_charge_value]}</strong>
+	<!--{else}-->
+	<strong class="bluetext">{$mrs[change_charge_value]}</strong>
+	<!--{/if}-->
+	</td>
+	<td >{$mrs[after_change_ingot]}</td>
+	<td >{$mrs[new_charge_ingot]}</td>
+	<td >{$ingottype[$mrs[type]][name]}</td>
+	<td>
+	<strong><a href="?in=player&action=PlayerView&cid={$cid}&sid={$sid}&uid={$mrs[player_id]}" target="_blank">{$mrs[username]}</a></strong> ({$mrs[nickname]})	</td>
+	<td>{$mrs[player_id]}</td>
+  </tr>
+  <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+	<td colspan="10" class="page">{$list_array_pages}</td>
+  </tr>  
+	<!--{/if}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="10">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>
+<script language="javascript" type="text/javascript">
+function setTidArr(id) {
+	var tidValueOld = $('tidArr').value;
+	var tidValue = $('tidArr');
+
+	if ($('tid_box_'+id).checked ==false) {
+		$('tid_box_'+id).checked = true;
+		$('tid_'+id).className = 'title_menu_on';
+		var text;
+		if (!tidValueOld) {
+			text = id+',';
+		}else{
+			text = tidValueOld + id+',';
+		}
+		tidValue.value = text;
+	}else{
+		$('tid_box_'+id).checked = false;
+		$('tid_'+id).className = 'title_menu';
+		text = tidValueOld.replace(','+id+',',',');
+		tidValue.value = text;
+	}
+}	
+</script>

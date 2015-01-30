@@ -1,0 +1,77 @@
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="10">黄钻奖励型列表</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="11">
+	 <a href="?in=other&action=YellowGiftAward&type=0" class="{if $type == 0} title_menu_on {else} title_menu {/if}">每日领取</a>
+	 <a href="?in=other&action=YellowGiftAward&type=1" class="{if $type == 1} title_menu_on {else} title_menu {/if}">升级领取</a>
+	 <a href="?in=other&action=YellowGiftAward&type=2" class="{if $type == 2} title_menu_on {else} title_menu {/if}">年钻领取</a>
+	</td>
+  </tr>  
+  
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+	<td width="100">类型</td>
+    <td width="100">领取需要等级</td>
+	<td width="100">黄钻等级</td>
+	<td width="100">铜钱</td>
+	<td width="100">声望</td>
+	<td width="100">阅历</td>
+	<td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+	<td>
+	<select name="type[]" >
+	 <option value="0"  {if $rs[type] == 0}selected="selected"{/if}>每日领取</option>
+	 <option value="1"  {if $rs[type] == 1}selected="selected"{/if}>升级领取</option>
+	 <option value="2"  {if $rs[type] == 2}selected="selected"{/if}>年钻领取</option>
+	</select>	
+	</td>	
+    <td><input name="lv[]" type="text" value="{$rs[lv]}"  size="10"/></td>
+	<td><input name="yellow_lv[]" type="text" value="{$rs[yellow_lv]}"  size="10"/></td>	
+	<td><input name="coin[]" type="text" value="{$rs[coin]}"  size="10"/></td>	
+	<td><input name="fame[]" type="text" value="{$rs[fame]}"  size="10"/></td>	
+	<td><input name="skill[]" type="text" value="{$rs[skill]}"  size="10"/></td>	
+	<td>&nbsp;</td>	
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="10" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+	<td>
+	<select name="type_n" >
+	 <option value="0" {if $type == 0}selected="selected"{/if}>每日领取</option>
+	 <option value="1" {if $type == 1}selected="selected"{/if}>升级领取</option>
+	 <option value="2" {if $type == 2}selected="selected"{/if}>年钻领取</option>
+	</select>		
+	</td>
+    <td><input name="lv_n" type="text" value=""  size="10"/></td>
+	<td><input name="yellow_lv_n" type="text" value=""  size="10"/></td>	
+	<td><input name="coin_n" type="text" value=""  size="10"/></td>	
+	<td><input name="fame_n" type="text" value=""  size="10"/></td>	
+	<td><input name="skill_n" type="text" value=""  size="10"/></td>
+	<td>&nbsp;</td>	
+    </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="10" align="center">
+	<input type="hidden" name="action" value="SetYellowGiftAward" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

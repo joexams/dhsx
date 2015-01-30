@@ -1,0 +1,145 @@
+<form action="?in=setting" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2">{$typename}</th>
+    </tr>
+    <tr>
+      <td width="100" align="right">*<strong>{lang SERVER}</strong></td>
+      <td>
+		<!--{if $adminWebType == 's'}-->
+		<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+		 <option class="select">{lang COMPANY}</option>
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>	  
+		<!--{else}-->
+		<input name="cid" type="hidden" value="{$cid}" />
+		<!--{/if}-->	
+		
+		
+		
+		<select name="sid" id = "sid"  {$call}>
+		<option value="" class="select">{lang ALLSERVER}</option>
+		<!--{if $servers_list}-->
+		 <!--{loop $servers_list $srs}-->
+		 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->		
+		
+		</select>
+		</td>
+    </tr>
+    <tr>
+      <td align="right">*<strong>{lang USER}</strong></td>
+      <td>
+		<select name="usertype" id="usertype" >
+		<option value="1">{lang USERNAME}</option>
+		<option value="2">{lang USERNICK}</option>
+		</select>	  
+	  <input name="username" id="username" type="text" value="" size="30" {$u_call}/> 
+	  <!--{if $type == 'exp'}-->
+		<select name="player_role_id"  id="player_role_id">
+		 <option class="select" value="0">{lang ZSJYMSG}</option>
+		</select>	  
+	  <!--{/if}-->
+	  </td>
+    </tr>
+   <!--{if $type == 'item'}-->
+     <tr>
+      <td align="right">*<strong>{$typename}</strong></td>
+      <td>
+		<select name="type_id" id="type_id" onChange="selectAjax('player_call.php?action=callItem','item_id','type_id|sid',1)">
+		 <option class="select">{lang CHOOSE}</option> 
+		</select>	  
+		<select name="item_id"  id="item_id" onchange="selectInput(this,'item_name')">
+		 <option class="select">{lang CHOOSE}</option>
+		</select>
+		<select name="item_level"  id="item_level" >
+		<!--{if $item_level_list}-->
+		 <!--{loop $item_level_list $rs $val}-->
+		 <option value="{$val}">{$val}{lang LEVEL}</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->		
+		</select>
+		<span class="graytext">{lang ZSZBMSG}</span>
+		<input name="item_name" id="item_name" type="hidden" />
+	  </td>
+   </tr>
+   <!--{/if}-->
+   <!--{if $type == 'mg'}-->
+     <tr>
+      <td align="right">*<strong>{$typename}</strong></td>
+      <td>
+  
+		<select name="fate_id"  id="fate_id" onchange="selectInput(this,'fate_name')">
+		 <option class="select">{lang CHOOSE}</option>
+		</select>
+		<select name="fate_level"  id="fate_level" >
+		<!--{if $fate_level_list}-->
+		 <!--{loop $fate_level_list $rs $val}-->
+		 <option value="{$val}">{$val}{lang LEVEL}</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->		
+		</select>		
+		<input name="fate_name" id="fate_name" type="hidden" />
+	  </td>
+   </tr>
+   <!--{/if}-->  
+    <!--{if $type == 'delmg'}-->
+     <tr>
+      <td align="right" valign="top">*<strong>{$typename}</strong></td>
+      <td id="fate_list">&nbsp;</td>
+   </tr>
+   <!--{/if}-->    
+   <!--{if $type == 'soul'}-->
+     <tr>
+      <td align="right">*<strong>{$typename}</strong></td>
+      <td>
+  
+		<select name="soul_id" id="soul_id" onchange="selectInput(this,'soul_name');selectAjax('player_call.php?action=callPlayerSoulLog','soul_list','username|sid|usertype|soul_id')">
+		 <option class="select">{lang CHOOSE}</option>
+		</select>	
+		<input name="soul_name" id="soul_name" type="hidden" />
+	  </td>
+   </tr>
+     <tr>
+      <td align="right" valign="top">{lang LJMCMSG}</td>
+      <td id="soul_list">-</td>
+   </tr>      
+   <!--{/if}--> 
+    <!--{if $type == 'achievement'}-->
+     <tr>
+      <td align="right">*<strong>{$typename}</strong></td>
+      <td>
+  
+		<select name="achievement_id" id="achievement_id" onchange="selectInput(this,'achievement_name');">
+		 <option class="select">{lang CHOOSE}</option>
+		</select>	
+		<input name="achievement_name" id="achievement_name" type="hidden" />
+	  </td>
+   </tr>      
+   <!--{/if}-->   
+   
+         	
+     <tr {if $type == 'soul' || $type == 'delmg' || $type == 'achievement'}style="display:none;"{/if}>
+      <td align="right">*<strong><!--{if $type == 'item' || $type == 'mg' || $type == 'soul'}-->{lang NUMBER}<!--{else}-->{$typename}<!--{/if}--></strong></td>
+      <td><input name="val" type="text" value="1" size="40"/></td>
+   </tr> 
+     <tr>
+       <td align="right" valign="top"><strong>*{lang SETREASON}</strong></td>
+      <td><input name="cause" type="text" value="" size="40"/></td>
+   </tr>
+           
+    <tr>
+      <td><input name="type" type="hidden" value="{$type}"/><input name="action" type="hidden" value="SaveIncrease"/></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" {lang SUBMITOK} " class="button" onclick='javascript: return confirm("{lang DOYOUDO}");' /> <span class="bluetext">{lang SYSTEMSG}</span></td>
+    </tr>
+  </table>
+</form >
+<script language="javascript">
+ function selectInput(choose,id)
+ {  
+   $(id).value = (choose.options[choose.selectedIndex].text); 
+ }
+</script>

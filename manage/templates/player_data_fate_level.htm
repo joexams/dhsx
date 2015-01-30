@@ -1,0 +1,33 @@
+<table class="table">   
+  <tr>
+    <th colspan="4"><span class="yellowtext">{$username}</span> <span class="yellowtext">{$name}</span> {lang FJTJ}</th>
+  </tr>  
+  <tr align="center" class="title_2">
+    <td width="100">{lang LEVEL}</td>
+    <td width="100">{lang YYRS}</td>
+    <td width="100">{lang MGSL}</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="purpletext trtitle"  align="center">
+	<td ><strong>{lang ZONGJI}</strong></td>
+	<td align="right">{$player_count}</td>
+	<td align="right">{$fate_count}</td>
+	<td>&nbsp;</td>
+  </tr>  
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className=""  align="right">
+    <td align="center" class="td4">Lv.<strong>{$rs[fate_level]}</strong></td>
+	<td>{$rs[player_count]}</td>
+	<td>{$rs[fate_count]}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="4"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+
+  
+</table>

@@ -1,0 +1,91 @@
+<table class="table">
+  <tr>
+    <th colspan="8">机器地址配置</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="8">
+	  <a href="?in=server&action=ServersAddress&type=0" class="{if $type == 0} title_menu_on {else} title_menu {/if}">API地址</a>
+	  <a href="?in=server&action=ServersAddress&type=1" class="{if $type == 1} title_menu_on {else} title_menu {/if}">数据库</a>
+	  <a href="?in=server&action=ServersAddress&type=2" class="{if $type == 2} title_menu_on {else} title_menu {/if}">版本号</a>
+	  </td>
+  </tr>  
+<form method="post" action="?in=server" name="form"  onSubmit="setSubmit('Submit')">
+  
+  <tr align="center" class="title_2">
+    <td width="50">ID</td>
+	<td width="35">删除</td>
+    <td width="300"><!--{if $type == 1}-->BD从库<!--{elseif $type == 2}-->版本号<!--{else}-->API地址<!--{/if}--></td>
+	<!--{if $type == 1}--><td width="300">DB主库</td><!--{/if}-->
+	<!--{if $type == 0}--><td width="300">API地址2</td><td width="100">机房</td><!--{/if}-->
+	<!--{if $type == 2}--><td width="100">启用</td><!--{/if}-->
+	<td>&nbsp;</td>
+	</tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id[]" type="hidden" value="{$rs[id]}" /></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/></td>
+    <td align="left" ><input name="name[]" type="text" value="{$rs[name]}"  size="40" />
+	<!--{if $s[$rs[name]][s_count]}--><span class="bluetext">{$s[$rs[name]][s_count]}台</span><!--{else}-->-<!--{/if}-->
+	{$rs[no_ver]}
+	</td>
+    <!--{if $type == 1}--><td><input name="name2[]" type="text" value="{$rs[name2]}"  size="40" /></td><!--{/if}-->
+    <!--{if $type == 0}-->
+	<td><input name="name3[]" type="text" value="{$rs[name3]}"  size="40" /></td>
+	<td>
+	<select name="name2[]" >
+	 <option value="1" {if $rs[name2] == 1} selected="selected" {/if}>机房1</option>
+	 <option value="2" {if $rs[name2] == 2} selected="selected" {/if}>机房2</option>
+	</select>
+	</td><!--{/if}-->
+    <!--{if $type == 2}-->
+	<td>
+	<select name="name2[]" >
+	 <option value="1" {if $rs[name2] == 1} selected="selected" {/if}>√</option>
+	 <option value="0" {if $rs[name2] == 0} selected="selected" {/if} class="select">废弃</option>
+	</select>
+	</td><!--{/if}-->
+	
+    <td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="8" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→<input name="type" type="hidden" value="{$type}" /></td>
+    <td align="left" ><input name="name_n" type="text" value=""  size="40"/></td>
+    <!--{if $type == 1}--><td><input name="name2_n" type="text" value=""  size="40" /></td><!--{/if}-->
+    <!--{if $type == 0}-->
+	<td><input name="name3_n" type="text" value=""  size="40" /></td>
+	<td>
+	<select name="name2_n" >
+	 <option value="2">机房2</option>
+	 <option value="1">机房1</option>
+	</select>
+	</td><!--{/if}-->
+    <!--{if $type == 2}-->
+	<td>
+	<select name="name2_n" >
+	 <option value="1">√</option>
+	 <option value="0" class="select">废弃</option>
+	</select>
+	</td><!--{/if}-->
+	
+    <td>&nbsp;</td>	
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="7" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	  
+  <tr>
+  	<td colspan="2">&nbsp;</td>
+    <td colspan="7">
+	<input type="hidden" name="action" value="SetServersAddress" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</form>  
+</table>

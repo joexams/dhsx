@@ -1,0 +1,261 @@
+<table class="table">
+  <tr>
+    <th colspan="20">
+	<!--{if $type == 2}-->世界BOSS
+	<!--{elseif $type == 3}-->爬塔
+	<!--{elseif $type == 1}-->英雄
+	<!--{elseif $type == 4}-->渡劫
+	<!--{elseif $type == 5}-->猴子
+	<!--{elseif $type == 6}-->桃子
+	<!--{elseif $type == 7}-->生肖
+	<!--{elseif $type == 8}-->游仙
+	<!--{elseif $type == 9}-->光环
+	<!--{elseif $type == 11}-->九界
+	<!--{elseif $type == 12}-->九界神秘层
+	<!--{elseif $type == 13}-->护送取经
+	<!--{elseif $type == 14}-->战无双
+	<!--{elseif $type == 15}-->八仙
+	<!--{elseif $type == 16}-->轮回
+	<!--{elseif $type == 17}-->伙伴招募
+	<!--{elseif $type == 18}-->阵盘印
+	<!--{elseif $type == 19}-->神仙幻境
+	<!--{else}-->普通
+	<!--{/if}-->	
+	怪物列表</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="20">
+	<span class="right" style="padding:3px;">
+	<form action="" method="get" name="forms" onSubmit="setSubmit('Submits')">
+	<input name="name" type="text" value="{$name}" size="20" maxlength="20"  /> 
+	<input type="submit" name="Submits" id="Submits" value="搜索" class="button"/>
+	<input name="type" type="hidden" value="{$type}" />
+	<input name="in" type="hidden" value="monster" />
+	<input name="action" type="hidden" value="Monster" />
+	</form>	
+	</span>
+	<a href="?in=monster&type={$type}" class="{if !$level} title_menu_on {else} title_menu {/if}">全部</a>
+	<a href="?in=monster&type={$type}&level=1,10" class="{if $level == '1,10'} title_menu_on {else} title_menu {/if}">1~10级</a>
+	<a href="?in=monster&type={$type}&level=11,20" class="{if $level == '11,20'} title_menu_on {else} title_menu {/if}">11~20级</a>
+	<a href="?in=monster&type={$type}&level=21,30" class="{if $level == '21,30'} title_menu_on {else} title_menu {/if}">21~30级</a>
+	<a href="?in=monster&type={$type}&level=31,40" class="{if $level == '31,40'} title_menu_on {else} title_menu {/if}">31~40级</a>
+	<a href="?in=monster&type={$type}&level=41,50" class="{if $level == '41,50'} title_menu_on {else} title_menu {/if}">41~50级</a>
+	<a href="?in=monster&type={$type}&level=51,60" class="{if $level == '51,60'} title_menu_on {else} title_menu {/if}">51~60级</a>
+	<a href="?in=monster&type={$type}&level=61,70" class="{if $level == '61,70'} title_menu_on {else} title_menu {/if}">61~70级</a>
+	<a href="?in=monster&type={$type}&level=71,80" class="{if $level == '71,80'} title_menu_on {else} title_menu {/if}">71~80级</a>
+	<a href="?in=monster&type={$type}&level=81,90" class="{if $level == '81,90'} title_menu_on {else} title_menu {/if}">81~90级</a>
+	<a href="?in=monster&type={$type}&level=91,100" class="{if $level == '91,100'} title_menu_on {else} title_menu {/if}">91~100级</a>
+	<a href="?in=monster&type={$type}&level=101,110" class="{if $level == '101,110'} title_menu_on {else} title_menu {/if}">101~110级</a>
+	<a href="?in=monster&type={$type}&level=111,120" class="{if $level == '111,120'} title_menu_on {else} title_menu {/if}">111~120级</a>
+	<a href="?in=monster&type={$type}&level=121,130" class="{if $level == '121,130'} title_menu_on {else} title_menu {/if}">121~130级</a>
+	<a href="?in=monster&type={$type}&level=131,140" class="{if $level == '131,140'} title_menu_on {else} title_menu {/if}">131~140级</a>
+	<a href="?in=monster&type={$type}&level=141,150" class="{if $level == '141,150'} title_menu_on {else} title_menu {/if}">141~150级</a>	
+	<a href="?in=monster&type={$type}&level=151,160" class="{if $level == '151,160'} title_menu_on {else} title_menu {/if}">151~160级</a>	
+	<a href="?in=monster&type={$type}&level=161,170" class="{if $level == '161,170'} title_menu_on {else} title_menu {/if}">161~170级</a>
+	<a href="?in=monster&type={$type}&level=171,180" class="{if $level == '171,180'} title_menu_on {else} title_menu {/if}">171~180级</a>
+	<a href="?in=monster&type={$type}&level=181,190" class="{if $level == '181,190'} title_menu_on {else} title_menu {/if}">181~190级</a>
+	<a href="?in=monster&type={$type}&level=191,200" class="{if $level == '191,200'} title_menu_on {else} title_menu {/if}">191~200级</a>
+	</td>
+  </tr>  
+  <tr class="title_3">
+    <td colspan="20">
+	<!--{if $mission_section_list}-->
+	 <!--{eval $i=1}-->
+	  <!--{loop $mission_section_list $mrs}-->
+	  <a href="?in=monster&mission_section_id={$mrs[id]}&type={$type}" class="{if $mission_section_id == $mrs[id]} title_menu_on {else} title_menu {/if}"><strong>{$mrs[name]}</strong>({$mrs[town_name]} / 权值:{$mrs[lock]})</a>
+	  <!--{if $i % 5 == 0}--><br /><!--{/if}-->
+	  <!--{eval $i++}-->	  
+	  <!--{/loop}-->
+	<!--{/if}-->	</td>
+  </tr> 
+    
+     <script language="javascript">
+   	  function fill_data (army_type, text_id,id) {
+   	  	
+   		ele = document.getElementById(text_id);
+   		
+   		  text_value = ele.value;
+
+   		  values = text_value.split('\t');
+
+   		  if ({$type} != 2) {
+   		  	var l = 16;
+   		  }else{
+   			var l = 15;
+   		  }
+   		  if (values.length != l) {
+   			  alert('参数无效');
+   			  ele.focus();
+   			  return true;
+   		  }
+
+   		  document.getElementById(army_type +  '_level_' + id).value        = values[0];
+   		  document.getElementById(army_type +  '_health_' + id).value        = values[1];
+   		  document.getElementById(army_type +  '_attack_' + id).value       = values[2];
+   		  document.getElementById(army_type +  '_defense_' + id).value  = values[3];
+   		  document.getElementById(army_type +  '_magic_attack_' + id).value  = values[4];
+   		  document.getElementById(army_type +  '_magic_defense_' + id).value  = values[5];
+   		  document.getElementById(army_type +  '_stunt_attack_' + id).value  = values[6];
+   		  document.getElementById(army_type +  '_stunt_defense_' + id).value  = values[7];
+   		  document.getElementById(army_type +  '_hit_' + id).value  = values[8];
+   		  document.getElementById(army_type +  '_block_' + id).value  = values[9];
+   		  document.getElementById(army_type +  '_break_block_' + id).value  = values[10];
+   		  document.getElementById(army_type +  '_dodge_' + id).value  = values[11];
+   		  document.getElementById(army_type +  '_critical_' + id).value  = values[12];
+   		  document.getElementById(army_type +  '_kill_' + id).value  = values[13];
+   		  document.getElementById(army_type +  '_break_critical_' + id).value  = values[14];
+   		  if ({$type} != 2) document.getElementById(army_type +  '_award_experience_' + id).value  = values[15];
+   		  
+   	  }
+   </script>
+<form method="post" action="?in=monster" name="form"  onSubmit="setSubmit('Submit')">   
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td >名称</td>
+	<td >标识</td>
+	<td >引用资源</td>
+	<!--{if $type != 2}--><td >对话</td><!--{/if}-->
+	<td >等级</td>
+	<td >生命</td>
+    <td >普通攻击/防御</td>
+    <td >法术攻击/防御</td>	
+    <td >绝技攻击/防御</td>
+    <td >命中/格挡/破档/闪避/暴击/必杀</td>
+	<td >降低<br />暴机</td>
+	
+    <!--{if $type != 2}--><td >奖励经验</td>
+    <td >掉落物品</td><!--{/if}-->
+    <td >绝技</td>
+    <td >职业</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="10"/></td>
+	<td><input name="sign[]" type="text" value="{$rs[sign]}"  size="16"/></td>
+	<td>
+	<select name="resource_monster_id[]" >
+	 <option class="select" value="0">选择</option>
+	 <!--{loop $monster_list $mrs}-->
+	 <option value="{$mrs[id]}"  {if $mrs[id] == $rs[resource_monster_id]}selected="selected"{/if}>{$mrs[level]}级-{$mrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+	<!--{if $type != 2}--><td><textarea name="talk[]"  cols="10" rows="2" ondblclick="textareasize(this)">{$rs[talk]}</textarea></td><!--{/if}-->
+	<td><input name="level[]" id="m_level_{$rs[id]}" type="text" value="{$rs[level]}"  size="2" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/></td>
+    <td><input name="health[]" id="m_health_{$rs[id]}" type="text" value="{$rs[health]}"  size="9" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/></td>
+    <td>
+	<input name="attack[]" id="m_attack_{$rs[id]}" type="text" value="{$rs[attack]}"  size="4" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/>
+	<input name="defense[]" id="m_defense_{$rs[id]}" type="text" value="{$rs[defense]}"  size="4" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/>	</td>
+    <td>
+	<input name="magic_attack[]" id="m_magic_attack_{$rs[id]}" type="text" value="{$rs[magic_attack]}"  size="5" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/>
+	<input name="magic_defense[]" id="m_magic_defense_{$rs[id]}" type="text" value="{$rs[magic_defense]}"  size="2" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/>	</td>	
+    <td>
+	<input name="stunt_attack[]" id="m_stunt_attack_{$rs[id]}" type="text" value="{$rs[stunt_attack]}"  size="5" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/>
+	<input name="stunt_defense[]" id="m_stunt_defense_{$rs[id]}" type="text" value="{$rs[stunt_defense]}"  size="2" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/>	</td>
+
+	<td>
+	<input name="hit[]" id="m_hit_{$rs[id]}" type="text" value="{$rs[hit]}" size="1" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/>
+	<input name="block[]" id="m_block_{$rs[id]}" type="text" value="{$rs[block]}" size="1" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/>	
+	<input name="break_block[]" id="m_break_block_{$rs[id]}" type="text" value="{$rs[break_block]}"  size="1" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/>
+	<input name="dodge[]" id="m_dodge_{$rs[id]}" type="text" value="{$rs[dodge]}" size="1" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/>
+	<input name="critical[]" id="m_critical_{$rs[id]}" type="text" value="{$rs[critical]}" size="1" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/>
+	<input name="kill[]" id="m_kill_{$rs[id]}" type="text" value="{$rs[kill]}" size="1" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/>
+	</td>
+	<td><input name="break_critical[]" id="m_break_critical_{$rs[id]}" type="text" value="{$rs[break_critical]}"  size="2" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/></td>
+    <!--{if $type != 2}--><td><input name="award_experience[]" id="m_award_experience_{$rs[id]}" type="text" value="{$rs[award_experience]}"  size="5" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/></td>
+    <td>
+	<select name="award_item_id[]" >
+	 <option class="select">掉落物品</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}"  {if $irs[id] == $rs[award_item_id]}selected="selected"{/if}>{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td><!--{/if}-->
+    <td>
+	<select name="role_stunt_id[]" style="width:80px;">
+	 <!--{loop $role_stunt_list $rsrs}-->
+	 <option value="{$rsrs[id]}"  {if $rsrs[id] == $rs[role_stunt_id]}selected="selected"{/if}>{$rsrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>	
+    <td>
+	<select name="role_job_id[]" style="width:50px;" >
+	 <option class="select" value="0">职业</option>
+	 <!--{loop $role_job_list $rjrs}-->
+	 <option value="{$rjrs[id]}"  {if $rjrs[id] == $rs[role_job_id]}selected="selected"{/if}>{$rjrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>		
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="20" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→<input name="type" type="hidden" value="{$type}"  size="10"/></td>
+    <td><input name="name_n" type="text" value=""  size="10"/></td>
+	<td><input name="sign_n" type="text" value=""  size="16"/></td>
+	<td>
+	<select name="resource_monster_id_n" >
+	 <option class="select" value="0">选择</option>
+	 <!--{loop $monster_list $mrs}-->
+	 <option value="{$mrs[id]}">{$mrs[level]}级-{$mrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+	
+	<!--{if $type != 2}--><td><textarea name="talk_n"  cols="10" rows="2" ondblclick="textareasize(this)"></textarea></td><!--{/if}-->
+	<td><input name="level_n" id="m_level_n" type="text" value="0"  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td><input name="health_n" id="m_health_n" type="text" value="0"  size="9" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td>
+	<input name="attack_n" id="m_attack_n" type="text" value="0"  size="4" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	<input name="defense_n" id="m_defense_n" type="text" value="0"  size="4" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>	</td>
+    <td>
+	<input name="magic_attack_n" id="m_magic_attack_n" type="text" value="0"  size="5" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	<input name="magic_defense_n" id="m_magic_defense_n" type="text" value="0"  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>	</td>
+    <td>
+	<input name="stunt_attack_n" id="m_stunt_attack_n" type="text" value="0"  size="5" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	<input name="stunt_defense_n" id="m_stunt_defense_n" type="text" value="0"  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>	</td>
+    <td>
+	<input name="hit_n" id="m_hit_n" type="text" value="0" size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	<input name="block_n" id="m_block_n" type="text" value="0" size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	<input name="break_block_n" id="m_break_block_n" type="text" value="0"  size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>	
+	<input name="dodge_n" id="m_dodge_n" type="text" value="0" size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	<input name="critical_n" id="m_critical_n" type="text" value="0" size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	<input name="kill_n" id="m_kill_n" type="text" value="0" size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	</td>
+	<td><input name="break_critical_n" id="m_break_critical_n" type="text" value="0"  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <!--{if $type != 2}--><td><input name="award_experience_n" id="m_award_experience_n" type="text" value="0"  size="5" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td>
+	<select name="award_item_id_n" >
+	 <option class="select">掉落物品</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}">{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td><!--{/if}-->
+    <td>
+	<select name="role_stunt_id_n"  style="width:80px;">
+	 <!--{loop $role_stunt_list $rsrs}-->
+	 <option value="{$rsrs[id]}">{$rsrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>
+	<select name="role_job_id_n"  style="width:50px;">
+	 <!--{loop $role_job_list $rjrs}-->
+	 <option value="{$rjrs[id]}">{$rjrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>		
+    </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="20" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+  <tr>
+    <td colspan="20" align="center">
+	<input type="hidden" name="action" value="SetMonster" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr> 
+</form>    
+</table>

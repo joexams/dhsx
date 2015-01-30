@@ -1,0 +1,168 @@
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th>管理首页</th>
+  </tr>
+  <!--{if !serverAdmin('pay','y')}-->
+  <tr align="left">
+	<td>今日收入 <span class="orangetext"><strong id="todaypay" style="font-size:20px;">{$amount_today}</strong>元</span></td>
+  </tr> 
+  <tr align="left">
+	<td>昨日收入 <span><strong>{$amount_yesterday}</strong>元</span></td>
+  </tr>  
+  <tr align="left">
+	<td >本月收入 <span><strong>{$amount_thismonth}</strong>元</span></td>
+  </tr> 
+  <tr align="left">
+	<td >上月收入 <span><strong>{$amount_lastmonth}</strong>元</span></td>
+  </tr>   
+  <tr align="left">
+	<td style="border-bottom:3px solid #CECFDA;">总 收 入 <span class="greentext"><strong>{$amount_all}</strong>元</span></td>
+  </tr>
+  <!--{/if}-->
+  <!--{if !webAdmin('data','y')}-->
+  <tr align="left">
+	<td><a href="javascript:void(0)" onClick="pmwin('open','call.php?action=CallOnline&day={$today}')">当前在线</a>: <span class="bluetext"><strong id="nowonline" style="font-size:20px;">{$total_online_num}</strong>人</span></td>
+  </tr>   
+  <tr align="left">
+	<td>历史最高: <strong>{$max_online}</strong>人 <span class="graytext">发生于{$max_online_time}</span></td>
+  </tr> 
+  <tr align="left">
+	<td style="border-bottom:3px solid #CECFDA;">昨日登陆: <strong><!--{if $last_login}-->{$last_login}<!--{else}-->0<!--{/if}--></strong>人</td>
+  </tr>   
+  <tr align="left">
+	<td>总注册数: <strong><!--{if $player_reg[register_count]}-->{$player_reg[register_count]}<!--{else}-->0<!--{/if}--></strong>人</td>
+  </tr>  
+  <tr align="left">
+	<td>总创建数: <strong><!--{if $player_reg[create_count]}-->{$player_reg[create_count]}<!--{else}-->0<!--{/if}--></strong>人</td>
+  </tr> 
+  <tr align="left">
+	<td style="border-bottom:3px solid #CECFDA;">总创建率: <!--{if $player_reg[create_count]}-->{echo round($player_reg[create_count]/$player_reg[register_count]*100,2)}<!--{else}-->0<!--{/if}-->%</td>
+  </tr>  
+  <!--{/if}-->
+  <!--{if !webAdmin('s_post','y')}-->    
+  <tr align="left">
+	<td>共有平台: <strong>{$company_count}</strong></td>
+  </tr>   
+  
+  <tr align="left">
+	<td>今日新开服: <strong>{$open_today_count}</strong></td>
+  </tr>   
+  <tr align="left">
+	<td>今日合服: <strong>{$merger_today_count}</strong></td>
+  </tr>   
+  <tr align="left">
+	<td>合服数量: <strong>{$merger_count}</strong></td>
+  </tr>  
+  <tr align="left">
+	<td>正式运营服: <strong>{$open_count}</strong></td>
+  </tr>
+  <!--{/if}-->   
+</table>
+<!--{if !serverAdmin('pay','y')}-->
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th colspan="100">时段充值统计</th>
+  </tr> 
+
+  <tr align="center" class="title_2">
+    <td>日期</td>
+	<!--{loop $datesArr $rs $day}--><td>{$day}<br /><span class="graytext smalltext">{echo GetWeekDay($day)}</span></td><!--{/loop}-->
+	<td>今日收入<br />{echo substr($now,0,5)}</td>
+  </tr>  
+  <tr class="trtitle" align="center">
+    <td>全日充值</td>
+	<!--{loop $datesArr $rs $day}--><td><!--{if $payall[$day][pay_amount]}--><strong class="bluetext">{$payall[$day][pay_amount]}</strong><!--{else}-->-<!--{/if}--></td><!--{/loop}-->
+	<td rowspan="3"  style="font-size:16px;"><!--{if $amount_today}--><strong class="orangetext">{$amount_today}</strong><br /><span class="graytext smalltext">{$amount_today_user}{lang REN}</span><!--{else}-->-<!--{/if}--></td>
+  </tr>
+  <tr class="trtitle" align="center">
+    <td>非Q点充值</td>
+    <!--{loop $datesArr $rs $day}--> <td><!--{if $payall[$day][pay_amount]}-->{$payamt[$day][payamt_amount]}<!--{else}-->-<!--{/if}--></td> <!--{/loop}-->
+  </tr>
+  <tr align="center">
+    <td>0点~{echo substr($now,0,5)}</td>
+	<!--{loop $datesArr $rs $day}--><td><!--{if $dayhis[$day][pay_hour_amount]}--><strong class="orangetext">{$dayhis[$day][pay_hour_amount]}</strong><br /><span class="graytext smalltext">{$dayhis[$day][pay_hour_user]}{lang REN}</span><!--{else}-->-<!--{/if}--></td><!--{/loop}-->
+  </tr>
+</table>
+
+<!--{/if}-->
+<!--{if !webAdmin('data','y')}-->
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="50%" valign="top">
+		<table width="100%" class="table">
+		  <tr>
+			<th colspan="6" class="title_1"><span class="right">合计<span class="yellowtext">{$today_order_pay}元</span><!--{if $amount_today}--> 占今日充值总额<span class="yellowtext">{echo round($today_order_pay/$amount_today,2)*100}%</span><!--{/if}--></span>今日个人充值排行</th>
+		  </tr>
+			
+		  <tr class="title_2" align="center">
+			<td width="50">名次</td> 
+			<td >服务器</td>
+			<td>玩家帐号</td>
+			<td>充值金额</td>
+			<td>充值次数</td>
+		  </tr>
+		  <!--{if $today_order_array}-->
+		  <!--{loop $today_order_array $rs}-->	  
+		  <tr  onmouseover=this.className="td3" onmouseout=this.className=""  align="center">
+			<td>{$rs[i]}</td>
+			<td>{$rs[name]}</td>
+			<td align="left"><a href="?in=player&action=PlayerView&cid={$rs[cid]}&sid={$rs[sid]}&uid={$rs[player_id]}" target="_blank"><strong>{$rs[username]}</strong> ({$rs[nickname]})</a></td> 
+			<td class="orangetext"><strong>{$rs[amount]}</strong>元</td>
+			<td>{$rs[pay_num]}次</td>
+		  </tr>
+		  <!--{/loop}-->
+		  <!--{else}--> 
+		  <tr >
+			<td colspan="6"  align="center">暂无记录</td>
+		  </tr>			  
+		  <!--{/if}--> 
+		</table>
+	
+	
+	
+	</td>
+    <td width="1%"></td>
+    <td width="50%" valign="top">
+		<table width="100%" class="table">
+		  <tr>
+			<th colspan="5" class="title_1">今日单服充值排行</th>
+		  </tr>
+			
+		  <tr class="title_2" align="center">
+			<td width="50">名次</td> 
+			<td>服务器</td>
+			<td>充值金额</td>
+			<td>充值人数</td>
+		  </tr>
+		  <!--{if $servers_order_array}-->
+		  <!--{loop $servers_order_array $rs}-->	  
+		  <tr  onmouseover=this.className="td3" onmouseout=this.className=""  align="center">
+			<td>{$rs[i]}</td>
+			<td align="left"><a href="?in=player&action=Data&cid={$rs[cid]}&sid={$rs[sid]}" target="_blank"><strong>{$rs[name]}_{$rs[o_name]}</strong></a></td>
+			<td class="orangetext"><strong>{$rs[pay_amount]}</strong>元</td>
+			<td>{$rs[pay_user]}人</td>
+		  </tr>
+		  <!--{/loop}-->
+		  <!--{else}--> 
+		  <tr >
+			<td colspan="5"  align="center">暂无记录</td>
+		  </tr>			  
+		  <!--{/if}--> 
+		</table>	
+	
+	</td>
+  </tr>
+</table>
+<!--{/if}-->
+<script language="javascript" type="text/javascript">
+	<!--{if !webAdmin('key_data_set','y')}-->
+	setInterval('upNowOnline()',{SXD_SYSTEM_UP_ONLINE});
+	function upNowOnline() {
+		selectAjax('call.php?action=CallNowOnline&r={RAND_NUM}','nowonline','','',1);
+	}	
+	setInterval('upTodayPay()',{SXD_SYSTEM_UP_ONLINE});
+	function upTodayPay() {
+		selectAjax('call.php?action=CallTodayPay&r={RAND_NUM}','todaypay','','',1);
+	}	
+	<!--{/if}-->
+</script>

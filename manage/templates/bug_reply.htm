@@ -1,0 +1,50 @@
+<form action="?in=bug" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2">{lang BREPLY}</th>
+    </tr>
+    <tr>
+      <td width="100" align="right"><strong>{lang TYPE}</strong></td>
+      <td><!--{if $rs[type]=='1'}-->BUG<!--{/if}--><!--{if $rs[type]=='2'}-->{lang BTS}<!--{/if}--><!--{if $rs[type]=='3'}-->{lang BJY}<!--{/if}--><!--{if $rs[type]=='4'}-->{lang BQT}<!--{/if}--></td>
+    </tr>	
+    
+    <tr>
+      <td align="right"><strong>{lang USER}</strong></td>
+      <td><strong>{$rs[username]}</strong>  ({$rs[nickname]})</td>
+    </tr>
+     <tr>
+       <td align="right" valign="top"><strong>{lang BFKNR}</strong></td>
+      <td>{$rs[content]}</td>
+   </tr>
+     <tr>
+       <td align="right" valign="top"><strong>{lang SUBMITIME}</strong></td>
+      <td>{echo date('Y-m-d H:i:s',$rs[submit_time])}</td>
+   </tr> 
+     	
+     <tr>
+       <td width="100" align="right" valign="top"><strong>{lang REPLY}</strong></td>
+      <td><textarea name="reply" cols="60" rows="5">{$rs[reply_content]}</textarea><br /><span class="graytext">{lang BREPLYMSG}</span></td>
+   </tr>
+   <!--{if !webAdmin('admin_pj','y')}--> 
+   <tr>
+      <td width="100" align="right" valign="top"><strong>是否可评价</strong></td>
+      <td>
+	  <select name="is_over">
+		 <option value="0" {if $rs[is_over] == 0} selected="selected" {/if} class="select">不可以</option>
+		 <option value="1" {if $rs[is_over] == 1} selected="selected" {/if}>可以</option>
+		</select>
+		<span class="graytext">设置为[可以]则玩家在游戏中可对此反馈的回复进行评价</span>
+	</td>
+   </tr>  
+   <!--{/if}-->         
+    <tr>
+      <td>
+	  <input name="cid" type="hidden" value="{$cid}" />
+	  <input name="sid" type="hidden" value="{$sid}" />
+	  <input name="id" type="hidden" value="{$id}" />
+	  <input name="action" type="hidden" value="ReplyBug"/>
+	  </td>
+      <td><input type="submit" name="Submit" id="Submit" value=" {lang SUBMITOK} " class="button"/> </td>
+    </tr>
+  </table>
+</form >

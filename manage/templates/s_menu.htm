@@ -1,0 +1,361 @@
+<table class="menu_table">
+  <tr>
+    <th>服务器</th>
+  </tr>
+  <!--{if !webAdmin('company','y')}--> 
+   <tr class="title_2">
+	<td><a href="?in=server&action=Company">运营商设置</a></td>
+  </tr> 
+  <!--{/if}--> 
+  <!--{if !webAdmin('server','y')}--> 
+   <tr class="title_2">
+	<td><a href="?in=server&action=Servers">服务器设置</a></td>
+  </tr>
+   <tr class="title_2">
+	<td><a href="?in=server&action=ServersDbTransfer">服务器数据库变更</a></td>
+  </tr>  
+   <tr class="title_2">
+	<td><a href="?in=server&action=ServersAddress">机器地址配置</a></td>
+  </tr>  
+  <!--{/if}--> 
+<!--{if !webAdmin('renew_log','y')}-->
+   <tr class="title_2">
+	<td nowrap="nowrap"><a href="?in=server&action=RenewLog">版本更新日志</a></td>
+  </tr>  
+<!--{/if}--> 
+<!--{if !webAdmin('war_zone','y')}-->
+   <!--tr class="title_2">
+	<td nowrap="nowrap"><a href="?in=server&action=WarZone">战区设置</a></td>
+  </tr> 
+   <tr class="title_2">
+	<td nowrap="nowrap"><a href="?in=server&action=WarZoneSelect">战区分配</a></td>
+  </tr-->    
+<!--{/if}-->      
+  <!--{if !webAdmin('gift_t','y')}--> 
+   <tr class="title_2">
+	<td><a href="?in=gift&action=GiftDataAdd" title="添加" class="right greentext"><strong>(+)</strong></a><a href="?in=gift&action=GiftData">活动模版</a></td>
+  </tr>  
+  <!--{/if}-->  
+  <!--{if !webAdmin('s_post','y')}--> 
+   <tr>
+	<td><a href="?in=server&action=ServersPost">服务器列表</a></td>
+  </tr>  
+    
+   <tr>
+	<td><a href="?in=server&action=ServersOpen">开服时间表</a></td>
+  </tr> 
+   <tr>
+	<td><a href="?in=server&action=ServersMerger">合服计划</a></td>
+  </tr> 
+  
+  <!--{/if}-->    
+  <!--{if !webAdmin('s_apply','y')}--> 
+   <tr>
+	<td><a href="?in=apply&action=Apply">物品申请日志</a></td>
+  </tr> 
+   <tr>
+	<td><a href="?in=apply&action=FindData">被盗找回日志</a></td>
+  </tr> 
+   
+  <!--{/if}-->        
+  <!--{if !webAdmin('log','y')}--> 
+   <tr>
+	<td><a href="?in=server&action=ServersAdminData">操作记录</a></td>
+  </tr>  
+  <!--{/if}--> 
+<!--{if !webAdmin('server','y')}--> 
+   <!--tr>
+	<td nowrap="nowrap"><a href="?in=setup&action=ServersData"  onClick='javascript: return confirm("你确定执行操作？执行非常慢！");' >获取远程数据报表</a></td>
+  </tr--> 
+   <tr>
+	<td nowrap="nowrap"><a href="?in=server&action=SqlLog">SQL错误日志</a></td>
+  </tr>   
+<!--{/if}--> 
+<!--{if !webAdmin('data','y')}-->
+   <tr>
+	<td nowrap="nowrap"><a href="cron/retrycharge.php?p=2208755&e=0" target="_blank">查看未成功订单</a></td>
+  </tr> 
+<!--{/if}--> 
+<!--{if !webAdmin('war_zone','y')}-->  
+   <tr>
+	<td nowrap="nowrap"><a href="cron/warzone.php" target="_blank">战区分配</a></td>
+	</tr>
+	<tr>
+	<td nowrap="nowrap"><a href="cron/warzonenum.php" target="_blank">战区人数</a></td>
+  </tr>   
+  
+<!--{/if}-->  
+</table> 
+<table class="menu_table">
+  <tr>
+    <th>工具</th>
+  </tr>  
+	<tr>
+	<td nowrap="nowrap"><a href="cron/userpaya.php" target="_blank">查询注收比</a></td>
+  </tr>
+	<tr>
+	<td nowrap="nowrap"><a href="cron/ybcl.php" target="_blank">充值元宝/存量</a></td>
+  </tr>
+</table> 
+<!--{if !webAdmin('code','y')}--> 
+<table class="menu_table">
+  <tr>
+    <th>兑换券</th>
+  </tr>
+  <tr>
+	<td nowrap="nowrap"><!--{if !webAdmin('code_set','y')}--><a href="?in=code&action=CodeAdd" title="添加" class="right greentext"><strong>(+)</strong></a><!--{/if}--><a href="?in=code&action=CodeBatch">兑换券批次</a></td>
+  </tr>
+    <tr>
+	<td nowrap="nowrap"><a href="?in=code&action=Pcode">活动兑换券记录</a></td>
+  </tr>
+  <!--{if !webAdmin('code_set','y')}-->
+  <tr>
+	<td nowrap="nowrap"><a href="?in=code&action=CodePartyAdd" title="添加">添加活动兑换券</a></td>
+  </tr>
+  <tr>
+	<td nowrap="nowrap"><a href="?in=code&action=CodePartyTable" title="添加">建活动兑换券表</a></td>
+  </tr>
+  <!--{/if}-->
+</table>
+<!--{/if}--> 
+<!--{if !webAdmin('data','y')}-->
+<table class="menu_table">
+  <tr>
+    <th>信息统计</th>
+  </tr>
+  <tr>
+	<td><a href="?in=data">平台数据汇总</a></td>
+  </tr> 
+  <tr>
+	<td><a href="?in=data&action=DataDayData">平台每日数据汇总</a></td>
+  </tr> 
+  <tr>
+	<td><a href="?in=data&action=DataPayData">平台充值汇总</a></td>
+  </tr>   
+  <tr>
+	<td><a href="?in=data&action=DataPayOrder">平台充值排行</a></td>
+  </tr>  
+   <tr>
+	<td style="border-bottom:3px solid #CECFDA;"><a href="?in=data&action=DataPay">平台充值记录</a></td>
+  </tr>
+  <!--{if !webAdmin('key_data_set','y')}-->  
+   <tr>
+	<td><a href="?in=data&action=DataDay">开服数据对比</a></td>
+  </tr>
+   <tr>
+	<td><a href="?in=data&action=DataConsume">平台消费统计</a></td>
+  </tr>
+   <tr>
+	<td><a href="?in=data&action=DataPlayerOut">分级流失统计</a></td>
+  </tr>  
+   <tr>
+	<td><a href="?in=data&action=DataVipLevel">VIP等级统计</a></td>
+  </tr>
+  
+   <tr>
+	<td><a href="?in=data&action=DataMaxLevel">最高等级统计</a></td>
+  </tr>  
+   <tr>
+	<td><a href="?in=data&action=DataCompany">运营商状态</a></td>
+  </tr>  
+  <tr>
+	<td><a href="?in=data&action=DataDayList">收益趋势表</a></td>
+  </tr>
+  <tr>
+	<td><a href="?in=data&action=DataHourList">时段充值对比</a></td>
+  </tr>   
+  <tr>
+	<td><a href="?in=data&action=DataOnline">在线数据表</a></td>
+  </tr>  
+  <tr>
+	<td><a href="?in=data&action=DataNewUser">新注册用户曲线</a></td>
+  </tr>
+  <tr>
+	<td><a href="?in=data&action=DataMonthPay">月充值报表</a></td>
+  </tr>      
+<!--{/if}-->       
+</table>
+<!--{/if}-->
+<table class="menu_table">
+  <tr>
+    <th>操作</th>
+  </tr>  
+  <!--{if !webAdmin('increase_ingot','y')}--> 
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=ingot">赠送元宝</a></td>
+  </tr>
+  <!--{/if}-->      
+  <!--{if !webAdmin('del_ingot','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=delingot">扣除元宝</a></td>
+  </tr>  
+  <!--{/if}-->
+  <!--{if !webAdmin('increase_coins','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=coins">赠送铜钱</a></td>
+  </tr> 
+  <!--{/if}-->
+  <!--{if !webAdmin('del_coins','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=delcoins">扣除铜钱</a></td>
+  </tr>  
+  <!--{/if}-->
+  <!--{if !webAdmin('increase_item','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=item">送装备物品</a></td>
+  </tr> 
+  <!--{/if}-->
+  <!--{if !webAdmin('increase_soul','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=soul">赠送灵件</a></td>
+  </tr> 
+  <!--{/if}-->  
+  <!--{if !webAdmin('increase_stone','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=stone">赠送灵石</a></td>
+  </tr> 
+  <!--{/if}-->  
+  <!--{if !webAdmin('increase_exp','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=exp">送经验</a></td>
+  </tr> 
+  <!--{/if}-->
+  <!--{if !webAdmin('increase_mg','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=mg">送命格</a></td>
+  </tr> 
+  <!--{/if}-->
+  <!--{if !webAdmin('del_mg','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=delmg">清除命格</a></td>
+  </tr> 
+  <!--{/if}-->  
+  <!--{if !webAdmin('increase_thew','y')}-->  
+   <tr>
+	<td><a href="?in=setting&action=Increase&type=thew">送体力</a></td>
+  </tr>  
+  <!--{/if}-->
+  <!--{if !webAdmin('increase_repute','y')}--> 
+  <tr>
+	<td><a href="?in=setting&action=Increase&type=repute">送声望</a></td>
+  </tr>    
+  <!--{/if}--> 
+  <!--{if !webAdmin('increase_skill','y')}--> 
+  <tr>
+	<td><a href="?in=setting&action=Increase&type=skill">送阅历</a></td>
+  </tr>    
+  <!--{/if}-->  
+  <!--{if !webAdmin('increase_point','y')}--> 
+  <tr>
+	<td><a href="?in=setting&action=Increase&type=point">送境界点</a></td>
+  </tr>    
+  <!--{/if}-->   
+  <!--{if !webAdmin('increase_roll','y')}--> 
+  <tr>
+	<td><a href="?in=setting&action=Increase&type=roll">赠送博饼次数</a></td>
+  </tr>    
+  <!--{/if}-->    
+  <!--{if !webAdmin('increase_achievement','y')}--> 
+  <tr>
+	<td><a href="?in=setting&action=Increase&type=achievement">玩家成就</a></td>
+  </tr>    
+  <!--{/if}-->  
+  <!--{if !webAdmin('increase_rura','y')}--> 
+  <tr>
+	<td><a href="?in=setting&action=Increase&type=rura">赠送武魂</a></td>
+  </tr>    
+  <!--{/if}--> 
+  <!--{if !webAdmin('increase_times','y')}--> 
+  <tr>
+	<td><a href="?in=setting&action=Increase&type=times">送喂养次数</a></td>
+  </tr>    
+  <!--{/if}-->   
+   
+  <!--{if !webAdmin('s_bulletin','y')}--> 
+   <tr>
+	<td style="border-top:3px;"><a href="?in=setting&action=Bulletin">发公告</a></td>
+  </tr>    
+  <!--{/if}-->	
+  <!--{if !webAdmin('s_upvip','y')}--> 
+   <tr>
+	<td><a href="?in=setting&action=UpVip">调<strong>VIP</strong>等级</a></td>
+  </tr>  
+  <!--{/if}-->   
+  <!--{if !webAdmin('pay_add','y')}--> 
+   <tr>
+	<td><a href="?in=pay">充值补单</a></td>
+  </tr>  
+   <tr>
+	<td><a href="?in=pay&action=TransferOrder">转移订单</a></td>
+  </tr>   
+  <!--{/if}--> 
+  <!--{if !webAdmin('s_out','y')}--> 
+   <tr>
+	<td><a href="?in=setting&action=PlayerOut">玩家禁言/冻结</a></td>
+  </tr>  
+  <!--{/if}-->
+  <!--{if !webAdmin('s_test','y')}--> 
+   <tr>
+	<td><a href="?in=setting&action=PlayerTest">设置测试帐号</a></td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if !webAdmin('star','y')}--> 
+   <tr>
+	<td><a href="?in=setting&action=PlayerStar">设置明星号</a></td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if !webAdmin('game_data','y')}--> 
+   <tr>
+	<td><a href="?in=setting&action=GameData">游戏设置</a></td>
+  </tr>  
+  <!--{/if}-->
+  <!--{if !webAdmin('s_shop_item_ad','y')}--> 
+   <tr>
+  <td><a href="?in=setting&action=ShopItemAd">商城广告设置</a></td>
+  </tr>  
+  <!--{/if}-->
+  <!--{if !webAdmin('s_gift_setting','y')}--> 
+   <tr>
+  <td><a href="?in=setting&action=GiftSetting">礼包ID配置</a></td>
+  </tr> 
+  <!--{/if}-->  
+</table>
+<!--{if !webAdmin('setup','y')}--> 
+<table class="menu_table">
+  <tr>
+    <th>系统</th>
+  </tr>
+   <tr>
+	<td><a href="?in=setup">系统设置</a></td>
+  </tr>  
+   <tr>
+	<td><a href="?in=setup&action=SetupPower">全局权限设置</a></td>
+  </tr>   
+   <tr>
+	<td nowrap="nowrap"><a href="?in=setup&action=ServersPower">单服权限设置</a></td>
+  </tr>
+   <tr>
+	<td nowrap="nowrap"><a href="?in=setup&action=UpdateTpl" onClick='javascript: return confirm("你确定执行操作？");'>更新模版缓存</a></td>
+  </tr> 
+   	<tr>
+	<td nowrap="nowrap"><a href="?in=setup&action=UpdateData" onClick='javascript: return confirm("你确定执行操作？");'>清数据缓存文件</a></td>
+  </tr>       
+</table>
+<!--{/if}-->
+<!--{if !webAdmin('admin','y')}--> 
+<table class="menu_table">   
+  <tr>
+    <th>管理员</th>
+  </tr>  
+   <tr>
+	<td><a href="?in=admin&action=AddAdmin" title="添加" class="right greentext"><strong>(+)</strong></a><a href="?in=admin">管理员</a></td>
+  </tr>
+   <tr>
+	<td><a href="?in=admin&action=AdminLogin">帐号登陆历史</a></td>
+  </tr>
+    <tr>
+	<td><a href="?in=admin&action=AdminLoginErr">帐号错误登陆历史</a></td>
+  </tr>  
+   
+</table>
+<!--{/if}-->

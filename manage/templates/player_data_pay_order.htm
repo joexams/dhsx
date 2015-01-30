@@ -1,0 +1,44 @@
+{template player_data_top}
+<table class="table" style="margin-bottom:5px;">
+  <tr style="font-size:14px;" align="center">
+	<td width="200" height="30">{lang PAY}:<strong class="orangetext">{echo round($pay_amount,2)}</strong> <!--<span class="graytext">({$server[money_type]})</span>--></td>
+	<td width="150">{lang PAYUSER}:<strong>{$pay_player_count}</strong></td>
+	<td width="150">{lang PAYNUM}:<strong>{$pay_count}</strong></td>
+	<td>&nbsp;</td>
+  </tr>
+</table>
+<table width="100%" class="table">
+  <tr class="title_2" align="center">
+   	<td width="50">{lang ORDER}</td> 
+  	<td width="80">{lang USERID}</td>
+	<td width="150">{lang USER}</td>
+	<td width="120">{lang PAY}</td>
+	<td width="120">{lang LASTPAY}</td>
+	<td width="120">{lang LASTPAYTIME}</td>
+	<td width="60">{lang PAYNUM}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr  onmouseover=this.className="td3" onmouseout=this.className=""  align="center">
+	<td>{$rs[i]}</td>
+	<td>{$rs[player_id]}</td>
+ 	<td align="left"><a href="?in=player&action=PlayerView&cid={$cid}&sid={$sid}&uid={$rs[player_id]}" target="_blank"><strong>{$rs[username]}</strong> ({$rs[nickname]})</a></td> 
+	<td><strong class="orangetext">{echo round($rs[money],2)}</strong></td>
+	<td>{$rs[amount]}</td>
+	<td title="{$rs[ditme_up]}">{$rs[dtime]}</td>
+	<td> {$rs[payNum]}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="10"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>

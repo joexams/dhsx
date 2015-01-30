@@ -1,0 +1,55 @@
+<form method="post" action="?in=faction" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="12">帮派祭神的香</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="120">名称</td>
+    <td width="120">需要消耗元宝</td>
+	<td width="120">需要VIP等级</td>
+	<td width="120">需要阅历</td>	
+    <td width="120">增加声望</td>
+    <td width="120">增加灵气</td>
+    <td width="120">获得祝福次数</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[id]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+    <td><input name="ingot[]" type="text" value="{$rs[ingot]}"  size="10"/></td>
+    <td><input name="vip_level[]" type="text" value="{$rs[vip_level]}"  size="10"/></td>
+    <td><input name="skill[]" type="text" value="{$rs[skill]}"  size="10"/></td>
+    <td><input name="fame[]" type="text" value="{$rs[fame]}"  size="10"/></td>
+    <td><input name="exp[]" type="text" value="{$rs[exp]}"  size="10"/></td>
+    <td><input name="blessing_count[]" type="text" value="{$rs[blessing_count]}"  size="10"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="12" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+    <td><input name="ingot_n" type="text" value=""  size="10"/></td>
+    <td><input name="vip_level_n" type="text" value=""  size="10"/></td>
+    <td><input name="skill_n" type="text" value=""  size="10"/></td>	
+    <td><input name="fame_n" type="text" value=""  size="10"/></td>
+    <td><input name="exp_n" type="text" value=""  size="10"/></td>
+    <td><input name="blessing_count_n" type="text" value=""  size="10"/></td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="12" align="center">
+	<input type="hidden" name="action" value="SetFactionGodOfferings" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

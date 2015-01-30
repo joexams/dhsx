@@ -1,0 +1,105 @@
+<form method="post" action="?in=target" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="18">目标信息表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="60">天数</td>
+    <td width="100">名字</td>
+    <td width="60">标识</td>
+    <td width="150">描述</td>
+    <td width="100">奖励类型</td>
+    <td width="100">总值</td>
+    <td width="60">排序</td>
+    <td width="60">奖励铜钱</td>
+    <td width="60">奖励声望</td>
+    <td width="60">奖励阅历</td>
+    <td width="60">奖励体力</td>
+    <td width="60">奖励灵石</td>
+    <td width="60">奖励龙鱼令</td>
+    <td width="60">奖励元宝</td>
+    <td width="100">物品id</td>
+    <td width="60">物品数量</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id_old[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+
+<td><input name="day[]" type="text" value="{$rs[day]}" size="10" /></td>
+<td><input name="name[]" type="text" value="{$rs[name]}" size="10" /></td>
+<td><input name="sign[]" type="text" value="{$rs[sign]}" size="10" /></td>
+  <td><textarea name="description[]" cols="40" ondblclick="textareasize(this)">{$rs[description]}</textarea></td>
+<td>
+  <input name="type[{$rs[id]}]" type="radio" value="0"<!--{if $rs[type] == 0}--> checked<!--{/if}-->>普通
+  <input name="type[{$rs[id]}]" type="radio" value="1"<!--{if $rs[type] == 1}--> checked<!--{/if}-->>额外
+</td>
+<td><input name="total[]" type="text" value="{$rs[total]}" size="10" /></td>
+<td><input name="sort_order[]" type="text" value="{$rs[sort_order]}" size="10" /></td>
+<td><input name="coin[]" type="text" value="{$rs[coin]}" size="10" /></td>
+<td><input name="fame[]" type="text" value="{$rs[fame]}" size="10" /></td>
+<td><input name="skill[]" type="text" value="{$rs[skill]}" size="10" /></td>
+<td><input name="power[]" type="text" value="{$rs[power]}" size="10" /></td>
+<td><input name="stone[]" type="text" value="{$rs[stone]}" size="10" /></td>
+<td><input name="long_yu_ling[]" type="text" value="{$rs[long_yu_ling]}" size="10" /></td>
+<td><input name="ingot[]" type="text" value="{$rs[ingot]}" size="10" /></td>
+<td><select name="item_id[]" >
+   <option class="select" value="0">选择物品</option>
+   <!--{loop $item_list $irs}-->
+   <option value="{$irs[id]}"  {if $irs[id] == $rs[item_id]}selected="selected"{/if}>{$irs[name]}</option>
+   <!--{/loop}-->  
+  </select></td>
+<td><input name="item_amount[]" type="text" value="{$rs[item_amount]}" size="10" /></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="18" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    
+<td><input name="day_n" type="text" value="" size="10" /></td>
+<td><input name="name_n" type="text" value="" size="10" /></td>
+<td><input name="sign_n" type="text" value="" size="10" /></td>
+  <td><textarea name="description_n" cols="40" ondblclick="textareasize(this)"></textarea></td>
+<td>
+  <input name="type_n" type="radio" value="0">普通
+  <input name="type_n" type="radio" value="1">额外
+</td>
+<td><input name="total_n" type="text" value="" size="10" /></td>
+<td><input name="sort_order_n" type="text" value="" size="10" /></td>
+<td><input name="coin_n" type="text" value="" size="10" /></td>
+<td><input name="fame_n" type="text" value="" size="10" /></td>
+<td><input name="skill_n" type="text" value="" size="10" /></td>
+<td><input name="power_n" type="text" value="" size="10" /></td>
+<td><input name="stone_n" type="text" value="" size="10" /></td>
+<td><input name="long_yu_ling_n" type="text" value="" size="10" /></td>
+<td><input name="ingot_n" type="text" value="" size="10" /></td>
+<td><select name="item_id_n" >
+   <option class="select" value="0">选择物品</option>
+   <!--{loop $item_list $irs}-->
+   <option value="{$irs[id]}">{$irs[name]}</option>
+   <!--{/loop}-->  
+  </select></td>
+<td><input name="item_amount_n" type="text" value="" size="10" /></td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="18" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="18" align="center">
+	<input type="hidden" name="action" value="SetTargetInfo" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

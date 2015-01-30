@@ -1,0 +1,64 @@
+<table class="table">
+  <tr>
+    <th colspan="8">神龙上供 火龙珠经验表</th>
+  </tr>
+<form method="post" action="?in=dragonball" name="form"  onSubmit="setSubmit('Submit')">
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width"100">品质</td>
+    <td width"100">吞噬绿色品质数量</td>
+    <td width"100">吞噬蓝色品质数量</td>
+    <td width"100">吞噬紫色品质数量</td>
+    <td width"100">吞噬金色品质数量</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[quality_id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[quality_id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[quality_id]}"/></td>
+  <td><select name="quality_id[]" >
+   <option class="select">选择</option>
+   <!--{loop $quality_list $mtrs}-->
+   <option value="{$mtrs[id]}"  {if $mtrs[id] == $rs[quality_id]}selected="selected"{/if}>{$mtrs[name]}</option>
+   <!--{/loop}-->  
+  </select></td>
+    <td><input name="green_count[]" type="text" value="{$rs[green_count]}"  size="15"/></td>
+    <td><input name="blue_count[]" type="text" value="{$rs[blue_count]}"  size="15"/></td>
+    <td><input name="purple_count[]" type="text" value="{$rs[purple_count]}"  size="15"/></td>
+    <td><input name="gold_count[]" type="text" value="{$rs[gold_count]}"  size="15"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="8" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><select name="quality_id_n" >
+     <option class="select">选择</option>
+     <!--{loop $quality_list $mtrs}-->
+     <option value="{$mtrs[id]}">{$mtrs[name]}</option>
+     <!--{/loop}-->  
+    </select></td>
+    <td><input name="green_count_n" type="text" value=""  size="15"/></td>
+    <td><input name="blue_count_n" type="text" value=""  size="15"/></td>
+    <td><input name="purple_count_n" type="text" value=""  size="15"/></td>
+    <td><input name="gold_count_n" type="text" value=""  size="15"/></td>
+    <td>&nbsp;</td>
+   </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	     
+  <tr>
+    <td colspan="8" align="center">
+	<input type="hidden" name="action" value="SetDragonballBreakthrough" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>
+</form>
+</table>

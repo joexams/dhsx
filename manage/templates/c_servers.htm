@@ -1,0 +1,96 @@
+<table class="table">
+  <tr>
+    <th colspan="12">{lang SERVERLIST}</th>
+  </tr>
+<!--{if !webAdmin('key_power','y')}-->  
+<tr class="title_3">
+    <td colspan="14">
+	<form action="" method="get" name="forms" id="forms" onSubmit="setSubmit('Submits')">
+	<select name="apis">
+	<option value="" class="select">服务器地址</option>
+	<!--{if $servers_address_api_list}-->
+	 <!--{loop $servers_address_api_list $sars}-->
+	 <option value="{$sars[api_server]}" {if $sars[api_server] == $apis} selected="selected" {/if}>{$sars[api_server]} ({$sars[s_num]}{lang TAI})</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<input type="submit" name="Submit" id="Submits" value="查看配置服" class="button"/>
+	<input name="in" type="hidden" value="server" />
+	<input name="action" type="hidden" value="ServersPost" />
+	<!--{if $apis || $dbs}-->搜索结果：<strong>{$num}</strong>台<!--{/if}-->
+	</form>		
+	</td>
+  </tr> 
+  <!--{/if}-->
+  <tr align="center" class="title_2">
+    <td width="50">&nbsp;</td>
+    <td>{lang SERVER}</td>
+    <!--td width="50">{lang HDZT}</td-->
+    <td width="100">{lang OPENDATE}</td>
+    <!--{if !serverAdmin('data','y')}--><td width="60">{lang SJBB}</td><!--{/if}-->	
+    <td width="60" >{lang ONLINE}</td>
+    <!--{if !serverAdmin('pay','y')}-->
+	<td width="60">{lang ZRSR}</td>
+	<td width="60">{lang JRSR}</td>
+	<!--{/if}-->
+    </tr>
+<!--{if $list_array}-->
+<!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center">
+    <td>></td>	
+    <td align="left">
+	<span class="right">{lang JIFANG}{$apiArr[$rs[api_server]]}</span>
+	<!--{if $rs[open]}-->
+	<a href="?in=player&cid={$rs[cid]}&sid={$rs[sid]}"><strong style="font-size:14px;">{$rs[name]}-{$rs[o_name]}</strong></a> 
+	<!--{else}-->
+	<strong style="font-size:14px;">{$rs[name]}-{$rs[o_name]}</strong>
+	<!--{/if}-->	
+	<!--{if $rs[combined_to]}--> <a href="?in=player&cid={$rs[cid]}&sid={$rs[combined_to]}" class="bluetext"><span>({lang YHF})</span></a><!--{/if}--><!--{if !$rs[open]}--> <span class="redtext">({lang WPZ})</span><!--{/if}--><!--{if $rs[test] == 1}--> <span class="graytext">({lang CSF})</span><!--{/if}-->
+	<br /><span class="graytext">{$rs[server]}</span>
+	</td>	
+    <td>{echo date('Y-m-d H:i',strtotime($rs[open_date]))}<br /><!--{if $rs[open_date] < date('Y-m-d H:i:s')}-->{echo round((strtotime(date('Y-m-d')) - strtotime(date('Y-m-d',strtotime($rs[open_date]))))/86400)+1}{lang DAYS}<!--{else}--><span class="graytext">{lang WKQ}</span><!--{/if}--></td>	
+	<!--{if $rs[open]}-->
+    <!--{if !serverAdmin('data','y')}--><td><a href="?in=player&action=Data&cid={$rs[cid]}&sid={$rs[sid]}">{lang SJBB}</a></td><!--{/if}-->
+    <td class="greentext" ><!--{if $online_data[$rs[name]]}-->{$online_data[$rs[name]]}{lang REN}<!--{else}-->-<!--{/if}--><!--span id="online{$rs[sid]}">0</span>人--></td>
+    <!--{if !serverAdmin('pay','y')}-->
+	<td><!--{if $pay[$rs[sid]][yesterday_amount]}-->{$pay[$rs[sid]][yesterday_amount]}{lang YUAN}<!--{else}-->-<!--{/if}--></td>
+	<td class="orangetext" ><!--{if $pat[$rs[sid]][today_amount]}--><strong>{$pat[$rs[sid]][today_amount]}</strong>{lang YUAN}<!--{else}-->-<!--{/if}--></td>
+	<!--{/if}-->
+	<!--{else}-->
+    <td colspan="4">&nbsp;</td>
+	<!--{/if}-->
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="12" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="12" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	     
+</table>
+<script language="javascript" type="text/javascript">
+	var sid_arr = '{$sid_arr}';
+	var sidArrl = sid_arr.split(",");//拆分
+	//upOnline();
+	//setInterval('upOnline()',{SXD_SYSTEM_UP_ONLINE});
+
+	function upOnline() {
+		for(var i = 0;i<sidArrl.length;i++ ){
+			selectAjax('player_call.php?action=callNowOnline&sid='+sidArrl[i]+'&r=' + new Date().getTime(),'online'+sidArrl[i]+'','','',1);
+		}
+	}
+	
+	<!--{if !serverAdmin('pay','y')}-->
+	//upTodayPay();
+	//setInterval('upTodayPay()',{SXD_SYSTEM_UP_ONLINE});
+	function upTodayPay() {
+		for(var i = 0;i<sidArrl.length;i++ ){
+			selectAjax('call.php?action=CallTodayPay&cid={$cid}&sid='+sidArrl[i]+'&r=' + new Date().getTime(),'todaypay'+sidArrl[i]+'','','',1);
+		}
+	}	
+	<!--{/if}-->
+</script>	

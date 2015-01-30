@@ -1,0 +1,26 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th colspan="24" class="title_1">{lang SDCZDB}</th>
+  </tr> 
+  <tr class="title_3">
+    <td colspan="24">
+	<form action="" method="get" name="formd" onSubmit="setSubmit('Submitd')">	
+	<select name="cid">
+	 <option class="select" value="0">{lang COMPANY}</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	 		
+	{lang DATE}1 <input name="day_h2" id="day_h2" type="text" onclick="showcalendar(event, this)"   value="{$day_h2}" size="10" readonly /> 
+	{lang DATE}2 <input name="day_h" id="day_h" type="text" onclick="showcalendar(event, this)"   value="{$day_h}" size="10" readonly /> 
+	<input name="in" type="hidden" value="data" />
+	<input name="action" type="hidden" value="DataHourList" />
+	<input type="submit" name="Submit" id="Submitd" value="{lang YJRDB}" class="button"/>
+	</form>
+	</td>
+  </tr> 
+  <tr>
+    <td colspan="24">{$starLineData}</td>
+  </tr>     
+</table>

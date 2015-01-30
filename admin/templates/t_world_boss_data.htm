@@ -1,0 +1,55 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=monster" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="7"><span class="bluetext">{$name}</span> 的对应怪物团</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >LEVEL</td>
+    <td width="35">删除</td>
+    <td width="150">等级</td>
+    <td width="200">怪物团</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[level]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[world_boss_id]},{$rs[level]}" title="选择删除"/></td>
+    <td><strong>{$rs[level]}</strong>级</td>
+    <td> {$rs[monster_name]} - {$rs[monster_level]}级</td>
+	<td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="8" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+    <td><input name="level_n" type="text" value="" size="10"/> 级</td>
+    <td>
+	<select name="monster_team_id_n" >
+	 <option style="color:#999; background:#ddd;">选择怪物团</option>
+	 <!--{loop $monster_team_list $mtrs}-->
+	 <option value="{$mtrs[id]}">{$mtrs[monster_level]}{$mtrs[monster_name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+	<td>&nbsp;</td>
+    </tr>
+    <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->    
+  <tr>
+    <td colspan="8" align="center">
+	<input name="world_boss_id" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetWorldBossData" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" name="Submit" id="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

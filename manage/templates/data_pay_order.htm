@@ -1,0 +1,84 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table" style="font-size:14px;margin-bottom:5px;"> 
+  <tr>
+	<td>{lang PAY}:<strong class="orangetext">{echo round($pay_amount,2)}</strong> <!--span class="graytext">({$company[money_type]})</span--></td>
+  </tr>
+  <tr>
+	<td>ARPU:<strong class="bluetext">{echo round($pay_amount/$pay_player_count,2)}</strong></td>
+  </tr>  
+  <tr>
+	<td>{lang PAYUSER}:<strong>{$pay_player_count}</strong>{lang REN}</td>
+  </tr>  
+   <tr>
+	<td>{lang PAYNUM}:<strong>{$pay_count}</strong>{lang HITS}</td>
+  </tr>
+</table>
+<table width="100%" class="table">
+  <tr>
+    <th colspan="10" class="title_1">{lang PTCZPH}</th>
+  </tr>
+  <!--{if $adminWebType == 's'}-->
+  <tr class="title_3">
+    <td colspan="10">
+		<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">
+		<!--{if $type != 'all'}-->
+		<select name="cid" id="cid">
+		 <option class="select">{lang COMPANY}</option>
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>	  
+		<!--{else}-->
+		<input name="cid" type="hidden" value="{$cid}" />
+		<!--{/if}-->	
+
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="action" type="hidden" value="DataPayOrder" />
+	<input name="in" type="hidden" value="data" />
+
+	 <!--{if $adminWebType == 's'}--><!--{if $type == 'all'}--><a href="?in=data&action=DataPayOrder" class="title_menu">返回</a><!--{else}--><a href="?in=data&action=DataPayOrder&type=all" class="title_menu">全平台排行前50</a><!--{/if}--><!--{/if}-->
+	</form>	
+	</td>
+  </tr> 
+  	<!--{/if}--> 
+  <tr class="title_2" align="center">
+   	<td width="50">{lang ORDER}</td> 
+  	<td width="100">{lang COMPANY}</td>
+	<td width="250">{lang USER}</td>
+  	<!--td width="100">{lang SERVER}</td-->
+	<td width="100">{lang PAY}</td>
+	<td width="120">{lang LASTPAY}</td>
+	<td width="120">{lang LASTPAYTIME}</td>
+	<td width="60">{lang PAYNUM}</td>
+	<td>&nbsp;</td>	
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr  onmouseover=this.className="td3" onmouseout=this.className=""  align="center">
+	<td>{$rs[i]}</td>
+	<td>{$c[$rs[cid]][name]}</td>
+ 	<td align="left"><a href="?in=player&cid={$rs[cid]}&sid={$rs[sid]}&username={$rs[username]}&st=2" target="_blank"><strong>{$rs[username]}</strong> ({$rs[nickname]})</a> <!--{if strpos($rs[sid_arr],',',0)}--><span class="bluetext">[多服]</span><!--{/if}--></td>
+	<!--td>{$rs[sid_arr]}</td-->	 
+	<td><strong class="orangetext">{echo round($rs[amount],2)}</strong></td>
+	<td>{$rs[last_pay_amount]}</td>
+	<td>{echo date('Y-m-d H:i:s',$rs[last_pay_time])}</td>
+	<td>{$rs[pay_num]}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="10"  align="center">暂无记录</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>
+<script type="text/JavaScript">
+	function jumpMenu(selObj){
+		location="?in=data&action=DataPayOrder&cid="+selObj.options[selObj.selectedIndex].value+"";
+	}
+</script>

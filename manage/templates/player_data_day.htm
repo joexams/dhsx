@@ -1,0 +1,143 @@
+{template player_data_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<!--{if $adminWebType != 'u' && !$server[combined_to]}-->
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <td valign="top"  style="font-size:14px;line-height:30px;background:#fbfbe0;" class="redtext" align="center"><strong>{lang CXHZMSG2}</strong></td>
+  </tr>
+</table>
+<!--{/if}-->
+<table class="table" style="margin-bottom:5px;">
+  <tr style="font-size:14px;" align="center">
+    <td width="110"  height="30">
+	<select name="month" id="month" onChange="jumpMenu(this)">
+	<!--{if $day_moth_list}-->
+	  <!--{loop $day_moth_list $drs}-->
+	  <option value="{$drs[time]}" {if $drs[time] == $month} selected="selected" {/if}>{$drs[time]}</option>
+	  <!--{/loop}-->
+	  <!--{else}-->
+	  <option value="{$month}" >{$month}</option>
+	<!--{/if}-->		
+	</select>	
+	</td>
+	<td align="left">{lang LSZGZX}:{$max_online_count}{lang REN} <span class="smalltext graytext">{lang OCCURSIN}:{$max_online_time}</span></td>
+  </tr>
+</table>
+<table class="table">    
+  <tr class="title_3">
+    <td colspan="17">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">	 	
+	{lang TIMERANGE}： <input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly />
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Data" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr> 
+
+  <tr align="center" class="title_2">
+	<td rowspan="2">{lang FENSHI}</td>
+  	<td width="120" rowspan="2">{lang DATE}</td>
+	<td rowspan="2">{lang ZCS}</td>
+	<td rowspan="2">{lang CJS}</td>
+	<td rowspan="2">{lang CJL}</td>
+	<td rowspan="2">{lang DLS}</td>
+	<td colspan="2" >{lang ONLINE}</td>
+	<td colspan="2" title="{lang XYHLSRS}" style="border-right:3px solid #CECFDA;">{lang XSLS}</td>
+	<!--{if !serverAdmin('pay_data','y')}-->
+	<td rowspan="2">{lang PAY}</td>
+	<td rowspan="2">{lang PAYUSER}</td>
+	<td rowspan="2">{lang NERUSERNUM}</td>
+	<td rowspan="2">{lang PAYNUM}</td>
+	<td rowspan="2" >ARPU</td>
+	<!--{if !serverAdmin('data_key','y')}-->
+	<td rowspan="2" title="{lang XIAOFEIMSG}">{lang XIAOFEI}</td>
+	<td rowspan="2">{lang XFCZBL}</td>	
+	<!--{/if}-->
+	<!--{else}-->
+	<td rowspan="2">&nbsp;</td>	
+	<!--{/if}-->
+  </tr>
+  <tr align="center" class="title_2">
+    <td>{lang ZGZX}</td>
+    <td>{lang PJZX}</td>
+    <td title="{lang XYHLSRS}">{lang USERNUM}</td>
+    <td style="border-right:3px solid #CECFDA;" title="{lang XYHLSRL}">{lang LSL}%</td>
+  </tr>
+  <tr align="right" class="purpletext trtitle">
+	<td>&nbsp;</td>
+    <td align="center">{lang ZONGJI}{$cookie}</td>
+	<td>{$register_count}</td>
+	<td>{$create_count}</td>
+	<td class="smalltext">{echo round($create_count/$register_count*100,2)}%</td>
+	<td>{$login_count}</td>
+	<td title="{lang OCCURSIN}:{$max_online_now_time}">{$max_online_now_count}</td>
+	<td><!--{if $avg_online_count}-->{echo round($avg_online_count/$data_num)}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $out_count}-->{$out_count}<!--{else}-->-<!--{/if}--></td>
+	<td style="border-right:3px solid #CECFDA;"><!--{if $out_count}-->{echo round($out_rate/$i,2)}%<!--{else}-->-<!--{/if}--></td>
+	<!--{if !serverAdmin('pay_data','y')}-->
+	<td><!--{if $pay_amount}--><strong>{echo round($pay_amount,2)}</strong><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $pay_player_count}-->{$pay_player_count}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $new_player}-->{$new_player}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $pay_num}-->{$pay_num}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $pay_amount}-->{echo round($pay_amount/$pay_player_count,2)}<!--{else}-->-<!--{/if}--></td>
+	<!--{if !serverAdmin('data_key','y')}-->
+	<td><!--{if $consume}-->{echo round($consume,2)}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $pay_amount}-->{echo round((abs($consume)/$pay_amount),2)}<!--{else}-->-<!--{/if}--></td>
+	<!--{/if}-->
+	<!--{else}-->
+	<td>&nbsp;</td>	
+	<!--{/if}-->
+  </tr>
+  
+  <!--{if $day_list}-->
+  <!--{eval $i=0}-->
+  <!--{loop $day_list $drs $day}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}" align="right" >
+	<td align="center">
+	<!--{if $data[$day][login_count]}-->
+	<a href="javascript:void(0)" onClick="pmwin('open','player_call.php?action=callPlayerDataRegHour&sid={$sid}&day={$day}')">{lang LOOK}</a>
+	<!--{else}-->-<!--{/if}-->	</td>
+    <td align="center">
+	<!--{if $adminWebType != 'u' && !$server[combined_to] &&  $day <= date('Y-m-d') && $day >= date('Y-m-d',strtotime($server[open_date]))}-->
+	<a href="?in=player&action=UpdateData&cid={$cid}&sid={$sid}&day={$day}" title="{lang DJGXSJ}[{$day}]" onClick='javascript: return confirm("{lang CXHZMSG}");'><strong>{$day}</strong></a>
+	<!--{else}--><strong>{$day}</strong><!--{/if}-->
+	 <span class="graytext smalltext">{echo GetWeekDay($day)}</span></td>
+	<td><!--{if $data[$day][register_count]}-->{$data[$day][register_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $data[$day][create_count]}-->{$data[$day][create_count]}<!--{else}-->-<!--{/if}--></td>
+	<td class="smalltext"><!--{if $data[$day][create_count]}-->{echo round($data[$day][create_count]/$data[$day][register_count]*100,2)}%<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $data[$day][login_count]}-->{$data[$day][login_count]}<!--{else}-->-<!--{/if}--> </td>
+	<td><!--{if $data[$day][max_online_count]}-->{$data[$day][max_online_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $data[$day][avg_online_count]}-->{$data[$day][avg_online_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $data[$day][out_count]}-->{$data[$day][out_count]}<!--{else}-->-<!--{/if}--></td>	
+	<td style="border-right:3px solid #CECFDA;"><!--{if $data[$day][out_rate]}-->{$data[$day][out_rate]}%<!--{else}-->-<!--{/if}-->	</td>
+	<!--{if !serverAdmin('pay_data','y')}-->
+    <td><!--{if $data[$day][pay_amount]}--><strong class="orangetext">{$data[$day][pay_amount]}</strong><!--{else}-->-<!--{/if}--></td>
+    <td><!--{if $data[$day][pay_player_count]}-->{$data[$day][pay_player_count]}<!--{else}-->-<!--{/if}--></td>
+    <td><!--{if $data[$day][new_player]}-->{$data[$day][new_player]}<!--{else}-->-<!--{/if}--></td>
+    <td><!--{if $data[$day][pay_num]}-->{$data[$day][pay_num]}<!--{else}-->-<!--{/if}--></td>
+    <td><!--{if $data[$day][pay_amount]}--><span class="bluetext">{echo round($data[$day][pay_amount]/$data[$day][pay_player_count],2)}</span><!--{else}-->-<!--{/if}--></td>
+	<!--{if !serverAdmin('data_key','y')}-->
+	<td><!--{if $data[$day][consume]}--><span class="redtext">{$data[$day][consume]}</span><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $data[$day][consume] && $data[$day][pay_amount] }-->{echo round((abs($data[$day][consume])/$data[$day][pay_amount]),2)}<!--{else}-->-<!--{/if}--></td>	
+	<!--{/if}-->
+	<!--{else}-->
+	<td>&nbsp;</td>	
+	<!--{/if}-->	
+  </tr>
+   <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="17"  align="center">{lang MULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>
+
+<script type="text/JavaScript">
+	function jumpMenu(selObj){
+		location="?in=player&action=Data&cid={$cid}&sid={$sid}&month="+selObj.options[selObj.selectedIndex].value+"";
+	}
+</script>

@@ -1,0 +1,36 @@
+<form action="?in=server" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="4">服务器数据库变更</th>
+    </tr>
+    
+    <tr>
+      <td width="250" height="100" align="center">
+		<select name="f_db">
+		<option value="" class="select">选择要变更的数据库</option>
+		<!--{if $servers_address_db_list}-->
+		 <!--{loop $servers_address_db_list $sars}-->
+		 <option value="{$sars[name]}">{$sars[name]} 【{$sars[num]}台】</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->
+		</select>	</td>
+	<td width="50" align="center" class="td2">变更为</td>
+	<td width="250" align="center">
+		<select name="t_db">
+		<option value="" class="select">选择变更后的数据库</option>
+		<!--{if $servers_address_db_list}-->
+		 <!--{loop $servers_address_db_list $sars}-->
+		 <option value="{$sars[name]}">{$sars[name]} 【{$sars[num]}台】</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->
+		</select>		</td>
+		<td>&nbsp;</td>
+    </tr>	
+     
+
+    <tr>
+      <td colspan="3" align="center"><input type="submit" name="Submit" id="Submit" value=" 执行变更 " class="button"/></td>
+      <td><input name="action" type="hidden" value="SetServersDbTransfer"/></td>
+    </tr>
+  </table>
+</form >

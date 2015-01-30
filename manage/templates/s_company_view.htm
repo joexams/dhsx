@@ -1,0 +1,63 @@
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th><a href="s.php?in=server&action=Company">运营商设置</a> > {$rs[name]}</th>
+  </tr>
+</table>
+<table class="table" style="margin-bottom:5px;">
+  <tr class="title_2">
+    <td colspan="5"><strong>服务器</strong></td>
+  </tr>
+    
+  
+  <!--{if $servers_list_array}-->
+  <!--{loop $srows $servers_list_array}-->
+  <tr>
+  	<!--{loop $servers_list_array $srs}-->	  
+    <td width="20%">
+	<strong style="font-size:14px;" onclick="CheckLogin('msgShow_{$srs[sid]}','{$srs[url]}')">{$srs[name]}</strong><span id="msgShow_{$srs[sid]}"></span>
+	<span class="graytext">
+	<br />游戏:{$srs[server]}<br />
+	地址:{$srs[api_server]}<br />
+	端口:{$srs[api_port]}<br />
+	密钥:{$srs[api_pwd]}<br />
+	DB地址:{$srs[db_server]}<br />
+	DB库名:{$srs[db_name]}<br />
+	DB帐号:{$srs[db_root]}<br />
+	DB密码:{$srs[db_pwd]}<br />
+	<br /><a href="javascript:void(0)" onclick="pmwin('open','s_call.php?action=CallServersAdmin&cid={$cid}&sid={$srs[sid]}')" class="title_menu">负责人</a>
+	</span>
+	</td>
+	<!--{/loop}-->
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+</table>
+<table class="table" style="margin-bottom:5px;">
+  <tr class="title_2">
+    <td colspan="5"><strong>运营商/客服</strong></td>
+  </tr>
+    
+  
+  <!--{if $admin_list_array}-->
+  <!--{loop $arows $admin_list_array}-->
+  <tr>
+  	<!--{loop $admin_list_array $ars}-->	  
+    <td width="20%"><strong>{$ars[adminName]}</strong> <span class="graytext"><!--{if $ars[adminType]=='s'}-->开发<!--{/if}--><!--{if $ars[adminType]=='u'}-->客服<!--{/if}--><!--{if $ars[adminType]=='c'}-->运营商<!--{/if}--></span></td>
+	<!--{/loop}-->
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+</table>
+<script language="JavaScript">
+function CheckLogin(id,url){
+	selectAjax('s_call.php?action=CallCheckLogin&url='+url, id);
+}	
+</script>

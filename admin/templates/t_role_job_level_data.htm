@@ -1,0 +1,104 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=role" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="11"><span class="bluetext">{$name}</span> 的等级信息</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="30" rowspan="2">删除</td>
+    <td rowspan="2">等级</td>
+    <td rowspan="2">所需经验值</td>
+    <td rowspan="2">HP上限</td>
+    <td rowspan="2" title="每级加值">+攻击/+防御</td>
+    <td>绝技 </td>
+    <td>法力</td>
+    <td rowspan="2" title="每级加值">+命中/+格挡/+破档/+闪避/+暴击/+必杀</td>
+	<td rowspan="2" >降低<br />暴机</td>
+	<td rowspan="2" >先攻值</td>
+	<td rowspan="2">速度(总值)</td>
+    </tr>
+  <tr align="center" class="title_2">
+    <td title="每级加值">+攻击/+防御</td>
+    <td title="每级加值">+攻击/+防御</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td><input name="job_id[]" type="hidden" value="{$rs[job_id]}"/><input type="checkbox" name="id_del[]" value="{$rs[job_id]},{$rs[level]}" title="选择删除"/></td>
+    <td><input name="level_old[]" type="hidden" value="{$rs[level]}"/><input name="level[]" type="text" value="{$rs[level]}" size="2"/>级</strong></td>
+    <td><input name="require_exp[]" type="text" value="{$rs[require_exp]}"  size="8"/></td>
+	<td><input name="max_health[]" type="text" value="{$rs[max_health]}" size="5"/></td>
+	<td>
+	<input name="attack[]" type="text" value="{$rs[attack]}" size="1"/>
+	<input name="defense[]" type="text" value="{$rs[defense]}" size="1"/>
+	</td>
+	<td>
+	<input name="stunt_attack[]" type="text" value="{$rs[stunt_attack]}" size="1"/>
+	<input name="stunt_defense[]" type="text" value="{$rs[stunt_defense]}" size="1"/>
+	</td>
+	<td>
+	<input name="magic_attack[]" type="text" value="{$rs[magic_attack]}" size="1"/>
+	<input name="magic_defense[]" type="text" value="{$rs[magic_defense]}" size="1"/>
+	</td>
+	<td>
+	<input name="hit[]" type="text" value="{$rs[hit]}" size="1"/>
+	<input name="block[]" type="text" value="{$rs[block]}" size="1"/>	
+	<input name="break_block[]" type="text" value="{$rs[break_block]}"  size="1"/>
+	<input name="dodge[]" type="text" value="{$rs[dodge]}" size="1"/>
+	<input name="critical[]" type="text" value="{$rs[critical]}" size="1"/>
+	<input name="kill[]" type="text" value="{$rs[kill]}" size="1"/>
+	</td>
+	<td><input name="break_critical[]" type="text" value="{$rs[break_critical]}"  size="2"/></td>
+	<td><input name="first_attack[]" type="text" value="{$rs[first_attack]}"  size="2"/></td>
+	<td><input name="speed[]" type="text" value="{$rs[speed]}" size="5"/></td>
+    </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="13" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->  
+  <!--{else}-->
+  <tr>
+	<td colspan="11" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td>新增→</td>
+    <td><input name="level_n" type="text" value=""  size="2" onChange="fill_data(this);"/></td>
+    <td><input name="require_exp_n" type="text" value=""  size="8" onChange="fill_data(this);"/></td>
+	<td><input name="max_health_n" type="text" value="" size="5" onChange="fill_data(this);"/></td>
+	<td>
+	<input name="attack_n" type="text" value="" size="1" onChange="fill_data(this);"/>
+	<input name="defense_n" type="text" value="" size="1" onChange="fill_data(this);"/>
+	</td>
+	<td>
+	<input name="stunt_attack_n" type="text" value="" size="1" onChange="fill_data(this);"/>
+	<input name="stunt_defense_n" type="text" value="" size="1" onChange="fill_data(this);"/>
+	</td>
+	<td>
+	<input name="magic_attack_n" type="text" value="" size="1" onChange="fill_data(this);"/>
+	<input name="magic_defense_n" type="text" value="" size="1" onChange="fill_data(this);"/>
+	</td>
+	<td>
+	<input name="hit_n" type="text" value="" size="1" onChange="fill_data(this);"/>
+	<input name="block_n" type="text" value="" size="1" onChange="fill_data(this);"/>
+	<input name="break_block_n" type="text" value="" size="1" onChange="fill_data(this);"/>
+	<input name="dodge_n" type="text" value="" size="1" onChange="fill_data(this);"/>
+	<input name="critical_n" type="text" value="" size="1" onChange="fill_data(this);"/>
+	<input name="kill_n" type="text" value="" size="1" onChange="fill_data(this);"/>
+	</td>
+	<td><input name="break_critical_n" type="text" value=""  size="2" onChange="fill_data(this);"/></td>
+	<td><input name="first_attack_n" type="text" value=""  size="2" onChange="fill_data(this);"/></td>
+	<td><input name="speed_n" type="text" value="" size="5" onChange="fill_data(this);"/></td>
+  </tr>  
+  <tr>
+    <td colspan="11" align="center">
+	<input name="job_id_n" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetRoleJobLevelData" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

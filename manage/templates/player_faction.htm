@@ -1,0 +1,65 @@
+{template player_top}
+<table width="100%" class="table">
+  <tr class="title_3">
+    <td colspan="19">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">
+	{lang DJDD}：<input name="level" type="text" value="{$level}" size="4" maxlength="4"  />
+	{lang BPMC}：<input name="name" type="text" value="{$name}" size="20" maxlength="20"  />
+	
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Faction" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	{lang BPMSG}
+	</form>	</td>
+  </tr> 
+  <tr class="title_2" align="center">
+    <td width="35" align="center">ID</td>
+    <td nowrap="nowrap">{lang BPMC}</td>
+    <td nowrap="nowrap">{lang BANGZHU}</td>
+    <td nowrap="nowrap">{lang ZHENYING}</td>
+    <td nowrap="nowrap">{lang USERNUM}</td>
+    <td nowrap="nowrap">{lang TQ}</td>
+	<td nowrap="nowrap">{lang JY}</td>
+	<td nowrap="nowrap">{lang SXDJ}</td>
+	<td nowrap="nowrap">{lang SXJY}</td>
+	<td nowrap="nowrap">{lang BZHDGX}</td>
+	<td nowrap="nowrap">{lang BRHDGX}</td>
+    <td>{lang BPCY}</td>
+    <td>{lang BPSQ}</td>
+    <td align="left">{lang BPMS}</td>
+    <td align="left">{lang BPGG}</td>
+  </tr> 
+
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td"  align="center">
+    <td>{$rs[id]}</td>
+    <td align="left" nowrap="nowrap"><strong style="font-size:14px;">{$rs[name]}</strong> (Lv.{$rs[level]})<br /><span class="graytext smalltext">QQ:{$rs[group_number]}</span></td>
+	<td nowrap="nowrap">{$rs[master_name]}</td>
+	<td nowrap="nowrap">{$rs[faction_class_name]}</td>
+	<td>{$rs[member_count]}</td>
+	<td>{$rs[coins]}</td>
+	<td>{$rs[exp]}</td>
+	<td>{$rs[god_level]}</td>
+	<td>{$rs[god_exp]}</td>
+	<td>{$rs[now_week_con]}</td>
+	<td>{$rs[today_con]}</td>
+    <td nowrap="nowrap"><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=CallFactionMember&sid={$sid}&uid={$rs[id]}&name={$rs[name_url]}')" class="title_menu">{lang BPCY}</a></td>
+    <td nowrap="nowrap"><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=CallFactionRequest&sid={$sid}&uid={$rs[id]}&name={$rs[name_url]}')" class="title_menu">{lang BPSQ}</a></td>
+	<td title="{$rs[description]}">{lang LOOK}</td>
+    <td title="{$rs[notice]}">{lang LOOK}</td>
+  </tr>   
+  <!--{/loop}-->
+  <!--{if $list_pages}-->
+   <tr>
+    <td colspan="19" class="page">{$list_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="19">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

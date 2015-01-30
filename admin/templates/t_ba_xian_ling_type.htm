@@ -1,0 +1,56 @@
+<form method="post" action="?in=baxian" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="5">八仙令类型</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    
+    <td width="150">标识</td>
+    <td width="150">名称</td>
+    <td width="150">类型</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id_old[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/></td>
+    <td><input name="sign[]" type="text" value="{$rs[sign]}"  size="20"/></td>
+	<td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+	<td>
+	<select name="type[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $ba_xian $bxrs}-->
+	 <option value="{$bxrs[id]}"  {if $bxrs[id] == $rs[type]}selected="selected"{/if}>{$bxrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="7" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+	<td><input name="sign_n" type="text" value=""  size="20"/></td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+    <td>
+	<select name="type_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $ba_xian $bxrs}-->
+	 <option value="{$bxrs[id]}" >{$bxrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="5" align="center">
+	<input type="hidden" name="action" value="SetBaXianLingType" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

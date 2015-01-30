@@ -1,0 +1,51 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="8"><a href="?in=admin_c&action=AddAdminC" class="right"><span class="yellowtext">[{lang LYHADD}]</span></a>{lang LYH}</th>
+  </tr>
+   <tr class="title_3">
+    <td colspan="14">
+	<!--{if !webAdmin('c_admin_m','y')}--><a href="?in=admin_c&action=AdminC&cid=999999999" class="{if $cid == 999999999} title_menu_on {else} title_menu {/if}">{lang LYHMORE}</a><!--{/if}-->
+	<!--{if $company_list}-->
+	  <!--{eval $i=1}-->
+	  <!--{loop $company_list $crs}-->
+	  <a href="?in=admin_c&action=AdminC&cid={$crs[cid]}" class="{if $cid == $crs[cid]} title_menu_on {else} title_menu {/if}">{$crs[name]}</a>
+	  <!--{if $i % 15 == 0}--><br /><!--{/if}-->
+	  <!--{eval $i++}-->
+	  
+	  <!--{/loop}-->
+	<!--{/if}--></td>
+  </tr>   
+  <tr class="title_2" align="center">
+    <td width="150">{lang ADMINNAME}</td>
+    <td width="150">{lang LASTIME}</td>
+    <td width="150">{lang LASTIP}</td>
+    <td width="50">{lang LOGIN}</td>
+    <td width="50">{lang STATE}</td>
+    <td width="50">{lang EDIT}</td>
+    <!--{if $cid != 999999999}--><td width="50">{lang COPY}</td><!--{/if}-->
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $admin_array}-->
+  <!--{loop $admin_array $rs}-->
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="" >
+    <td nowrap="nowrap"><strong style="font-size:14px;">{$rs[adminName]}</strong> <!--{if $cid != 999999999}--><span class="graytext">({$rs[company_name]})</span><!--{/if}--></td>
+	<td>{$rs[adminLoingTime]}</td>
+	<td>{$rs[adminLoingIP]}</td>
+    <td>{$rs[adminLoginHits]}</td>
+    <td><!--{if $rs[adminLock] == 1}-->{lang NORMAL}<!--{else}--><span class="graytext">{lang LOCK}</span><!--{/if}--></td>
+    <td><a href="?in=admin_c&action=EditAdminC&id={$rs[adminID]}&cid={$cid}" class="list_edit">{lang EDIT}</a></td>
+    <!--{if $cid != 999999999}--><td><a href="?in=admin_c&action=AddAdminC&id={$rs[adminID]}" class="list_edit">{lang COPY}</a></td><!--{/if}-->
+    <td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="8">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+</table>

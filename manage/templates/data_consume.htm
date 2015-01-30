@@ -1,0 +1,147 @@
+<!--{if !$ok}-->
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<form action="?in=data&action=DataConsume" method="post" name="form" id="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2">{lang XFTJ}</th>
+    </tr>
+    <tr>
+      <td align="right" valign="top"><strong>{lang COMPANY}</strong></td>
+      <td>
+	  <select name="cid" id="cid">
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>      </td>
+    </tr>
+    <tr>
+      <td align="right" valign="top"><strong>VIP等级</strong></td>
+      <td>
+	<input name="vip_s" type="text" value="{$vip_s}" size="1"/> ~	
+	<input name="vip_e" type="text" value="{$vip_e}" size="1" /></td>
+    </tr>	
+    <tr>
+      <td align="right" valign="top"><strong>角色等级</strong></td>
+      <td>
+	<input name="level_s" type="text" value="{$level_s}" size="1"/> ~	
+	<input name="level_e" type="text" value="{$level_e}" size="1" />
+	</td>
+    </tr>	
+    
+    <tr>
+      <td align="right" valign="top"><strong>{lang TIMERANGE}</strong></td>
+      <td><input name="sstime" id="sstime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly />
+        -
+        <input name="eetime" id="eetime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly />
+		<input type="button" name="button" value=" {lang SEARCH} " class="button" onclick="selectAjax('call.php?action=CallOpenDateServers','sid','cid',1);"/>      </td>
+    </tr>	
+    <tr>
+      <td align="right" valign="top"><strong>{lang SERVER}</strong></td>
+      <td>
+	  单选或多选以下服务器<br />
+	  <select name="sid[]" id="sid" size="30" multiple="multiple"  >
+          <!--{if $servers_list}-->
+          <!--{loop $servers_list $srs}-->
+          <option value="{$srs[sid]}" >{$srs[name]}-{$srs[o_name]} ({$srs[server]})</option>
+          <!--{/loop}-->
+          <!--{else}-->
+          <option  class="select">---------------------{lang CHOOSE}---------------------</option>
+          <!--{/if}-->
+        </select>      </td>
+    </tr>
+    <tr>
+      <td width="100"><input name="ok" type="hidden" value="1" />
+          <input name="action" type="hidden" value="DataConsume" /></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" {lang SUBMITOK} " class="button"/></td>
+    </tr>
+  </table>
+</form >
+<!--{else}-->
+<table class="table">   
+  <tr>
+    <th colspan="6">{lang XFTJ} VIP:{$vip_s} --- {$vip_e}  /  等级:{$level_s} --- {$level_e}  /  时间:{$sstime} --- {$eetime}</th>
+  </tr> 
+  <tr align="center" class="title_2">
+    <td width="200">{lang TYPE}</td>
+    <td width="120">{lang USERNUM}</td>
+    <td width="120">{lang CISHU}</td>
+    <td width="120">{lang ZONGJI}({lang YB})</td>
+    <td><span id="sss" onmouseover="showMenu(this.id);">{lang CYTJFWQ}</span></td>
+  </tr>
+  <tr class="purpletext trtitle"  align="center">
+	<td ><strong>{lang ZONGJI}</strong></td>
+	<td>{$crs[player_count]}</td>
+	<td>{$crs[type_count]}</td>
+	<td>{$crs[value_count]}</td>
+	<td>&nbsp;</td>
+  </tr>
+  
+  <!--{if $consume_list}-->
+  <!--{loop $consume_list $conrs}-->
+  <tr onmouseover=this.className="td3" onmouseout=this.className=""  align="center">
+	<td class="td4">{$conrs[type_name]}</td>
+	<td><!--{if $conrs[player_count]}-->{$conrs[player_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $conrs[type_count]}-->{$conrs[type_count]} <span class="smalltext graytext">({echo round($conrs[type_count]/$crs[type_count]*100,2)}%)</span><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $conrs[player_count]}-->{$conrs[value_count]} <span class="smalltext graytext">({echo round($conrs[value_count]/$crs[value_count]*100,2)}%)</span><!--{else}-->-<!--{/if}--></td>
+	<td align="left">&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="6"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>
+<div id="sss_menu" class="table" style="display:none;width:300px;padding:10px;">
+<span onclick="CycleUpdate()">{lang GXWCHQSX}</span>
+<table width="100%" class="table">   
+  <!--{if $list_array}-->
+	<!--{loop $list_array $srs}-->	  
+  <tr>
+	<td><strong>{$srs[name]}</strong></td>
+	<td><!--{if time()-$srs[filetime] > 3600}--><span id="s_{$srs[sid]}" ><input type="hidden" name="sid[]" value="{$srs[cid]}|{$srs[sid]}"/><a href="#" onclick="CycleUpdate()">{lang SJYGQCXSC}</a></span><iframe id="d_{$srs[sid]}" name="d_{$srs[sid]}" width="0" height="0" frameborder="0"></iframe><!--{/if}--></td>
+	</tr>
+  <!--{/loop}--> 
+  <!--{/if}--> 
+</table>
+<input name="vip" id="vip" type="hidden"  value="{$vip}" />
+<input name="sstime" id="sstime" type="hidden"  value="{$sstime}" />
+<input name="eetime" id="eetime" type="hidden" value="{$eetime}"/>
+<input name="vip_s" id="vip_s" type="hidden"  value="{$vip_s}" />
+<input name="vip_e" id="vip_e" type="hidden" value="{$vip_e}"/>
+<input name="level_s" id="level_s" type="hidden"  value="{$level_s}" />
+<input name="level_e" id="level_e" type="hidden" value="{$level_e}"/>
+
+</div>
+
+
+<!--{/if}-->
+<script language="javascript" type="text/javascript">
+var vip = $('vip').value;
+var sstime = $('sstime').value;
+var eetime = $('eetime').value;	
+var vip_s = $('vip_s').value;
+var vip_e = $('vip_e').value;	
+var level_s = $('level_s').value;
+var level_e = $('level_e').value;	
+
+
+function CycleUpdate(){
+	var sidArr = document.getElementsByName("sid[]");
+	var sidArrL = sidArr.length;
+	var sidArrL = sidArr.length;
+	if(sidArrL > 0){
+		var sidVal = sidArr[0].value;
+		var val = sidVal.split("|");
+		SetUrl('?in=player&action=Data&type=consume&cid='+val[0]+'&sid='+val[1]+'&t=0&s=s_'+val[1]+'&stime='+sstime+'&etime='+eetime+'&vip_s='+vip_s+'&vip_e='+vip_e+'&level_s='+level_s+'&level_e='+level_e+'',val[1]);
+	}else{
+		location.reload();
+	}
+
+}
+
+function SetUrl(url,sid){
+	top.frames['d_'+ sid].location.href  = url;
+	$('s_'+ sid).innerHTML='updating...';
+}
+</script>

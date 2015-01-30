@@ -1,0 +1,12 @@
+<?php exit;?>	2014-12-03 10:38:35	2	socket_connect(): 	halo\api\2014112501\api_base.class.php	115
+<?php exit;?>	2014-12-03 10:38:35	2	socket_write(): 	halo\api\2014112501\api_base.class.php	121
+<?php exit;?>	2014-12-03 10:38:35	2	socket_recv(): 	halo\api\2014112501\api_base.class.php	124
+<?php exit;?>	2014-12-03 10:38:48	2	socket_connect(): 	halo\api\2014112501\api_base.class.php	115
+<?php exit;?>	2014-12-03 10:38:48	2	socket_write(): 	halo\api\2014112501\api_base.class.php	121
+<?php exit;?>	2014-12-03 10:38:48	2	socket_recv(): 	halo\api\2014112501\api_base.class.php	124
+<?php exit;?>	2014-12-03 10:39:02	2	socket_connect(): 	halo\api\2014112501\api_base.class.php	115
+<?php exit;?>	2014-12-03 10:39:02	2	socket_write(): 	halo\api\2014112501\api_base.class.php	121
+<?php exit;?>	2014-12-03 10:39:02	2	socket_recv(): 	halo\api\2014112501\api_base.class.php	124
+<?php exit;?>	2014-12-03 10:39:11	2	socket_connect(): 	halo\api\2014112501\api_base.class.php	115
+<?php exit;?>	2014-12-03 10:39:11	2	socket_write(): 	halo\api\2014112501\api_base.class.php	121
+<?php exit;?>	2014-12-03 10:39:11	2	socket_recv(): 	halo\api\2014112501\api_base.class.php	124

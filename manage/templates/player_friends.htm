@@ -1,0 +1,32 @@
+<table class="table">
+  <tr>
+    <th colspan="5"><span class="yellowtext">{$player[username]} ({$player[nickname]})</span>  ＞ {lang WJHY}</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="150" >{lang USER}</td>
+    <td width="100" >{lang FENZU}</td>
+    <td width="150" >{lang GZSJ}</td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[friend_id]}</td>
+    <td><strong>{$rs[friends_name]}</strong>({$rs[nickname]})</td>
+	<td>{$rs[group_type]}</td>	
+    <td>{echo date('Y-m-d H:i:s',$rs[add_time])}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="6" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	    
+  <!--{else}-->
+  <tr>
+	<td colspan="6" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

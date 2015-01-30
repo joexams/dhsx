@@ -1,0 +1,57 @@
+{template player_log_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">
+  <tr class="title_3">
+    <td colspan="8">
+	<form action="" method="get" name="form" id="form" onSubmit="setSubmit('Submit')">
+	{lang WJCX}：
+	<select name="s_usertype" >
+	<option value="1" {if $s_usertype == 1} selected="selected" {/if}>{lang XHSZZ}</option>
+	<option value="2" {if $s_usertype == 2} selected="selected" {/if}>{lang XHSHZ}</option>
+	</select>	
+	<select name="usertype" id="usertype" >
+	<option value="1" {if $usertype == 1} selected="selected" {/if}>{lang USERNAME}</option>
+	<option value="2" {if $usertype == 2} selected="selected" {/if}>{lang USERNICK}</option>
+	</select>
+	<input name="username" type="text" value="{$username}" size="20" maxlength="20"  />
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Logs" />
+	<input name="type" type="hidden" value="flower" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr>   
+  <tr class="title_2" align="center">
+    <td width="35">ID</td>
+    <td >{lang XHZSSJ}</td>
+    <td >{lang XHNUM}</td>
+	<td >{lang XHSHZ}</td>
+	<td >{lang XHSZZ}</td>
+	<td >{lang XHSZZID}</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{eval $i=0}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}"  align="center" >
+	<td>{$rs[id]}</td>
+	<td>{echo date('Y-m-d H:i:s',$rs[send_time])}</td>
+	<td>{$rs[flower_count]}</td>
+	<td align="left"><!--{if $rs[f_is_tester] == 1}--><span class="right graytext">{lang CSH}</span><!--{elseif $rs[f_is_tester] == 2}--><span class="right graytext">{lang GJCSH}</span><!--{elseif $rs[f_is_tester] == 3}--><span class="right bluetext">GM</span><!--{elseif $rs[f_is_tester] == 4}--><span class="right bluetext">{lang XSZDY}</span><!--{/if}--><a href="?in=player&action=PlayerView&cid={$cid}&sid={$sid}&uid={$rs[from_player_id]}" target="_blank"><strong>{$rs[from_username]}</strong></a> ({$rs[from_nickname]})</td>
+	<td align="left">
+	<!--{if $rs[is_tester] == 1}--><span class="right graytext">{lang CSH}</span><!--{elseif $rs[is_tester] == 2}--><span class="right graytext">{lang GJCSH}</span><!--{elseif $rs[is_tester] == 3}--><span class="right bluetext">GM</span><!--{elseif $rs[is_tester] == 4}--><span class="right bluetext">{lang XSZDY}</span><!--{/if}--><strong><a href="?in=player&action=PlayerView&cid={$cid}&sid={$sid}&uid={$rs[player_id]}" target="_blank">{$rs[username]}</a></strong> ({$rs[nickname]})	</td>
+	<td>{$rs[player_id]}</td>
+  </tr>
+  <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+	<td colspan="8" class="page">{$list_array_pages}</td>
+  </tr>  
+	<!--{/if}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="8">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

@@ -1,0 +1,80 @@
+<form action="?in=setting&action=SaveEditAdmin" method="post" name="form" id="form" onSubmit="return ckform();setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2"><a href="?in=setting&action=Admin&cid={$cid}">{lang KFGL}</a> ＞ {lang EDIT}</th>
+    </tr>
+    <tr>
+      <td width="100" align="right"><strong>{lang ADMINNAME}</strong></td>
+      <td><!--input name="adminName" type="text" id="adminName" value="{$rs[adminName]}" size="40" maxlength="45" /--><strong>{$rs[adminName]}</strong></td>
+    </tr>
+    <tr>
+      <td width="100" align="right"><strong>{lang ADMINPWD}</strong></td>
+      <td><input name="adminPassWord" type="password" id="adminPassWord" value="" size="40" maxlength="45" autocomplete="off"/> {lang NOEDITMSG}</td>
+   </tr>    
+     <tr>
+       <td width="100" align="right" valign="top"><strong>{lang ALLPOWER}</strong></td>
+      <td>
+	  <!--{if $power_array}-->
+	    <!--{loop $power_array $prs}-->
+		<input name="adminPower[]" type="checkbox" value="{$prs[power]}" {if in_array($prs[power],$adminPowerArr)} checked {/if}/> <!--{if $adminWebLang == 'zh_CN'}-->{$prs[pname]}<!--{else}-->{echo languagevar($prs[power])}<!--{/if}--> <br />
+		<!--{/loop}-->
+	  <!--{/if}-->
+	  </td>
+   </tr> 
+   <tr>
+    <td align="right" valign="top" ><strong>{lang ALLOWIP}</strong></td>
+	<td><textarea name="adminAllowLoginIP" cols="31" rows="5">{$rs[adminAllowLoginIP]}</textarea><br /><span class="graytext">{lang LOGINIPMSG}</span></td>
+  </tr>   
+     <tr>
+      <td width="100" align="right"><strong>{lang STATE}</strong></td>
+      <td>
+		<select name="adminLock">
+		 <option value="1" {if $rs[adminLock]==1} selected="selected" {/if}>{lang NORMAL}</option>
+		 <option value="0" {if $rs[adminLock]==0} selected="selected" {/if}>{lang LOCK}</option>
+		</select>	 
+		 <span class="bluetext">{lang STATEMSG}</span> 
+	  </td>
+   </tr>        
+    <tr class="title_3">
+      <td colspan="2">{lang SETSERVER}</td>
+    </tr>  
+    <tr {if ($rs[adminType]=='s' || $rs[adminType]=='c')}style="display:none;"{/if}>
+      <td align="right" valign="top"><strong>{lang RESERVER}</strong></td>
+      <td>
+	  	<input name="all" type="checkbox" {if !$adminServersArr} checked="checked" {/if}/> {lang ALLSERVER} <span class="graytext">{lang RESERVERMSG}</span><br />
+		<select name="servers[]" id = "servers" size="10" multiple="multiple"  >
+		<!--{if $servers_list}-->
+		 <!--{loop $servers_list $srs}-->
+		 <option value="{$srs[sid]}" {if in_array($srs[sid],$adminServersArr)} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]} ({$srs[server]})</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->
+		</select>	  
+	  </td>
+   </tr> 
+     <tr>
+       <td align="right" valign="top"><strong>{lang SERVERPOWER}</strong></td>
+      <td>
+	  <span class="graytext">{lang SERVERPOWERMSG}</span><br />
+	  <!--{if $servers_power_array}-->
+	    <!--{loop $servers_power_array $prs}-->
+		<input name="serversPower[]" type="checkbox" value="{$prs[power]}" {if in_array($prs[power],$serversPowerArr)} checked {/if}/> <!--{if $adminWebLang == 'zh_CN'}-->{$prs[pname]}<!--{else}-->{echo languagevar($prs[power])}<!--{/if}--><br />
+		<!--{/loop}-->
+	  <!--{/if}-->
+	  </td>
+   </tr>
+    <tr>
+      <td><input name="id" type="hidden" value="{$adminID}"/><input name="cid" type="hidden" value="{$cid}" /></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" {lang SUBMITEDIT} " class="button"/></td>
+    </tr>
+  </table>
+</form >
+<script language="javascript" type="text/javascript">
+function ckform(){
+	var adminPower=document.getElementsByName('adminPower[]');
+	var obj = document.form;
+	if(obj.adminName.value==""){
+		alert("{lang ADMINNAMEMSG}");
+		return false;
+	}
+}
+</script>

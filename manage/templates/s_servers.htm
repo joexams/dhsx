@@ -1,0 +1,237 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">
+  <tr>
+    <th colspan="14">服务器设置</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="14">
+	<form action="" method="get" name="forms" id="forms" onSubmit="setSubmit('Submits')">
+	SID：	
+	<input name="sid" type="text" value="{$sid}" size="10" />	
+	<select name="apis">
+	<option value="" class="select">API地址</option>
+	<!--{if $servers_address_api_list}-->
+	 <!--{loop $servers_address_api_list $sars}-->
+	 <option value="{$sars[name]}" {if $sars[name] == $apis} selected="selected" {/if}>{$sars[name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<select name="dbs">
+	<option value="" class="select">DB地址</option>
+	<!--{if $servers_address_db_list}-->
+	 <!--{loop $servers_address_db_list $sars}-->
+	 <option value="{$sars[name]}" {if $sars[name] == $dbs} selected="selected" {/if}>{$sars[name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>
+	<select name="vers">
+	<option value="" class="select">版本号</option>
+	<!--{if $servers_address_ver_list}-->
+	 <!--{loop $servers_address_ver_list $sars}-->
+	 <option value="{$sars[name]}" {if $sars[name] == $vers} selected="selected" {/if}>{$sars[name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<select name="combined_to">
+	<option value="" class="select">是否合服</option>
+	 <option value="1" {if $combined_to == 1} selected="selected" {/if}>已合服</option>
+	</select>	
+	<input type="submit" name="Submit" id="Submits" value="查看配置服" class="button"/>
+	<input name="in" type="hidden" value="server" />
+	<input name="action" type="hidden" value="Servers" />
+	<!--{if $apis || $dbs}-->搜索结果：<strong>{$num}</strong>台<!--{/if}-->
+	</form>		
+	</td>
+  </tr>  
+  
+  <tr class="title_3">
+    <td colspan="14">
+	<!--{if $company_list}-->
+	  <!--{eval $i=1}-->
+	  <!--{loop $company_list $crs}-->
+	  <a href="?in=server&action=Servers&cid={$crs[cid]}" class="{if $cid == $crs[cid]} title_menu_on {else} title_menu {/if}">{$crs[name]}</a>
+	  <!--{if $i % 15 == 0}--><br /><!--{/if}-->
+	  <!--{eval $i++}-->
+	  <!--{/loop}-->
+	<!--{/if}-->	</td>
+  </tr>  
+<form method="post" action="?in=server" name="form"  onSubmit="setSubmit('Submit')">
+  
+  <tr align="center" class="title_2">
+    <td width="50">编号SID</td>
+	<td width="35">删除</td>
+    <td>代号</td>
+    <td>服务器名</td>
+    <td>游戏地址</td>
+    <td>API:地址/端口/密码</td>
+    <td>DB:地址/库名/帐号/密码</td>
+    <td>开服日期</td>
+    <td>版本</td>
+    <td title="1)是否在微小客户端显示;2)是否执行远程抓取数据">公开？</td>
+    <td title="用于服务器是否配置好">开关？</td>
+    <td title="是否测试服:不开收费请设置为[测试]；设置为[正常]则会进行开服时间来判断充值是否为测试">测试？</td>
+    <td>详细设置</td>
+	</tr>
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="15" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[sid]}<input name="id[]" type="hidden" value="{$rs[sid]}" /></td>
+	<td><!--{if $adminWebName=='sdg43ysadsk#458%&89'}--><input type="checkbox" name="id_del[]" value="{$rs[sid]}" title="选择删除{$rs[name]}"/><!--{else}-->-<!--{/if}--></td>
+    <td><input name="name[]" id="name_{$rs[sid]}" type="text" value="{$rs[name]}"  size="6" style="display:none"/><strong>{$rs[name]}</strong><!--{if $rs[combined_to]}--><br /><a href="?in=player&cid={$rs[cid]}&sid={$rs[combined_to]}" target="_blank"><span class="bluetext">合到SID:{$rs[combined_to]}</span></a><!--{/if}--></td>
+    <td><input name="o_name[]" id="o_name_{$rs[sid]}" type="text" value="{$rs[o_name]}"  size="15"  ondblclick="textareasize(this)" style="display:none"/>{$rs[o_name]}</td>
+    <td><textarea name="server[]" id="server_{$rs[sid]}" cols="20" rows="3" onBlur="checkservers({$rs[sid]})" ondblclick="textareasize(this)" style="display:none">{$rs[server]}</textarea>{$rs[server]}<br /><span id="server_{$rs[sid]}_show" class="redtext"></span></td>
+    <td>{$rs[api_server]}<br />
+	<input name="api_port[]" id="api_port_{$rs[sid]}" type="text" value="{$rs[api_port]}"  size="5" style="display:none"/>{$rs[api_port]}<br />
+	<input name="api_pwd[]" id="api_pwd_{$rs[sid]}" type="text" value="{$rs[api_pwd]}"  size="10" style="display:none"/>
+	</td>
+    <td>{$rs[db_server]}<br />
+	<input name="db_name[]" id="db_name_{$rs[sid]}" type="text" value="{$rs[db_name]}"  size="6" ondblclick="textareasize(this)" style="display:none"/>{$rs[db_name]}<br />
+	<input name="db_root[]" id="db_root_{$rs[sid]}" type="text" value="{$rs[db_root]}"  size="6" ondblclick="textareasize(this)" style="display:none"/>
+	<input name="db_pwd[]" id="db_pwd_{$rs[sid]}" type="text" value="{$rs[db_pwd]}"  size="10" ondblclick="textareasize(this)" style="display:none"/>
+	</td>
+    <td>{echo date('Y-m-d H:i',strtotime($rs[open_date]))}<input name="open_date[]" id="open_date_{$rs[sid]}" type="text" value="{echo date('Y-m-d H:i',strtotime($rs[open_date]))}"  size="18" onclick="showcalendar(event, this,true)" readonly  style="display:none"/></td>	
+    <td>{$rs[server_ver]}
+	</td>
+	<td><!--{if $rs[private]}-->公开<!--{else}--><span class="graytext">私有</span><!--{/if}-->
+	<select name="private[]" style="display:none">
+		<option value="0" {if $rs[private] == 0} selected="selected" {/if} class="select">私</option>
+		<option value="1" {if $rs[private] == 1} selected="selected" {/if}>公</option>
+	</select>	
+	</td>
+		
+	<td><!--{if $rs[open]}-->开启<!--{else}--><span class="graytext">关闭</span><!--{/if}-->
+	<select name="open[]" style="display:none">
+		<option value="0" {if $rs[open] == 0} selected="selected" {/if} class="select">关</option>
+		<option value="1" {if $rs[open] == 1} selected="selected" {/if}>开</option>
+	</select>	
+	</td>
+	<td><!--{if $rs[test] == 0}-->正常<!--{else}--><span class="graytext">测试</span><!--{/if}-->
+	<select name="test[]" style="display:none">
+		<option value="0" {if $rs[test] == 0} selected="selected" {/if}>正常</option>
+		<option value="1" {if $rs[test] == 1} selected="selected" {/if} class="select">测试</option>
+	</select>	
+	</td>
+	
+	<td nowrap="nowrap"><a href="javascript:void(0)" onclick="pmwin('open','s_call.php?action=CallServersSet&sid={$rs[sid]}')" class="title_menu">详细设置</a></td>
+	
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="15" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if !$apis && !$dbs}-->
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→<input name="cid" type="hidden" value="{$cid}" /></td>
+    <td><input name="name_n" id="name_n" type="text" value="" size="6"/></td>
+    <td><input name="o_name_n" id="o_name_n" type="text" value=""  size="15"  ondblclick="textareasize(this)"/></td>
+    <td><textarea name="server_n" id="server_n" cols="20" rows="3" onBlur="checkserversN()" ondblclick="textareasize(this)"></textarea><br /><span id="server_n_show" class="redtext"></span><span class="graytext">一个一行</span></td>
+    <td>
+	<select name="api_server_n" id="api_server_n" >
+	<option value="000" class="select">未配置</option>
+	<!--{if $servers_address_api_list}-->
+	 <!--{loop $servers_address_api_list $sars}-->
+	 <option value="{$sars[name]}" >{$sars[name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<input name="api_port_n" id="api_port_n" type="text" value=""  size="5"/>
+	<input name="api_pwd_n" id="api_pwd_n" type="text" value=""  size="10"/>
+	</td>	
+    <td>
+	<select name="db_server_n" id="db_server_n">
+	<option value="000" class="select">未配置</option>
+	<!--{if $servers_address_db_list}-->
+	 <!--{loop $servers_address_db_list $sars}-->
+	 <option value="{$sars[name]}">{$sars[name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<input name="db_name_n" id="db_name_n" type="text" value=""  size="6" ondblclick="textareasize(this)"/>
+	<input name="db_root_n" id="db_root_n" type="text" value=""  size="6" ondblclick="textareasize(this)"/>
+	<input name="db_pwd_n" id="db_pwd_n" type="text" value=""  size="10" ondblclick="textareasize(this)"/>
+	</td>
+    <td><input name="open_date_n" id="open_date_n" type="text" value="{echo date('Y-m-d H:i',time())}"  size="18" onclick="showcalendar(event, this,true)" readonly/></td>	
+    <td>
+	<select name="server_ver_n" id="server_ver_n">
+	<option value="000" class="select">未配置</option>
+	<!--{if $servers_address_ver_list}-->
+	 <!--{loop $servers_address_ver_list $svrs}-->
+	 <option value="{$svrs[name]}">{$svrs[name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	</td>
+	<td>
+	<select name="private_n">
+		<option value="0" class="select">私</option>
+		<option value="1">公</option>
+	</select>	
+	</td>		
+	<td>
+	<select name="open_n">
+		<option value="0" class="select">关</option>
+		<option value="1">开</option>
+	</select>	
+	</td>
+	<td>
+	<select name="test_n">
+		<option value="1" class="select">测试</option>
+		<option value="0">正常</option>
+	</select>	
+	</td>	
+	<td>
+	<select name="sid" id = "sid" onChange="copyServer(this.options[selectedIndex].value)">
+	<option value="" class="select">复制</option>
+	<!--{if $list_array}-->
+	 <!--{loop $list_array $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->		
+		
+	</select>	
+	</td>	
+  </tr> 
+  <!--{/if}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="15" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+  <!--{if !$apis && !$dbs}-->   
+  <tr>
+    <td colspan="15" align="center">
+	<input type="hidden" name="action" value="SetServers" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+  <!--{/if}-->
+</form>  
+</table>
+<script language="javascript">
+function checkservers(id) {
+	selectAjax('call.php?action=CallCheckServers&server='+encodeURIComponent($('server_'+id).value)+'&sid='+id, 'server_'+id+'_show','','',1);
+}
+function checkserversN() {
+	selectAjax('call.php?action=CallCheckServers&server='+encodeURIComponent($('server_n').value), 'server_n_show','','',1);
+}
+ function copyServer(id)
+ {  
+   $('o_name_n').value = $('o_name_'+id).value; 
+   $('server_n').value = $('server_'+id).value; 
+   $('api_server_n').value = $('api_server_'+id).value; 
+   $('api_port_n').value = $('api_port_'+id).value; 
+   $('api_pwd_n').value = $('api_pwd_'+id).value; 
+   $('db_server_n').value = $('db_server_'+id).value; 
+   $('db_name_n').value = $('db_name_'+id).value; 
+   $('db_root_n').value = $('db_root_'+id).value; 
+   $('db_pwd_n').value = $('db_pwd_'+id).value; 
+   $('server_ver_n').value = $('server_ver_'+id).value; 
+   $('open_date_n').value = $('open_date_'+id).value; 
+ }
+</script>

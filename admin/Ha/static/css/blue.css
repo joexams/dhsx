@@ -1,0 +1,209 @@
+@charset "utf-8";
+/*
+ * artDialog skin
+ * http://code.google.com/p/artdialog/
+ * (c) 2009-2011 TangBin, http://www.planeArt.cn
+ *
+ * This is licensed under the GNU LGPL, version 2.1 or later.
+ * For details, see: http://creativecommons.org/licenses/LGPL/2.1/
+ */
+ 
+/* common start */
+body { _margin:0; _height:100%; /*IE6 BUG*/
+}
+.d-outer  {	text-align:left;background:#fff;}
+.d-border, .d-dialog {
+	border:0;
+	margin:0;
+	border-collapse:collapse;
+	width:auto;
+}
+.d-nw, .d-n, .d-ne, .d-w, .d-c, .d-e, .d-sw, .d-s, .d-se, .d-header, .d-tdIcon, .d-main, .d-footer { padding:0; }
+.d-header, .d-buttons{
+	font-size:12px;
+	font-family:"微软雅黑", "宋体", Tahoma, Arial, Helvetica, STHeiti;
+}
+.d-title {
+	overflow:hidden;
+	text-overflow: ellipsis;
+}
+.d-state_noTitle .d-title { display:none; }
+.d-close {
+	display:block;
+	position:absolute;
+	text-decoration:none;
+	outline:none;
+	cursor:pointer;
+}
+.d-close:hover { text-decoration:none; }
+.d-main {
+	text-align:center;
+	min-width:9em;
+	min-width:0 \9/*IE8 BUG*/;
+}
+.d-content {
+	display:inline-block;
+*zoom:1;
+*display:inline;
+	text-align:left;
+	border:none 0;
+}
+.d-content.d-state_full {
+	display:block;
+	width:100%;
+	margin:0;
+	padding:0!important;
+	height:100%;
+}
+.d-loading {
+	width:96px;
+	height:32px;
+	text-align:left;
+	text-indent:-999em;
+	overflow:hidden;
+	background:url(loading.gif) no-repeat center center;
+}
+.d-icon { vertical-align: middle; }
+.d-icon div {
+	width:48px;
+	height:48px;
+	margin:10px 0 10px 10px;
+	background-position: center center;
+	background-repeat:no-repeat;
+}
+.d-buttons {
+	padding:8px;
+	text-align:right;
+	white-space:nowrap;
+}
+.d-buttons {
+	margin-left:15px;
+	padding:0 20px;
+	cursor: pointer;
+	display: inline-block;
+	text-align: center;
+	height:26px;
+	line-height:26px;
+	vertical-align:middle;
+	overflow:visible;
+	color: #333;
+	border: solid 1px #cdcdcd;
+	background:url(blue/bg.png) repeat-x 0 -76px;
+	_height:22px;
+	_line-height:22px;
+	_background:#eaeaea;
+}
+.d-buttons::-moz-focus-inner {
+border:0;
+padding:0;
+margin:0;
+}
+.d-buttons:focus { }
+.d-buttons:hover {
+	color:#111;
+	border-color:#aaa;
+}
+.d-buttons:active { }
+.d-buttons[disabled] {
+	cursor:default;
+	color:#aaa;
+	background:#eaeaea;
+	border: solid 1px #999;
+}
+.d-state_highlight {
+	color: #fff;
+	border: solid 1px #0a7cbe;
+	background:url(blue/bg.png) repeat-x 0 -50px;
+	_background:#26a5f6;
+}
+.d-state_highlight:hover {
+	color:#FFF;
+	border-color:#002e7b;
+}
+.d-state_highlight:active { }
+/* common end */
+
+.d-inner { background:#fff; }
+.d-outer { border:3px solid #353535; }
+.d-titleBar {
+	width:100%;
+	height:0;
+	position:relative;
+	bottom:32px;
+	_bottom:0;
+	_margin-top:-32px;
+}
+.d-title {
+	height:29px;
+	line-height:29px;
+	padding:0 25px 0 0;
+	_padding:0;
+	color:#FFF;
+	font-weight:bold;
+	text-shadow:-1px -1px 0 rgba(33, 79, 183, .7);
+}
+.d-nw, .d-ne {
+	width:15px;
+	height:34px;
+	background:url(blue/bg.png) repeat-x 0 0;
+}
+.d-n {
+	width:auto;
+	height:34px;
+	background:url(blue/bg.png) repeat-x 0 0;
+}
+.d-w, .d-e {
+	width:5px;
+	height:auto;
+	background:#fff;
+}
+.d-s {
+	width:auto;
+	height:18px;
+	background:#fff;
+}
+.d-sw, .d-se {
+	width:15px;
+	height:18px;
+	background:#fff;
+}
+.d-close {
+	background:url(blue/bg.png) no-repeat 0 -112px;
+	background-repeat:no-repeat;
+	top:4px;
+	right:-5px;
+	_z-index:1;
+	width:20px;
+	height:20px;
+	_font-size:0;
+	_line-height:0;
+	text-indent:-9999em;
+}
+.d-close:hover { background-position:0 -132px; }
+.d-icon, .d-main { padding-top:3px; }
+.d-state_noTitle .d-outer {
+	border:1px solid #b8eabb;
+	background:#e5fee7;
+}
+.d-state_noTitle .d-dialog {
+	text-align:center;
+	color:#0b7311;
+	background:#e5fee7;
+}
+.d-state_noTitle .d-nw, .d-state_noTitle .d-ne, .d-state_noTitle .d-w, .d-state_noTitle .d-e, .d-state_noTitle .d-sw, .d-state_noTitle .d-se {
+	width:3px;
+	height:3px;
+	background:none;
+}
+.d-state_noTitle .d-s, .d-state_noTitle .d-n {
+	height:3px;
+	background:none;
+}
+.d-state_noTitle .d-titleBar {
+	bottom:0;
+	_bottom:0;
+	_margin-top:0;
+}
+.d-state_noTitle .d-close { display:none; }
+.d-content { padding: 5px 10px; }
+.d-state_noTitle .d-content { padding:10px 20px; }

@@ -1,0 +1,73 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">    
+  <tr>
+    <th colspan="12" class="title_1">{lang SYQS}</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="12">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submits')">
+	<select name="cid">
+	 <option class="select" value="0">{lang COMPANY}</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	{lang OPENFROM}
+	<input name="in" type="hidden" value="data" />
+	<input name="action" type="hidden" value="DataDayList" />
+	<input type="submit" name="Submit" id="Submits" value=" {lang SEARCH} " class="button"/>
+	</form>	</td>
+  </tr> 
+
+  <tr align="center" class="title_2">
+  	<td width="125" rowspan="2">{lang DATE}</td>
+	<td width="60" rowspan="2">{lang ZFSL}</td>
+	<td width="80" rowspan="2">{lang DRZSR}</td>
+	<td width="80" rowspan="2" style="border-right:3px solid #CECFDA;">{lang PJMFSR}</td>
+	<td colspan="3" style="border-right:3px solid #CECFDA;">{lang DRXKF}</td>
+	
+	<td colspan="2" style="border-right:3px solid #CECFDA;">{lang DATEQSYF}</td>
+	
+	<td colspan="2">{lang DATEDRKF}</td>
+	<td rowspan="2">&nbsp;</td>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="80">{lang SHOURU}</td>
+    <td width="40">{lang KAIFU}</td>
+    <td width="40" style="border-right:3px solid #CECFDA;">{lang HEFU}</td>
+	
+    <td width="80">{lang SHOURU}</td>
+    <td width="80" style="border-right:3px solid #CECFDA;">{lang ZENGJIAN}</td>
+    <td width="80">{lang SHOURU}</td>
+    <td width="80">{lang ZENGJIAN}</td>
+  </tr>
+  
+  <!--{if $day_list}-->
+  <!--{eval $s_num_today = $open_count - $m_open_count}-->
+  <!--{loop $day_list $drs $day}-->	  
+	<!--{eval $pay_amount_d2 = $data[date('Y-m-d',strtotime($day)-86400)][pay_amount_d]}-->
+	<!--{eval $pay_amount_dd2 = $data[date('Y-m-d',strtotime($day)-86400)][pay_amount_dd]}-->
+	<!--{eval $pay_amount_del = round($data[$day][pay_amount_d]-$pay_amount_d2,1)}-->
+	<!--{eval $pay_amount_del2 = round($data[$day][pay_amount_dd]-$pay_amount_dd2,1)}-->
+	  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="right" >
+		<td align="center"><strong>{$day}</strong> <span class="graytext smalltext">{echo GetWeekDay($day)}</span><!--{if $date[$day][date]}--><br /><span class="bluetext" title="{echo $date[$day][contents]}">({$date[$day][ver]})</span><!--{/if}--></td>
+		<td align="center"><!--{if $s_num_today}-->{echo $s_num_today}<!--{else}-->-<!--{/if}--></td>
+		<td class="orangetext"><!--{if $data[$day][pay_amount]}--><strong>{$data[$day][pay_amount]}</strong>{lang YUAN}<!--{else}-->-<!--{/if}--></td>
+		<td style="border-right:3px solid #CECFDA;"><!--{if $s_num_today && $data[$day][pay_amount]}-->≈{echo round($data[$day][pay_amount]/$s_num_today,0)}{lang YUAN}<!--{else}-->-<!--{/if}--></td>
+		<td class="greentext"><!--{if $data[$day][pay_amount_today]}-->{$data[$day][pay_amount_today]}{lang YUAN}<!--{else}-->-<!--{/if}--></td>
+		<td align="center"><!--{if $server[$day][s_num]}--><strong>{echo $server[$day][s_num] - $merger[$day][m_num]}</strong><!--{else}-->-<!--{/if}--></td>
+		<td align="center" style="border-right:3px solid #CECFDA;" title="{$mpay[$day][pay_amount_today]}{lang YUAN}"><!--{if $merger[$day][m_num]}-->{$merger[$day][m_num]}<!--{else}-->-<!--{/if}--></td>
+		<td class="bluetext"><!--{if $data[$day][pay_amount_d]}-->{$data[$day][pay_amount_d]}{lang YUAN}<!--{else}-->-<!--{/if}--></td>
+		<td style="border-right:3px solid #CECFDA;"><!--{if $pay_amount_d2}--><!--{if $pay_amount_del > 0}--><span class="greentext">+{$pay_amount_del}</span><!--{elseif $pay_amount_del < 0}-->{$pay_amount_del}<!--{/if}--><!--{else}-->-<!--{/if}--></td>
+   		<td class="bluetext"><!--{if $data[$day][pay_amount_dd]}-->{$data[$day][pay_amount_dd]}{lang YUAN}<!--{else}-->-<!--{/if}--></td>
+		<td><!--{if $pay_amount_dd2}--><!--{if $pay_amount_del2 > 0}--><span class="greentext">+{$pay_amount_del2}</span><!--{elseif $pay_amount_del2 < 0}-->{$pay_amount_del2}<!--{/if}--><!--{else}-->-<!--{/if}--></td>
+		<td align="left" >&nbsp;</td>
+	  </tr>
+  	<!--{eval $s_num_today = $s_num_today - $server[$day][s_num] + $merger[$day][m_num];}-->
+  <!--{/loop}-->  
+  <!--{else}--> 
+	  <tr >
+		<td colspan="12"  align="center">{lang NULL}</td>
+	  </tr>			  
+  <!--{/if}--> 
+</table>

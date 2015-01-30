@@ -1,0 +1,266 @@
+  <script language="javascript">
+	  function fill_data (army_type, text_id,id) {
+	  		
+		ele = document.getElementById(text_id);
+		
+		  text_value = ele.value;
+		  values = text_value.split('\t');
+		  var l = 6;
+
+		  if (values.length != l) {
+			  alert('参数无效');
+			  ele.focus();
+
+			  return true;
+		  }
+		  
+		  document.getElementById(army_type +  '_require_power_' + id).value        = values[0];
+		  document.getElementById(army_type +  '_average_attack_' + id).value        = values[1];
+		  document.getElementById(army_type +  '_average_damage_' + id).value       = values[2];
+		  document.getElementById(army_type +  '_award_skill_' + id).value  = values[3];
+		  document.getElementById(army_type +  '_award_experience_' + id).value  = values[4];
+		  document.getElementById(army_type +  '_award_coins_' + id).value  = values[5];
+
+		  
+		  
+	  }
+
+</script>
+<table class="table">
+  <tr>
+    <th colspan="25"><a href="?in=mission&action=MissionList"><span class="bluetext">{$mission_section_name}</span> 副本的
+	<!--{if $type == 1}-->英雄
+	<!--{elseif $type == 2}-->BOSS
+	<!--{elseif $type == 3}-->爬塔
+	<!--{elseif $type == 4}-->渡劫
+	<!--{elseif $type == 6}-->桃子
+	<!--{elseif $type == 7}-->生肖
+	<!--{elseif $type == 8}-->游仙
+	<!--{elseif $type == 9}-->光环
+	<!--{elseif $type == 11}-->九界
+	<!--{elseif $type == 12}-->九界神秘层
+	<!--{elseif $type == 13}-->护送取经
+	<!--{elseif $type == 14}-->战无双
+	<!--{elseif $type == 15}-->八仙
+	<!--{elseif $type == 16}-->轮回
+	<!--{elseif $type == 17}-->伙伴招募	
+	<!--{elseif $type == 18}-->阵盘印
+	<!--{elseif $type == 19}-->神仙幻境
+	<!--{else}-->普通<!--{/if}-->
+	剧情列表</a><!--{if $name}--> ＞ 搜索 <span class="bluetext">{$name}</span><!--{/if}--></th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="25">
+	<!--{if $mission_section_list}-->
+	 <!--{eval $i=1}-->
+	  <!--{loop $mission_section_list $mrs}-->
+	  <a href="?in=mission&mission_section_id={$mrs[id]}&action=MissionList&type={$type}" class="{if $mission_section_id == $mrs[id]} title_menu_on {else} title_menu {/if}"><strong>{$mrs[name]}</strong>{if $type == 1}-英雄{elseif $type == 2}-BOSS{elseif $type == 3}-爬塔{elseif $type == 4}-渡劫{elseif $type == 6}-桃子{elseif $type == 7}-生肖{elseif $type == 8}-游仙{elseif $type == 9}-光环{elseif $type == 11}-九界{elseif $type == 12}-九界神秘层{elseif $type == 13}-护送取经{elseif $type == 14}-战无双{elseif $type == 15}-八仙{elseif $type == 16}-轮回{elseif $type == 17}-伙伴招募{elseif $type == 18}-阵盘印{elseif $type == 19}-神仙幻境{/if} ({$mrs[town_name]} / 权值:{$mrs[lock]})</a>
+	  <!--{if $i % 5 == 0}--><br /><!--{/if}-->
+	  <!--{eval $i++}-->	  
+	  <!--{/loop}-->
+	<!--{/if}-->		
+	</td>
+  </tr> 
+<form method="post" action="?in=mission" name="form"  onSubmit="setSubmit('Submit')">   
+  <tr align="center" class="title_2">
+    <td width="35" rowspan="2">ID</td>
+	<td width="30" rowspan="2">删除</td>
+    <td rowspan="2" >名称</td>
+	<td rowspan="2" >剧情权值</td>
+    <td rowspan="2" >描述</td>
+    <td rowspan="2" title="需求体力值">需求体力</td>
+    <td colspan="2" title="评价标准" >评价标准</td>
+    <td colspan="2" >评价奖励</td>
+    <td colspan="2" >宝箱奖励</td>
+	<td rowspan="2" >装备掉落概率</td>
+	<td rowspan="2" >加:武力/绝技/法术</td>
+	<td rowspan="2" >关联任务</td>
+    <td colspan="3" title="奖励解锁权限" >解锁</td>
+	<td rowspan="2" >视频</td>
+    <td rowspan="2" >代表怪</td>
+	<td rowspan="2" >是否BOSS关</td>
+	<td rowspan="2" >是否禁用</td>
+    <td rowspan="2" >房间</td>
+    <td rowspan="2" >战败提示</td>
+    </tr>
+  <tr align="center" class="title_2">
+    <td >伤害</td>
+    <td >损血</td>
+    <td >阅历</td>
+    <td >经验</td>
+    <td >铜币</td>
+    <td title="宝箱掉落物品">掉落</td>
+    <td title="奖励的剧情解锁权限" >剧情</td>
+    <td title="奖励功能解锁权值"  >功能</td>
+    <td title="奖励角色解锁权值"  >角色</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="completion[]" type="hidden" value="{$rs[completion]}"  size="2"/><input name="require_level[]" type="hidden" value="{$rs[require_level]}"  size="2"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td>
+	<!--{if $type <> 0}-->
+	<input name="name[]" type="text" value="{$rs[name]}" size="15"/><br />
+	<a href="?in=mission&action=MissionView&id={$rs[id]}&name={$mission_section_name_url}&type={$type}" class="list_menu" >查看</a>
+	<!--{else}-->
+	<input name="name[]" type="text" value="{$rs[name]}" /><br /><strong>{$mission_section_name}</strong>({$rs[i]})
+	<a href="?in=mission&action=MissionView&id={$rs[id]}&name={$mission_section_name_url}&type={$type}" class="list_menu" >查看</a>
+	<!--{/if}-->
+	</td>
+    <td><input name="lock[]" type="text" value="{$rs[lock]}"  size="4"/></td>
+    <td><textarea name="description[]" cols="10" rows="1" ondblclick="textareasize(this)">{$rs[description]}</textarea></td>
+    <td><input name="require_power[]" id="m_require_power_{$rs[id]}" type="text" value="{$rs[require_power]}"  size="2" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/></td>
+    <td><input name="average_attack[]" id="m_average_attack_{$rs[id]}" type="text" value="{$rs[average_attack]}"  size="2" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/></td>
+    <td><input name="average_damage[]" id="m_average_damage_{$rs[id]}" type="text" value="{$rs[average_damage]}"  size="2" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/></td>
+    <td><input name="award_skill[]" id="m_award_skill_{$rs[id]}" type="text" value="{$rs[award_skill]}"  size="2" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/></td>
+    <td><input name="award_experience[]" id="m_award_experience_{$rs[id]}" type="text" value="{$rs[award_experience]}"  size="5" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/></td>
+    <td><input name="award_coins[]" id="m_award_coins_{$rs[id]}" type="text" value="{$rs[award_coins]}"  size="2" onChange="fill_data('m', this.id,{$rs[id]});" onClick="this.select();"/></td>
+    <td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallMissionItem&id={$rs[id]}&name={$rs[name_url]}')" class="list_menu" title="副本奖励">奖励</a></td>
+    <td><input name="item_probability[]" type="text" value="{$rs[item_probability]}"  size="2"/></td>
+    <td>
+	<input name="add_strength[]" type="text" value="{$rs[add_strength]}"  size="1"/>
+	<input name="add_agile[]" type="text" value="{$rs[add_agile]}"  size="1"/>
+	<input name="add_intellect[]" type="text" value="{$rs[add_intellect]}"  size="1"/>
+	</td>
+    <td>
+	<select name="releate_quest_id[]">
+	 <option class="select">选择任务</option>
+	 <!--{loop $quest_list $qrs}-->
+	 <option value="{$qrs[id]}" {if $qrs[id] == $rs[releate_quest_id]}selected="selected"{/if}>{$qrs[title]} (ID:{$qrs[id]})</option>
+	 <!--{/loop}-->	
+	</select>	</td>	
+    <td><input name="award_mission_key[]" type="text" value="{$rs[award_mission_key]}"  size="4"/></td>
+    <td>
+	<select name="award_function_key[]" style="width:120px;">
+	 <option class="select">功能解锁</option>
+	 <!--{loop $game_function_list $gfrs}-->
+	 <option value="{$gfrs[lock]}" {if $gfrs[lock] == $rs[award_function_key]}selected="selected"{/if}>(权:{$gfrs[lock]}){$gfrs[name]} </option>
+	 <!--{/loop}-->	
+	</select>	</td>
+    <td><input name="award_role_key[]" type="text" value="{$rs[award_role_key]}"  size="2"/></td>
+    <td>
+	<select name="mission_video_id[]">
+	 <option class="select" value="NULL">选择视频</option>
+	 <!--{loop $mission_video_list $mvrs}-->
+	 <option value="{$mvrs[id]}" {if $mvrs[id] == $rs[mission_video_id]}selected="selected"{/if}>{$mvrs[name]}</option>
+	 <!--{/loop}-->	
+	</select>	</td>	
+    <td>
+	<select name="monster_id[]" >
+	 <option class="select" value="NULL">选择怪物</option>
+	 <!--{loop $monster_list $mrs}-->
+	 <option value="{$mrs[id]}" {if $mrs[id] == $rs[monster_id]}selected="selected"{/if}>{$mrs[level]}级-{$mrs[name]}</option>
+	 <!--{/loop}-->	
+	</select>	</td>
+    <td>
+	<select name="is_boss[]">
+	 <option value="0" {if $rs[is_boss] == 0}selected="selected"{/if} class="select">否</option>
+	 <option value="1" {if $rs[is_boss] == 1}selected="selected"{/if}>是</option>
+	</select>	
+	</td>
+    <td>
+	<select name="is_disable[]">
+	 <option value="0" {if $rs[is_disable] == 0}selected="selected"{/if} class="select">否</option>
+	 <option value="1" {if $rs[is_disable] == 1}selected="selected"{/if}>是</option>
+	</select>	
+	</td>
+	
+    <td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallMissionScene&id={$rs[id]}&name={$rs[name_url]}&type={$type}')" class="list_menu">房间</a></td>
+    <td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallMissionFailedTips&id={$rs[id]}&name={$rs[name_url]}')" class="list_menu">战败提示</a></td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="25" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→<input name="completion_n" type="hidden" value="1"/><input name="require_level_n" type="hidden" value="1" /><input name="type_n" type="hidden" value="{$type}" /></td>
+    <td>
+	<!--{if $type != 0}-->
+	<input name="name_n" type="text" value="" size="15"/>
+	<!--{else}-->
+	<input name="name_n" type="hidden" value="{$mission_section_name}({$newi})"/><strong>{$mission_section_name}</strong>({$newi})
+	<!--{/if}-->	
+	</td>
+    <td><input name="lock_n" type="text" value="{$lock_n}"  size="4"/></td>
+    <td>
+	<textarea name="description_n" cols="10" rows="1" ondblclick="textareasize(this)"></textarea>
+	<select name="mission_section_id_n" style="display:none;">
+	 <option class="select">选择副本</option>
+	 <!--{loop $mission_section_list $mrs}-->
+	 <option value="{$mrs[id]}" {if $mrs[id] == $mission_section_id}selected="selected"{/if}>{$mrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="require_power_n" id="m_require_power_n" type="text" value=""  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td><input name="average_attack_n" id="m_average_attack_n" type="text" value=""  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+	<td><input name="average_damage_n" id="m_average_damage_n" type="text" value=""  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>	
+    <td><input name="award_skill_n" id="m_award_skill_n" type="text" value=""  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td><input name="award_experience_n" id="m_award_experience_n" type="text" value=""  size="5" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td><input name="award_coins_n" id="m_award_coins_n" type="text" value=""  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+	<td>&nbsp;</td>
+    <td><input name="item_probability_n" type="text" value=""  size="2"/></td>
+    <td>
+	<input name="add_strength_n" type="text" value=""  size="1"/>
+	<input name="add_agile_n" type="text" value=""  size="1"/>
+	<input name="add_intellect_n" type="text" value=""  size="1"/>
+	</td>	
+	<td>
+	<select name="releate_quest_id_n">
+	 <option class="select">选择任务</option>
+	 <!--{loop $quest_list $qrs}-->
+	 <option value="{$qrs[id]}">{$qrs[title]} (ID:{$qrs[id]})</option>
+	 <!--{/loop}-->	
+	</select>	</td>	
+    <td><input name="award_mission_key_n" type="text" value=""  size="4"/></td>
+    <td>
+	<select name="award_function_key_n" style="width:120px;">
+	 <option class="select">功能解锁</option>
+	 <!--{loop $game_function_list $gfrs}-->
+	 <option value="{$gfrs[lock]}">(权:{$gfrs[lock]}){$gfrs[name]}</option>
+	 <!--{/loop}-->	
+	</select>	</td>
+    <td><input name="award_role_key_n" type="text" value=""  size="2"/></td>
+    <td>
+	<select name="mission_video_id_n">
+	 <option class="select" value="NULL">选择视频</option>
+	 <!--{loop $mission_video_list $mvrs}-->
+	 <option value="{$mvrs[id]}">{$mvrs[name]}</option>
+	 <!--{/loop}-->	
+	</select>	</td>	
+    <td>
+	<select name="monster_id_n" >
+	 <option class="select" value="NULL">选择怪物</option>
+	 <!--{loop $monster_list $mrs}-->
+	 <option value="{$mrs[id]}">{$mrs[level]}级-{$mrs[name]}</option>
+	 <!--{/loop}-->	
+	</select>	</td>
+    <td>
+	<select name="is_boss_n">
+	 <option value="0" class="select">否</option>
+	 <option value="1" >是</option>
+	</select>		
+	</td>
+    <td>
+	<select name="is_disable_n">
+	 <option value="0" class="select">否</option>
+	 <option value="1" >是</option>
+	</select>		
+	</td>	
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    </tr>
+  
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="25" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+  <tr>
+    <td colspan="25" class="greentext">
+	<input type="hidden" name="action" value="SetMissionList" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/> 若删除剧情将一并删除剧情下属的房间及房间下的相关数据</td>
+  </tr> 
+</form>    
+</table>

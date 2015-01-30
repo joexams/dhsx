@@ -1,0 +1,16 @@
+{
+    [
+        'src/*',
+        'src/api/*',
+        'src/mod/*',
+	'src/mod/war/*',
+        'src/lib/*',
+        'src/lib/mysql/*',
+        'src/lib/tcp/*'
+    ],
+    [
+        debug_info,
+        {i, "inc"},
+        {outdir, "bin"}
+    ]
+}.

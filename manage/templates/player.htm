@@ -1,0 +1,177 @@
+{template player_top}
+<table class="table" style="margin-bottom:5px;">
+  <tr class="title_3">
+    <td colspan="14">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">
+	渠道：<input name="source" id="source" type="text"  value="{$source}" size="10" />	
+	<select name="vip">
+	 <option value="">{lang VIPFW}</option>
+	<!--{if $vip_list}-->
+	 <!--{loop $vip_list $vrs $v}-->
+	 <option value="{$v}" {if $v == $vip} selected {/if}>VIP{$v}{lang YISHANG}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->	
+	</select>
+	<select name="type">
+	 <option value="">{lang TYPE}</option>
+	 <option value="test_1_2" {if $type == 'test_1_2'} selected {/if}>{lang CSH}</option>
+	 <option value="test_4" {if $type == 'test_4'} selected {/if}>{lang XSZDY}</option>
+	 <option value="test_3" {if $type == 'test_3'} selected {/if}>GM</option>
+	</select>	
+	<select name="yellow">
+	 <option value="">是否黄钻</option>
+	 <option value="1" {if $yellow == '1'} selected {/if}>黄钻</option>
+	 <option value="2" {if $yellow == '2'} selected {/if}>包年黄钻</option>
+	</select>
+	<select name="yellow_level">
+	 <option value="">黄钻等级</option>
+	 <option value="1" {if $yellow_level == '1'} selected {/if}>1级</option>
+	 <option value="2" {if $yellow_level == '2'} selected {/if}>2级</option>
+	 <option value="3" {if $yellow_level == '3'} selected {/if}>3级</option>
+	 <option value="4" {if $yellow_level == '4'} selected {/if}>4级</option>
+	 <option value="5" {if $yellow_level == '5'} selected {/if}>5级</option>
+	 <option value="6" {if $yellow_level == '6'} selected {/if}>6级</option>
+	 <option value="7" {if $yellow_level == '7'} selected {/if}>7级</option>
+	 <option value="8" {if $yellow_level == '8'} selected {/if}>8级</option>
+	</select>	
+	<select name="blue">
+	 <option value="">是否蓝钻</option>
+	 <option value="1" {if $blue == '1'} selected {/if}>蓝钻</option>
+	 <option value="2" {if $blue == '2'} selected {/if}>包年蓝钻</option>
+	</select>	
+	<select name="blue_level">
+	 <option value="">蓝钻等级</option>
+	 <option value="1" {if $blue_level == '1'} selected {/if}>1级</option>
+	 <option value="2" {if $blue_level == '2'} selected {/if}>2级</option>
+	 <option value="3" {if $blue_level == '3'} selected {/if}>3级</option>
+	 <option value="4" {if $blue_level == '4'} selected {/if}>4级</option>
+	 <option value="5" {if $blue_level == '5'} selected {/if}>5级</option>
+	 <option value="6" {if $blue_level == '6'} selected {/if}>6级</option>
+	 <option value="7" {if $blue_level == '7'} selected {/if}>7级</option>
+	 <option value="8" {if $blue_level == '8'} selected {/if}>8级</option>
+	</select>		
+	
+	{lang LEVELFW}：	
+	<input name="level_s" type="text" value="{$level_s}" size="1"/> ~	
+	<input name="level_e" type="text" value="{$level_e}" size="1" />
+	{lang USER}：	
+	<input name="username" type="text" value="{$username}" size="20" /> 
+	<select name="st">
+	 <option value="1" {if $st == 1} selected {/if}>{lang JQSS}</option>
+	 <option value="2" {if $st == 2} selected {/if}>{lang MHSS}</option>
+	</select>		
+	<!--帐号ID：	
+	<input name="player_id" type="text" value="{$player_id}" size="10" maxlength="10"  /--> 	
+	IP：
+	<input name="ip" type="text" value="{$ip}" size="20" maxlength="20"  /> 
+	<input type="submit" name="Submit" id="Submit" value="{lang SEARCH}" class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	<!--{if $adminWebType != 'u'}--><a href="?in=player&action=PlayerExport&cid={$cid}&sid={$sid}" class="title_menu" target="_blank">{lang DCWJLB}</a><!--{/if}-->
+	</form>	
+	
+	</td>
+  </tr>
+</table>
+<table class="table">
+  <tr class="title_3">
+    <td colspan="16">
+	<a href="?in=player&cid={$cid}&sid={$sid}" class="{if !$type && !$order} title_menu_on {else} title_menu {/if}">{lang ALL}</a>
+	<a href="?in=player&cid={$cid}&sid={$sid}&order=level" class="{if $order == 'level'} title_menu_on {else} title_menu {/if}">{lang ADJ}</a>
+	<a href="?in=player&cid={$cid}&sid={$sid}&order=vip" class="{if $order == 'vip'} title_menu_on {else} title_menu {/if}">{lang AVIP}</a>
+	<a href="?in=player&cid={$cid}&sid={$sid}&order=ingot" class="{if $order == 'ingot'} title_menu_on {else} title_menu {/if}">{lang AYB}</a>
+	<a href="?in=player&cid={$cid}&sid={$sid}&order=consume" class="{if $order == 'consume'} title_menu_on {else} title_menu {/if}">{lang AXF}</a>
+	<a href="?in=player&cid={$cid}&sid={$sid}&order=coins" class="{if $order == 'coins'} title_menu_on {else} title_menu {/if}">{lang ATQ}</a>
+	<a href="?in=player&cid={$cid}&sid={$sid}&order=fame" class="{if $order == 'fame'} title_menu_on {else} title_menu {/if}">{lang ASW}</a>
+	<br />
+
+	<a href="?in=player&cid={$cid}&sid={$sid}&order=mission" class="{if $order == 'mission' && !$mt} title_menu_on {else} title_menu {/if}">{lang APTFB}</a>
+	<a href="?in=player&cid={$cid}&sid={$sid}&order=mission&mt=1" class="{if $order == 'mission' && $mt == 1 && $mtmid != 1} title_menu_on {else} title_menu {/if}">{lang AJYFB}</a>
+	<a href="?in=player&cid={$cid}&sid={$sid}&order=mission&mt=1&mtmid=1" class="{if $order == 'mission' && $mt == 1 && $mtmid == 1} title_menu_on {else} title_menu {/if}">{lang AJYWYHFB}</a>
+	<br />
+	<a href="?in=player&cid={$cid}&sid={$sid}&type=login" class="{if $type == 'login'} title_menu_on {else} title_menu {/if}">{lang BFREEZE}</a>	
+	<a href="?in=player&cid={$cid}&sid={$sid}&type=talk" class="{if $type == 'talk'} title_menu_on {else} title_menu {/if}">{lang BBANNED}</a>	
+	<a href="?in=player&cid={$cid}&sid={$sid}&type=test_1_2" class="{if $type == 'test_1_2'} title_menu_on {else} title_menu {/if}">{lang CSH}</a>
+	<a href="?in=player&cid={$cid}&sid={$sid}&type=test_4" class="{if $type == 'test_4'} title_menu_on {else} title_menu {/if}">{lang XSZDY}</a>
+	<a href="?in=player&cid={$cid}&sid={$sid}&type=test_3" class="{if $type == 'test_3'} title_menu_on {else} title_menu {/if}">GM</a>
+	<!--{if !serverAdmin('pay','y')}--><a href="?in=player&cid={$cid}&sid={$sid}&type=more_pay" class="{if $type == 'more_pay'} title_menu_on {else} title_menu {/if}" title="{lang MORESPAYMSG}">{lang MORESPAY}<!--{if $type == 'more_pay'}-->({$num}{lang REN})<!--{/if}--></a><!--{/if}-->	</td>
+  </tr> 
+  <!--{if $list_pages}-->
+   <tr>
+    <td colspan="16" class="page">{$list_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <tr class="title_2" align="center">
+    <td width="40" rowspan="2" align="center">ID</td>
+    <td rowspan="2">{lang USERNAME}/{lang USERNICK}</td>
+    <td rowspan="2">{lang LV}</td>
+	<td rowspan="2">VIP</td>
+    <td colspan="3">剩余元宝</td>
+    <td rowspan="2">{lang TQ}</td>
+    <td rowspan="2">{lang YL}</td>
+    <td rowspan="2">{lang SW}</td>
+    <!--{if $order == 'mission'}--><td rowspan="2">{lang LEVELSPRO}</td><!--{/if}-->
+	<!--{if !serverAdmin('pay','y')}--><td rowspan="2">{lang CZYB}</td><!--{/if}-->
+	<!--{if $order}--><td rowspan="2">{lang XFYB}</td><!--{/if}-->
+    <td rowspan="2">{lang LASLOGIN}</td>
+  </tr>
+  <tr class="title_2" align="center">
+    <td>总计</td>
+    <td>充值</td>
+    <td>赠送</td>
+  </tr> 
+
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td"  align="center">
+    <td>{$rs[id]}</td>
+    <td align="left">
+	<span class="right graytext">
+	<!--{if $rs[is_blue_year_vip] == 1}--><span class="graytext">包年蓝钻{$rs[blue_vip_level]}级</span><br /><!--{elseif $rs[is_blue_vip] == 1}--><span class="graytext">蓝钻{$rs[blue_vip_level]}级</span><br /><!--{/if}-->
+	<!--{if $rs[is_yellow_year_vip] == 1}--><span class="graytext">包年黄钻{$rs[yellow_vip_level]}级</span><br /><!--{elseif $rs[is_yellow_vip] == 1}--><span class="graytext">黄钻{$rs[yellow_vip_level]}级</span><br /><!--{/if}-->
+	<!--{if $rs[is_tester] == 1}--><span class="graytext">{lang CSH}</span>
+	<!--{elseif $rs[is_tester] == 2}--><span class="graytext">{lang GJCSH}</span>
+	<!--{elseif $rs[is_tester] == 3}--><span class="bluetext">GM</span>
+	<!--{elseif $rs[is_tester] == 4}--><span class="bluetext">{lang XSZDY}</span><!--{/if}-->
+	<!--{if $rs[is_star] == 1}--><span class="right orangetext">{lang MXH}</span><!--{/if}-->
+	</span>
+	<a href="?in=player&action=PlayerView&cid={$cid}&sid={$sid}&uid={$rs[id]}"><strong style="font-size:14px;">{$rs[username]}</strong>  ({$rs[nickname]})</a>	
+	
+	<br />
+	<span class="smalltext graytext" title="{lang COMPANYREGTIME}:{echo date('Y-m-d H:i',$rs[regdate])}">{echo date('Y-m-d H:i',$rs[first_login_time])} / from:{$rs[source]}</span><br />
+	<!--{if $rs[disable_login] > time()}-->
+	<strong class="redtext" title="{lang CZSJ}：{echo date('Y-m-d H:i:s',$rs[disable_login])}">{lang BFREEZE}</strong>
+	<!--{/if}--> 
+	<!--{if $rs[disable_talk] > time()}-->
+	<strong class="redtext" title="{lang CZSJ}：{echo date('Y-m-d H:i:s',$rs[disable_talk])}">{lang BBANNED}</strong>
+	<!--{/if}-->	</td>
+	<td><!--{if $rs[player_level]}-->{$rs[player_level]}<!--{else}-->-<!--{/if}--></td>
+	<!--td>{$rs[ranking]}</td-->
+	<td><!--{if $rs[vip_level]}-->{$rs[vip_level]}<!--{else}-->-<!--{/if}--></td>
+	<td class="greentext"><!--{if $rs[charge_ingot] || $rs[ingot]}-->{echo $rs[charge_ingot]+$rs[ingot]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[charge_ingot]}-->{$rs[charge_ingot]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[ingot]}-->{$rs[ingot]}<!--{else}-->-<!--{/if}--></td>
+	
+	<td class="bluetext">{$rs[coins]}</td>
+	<td>{$rs[skill]}</td>
+	<td>{$rs[fame]}</td>
+	<!--td title="上限{$rs[max_power]}">{$rs[power]}</td-->
+	
+	<!--{if $order == 'mission'}--><td>{$town[$rs[town_id]][name]}-{$rs[mission_name]}<br /><span class="smalltext graytext">{echo date('Y-m-d H:i',$rs[first_challenge_time])}</span></td><!--{/if}-->
+	<!--{if !serverAdmin('pay','y')}--><td><!--{if $rs[total_ingot]}-->{$rs[total_ingot]}<!--{else}-->-<!--{/if}--></td><!--{/if}-->
+	<!--{if $order}--><td><!--{if $rs[consume_ingot]}-->{$rs[consume_ingot]}<!--{else}-->-<!--{/if}--></td>	<!--{/if}-->
+	<td class="smalltext graytext">{$rs[last_login_ip]}<br /><!--{if $rs[last_login_time]}-->{echo date('Y-m-d H:i',$rs[last_login_time])}<!--{if $vip && $rs[login_day] > 1 }--> ({$rs[login_day]}{lang NOLOGINDAYS})<!--{/if}--><!--{/if}--></td>
+  </tr>   
+  <!--{/loop}-->
+  <!--{if $list_pages}-->
+   <tr>
+    <td colspan="16" class="page">{$list_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="16">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

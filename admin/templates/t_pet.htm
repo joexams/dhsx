@@ -1,0 +1,47 @@
+<form method="post" action="?in=pet" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="5">宠物信息表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+  <td width="35">删除</td>
+    <td width="150">名字</td>
+    <td width="200">描述</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->   
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+  <td>{$rs[id]}<input type="hidden" name="id" value="{$rs[id]}"></td>
+  <td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/>
+    <input type="hidden" name="id_old[]" value="{$rs[id]}">
+  </td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="10"/></td>
+    <td><textarea name="description[]" cols="30" rows="3">{$rs[description]}</textarea></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+  <td colspan="5" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+  <td colspan="2">新增记录→</td>
+    <td><input name="name_n" type="text" value=""  size="10"/></td>
+    <td><textarea name="description_n" cols="30" rows="3"></textarea></td> 
+    <td>&nbsp;</td>
+    </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="5" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->     
+  <tr>
+    <td colspan="5" align="center">
+  <input type="hidden" name="action" value="SetPet" />
+  <input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

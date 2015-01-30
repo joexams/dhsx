@@ -1,0 +1,80 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="14"><!--{if !webAdmin('code_set','y')}--><a href="?in=code&action=CodeAdd" class="right"><span class="yellowtext">[{lang DHQADD}]</span></a><!--{/if}-->{lang DHQPC}</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="14">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')"> 	
+		<!--{if $adminWebType != 'u'}-->
+		<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+		 <option class="select">{lang COMPANY}</option>
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>	  
+		<!--{else}-->
+		<input name="cid" type="hidden" value="{$cid}" />
+		<!--{/if}-->
+
+	<select name="sid" id = "sid">
+	<option  value="">{lang ALLSERVER}</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="code" />
+	<input name="action" type="hidden" value="CodeBatch" />
+	</form>	</td>
+  </tr>     
+
+  <tr class="title_2" align="center">
+    <td width="50">&nbsp;</td>
+	<td >{lang SERVER}</td>
+	<td >{lang DHQYT}</td>
+    <td >{lang DHQHQNR}</td>
+    <td >{lang DHQSCSL}</td>
+	<td >{lang DHQYLQ}</td>
+	<td >{lang DHQZZSC}</td>
+    <td >{lang CJTIME}</td>
+    <td >{lang GQTIME}</td>
+    <td >{lang LOOK}</td>
+	<!--{if !webAdmin('code_set','y')}-->
+    <td ><!--{if $adminWebType == 's'}-->{lang ADD}/<!--{/if}-->{lang EDIT}</td>
+    <!--{if $adminWebType == 's'}--><td>导出</td><!--{/if}-->
+    <td>{lang DEL}</td>
+	<!--{/if}-->
+  </tr> 
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="" >
+    <td><!--{if $adminWebType == 's'}-->{$rs[id]}<!--{else}-->><!--{/if}--></td>
+	<td><!--{if $adminWebType != 'u'}-->{$rs[company_name]}-<!--{/if}-->{$rs[servers_name]}-{$rs[servers_o_name]}</td>
+	<td title="{if $adminWebType == 's'}[{$rs[adminName]}]{/if}创建于:{$rs[ctime]}"><strong>{$rs[name]}</strong></td>
+	<td><!--{if $rs[item_name]}-->{$rs[item_name]}({$rs[item_val]})<!--{else}-->-<!--{/if}--></td>
+    <td>{$rs[num]}</td>
+    <td>{$rs[code_num]}</td>
+    <td><!--{if $rs[juche]}-->{lang DHQZC}<!--{else}--><span class="graytext">{lang DHQBZC}</span><!--{/if}--></td>
+    <td>{$rs[ctime]}</td>
+    <td><!--{if $rs[edate] == '9999-01-01'}-->{lang DHQYJ}<!--{elseif $rs[edate] < date('Y-m-d')}--><span class="graytext" title="过期时间:{$rs[edate]}">{lang DHQYGQ}</span><!--{else}-->{$rs[edate]}<!--{/if}--></td>
+    <td><a href="?in=code&action=Code&cid={$rs[cid]}&sid={$rs[sid]}&batch_id={$rs[id]}" class="title_menu">{lang LOOK}</a></td>
+	<!--{if !webAdmin('code_set','y')}-->
+    <td><a href="?in=code&action=CodeAddAgain&cid={$rs[cid]}&sid={$rs[sid]}&batch_id={$rs[id]}" class="title_menu" ><!--{if $adminWebType == 's'}-->{lang ADD}/<!--{/if}-->{lang EDIT}</a></td>
+    <!--{if $adminWebType == 's'}--><td><a href="call.php?action=CallCodeExport&cid={$rs[cid]}&sid={$rs[sid]}&batch_id={$rs[id]}&title={echo urlencode($rs[servers_name].'-'.$rs[name])}" class="title_menu" >导出</a></td><!--{/if}-->
+    <td><a href="?in=code&action=DelCode&cid={$rs[cid]}&sid={$rs[sid]}&id={$rs[id]}" class="list_red" onclick='javascript: return confirm("{lang QDSCDHQMSG}");'>×</a></td>
+	<!--{/if}--> 
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="14">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="14" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+</table>

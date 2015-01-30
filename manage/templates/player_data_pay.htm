@@ -1,0 +1,79 @@
+{template player_data_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table" style="margin-bottom:5px;">
+  <tr style="font-size:14px;" align="center">
+	<td width="200" height="30">{lang PAY}:<strong class="orangetext">{echo round($pay_amount,2)}</strong> <!--<span class="graytext">({$server[money_type]})</span>--></td>
+	<td width="150">{lang PAYDC}:{echo round($pay_amount_no,2)}</td>
+	<td width="150">{lang PAYCS}:{echo round($pay_amount_test,2)}</td>
+	<td>&nbsp;</td>
+	<!--td width="150"><a href="#">记录下载</a></td-->
+  </tr>
+</table>
+<table width="100%" class="table">
+  <tr class="title_3">
+    <td colspan="8">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">	
+	<!--select name="usertype" id="usertype" >
+	<option value="1" {if $usertype == 1} selected="selected" {/if}>{lang USERNAME}</option>
+	<option value="2" {if $usertype == 2} selected="selected" {/if}>{lang USERNICK}</option>
+	</select-->	
+	{lang USER}：  	
+	<input name="username" type="text" value="{$username}" size="20"/> 
+	{lang PAYORDER}： <input name="oid" type="text" value="{$oid}" size="30"/>	 
+	{lang TIMERANGE}： <input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly />
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Data" />
+	<input name="type" type="hidden" value="pay" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr> 
+  <tr class="title_2" align="center">
+  	<td width="80">{lang USERID}</td>
+	<td>{lang USER}</td>
+	<td width="80">{lang PAY}</td>
+	<td width="80">{lang CZYB}</td>
+	<td width="200">{lang PAYORDER}</td>
+	<td width="120">{lang PAYTIME}</td>
+	<td width="80">{lang STATE}</td>
+	<!--{if $adminWebName == 'admin'}--><td>&nbsp;</td><!--{/if}-->
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className=""  align="center">
+	<td>{$rs[player_id]}</td>
+	<td align="left"><a href="?in=player&action=PlayerView&cid={$cid}&sid={$sid}&uid={$rs[player_id]}" target="_blank"><strong>{$rs[username]}</strong>  ({$rs[nickname]})</a></td> 
+	<td><strong class="orangetext">{$rs[amount]}</strong></td>
+	<td>{$rs[coins]}</td>
+	<td>{$rs[oid]}</td>
+	<td title="{$rs[ditme_up]}">{$rs[dtime]}</td>
+	<td align="left" {if $adminWebType == 's'} title="SIGN = {$rs[sign]}&#13;IP = {$rs[ip]}"{/if}><!--{if $rs[success] == 0}-->
+	<span class="bluetext">{lang PAYDC}</span>
+	<!--{if $rs[vip_level_up] == 0 && $adminWebType == 's'}--> <span class="graytext">{lang VIPJKWZX}</span><!--{/if}-->
+	<!--{else}-->
+	<span class="greentext">{lang PAYOK}</span>
+	<!--{/if}-->
+	<!--{if $rs[status] == 1}--><span class="graytext">{lang PAYCS}</span><!--{/if}--></td>
+	<!--{if $adminWebName == 'admin'}--><td>
+	<a href="?in=data&action=SetPaySuccess&cid={$rs[cid]}&sid={$rs[sid]}&oid={$rs[oid]}&pid={$rs[pid]}&s={$rs[success]}&username={echo urlencode($rs[username])}&is_combined={$server[is_combined]}" onClick="javascript: return confirm('你确定设置成[待充/成功]状态？');">[待/成]</a>
+	<!--{if $rs[success] == 0}-->
+	<a href="?in=data&action=SetPayVIP&cid={$rs[cid]}&sid={$rs[sid]}&oid={$rs[oid]}&pid={$rs[pid]}&s={$rs[vip_level_up]}" onClick="javascript: return confirm('你确定设置VIP接口为[失败/成功]状态？');">[V/N]</a>
+	<!--{/if}-->
+	<a href="?in=data&action=SetPayStatus&cid={$rs[cid]}&sid={$rs[sid]}&oid={$rs[oid]}&pid={$rs[pid]}&s={$rs[status]}&username={echo urlencode($rs[username])}&is_combined={$server[is_combined]}" onClick="javascript: return confirm('你确定设置成[测试/正常]状态？');">[测/正]</a>
+	</td><!--{/if}-->
+	
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="8"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>

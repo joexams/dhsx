@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{if $mod == 'server' || $mod == 'setting' || $mod == 'player' || $mod == 'company'}-->{$company[name]}-<!--{/if}--> {lang TITLE}</title>
+<meta http-equiv="x-ua-compatible" content="ie=7" />
+<link href="style/style.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+<script language = "javaScript" src = "include/js/common.js" type="text/javascript"></script>
+<script language = "javaScript" src = "include/js/menu.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="append_parent"></div><div id="ajaxwaitid"></div>
+<div id="top">
+  <div class="top_user">Hello <strong>{$adminWebName}</strong> - <a href="login.php?action=Out">{lang OUT}</a></div>
+  <ul class="view_menu">
+	<li class="manage_title">{lang TITLE}</li>
+	<li {if $mod == 'server' || $mod == 'setting'  || $mod == 'company' || $mod == 'player' || ($mod == 'data' && ReqStr('action') != 'DataPayData' && ReqStr('action') != 'DataDay' && ReqStr('action') != 'DataDayList' && ReqStr('action') != 'DataHourList' && ReqStr('action') != 'DataConsume' && ReqStr('action') != 'DataCompany' && ReqStr('action') != 'DataVipLevel' && ReqStr('action') != 'DataData' && ReqStr('action') != 'DataOnline' && ReqStr('action') != 'DataMonthPay' && ReqStr('action') != 'DataPlayerOut')}class="view_cur"{else}class="view_no_cur"{/if} id="other_company" onmouseover="showMenu('other_company');"><a href="?in=server&cid={$cid}">{$company[name]}</a></li>
+	<!--{if !webAdmin('c_data','y')}-->
+	<li {if $mod == 'data' && (ReqStr('action') != 'DataServers' && ReqStr('action') != 'DataPayOrder' && ReqStr('action') != 'DataPay' && ReqStr('action') != 'DataDayData' && ReqStr('action') != 'DataDayServersData')}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=data&action=DataData">{lang HZCX}</a></li>
+	<!--{/if}-->
+	<!--{if !webAdmin('c_apply','y')}--><li {if $mod == 'apply' && ReqStr('action') == 'Apply' || ReqStr('action') == 'ApplyAdd'}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=apply&action=Apply">{lang WPSQ}</a></li><!--{/if}-->
+	<!--{if !webAdmin('c_apply','y')}--><li {if $mod == 'apply' && ReqStr('action') == 'FindData'}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=apply&action=FindData">{lang BDZH}</a></li><!--{/if}-->
+	<!--{if !webAdmin('bug','y')}--><li {if $mod == 'bug' }class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=bug">{lang WJFK}</a></li><!--{/if}-->
+	<!--{if !webAdmin('test','y')}--><li {if $mod == 'test' }class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=test">{lang CSH}</a></li><!--{/if}-->
+	<!--{if !webAdmin('c_admin_c','y')}--><li {if $mod == 'admin_c'}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=admin_c&action=AdminC">{lang LYH}</a></li><!--{/if}-->
+	<!--{if !webAdmin('pay_add','y')}--><li {if $mod == 'pay'}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=pay">{lang CZBD}</a></li><!--{/if}-->
+	<!--{if !webAdmin('gift','y')}--><!--li {if $mod == 'gift'}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=gift">{lang PARTYLIST}</a></li--><!--{/if}-->
+	<!--{if !webAdmin('code','y')}--><li {if $mod == 'code'}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=code">{lang DHQ}</a></li><!--{/if}-->
+	<!--{if !webAdmin('server_open','y')}--><li {if $mod == 'open'}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=open">{lang KFLB}</a></li><!--{/if}-->
+	<!--{if !webAdmin('logs','y')}--><li {if $mod == 'logs'}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=logs">{lang CZJL}</a></li><!--{/if}-->
+	<li {if $mod == 'password'}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=password">{lang XGMM}</a><!--{if $adminWebPwd == md5(123456)}--><span class="redtext">({lang XGMMSM})</span><!--{/if}--></li>
+	
+  </ul>
+</div>
+<!--{if count($company_list) > 1}-->
+<div id="other_company_menu" class="table" style="display:none;width:750px;padding:10px;">
+<table width="100%">   
+  <!--{if $company_list}-->
+  <!--{loop $crows $company_list}-->
+  <tr>
+  	<!--{loop $company_list $crs}-->	  
+    <td width="20%" {if $cid == $crs[cid]}class="td2"{/if} {if !serverAdmin('pay','y')}title="{lang ZRSR}:{$crs[yesterday_amount]}{lang YUAN}"{/if}><a href="?in=server&cid={$crs[cid]}">{$crs[name]}</a><!--{if !webAdmin('c_company','y')}--><!--{if $crs[link] == '||||||' || !$crs[link]}--> <span class="redtext">({lang XXWPZ})</span><!--{/if}--><!--{/if}--></td>
+	<!--{/loop}-->
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>
+</div>
+<!--{/if}-->
+<div id="wrap">
+<!--{if $adminWebPwd == md5(123456) && $mod != 'password'}-->
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <td valign="top"  style="font-size:14px;line-height:100px;background:#fbfbe0;" class="redtext" align="center"><a href="?in=password"><strong class="redtext">{lang PWDSMSG}</strong></a></td>
+  </tr>
+</table>
+<!--{else}-->
+<!--{if (!webAdmin('gift','y') || !webAdmin('code','y')) && $tomorrow_server_count}-->
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <td valign="top"  style="font-size:14px;line-height:30px;background:#fbfbe0;" class="redtext" align="center"><marquee direction=left scrollamount=6 onmouseover="this.stop()" onmouseout="this.start()">
+<strong>{lang SERVEROPENMSG}</strong></marquee></td>
+  </tr>
+</table>
+<!--{/if}-->
+<table cellpadding="0" cellspacing="0" class="table2" height="100%" style="margin-bottom:0px;" id="box">
+  <tr>
+	<!--{if $mod == 'server' || $mod == 'data' || $mod == 'company' || $mod == 'setting' || $mod == 'player' || $mod == 'open'}-->
+	<td width="120" valign="top" id="leftmenu">
+	<!--{if $mod == 'open'}-->
+	{template c_menu_s}
+	<!--{elseif $mod == 'data' && (ReqStr('action') != 'DataServers' && ReqStr('action') != 'DataPayOrder' && ReqStr('action') != 'DataPay' && ReqStr('action') != 'DataDayData' && ReqStr('action') != 'DataDayServersData')}-->
+	{template c_menu_c}
+	<!--{else}-->
+	{template c_menu}
+	<!--{/if}-->
+	</td>
+    <td width="8" valign="top"><a href="#" onclick="CheckShowLeft();"><span id ="nnn">＜</span></a></td>
+	<!--{/if}-->
+    <td valign="top"  style="height:100%;">{eval include_once($contentUrl)}</td>
+  </tr>
+</table>
+<script language="javascript" type="text/javascript">
+function CheckShowLeft(){
+	if ($('leftmenu').style.display == 'none') {
+		$('leftmenu').style.display = 'block';
+		$('nnn').innerHTML = '＜';
+	}else{
+		$('leftmenu').style.display = 'none';
+		$('nnn').innerHTML = '＞';
+	}
+}
+</script>
+<!--{/if}-->
+<div id="bot">{lang NOWTIME}:{$timenow} <!--{if $adminWebName == '1wan'}-->{echo botTime()}<!--{/if}--></div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="5">{lang CSH}</th>
+  </tr> 
+  <tr class="title_3">
+    <td colspan="5">
+	<a href="?in=test" class="{if !$cid} title_menu_on {else} title_menu {/if}">{lang ALL}</a>
+	<!--{if $company_list}-->
+	<!--{eval $i=1}-->
+	  <!--{loop $company_list $crs}-->
+	  <a href="?in=test&cid={$crs[cid]}" class="{if $cid == $crs[cid]} title_menu_on {else} title_menu {/if}">{$crs[name]}</a>
+	  <!--{if $i % 15 == 0}--><br /><!--{/if}-->
+	  <!--{eval $i++}-->
+	  <!--{/loop}-->
+	<!--{/if}-->	
+	</td>
+  </tr>     
+<form method="post" action="?in=test" name="forms" id="forms" onSubmit="setSubmit('Submit')">
+  <tr class="title_2" align="center">
+    <td width="50"><input type="checkbox" name="allcid" value="allcid"  id="allcid" onclick="CheckAll(this,'forms','sid[]');" /></td>
+    <td width="100">{lang SERVER}</td>
+    <td align="left">{lang CSH}({lang USERNICK})</td>
+    <!--{if !webAdmin('key_data_set','y')}-->
+	<td width="100">{lang CSHQK}</td>
+	<td width="100">{lang CSHCJ}</td>
+	<!--{/if}-->
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="td" >
+	<td><input type="checkbox" name="sid[]" value="{$rs[sid]}" title="{$rs[servers_name]}"/></td>
+	<td >{$rs[company_name]}-{$rs[servers_name]}</td>
+	<td align="left">{$rs[testNameArr]}</td>
+	 <!--{if !webAdmin('key_data_set','y')}-->
+	<td><a href="?in=test&action=ClearTest&cid={$rs[cid]}&sid={$rs[sid]}" onClick='javascript: return confirm("{lang CSHQKMSG}");' class="title_menu">{lang CSHQK}</a></td>
+	<td><a href="?in=test&action=ReTest&cid={$rs[cid]}&sid={$rs[sid]}" class="title_menu">{lang CSHCJ}</a></td>
+	<!--{/if}-->
+  </tr>    
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  
+  <!--{else}--> 
+  <tr >
+	<td colspan="5"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+  <tr >
+	<th colspan="5">{lang CSHZS}/{lang CSHQK}</th>
+  </tr>			  
+  <tr>
+    <td colspan="2" align="center">{lang CZLX}</td>
+    <td colspan="3" >
+	<select name="type" >
+	<option value="add">{lang CSHZS}</option>
+	<option value="del">{lang CSHQK}</option>
+	</select>		
+	</td>
+  </tr>
+  
+  <tr>
+    <td colspan="2" align="center">{lang SYB}</td>
+    <td colspan="3" ><input name="ingot" type="text" value="0"  size="15" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">{lang STQ}</td>
+    <td colspan="3" ><input name="coins" type="text" value="0"  size="15" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">{lang TVIP}</td>
+    <td colspan="3" >
+	<select name="vip">
+		<option value="n" class="select">{lang TESTNOSET}</option>
+		<option value="0">{lang DELVIP}</option>
+		<option value="1">VIP1</option>
+		<option value="2">VIP2</option>
+		<option value="3">VIP3</option>
+		<option value="4">VIP4</option>
+		<option value="5">VIP5</option>
+		<option value="6">VIP6</option>
+		<option value="7">VIP7</option>
+		<option value="8">VIP8</option>
+		<option value="9">VIP9</option>
+		<option value="10">VIP10</option>
+		<option value="11">VIP11</option>
+		<option value="12">VIP12</option>
+		
+	</select>	
+	</td>
+  </tr>       
+  <tr>
+    <td colspan="2"><input type="hidden" name="action" value="SetTestGift" /></td>
+    <td colspan="3">
+	<input type="submit" id="Submit" name="Submit" value="{lang SUBMITOK}" onClick="javascript: return confirm('{lang DOYOUDO}');"  class="button"/>
+	</td>
+  </tr>   
+  <tr class="title_2">
+    <td colspan="2">&nbsp;</td>
+    <td colspan="3"><strong class="bluetext">{lang CSHMSG}</strong>
+	</td>
+  </tr>   
+</form>  
+</table>

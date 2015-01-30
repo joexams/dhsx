@@ -1,0 +1,82 @@
+{template player_data_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+
+<table class="table">
+  <tr class="title_3">
+    <td colspan="12">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">
+	渠道：<input name="source" id="source" type="text"  value="{$source}" size="10" />
+	{lang TIMERANGE}：<input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly /> 
+	<select name="tt">
+	  <option value="1" {if $tt == 1} selected="selected" {/if}>{lang SOURCE}</option>		
+	  <option value="2" {if $tt == 2} selected="selected" {/if}>{lang GUNFU}</option>
+	</select>
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<br />
+	{lang JSTJMSG}
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Data" />
+	<input name="type" type="hidden" value="role_rate" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr> 
+
+  <tr align="center" class="title_2">
+    <td>{lang SOURCE}</td>
+    <td><a href="?in=player&action=Data&type=role_rate&cid={$cid}&sid={$sid}&type={$type}&stime={$stime}&etime={$etime}&order=player_num">{lang ZCS}</a></td>
+	<td>{lang CJS}</td>
+    <td>{lang CJL}</td>
+    <td>Lv.2/{lang BILI}</td>
+    <td>Lv.10/{lang BILI}</td>
+    <td>Lv.20/{lang BILI}</td>
+    <td>Lv.30/{lang BILI}</td>
+    <td>Lv.40/{lang BILI}</td>
+    <!--{if !serverAdmin('pay','y')}-->
+	<td>{lang PAYUSER}</td>
+    <td>{lang PAY}<!--($server[money_type])--></td>
+	<!--{/if}-->
+  </tr>
+  <tr align="center" class="purpletext trtitle">
+	<td>{lang ALL}</td>
+    <td>{$player_num}</td>
+	<td>{$player_role_num}</td>
+    <td>{echo round($player_role_num/$player_num*100,2)}%</td>
+    <td>{$player_role_num_2} <span class="graytext smalltext">({echo round($player_role_num_2/$player_role_num*100,2)}%)</span></td>
+    <td>{$player_role_num_10} <span class="graytext smalltext">({echo round($player_role_num_10/$player_role_num*100,2)}%)</span></td>
+    <td>{$player_role_num_20} <span class="graytext smalltext">({echo round($player_role_num_20/$player_role_num*100,2)}%)</span></td>
+    <td>{$player_role_num_30} <span class="graytext smalltext">({echo round($player_role_num_30/$player_role_num*100,2)}%)</span></td>
+    <td>{$player_role_num_40} <span class="graytext smalltext">({echo round($player_role_num_40/$player_role_num*100,2)}%)</span></td>
+    <!--{if !serverAdmin('pay','y')}-->
+	<td>{$player_role_pay}</td>
+    <td><strong>{echo round($amount/$server[coins_rate],2)}</strong></td>
+	<!--{/if}-->
+  </tr>
+  
+  <!--{if $source_list}-->
+  <!--{loop $source_list $rs}-->	  
+  
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="">
+	<td><!--{if $rs[source]}-->{$rs[source]}<!--{else}-->[{lang PTZS}]<!--{/if}--></td>
+    <td>{$rs[player_num]}</td>
+	<td>{$rs[player_role_num]}</td>
+    <td>{echo round($rs[player_role_num]/$rs[player_num]*100,2)}%</td>
+    <td>{$rs[player_role_num_2]} <span class="graytext smalltext">({echo round($rs[player_role_num_2]/$rs[player_role_num]*100,2)}%)</span></td>
+    <td>{$rs[player_role_num_10]} <span class="graytext smalltext">({echo round($rs[player_role_num_10]/$rs[player_role_num]*100,2)}%)</span></td>
+    <td>{$rs[player_role_num_20]} <span class="graytext smalltext">({echo round($rs[player_role_num_20]/$rs[player_role_num]*100,2)}%)</span></td>
+    <td>{$rs[player_role_num_30]} <span class="graytext smalltext">({echo round($rs[player_role_num_30]/$rs[player_role_num]*100,2)}%)</span></td>
+    <td>{$rs[player_role_num_40]} <span class="graytext smalltext">({echo round($rs[player_role_num_40]/$rs[player_role_num]*100,2)}%)</span></td>
+    <!--{if !serverAdmin('pay','y')}-->
+	<td>{$rs[player_role_pay]}</td>
+	<td class="orangetext"><strong>{echo round($rs[amount]/$server[coins_rate],2)}</strong></td>
+	<!--{/if}-->
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="12" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	  
+  <!--{/if}-->
+</table>

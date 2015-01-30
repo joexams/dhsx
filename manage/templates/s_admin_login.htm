@@ -1,0 +1,33 @@
+<table width="100%" class="table" style="margin-bottom:5px;">
+  <tr>
+    <th colspan="5">帐号登陆历史</th>
+  </tr>
+  <tr class="title_2" align="center">
+    <td width="50">ID</td>
+    <td width="150">登陆帐号</td>
+    <td width="150">登陆时间</td>
+    <td width="150">登陆IP</td>
+    <td >&nbsp;</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+    <td>{$rs[id]}</td>
+    <td><strong>{$rs[adminName]}</strong><span class="graytext"><!--{if $rs[adminType]=='s'}-->开发<!--{/if}--><!--{if $rs[adminType]=='u'}-->客服<!--{/if}--><!--{if $rs[adminType]=='c'}-->运营<!--{/if}--></span></td>
+    <td>{$rs[loginTime]}</td>
+    <td>{$rs[LoingIP]}</td>
+    <td align="left" class="graytext">{echo convertip($rs[LoingIP])}</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="5" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	    
+  
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="5">暂无相关信息</td>
+  </tr>
+  <!--{/if}-->
+</table>

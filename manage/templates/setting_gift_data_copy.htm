@@ -1,0 +1,39 @@
+<form action="" method="get" name="form" onSubmit="setSubmit('Submit')"> 	
+<table width="100%" class="table">
+  <tr>
+    <th>复制活动</th>
+  </tr>
+  <tr>
+    <td height="100" align="center">
+	复制到：
+	<!--{if $adminWebType == 's'}-->
+	<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+	 <option class="select">运营平台</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}">{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	  
+	<!--{else}-->
+	<input name="cid" type="hidden" value="{$cid}" />
+	<!--{/if}-->
+
+	<select name="sid" id = "sid">
+	<option  value="">全部服务器</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" >{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<input type="submit" name="Submit" id="Submit" value=" 提 交  " class="button"/>
+	<input name="in" type="hidden" value="gift" />
+	<input name="type" type="hidden" value="{$type}" />
+	<input name="id" type="hidden" value="{$id}" />
+	<input name="action" type="hidden" value="GiftDataCopy" />
+	</td>
+  </tr>     
+  <tr align="center">
+    <td class="bluetext td4">本操作将产生一条新的活动记录，提交后您可以对此记录进行详细修改，注意时间设置！</td>
+  </tr>
+ </table>
+</form>	

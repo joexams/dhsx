@@ -1,0 +1,39 @@
+<table class="table">
+  <tr>
+    <th colspan="3" class="title_1">月充值报表</th>
+  </tr> 
+  <tr align="left" class="title_2">
+    <td colspan="3">
+	<select name="cid" id="cid" onChange="jumpMenu(this)">
+	 <option class="select" value="0">{lang COMPANY}</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	{lang ZSR} <span class="greentext"><strong>{$amount_all}</strong>{lang YUAN}</span>
+	</td>	
+  </tr> 
+  <tr align="center" class="title_2">
+   <td width="120">{lang DATE}</td>	
+   <td width="450">{lang ZSR}</td>
+   <td>&nbsp;</td>
+  </tr> 
+  
+  <!--{loop $month $rs}-->
+  <tr onmouseover=this.className="td3" onmouseout=this.className="">
+  <td class="td4" align="center"><strong>{$rs[month]}</strong></td>
+  <td align="left">
+  <!--{if $rs[pay_amount]}-->
+  <img src="style/n.gif" width="{echo round($rs[pay_amount]/$maxAmount*350)+1}px" height="10"/> <span class="orangetext"><strong>{$rs[pay_amount]}</strong> {lang YUAN}</span>
+  <!--{else}-->
+  <img src="style/n4.gif" width="1" height="10"/> 0
+  <!--{/if}-->  </td>	
+   <td>&nbsp;</td>
+  </tr>    
+<!--{/loop}-->
+</table>
+<script language="javascript">
+function jumpMenu(selObj){
+	location="?in=data&action=DataMonthPay&cid="+selObj.options[selObj.selectedIndex].value+"";
+}
+</script>

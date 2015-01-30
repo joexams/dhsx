@@ -1,0 +1,93 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=regions" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="6"><span class="bluetext">{$name}</span> 的九界关卡表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="50">删除</td>
+    <td width="50">关卡</td>
+    <td width="150">怪物团</td>
+    <td width="100">奖励声望</td>
+    <td width="100">奖励铜钱</td>
+    <td width="100">仙石</td>
+    <td width="100">仙石数量</td>
+    <td width="100">神兵</td>
+    <td>场景对话</td>
+    </tr>
+  
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td><input type="hidden" name="region_id[]" value="{$rs[region_id]}"/><input type="checkbox" name="id_del[]" value="{$rs[region_id]},{$rs[region_level]}" title="选择删除"/></td>
+    <td><input type="hidden" name="region_level[]" value="{$rs[region_level]}"/><strong>{$rs[region_level]}</strong></td>
+    <td><select name="monster_team_id[]" >
+	 <option class="select" value="0">选择怪物团</option>
+	 <!--{loop $nine_regions_list $mrs}-->
+	 <option value="{$mrs[id]}"  {if $mrs[id] == $rs[monster_team_id]}selected="selected"{/if}>{$mrs[scene_name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><input type="text" name="award_fame[]" value="{$rs[award_fame]}" size="10"/></td>
+    <td><input type="text" name="award_coin[]" value="{$rs[award_coin]}" size="10"/></td>
+    <td><select name="stone_item_id[]" >
+     <option class="select" value="0">选择仙石</option>
+     <!--{loop $item_list $irs}-->
+     <option value="{$irs[id]}"  {if $irs[id] == $rs[stone_item_id]}selected="selected"{/if}>{$irs[name]}</option>
+     <!--{/loop}-->  
+    </select></td>
+    <td><input type="text" name="award_stone[]" value="{$rs[award_stone]}" size="10"/></td>
+        <td><select name="enhance_weapon[]" >
+     <option class="select" value="0">选择神兵</option>
+     <!--{loop $enhance_weapon_list $ers}-->
+     <option value="{$ers[id]}"  {if $irs[id] == $rs[enhance_weapon]}selected="selected"{/if}>{$irs[name]}</option>
+     <!--{/loop}-->  
+    </select></td>
+	<td><textarea name="talk_content[]" cols="40" rows="3" ondblclick="textareasize(this)">{$rs[talk_content]}</textarea></td>
+	</tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="7" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->  
+  <!--{else}-->
+  <tr>
+	<td colspan="6" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td>新增→</td>
+    <td><input name="region_level_n" type="text" value=""  size="5"/></td>
+    <td><select name="monster_team_id_n" >
+	 <option class="select" value="0">选择怪物团</option>
+	 <!--{loop $nine_regions_list $mrs}-->
+	 <option value="{$mrs[id]}" >{$mrs[scene_name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><input type="text" name="award_fame_n" value="" size="10"/></td>
+    <td><input type="text" name="award_coin_n" value="" size="10"/></td>
+    <td><select name="stone_item_id[]" >
+     <option class="select" value="0">选择仙石</option>
+     <!--{loop $item_list $irs}-->
+     <option value="{$irs[id]}">{$irs[name]}</option>
+     <!--{/loop}-->  
+    </select></td>
+    <td><input type="text" name="award_stone[]" value="" size="10"/></td>
+     <td><select name="enhance_weapon_n" >
+     <option class="select" value="0">选择神兵</option>
+     <!--{loop $enhance_weapon_list $ers}-->
+     <option value="{$ers[id]}">{$irs[name]}</option>
+     <!--{/loop}-->  
+    </select></td>
+	<td><textarea name="talk_content_n" cols="40" rows="3" ondblclick="textareasize(this)"></textarea></td>
+	</tr>  
+  <tr>
+    <td colspan="6" align="center">
+	<input name="region_id_n" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetNineRegionsLevel" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

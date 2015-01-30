@@ -1,0 +1,5 @@
+<!--{if !serverAdmin('data_key','y')}-->
+<a href="javascript:void(0)" onClick="selectAjax('player_call.php?action=callPlayerMissionRecord&sid={$sid}&uid={$uid}&winid={$winid}','{$winid}');" class="{if !$see}title_menu_on{else}title_menu{/if}">{lang NORMAL}</a>
+<a href="javascript:void(0)" onClick="selectAjax('player_call.php?action=callPlayerMissionRecord&sid={$sid}&uid={$uid}&see=_data&winid={$winid}','{$winid}');" class="{if $see == '_data' && !$type}title_menu_on{else}title_menu{/if}">{lang GKBB}</a>
+<!--{/if}-->
+ <span class="bluetext">{lang USERGKMSG} </span>

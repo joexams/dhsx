@@ -1,0 +1,52 @@
+<table class="table">
+  <tr>
+    <th colspan="5" class="title_1">新注册用户曲线</th>
+  </tr> 
+  <tr align="left" class="title_2">
+    <td colspan="5" style="color:green">
+	<select name="month" id="month"  onChange="jumpMenu(this)">
+	<!--{if $day_moth_list}-->
+	  <!--{loop $day_moth_list $drs}-->
+	  <option value="{$drs[gdate]}" {if $drs[gdate] == $month} selected="selected" {/if}>{$drs[gdate]}</option>
+	  <!--{/loop}-->
+	  <!--{else}-->
+	<!--{/if}-->		
+	</select>
+	<strong>最高注册:{$maxRegNum} / 最高创建:{$maxCreNum}</strong>
+	</td>	
+  </tr> 
+  <tr align="center" class="title_2">
+   <td width="120">{lang DATE}</td>	
+   <td width="300">{lang ZCS}</td>
+   <td width="250">{lang CJS}</td>
+   <td width="100">{lang CJL}</td>
+    <td>&nbsp;</td>
+  </tr> 
+  
+  <!--{loop $day_list $drs $day}-->
+  <tr onmouseover=this.className="td3" onmouseout=this.className="">
+  <td class="td4" align="center"><a href="?open_date={$day}&days=3&in=data&action=DataDay" target="_blank" title="查看[{$day}]新开的服"><strong>{$day}</strong></a> <span class="graytext smalltext">{echo GetWeekDay($day)}</span></td>
+  <td class="smalltext" align="left">
+  <!--{if $data[$day][reg_count]}-->
+  <img src="style/n4.gif" width="{echo round($data[$day][reg_count]/$maxRegNum*250)+1}px" height="10"/> {$data[$day][reg_count]}
+  <!--{else}-->
+  <img src="style/n4.gif" width="1" height="10"/> 0
+  <!--{/if}-->
+  </td>	
+   <td class="smalltext" align="left">
+  <!--{if $data[$day][cre_count]}-->
+  <img src="style/n2.gif" width="{echo round($data[$day][cre_count]/$maxRegNum*250)+1}px" height="10"/> {$data[$day][cre_count]}
+  <!--{else}-->
+  <img src="style/n4.gif" width="1" height="10"/> 0
+  <!--{/if}-->
+  </td>	
+  <td align="center"><!--{if $data[$day][cre_count]}-->{echo round($data[$day][cre_count]/$data[$day][reg_count]*100,2)}%<!--{/if}--></td>
+  <td>&nbsp;</td>
+  </tr>    
+<!--{/loop}-->
+</table>
+<script language="javascript">
+function jumpMenu(selObj){
+	location="?in=data&action=DataNewUser&month="+selObj.options[selObj.selectedIndex].value+"";
+}
+</script>

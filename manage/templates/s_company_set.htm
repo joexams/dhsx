@@ -1,0 +1,174 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form action="?in=server" method="post" name="form" id="form" onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="2">运营商 > <span class="yellowtext">{$rs[name]}</span> 详细设置</th>
+  </tr>
+   <tr>
+    <td align="right"><strong>类型</strong></td>
+	<td>
+	<select name="type" >
+	<option value="1" {if $rs[type] == 1} selected="selected" {/if}>1类</option>
+	<option value="2" {if $rs[type] == 2} selected="selected" {/if}>2类</option>
+	<option value="3" {if $rs[type] == 3} selected="selected" {/if}>3类</option>
+	<option value="9" {if $rs[type] == 9} selected="selected" {/if}>手机</option>
+	</select>	
+	</td>
+  </tr>   
+   <tr>
+    <td align="right"><strong>运营商</strong></td>
+	<td><input name="name" type="text" value="{$rs[name]}"  size="30"/></td>
+  </tr>  
+  <tr>
+    <td align="right"><strong>短名称</strong></td>
+	<td><input name="slug" type="text" value="{$rs[slug]}"  size="30"/></td>
+  </tr>  
+   <tr>
+    <td align="right"><strong>域名</strong></td>
+	<td><input name="web" type="text" value="{$rs[web]}"  size="30"/></td>
+  </tr> 
+   <tr>
+    <td align="right"><strong>游戏标题</strong></td>
+	<td><input name="game_name" type="text" value="{$rs[game_name]}"  size="30"/></td>
+  </tr> 
+  <tr>
+    <td align="right"><strong>结算货币</strong></td>
+	<td>
+	<select name="money_type">
+	<!--{if $money_array}-->
+	<!--{loop $money_array $mrs $val}-->	  
+	<option value="{$val}" {if $val == $rs[money_type]} selected="selected" {/if}>{$val}</option>
+	<!--{/loop}-->
+	<!--{/if}-->
+	</select>		
+	<span class="graytext">选择运营平台结算的货币,修改此项后请一并修改[兑换人民币比率]</span></td>
+  </tr>    
+  <tr>
+    <td align="right"><strong>元宝兑换比率</strong></td>
+	<td><input name="coins_rate" type="text" value="{$rs[coins_rate]}"  size="10"/> <span class="">元宝兑换1[{$rs[money_type]}]</span></td>
+  </tr>  
+  <tr style="display:none;">
+    <td align="right"><strong>与人民币兑换比率</strong></td>
+	<td><input name="rmb_rate" type="text" value="{$rs[rmb_rate]}"  size="10"/> <span class="graytext">[人民币]与[{$rs[money_type]}]兑换比率;输入{$rs[rmb_rate]}等于1[人民币]兑换{$rs[rmb_rate]}[{$rs[money_type]}]</span></td>
+  </tr>    
+   <tr>
+    <td align="right" valign="top"><strong>可设置测试号</strong></td>
+	<td><input name="t_player" type="text" value="{$rs[t_player]}"  size="10"/> 人</td>
+  </tr>    
+  <tr>
+    <td align="right"><strong>通讯密钥</strong></td>
+	<td><input name="key" type="text" value="{$rs[key]}"  size="50"/> <span class="graytext">通讯密钥:用于充值或获取服务器资料使用</span></td>
+  </tr>  
+  <tr>
+    <td align="right" valign="top" ><strong>允许充值IP</strong></td>
+	<td><textarea name="charge_ips" cols="31" rows="5">{$rs[charge_ips]}</textarea><br /><span class="graytext">一个IP一行，不限制留空</span></td>
+  </tr>
+  <tr style="display:none;">
+    <td align="right" valign="top" ><strong>CDN地址</strong></td>
+	<td><textarea name="cdn" cols="31" rows="5">{$rs[cdn]}</textarea><br /><span class="graytext">一个一行</span></td>
+  </tr> 
+   <tr>
+    <td align="right" width="100"><strong>游戏下方描述</strong></td>
+	<td><input name="game_text" type="text" value="{$rs[game_text]}"  size="50"/></td>
+  </tr>    
+  <tr>
+    <td align="right" valign="top" ><strong>官网链接</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][0]}"  size="80"/></td>
+  </tr> 
+  <tr>
+    <td align="right" valign="top" ><strong>论坛链接</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][1]}"  size="80"/></td>
+  </tr> 
+   <tr>
+    <td align="right" valign="top" ><strong>充值链接</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][2]}"  size="80"/></td>
+  </tr> 
+  <tr>
+    <td align="right" valign="top" ><strong>VIP说明链接</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][3]}" size="80"/></td>
+  </tr> 
+  <tr>
+    <td align="right" valign="top" ><strong>GM链接</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][4]}" size="80"/></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top" ><strong>收藏夹标题</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][5]}" size="80"/> <span class="bluetext">提示玩家收藏游戏时的标题</span></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top" ><strong>收藏夹链接</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][6]}" size="80"/> <span class="bluetext">提示玩家收藏游戏时的地址，请以http://开头</span></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top" ><strong>防沉迷链接</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][7]}" size="80"/> <span class="bluetext">平台自定义防沉迷链接地址，请以http://开头</span></td>
+  </tr>     
+  <tr class="title_2">
+    <td align="right" valign="top" >链接中变量说明</td>
+    <td>
+	<strong>%sid%</strong> = S1、S2等大写格式； 如：http://xd.com/pay.php?server=%sid%<br />
+	<strong>%sid2%</strong> = s1、s2等小写格式； 如：http://xd.com/pay.php?server=%sid2%<br />
+	<strong>%sno%</strong> = 1、2、3等格式； 如：http://xd.com/pay.php?server=%sno%<br />
+	<strong>%user%</strong> = 登陆帐号； 如：http://xd.com/pay.php?user=%user%<br />
+	</td>
+  </tr>    
+     
+  <!--tr>
+    <td align="right" valign="top" ><strong>链接设置</strong></td>
+	<td><textarea name="link" cols="80" rows="5">{$rs[link]}</textarea><br /><span class="graytext">一个一行</span></td>
+  </tr-->     
+  <tr>
+    <td align="right"><strong>语言包</strong></td>
+	<td><input name="locale" type="text" value="{$rs[locale]}"  size="30"/></td>
+  </tr> 
+  
+  <tr>
+    <td align="right"><strong>时差</strong></td>
+	<td>
+	<select name="timeoffset">
+	<option value="9999" {echo $rs[toselect][9999]}>使用默认</option>
+	<option value="-12" {echo $rs[toselect][-12]}>(GMT -12:00) Eniwetok, Kwajalein</option>
+	<option value="-11" {echo $rs[toselect][-11]}>(GMT -11:00) Midway Island, Samoa</option>
+	<option value="-10" {echo $rs[toselect][-10]}>(GMT -10:00) Hawaii</option>
+	<option value="-9" {echo $rs[toselect][-9]}>(GMT -09:00) Alaska</option>
+	<option value="-8" {echo $rs[toselect][-8]}>(GMT -08:00) Pacific Time (US &amp; Canada), Tijuana</option>
+	<option value="-7" {echo $rs[toselect][-7]}>(GMT -07:00) Mountain Time (US &amp; Canada), Arizona</option>
+	<option value="-6" {echo $rs[toselect][-6]}>(GMT -06:00) Central Time (US &amp; Canada), Mexico City</option>
+	<option value="-5" {echo $rs[toselect][-5]}>(GMT -05:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</option>
+	<option value="-4" {echo $rs[toselect][-4]}>(GMT -04:00) Atlantic Time (Canada), Caracas, La Paz</option>
+	<option value="-3.5" {echo $rs[toselect][-3.5]}>(GMT -03:30) Newfoundland</option>
+	<option value="-3" {echo $rs[toselect][-3]}>(GMT -03:00) Brassila, Buenos Aires, Georgetown, Falkland Is</option>
+	<option value="-2" {echo $rs[toselect][-2]}>(GMT -02:00) Mid-Atlantic, Ascension Is., St. Helena</option>
+	<option value="-1" {echo $rs[toselect][-1]}>(GMT -01:00) Azores, Cape Verde Islands</option>
+	<option value="0"  {echo $rs[toselect][0]}>(GMT) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</option>
+	<option value="1" {echo $rs[toselect][1]}>(GMT +01:00) Amsterdam, Berlin, Brussels, Madrid, Paris, Rome</option>
+	<option value="2" {echo $rs[toselect][2]}>(GMT +02:00) Cairo, Helsinki, Kaliningrad, South Africa</option>
+	<option value="3" {echo $rs[toselect][3]}>(GMT +03:00) Baghdad, Riyadh, Moscow, Nairobi</option>
+	<option value="3.5" {echo $rs[toselect][3.5]}>(GMT +03:30) Tehran</option>
+	<option value="4" {echo $rs[toselect][4]}>(GMT +04:00) Abu Dhabi, Baku, Muscat, Tbilisi</option>
+	<option value="4.5" {echo $rs[toselect][4.5]}>(GMT +04:30) Kabul</option>
+	<option value="5" {echo $rs[toselect][5]}>(GMT +05:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+	<option value="5.5" {echo $rs[toselect][5.5]}>(GMT +05:30) Bombay, Calcutta, Madras, New Delhi</option>
+	<option value="5.75" {echo $rs[toselect][5.75]}>(GMT +05:45) Katmandu</option>
+	<option value="6" {echo $rs[toselect][6]}>(GMT +06:00) Almaty, Colombo, Dhaka, Novosibirsk</option>
+	<option value="6.5" {echo $rs[toselect][6.5]}>(GMT +06:30) Rangoon</option>
+	<option value="7" {echo $rs[toselect][7]}>(GMT +07:00) Bangkok, Hanoi, Jakarta</option>
+	<option value="8" {echo $rs[toselect][8]}>(GMT +08:00) Beijing, Hong Kong, Perth, Singapore, Taipei</option>
+	<option value="9" {echo $rs[toselect][9]}>(GMT +09:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</option>
+	<option value="9.5" {echo $rs[toselect][9.5]}>(GMT +09:30) Adelaide, Darwin</option>
+	<option value="10" {echo $rs[toselect][10]}>(GMT +10:00) Canberra, Guam, Melbourne, Sydney, Vladivostok</option>
+	<option value="11" {echo $rs[toselect][11]}>(GMT +11:00) Magadan, New Caledonia, Solomon Islands</option>
+	<option value="12" {echo $rs[toselect][12]}>(GMT +12:00) Auckland, Wellington, Fiji, Marshall Island</option>
+	</select>	
+	</td>
+  </tr>   
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+	<input type="hidden" name="action" value="SaveCompany" />
+	<input type="hidden" name="cid" value="{$cid}" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>	
+	<input type="submit" id="Submit" name="Submit" value="提交修改" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>    
+</table>

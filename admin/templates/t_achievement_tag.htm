@@ -1,0 +1,65 @@
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="5">成就标签列表</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="11">
+	  <a href="?in=other&action=AchievementTag&type=0" class="{if $type == 0} title_menu_on {else} title_menu {/if}">大标签</a>
+	  <a href="?in=other&action=AchievementTag&type=1" class="{if $type == 1} title_menu_on {else} title_menu {/if}">系统标签</a>	</td>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+	<!--{if $type==1}--><td width="150">隶属大标签</td><!--{/if}-->
+	<td width="150">名称</td>
+	<td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input type="hidden" name="type[]" value="{$rs[type]}" /></td>
+	<td>
+	<input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <!--{if $type==1}--><td><select name="parent_id[]" >
+	 <option class="select">隶属大标签</option>
+	 <!--{loop $achievement_tag_list $trs}-->
+	 <option value="{$trs[id]}" {if $trs[id] == $rs[parent_id]}selected="selected"{/if}>{$trs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td><!--{/if}-->
+	<td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <!--{if $type==1}--><td>
+	<select name="parent_id_n" >
+	 <option class="select">隶属大标签</option>
+	 <!--{loop $achievement_tag_list $trs}-->
+	 <option value="{$trs[id]}">{$trs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td><!--{/if}-->
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+	<td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="5" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td >{$list_array_pages}</td>
+    <td colspan="4">
+	<input type="hidden" name="type_n" value="{$type}" />
+	<input type="hidden" name="action" value="SetAchievementTag" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/>
+	</td>
+  </tr>  
+</table>
+</form>

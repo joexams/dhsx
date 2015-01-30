@@ -1,0 +1,118 @@
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th colspan="11">服务器列表</th>
+  </tr>  
+  <tr class="title_3">
+    <td colspan="14">
+	<form action="" method="get" name="forms" id="forms" onSubmit="setSubmit('Submits')">
+	代号：	
+	<input name="sname" type="text" value="{$sname}" size="10" />	
+	SID：	
+	<input name="sid" type="text" value="{$sid}" size="10" />
+	<select name="apis">
+	<option value="" class="select">API地址</option>
+	<!--{if $servers_address_api_list}-->
+	 <!--{loop $servers_address_api_list $sars}-->
+	 <option value="{$sars[name]}" {if $sars[name] == $apis} selected="selected" {/if}>{$sars[name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<select name="dbs">
+	<option value="" class="select">DB地址</option>
+	<!--{if $servers_address_db_list}-->
+	 <!--{loop $servers_address_db_list $sars}-->
+	 <option value="{$sars[name]}" {if $sars[name] == $dbs} selected="selected" {/if}>{$sars[name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>
+	<input type="submit" name="Submit" id="Submits" value="查看配置服" class="button"/>
+	<input name="in" type="hidden" value="server" />
+	<input name="action" type="hidden" value="ServersPost" />
+	<!--{if $apis || $dbs}-->搜索结果：<strong>{$num}</strong>台<!--{/if}-->
+	</form>		
+	</td>
+  </tr>  
+  
+<form method="post" action="?in=servers" name="form" id="form"  onSubmit="setSubmit('Submit')">
+  <tr class="title_3">
+    <td colspan="11">
+	<!--{if $open_today_count}--><a href="?in=server&action=ServersPost" class="{if !$cid} title_menu_on {else} title_menu {/if}"><strong>今日新开</strong></a><!--{/if}-->
+	<!--{if $company_list}-->
+	<!--{eval $i=1}-->
+	  <!--{loop $company_list $crs}-->
+	  <a href="?in=server&action=ServersPost&cid={$crs[cid]}" class="{if $cid == $crs[cid]} title_menu_on {else} title_menu {/if}" {if !serverAdmin('pay','y')}title="昨收:{$crs[yesterday_amount]}元"{/if}>{$crs[name]}</a>
+	  <!--{if $i % 15 == 0}--><br /><!--{/if}-->
+	  <!--{eval $i++}-->
+	  <!--{/loop}-->
+	<!--{/if}-->
+	</td>
+  </tr>    
+  <tr align="center" class="title_2">
+    <td width="50">编号SID</td>
+    <td >服务器名</td>
+    <td width="100">开服日期</td>
+    <!--{if !serverAdmin('data','y')}--><td width="60">数据报表</td><!--{/if}-->
+    <td width="60">在线</td>
+    <td width="60">活跃</td>
+    <!--{if !serverAdmin('pay','y')}--><td width="60">今收入</td>	
+    <td width="60">今消费</td><!--{/if}-->
+    </tr>  
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="11" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->
+  <!--{if $list_array}-->
+<!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center">
+    <td>{$rs[sid]}</td>	
+    <td align="left">
+	<a href="?in=player&cid={$rs[cid]}&sid={$rs[sid]}" title="进入[{$rs[name]}]查看"><strong style="font-size:14px;">{$rs[name]}-{$rs[o_name]}</strong></a> <!--{if $rs[combined_to]}--> <a href="?in=player&cid={$rs[cid]}&sid={$rs[combined_to]}" title="进入合服查看" class="bluetext"><span>(已合服)</span></a><!--{/if}--><!--{if !$rs[open]}--> <span class="redtext">(未配置)</span><!--{/if}--><!--{if $rs[test] == 1}--> <span class="graytext">(测试服)</span><!--{/if}-->
+	<br /><span class="graytext">{$rs[server]}
+	
+	<br /><a href="http://<!--{if $rs[logserver]}-->{$rs[logserver]}<!--{else}-->{$rs[server]}<!--{/if}-->/{$rs[name]}/game_log.php?pwd=093ff0a821d5255f481e68476fc28340" target="_blank">{$rs[api_server]}:{$rs[api_port]}</a> / VER:{$rs[server_ver]}<br />DB主:{$rs[name2]} / DB从:{$rs[db_server]}
+	
+	</span>	
+	
+	</td>
+    <td>{echo date('Y-m-d H:i',strtotime($rs[open_date]))}<br /><!--{if $rs[open_date] < date('Y-m-d H:i:s')}-->{echo round((strtotime(date('Y-m-d')) - strtotime(date('Y-m-d',strtotime($rs[open_date]))))/86400)+1}天<!--{else}--><span class="graytext">未开启</span><!--{/if}--></td>	
+    <!--{if !serverAdmin('data','y')}--><td><a href="?in=player&action=Data&cid={$rs[cid]}&sid={$rs[sid]}">数据报表</a></td><!--{/if}-->
+    <td class="greentext" ><!--{if $online_data[$rs[name]]}-->{$online_data[$rs[name]]}人<!--{else}-->-<!--{/if}--></td>
+    <td class="greentext"><span id="login{$rs[sid]}">0</span>人</td>	
+    <!--{if !serverAdmin('pay','y')}--><td class="orangetext" ><!--{if $pat[$rs[sid]][today_amount]}--><strong>{$pat[$rs[sid]][today_amount]}</strong>元<!--{else}-->-<!--{/if}--><!--<strong id="todaypay{$rs[sid]}">0</strong>元--></td>
+	<td class="redtext" ><span id="todayconsume{$rs[sid]}">0</span>元</td><!--{/if}-->		
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="11" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="11" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->
+ </form>  
+</table>
+<script language="javascript" type="text/javascript">
+
+	var sid_arr = '{$sid_arr}';
+	var sidArrl = sid_arr.split(",");//拆分
+
+	upLogin();
+	upConsume();
+	
+	function upConsume() {
+		for(var i = 0;i<sidArrl.length;i++ ){
+			selectAjax('player_call.php?action=callTodayConsume&sid='+sidArrl[i]+'&r=' + new Date().getTime(),'todayconsume'+sidArrl[i]+'','','',1);
+		}
+	}	
+
+	function upLogin() {
+		for(var i = 0;i<sidArrl.length;i++ ){
+			selectAjax('call.php?action=CallTodayLogin&sid='+sidArrl[i]+'&r=' + new Date().getTime(),'login'+sidArrl[i]+'','','',1);
+		}
+	}	
+
+</script>	

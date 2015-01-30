@@ -1,0 +1,73 @@
+{template player_data_top}
+<table class="table" style="margin-bottom:5px;">
+  <tr style="font-size:14px;" align="center">
+    <td width="110"  height="30">
+	<select name="month" id="month" onChange="jumpMenu(this)">
+	<!--{if $day_moth_list}-->
+	  <!--{loop $day_moth_list $drs}-->
+	  <option value="{$drs[time]}" {if $drs[time] == $month} selected="selected" {/if}>{$drs[time]}</option>
+	  <!--{/loop}-->
+	  <!--{else}-->
+	  <option value="{$month}" >{$month}</option>
+	<!--{/if}-->		
+	</select>	
+	</td>
+	<td align="left">当月最高在线:{$max_online_month_count}人 <span class="smalltext graytext">发生于:{$max_online_month_time}</span><br />历史最高在线:{$max_online_count}人 <span class="smalltext graytext">发生于:{$max_online_time}</span></td>
+  </tr>
+</table>
+<table class="table">    
+  <tr align="center" class="title_2">
+  	<td width="120">日期</td>
+	<td width="80" title="每日注册数">注册(人)</td>
+	<td width="80" title="每日创建数">创建(人)</td>
+	<td width="80" >创建率</td>
+	<td width="80" title="每日登陆数">登陆(人)</td>
+	<td width="80" title="每日最高在线数">最高在线(人)</td>
+	<td width="80" title="每日平均在线数">平均在线(人)</td>
+	<!--td width="100" title="每日最高在线时间">最高在线时间</td-->
+	<td width="60" title="新用户流失人数：前一天注册等级未满10级">流失(人)</td>
+	<td width="60" title="新用户流失率：流失人数/前一天创建数">流失率%</td>
+	<td width="80">分时记录</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{if $day_list}-->
+  <!--{eval $i=0}-->
+  <!--{loop $day_list $drs $day}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}" >
+    <td align="center"><strong>{$day}</strong> <span class="graytext smalltext">{echo GetWeekDay($day)}</span></td>
+	<td align="right"><!--{if $data[$day][register_count]}-->{$data[$day][register_count]}<!--{else}-->-<!--{/if}--></td>
+	<td align="right">{$data[$day][create_count]}</td>
+	<td class="right"><!--{if $data[$day][create_count]}-->{echo round($data[$day][create_count]/$data[$day][register_count]*100,2)}%<!--{else}-->-<!--{/if}--></td>
+	<td align="right"><!--{if $data[$day][login_count]}-->{$data[$day][login_count]}<!--{else}-->-<!--{/if}--> </td>
+	<td align="right"><!--{if $data[$day][max_online_count]}-->{$data[$day][max_online_count]}<!--{else}-->-<!--{/if}--></td>
+	<td align="right"><!--{if $data[$day][online_count]}-->{echo round($data[$day][online_count]/$data[$day][hour_count])}<!--{else}-->-<!--{/if}--></td>
+	<!--td align="center">{$data[$day][time]}</td-->
+	<td align="right">
+	<!--{eval $out_count2 = $playerout[date('Y-m-d',strtotime($day)-86400)][out_count]}-->
+	<!--{if $data[$day]}-->{$out_count2}<!--{else}-->-<!--{/if}-->
+	</td>	
+	<td align="right">
+	<!--{eval $create_count2 = $data[date('Y-m-d',strtotime($day)-86400)][create_count]}-->
+	<!--{if $data[$day]}-->
+	{echo round($out_count2/$create_count2,2)*100}%
+	<!--{else}-->-<!--{/if}-->	</td>
+	<td align="center">
+	<!--{if $data[$day][register_count]}-->
+	<a href="javascript:void(0)" onClick="pmwin('open','player_call.php?action=callPlayerDataRegHour&sid={$sid}&day={$day}')">查看</a>
+	<!--{else}-->-<!--{/if}-->	</td>
+	<td>&nbsp;</td>
+  </tr>
+   <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="11"  align="center">暂无记录</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>
+
+<script type="text/JavaScript">
+	function jumpMenu(selObj){
+		location="?in=player&action=Data&type=reg&cid={$cid}&sid={$sid}&month="+selObj.options[selObj.selectedIndex].value+"";
+	}
+</script>

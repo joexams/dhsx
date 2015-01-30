@@ -1,0 +1,77 @@
+{template player_log_top}
+<table class="table">
+  <tr class="title_3">
+    <td colspan="8">
+	<form action="" method="get" name="form" id="form" onSubmit="setSubmit('Submit')">
+	{lang WJCX}：<select name="usertype" id="usertype" >
+	<option value="1" {if $usertype == 1} selected="selected" {/if}>{lang USERNAME}</option>
+	<option value="2" {if $usertype == 2} selected="selected" {/if}>{lang USERNICK}</option>
+	</select>
+	<select name="group">
+	<option value="0">{lang SUOZAIBANG}</option>
+	<option value="1" {if $group == 1} selected="selected" {/if}>{lang TIANBANG}</option>
+	<option value="2" {if $group == 2} selected="selected" {/if}>{lang DIBANG}</option>
+	</select>	
+	<input name="username" type="text" value="{$username}" size="20" maxlength="20"  />
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Logs" />
+	<input name="type" type="hidden" value="war" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	{lang STATE}:{echo $warstate[$s[8][data]]}
+	</form>	</td>
+  </tr>   
+  <tr class="title_2" align="center">
+    <!--td>{lang BSBH}</td-->
+	<td>{lang MINGCI}</td>
+	<td>{lang STATE}</td>
+    <td>{lang SUOZAIBANG}</td>
+	<td>{lang SFFJ}</td>
+    <td >{lang USER}</td>
+	<td >{lang USERID}</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{eval $i=0}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}"  align="center" >
+	<!--td>{$rs[apply_id]}</td-->
+	<td>
+	<!--{if $rs[race_step] == 7}-->{lang WAR32}<!--{/if}-->
+	<!--{if $rs[race_step] == 9}-->{lang WAR16}<!--{/if}-->
+	<!--{if $rs[race_step] == 11}-->{lang WAR8}<!--{/if}-->
+	<!--{if $rs[race_step] == 13}-->{lang WAR4}<!--{/if}-->
+	<!--{if $rs[race_step] == 15}-->{lang WAR2}<!--{/if}-->	
+	<!--{if $rs[race_step] == 16}-->{lang WAR1}<!--{/if}-->	
+	</td>
+	<td>
+	<!--{if $rs[status] == 0}-->{lang WEIJINXING}<!--{/if}-->
+	<!--{if $rs[status] == 1}-->{lang JINGXINGZHONG}<!--{/if}-->
+	<!--{if $rs[status] == 2}-->{lang YIWANCHENG}<!--{/if}-->
+	</td>
+	<td>
+	<!--{if $rs[group] == 0}-->{lang WEIJUECHU}<!--{/if}-->
+	<!--{if $rs[group] == 1}-->{lang TIANBANG}<!--{/if}-->
+	<!--{if $rs[group] == 2}-->{lang DIBANG}<!--{/if}-->
+	</td>
+	<td>
+	<!--{if $rs[is_awarded] == 0}-->NO<!--{/if}-->
+	<!--{if $rs[is_awarded] == 1}-->YES<!--{/if}-->
+	</td>
+	<td align="left">
+	<strong><a href="?in=player&action=PlayerView&cid={$cid}&sid={$sid}&uid={$rs[player_id]}" target="_blank">{$rs[username]}</a></strong> ({$rs[nickname]})	</td>
+	<td>{$rs[player_id]}</td>
+  </tr>
+  <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+	<td colspan="8" class="page">{$list_array_pages}</td>
+  </tr>  
+	<!--{/if}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="8">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

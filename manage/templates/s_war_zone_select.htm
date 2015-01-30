@@ -1,0 +1,62 @@
+<table class="table">
+  <tr>
+    <th colspan="7">战区分配</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="10">
+	  <a href="?in=server&action=WarZoneSelect" class="{if !$zone} title_menu_on {else} title_menu {/if}">全部</a>
+	  <a href="?in=server&action=WarZoneSelect&zone=999999" class="{if $zone == 999999} title_menu_on {else} title_menu {/if}">未分配</a>
+	<!--{if $war_zone_list}-->
+	  <!--{loop $war_zone_list $wrs}-->
+	  <a href="?in=server&action=WarZoneSelect&zone={$wrs[id]}" class="{if $zone == $wrs[id]} title_menu_on {else} title_menu {/if}">{$wrs[name]}</a>
+	  <!--{/loop}-->
+	<!--{/if}-->
+	
+	</td>
+  </tr>  
+<form method="post" action="?in=server" name="form"  onSubmit="setSubmit('Submit')">
+  <tr align="center" class="title_2">
+    <td width="50">CID</td>
+	<td width="35">选择</td>
+    <td width="100">平台</td>
+    <td width="200">域名</td>
+	<td width="100">战区</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[cid]}</td>
+	<td><input type="checkbox" name="cid[]" value="{$rs[cid]}" title="选择删除{$rs[name]}"/></td>
+	<td><strong>{$rs[name]}</strong></td>
+    <td>{$rs[web]}</td>
+	<td><!--{if $rs[zone_name]}-->{$rs[zone_name]}<!--{else}-->-<!--{/if}--></td>
+	<td>&nbsp;</td>
+	</tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="7" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+   
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="7" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="7" >
+	<select name="zone">
+	<option value="0">转到战区...</option>
+	<!--{if $war_zone_list}-->
+	<!--{loop $war_zone_list $wrs}-->	  
+	<option value="{$wrs[id]}" {if $zone == $wrs[id]} selected="selected" {/if}>{$wrs[name]}</option>
+	<!--{/loop}-->
+	<!--{/if}-->
+	</select>
+	<input type="hidden" name="action" value="SetWarZoneSelect" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</form>
+</table>

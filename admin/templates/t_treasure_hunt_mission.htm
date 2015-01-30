@@ -1,0 +1,66 @@
+<form method="post" action="?in=treasurehunt" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="11">寻宝关卡表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="100">关卡ID</td>
+    <td width="100">关卡名称</td>
+    <td width="100">怪物</td>
+	<td width="100">传送需要元宝</td>
+    <td width="100">生命值</td>
+    <td width="100">开启需要经验</td>
+    <td width="100">寻宝关卡奖励</td>
+    <td width="100">寻宝关卡额外奖励</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id_old[]" type="hidden" value="{$rs[id]}" /></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td><input name="id[]" type="text" value="{$rs[id]}"  size="10"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="10"/></td>
+    <td><input name="monster[]" type="text" value="{$rs[monster]}"  size="20"/></td>
+	 <td><input name="ingot_cost[]" type="text" value="{$rs[ingot_cost]}"  size="20"/></td>
+	<td><input name="health[]" type="text" value="{$rs[health]}"  size="20"/></td>
+	<td><input name="need_exp[]" type="text" value="{$rs[need_exp]}"  size="20"/></td>
+  <td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallTreasureHuntMissionAward&id={$rs[id]}')" class="list_menu" title="寻宝关卡奖励">关卡奖励</a></td>
+	<td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallTreasureHuntMissionExtraAward&id={$rs[id]}')" class="list_menu" title="关卡额外奖励">关卡额外奖励</a></td>
+
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+
+   <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="11" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}--> 
+
+  <!--{else}-->
+  <tr>
+	<td colspan="11" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="id_n" type="text" value=""  size="10"/></td>
+    <td><input name="name_n" type="text" value=""  size="10"/></td>
+    <td><input name="monster_n" type="text" value=""  size="20"/></td>
+	<td><input name="ingot_cost_n" type="text" value=""  size="20"/></td>
+    <td><input name="health_n" type="text" value=""  size="20"/></td>
+    <td><input name="need_exp_n" type="text" value=""  size="20"/></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="11" align="center">
+	<input type="hidden" name="action" value="SetTreasureHuntMission" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

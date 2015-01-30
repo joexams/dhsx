@@ -1,0 +1,72 @@
+<form method="post" action="?in=monster" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="5">怪物信息</th>
+  </tr>
+  <tr align="center" class="title_2">
+  	<td width="35">删除</td>  
+  	<td width="35" >ID</td>
+    <td>怪物</td>
+    <td>位置</td>
+    <td>参考</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr align="center" >
+	<input name="id_old[]" type="hidden" value="{$rs[id]}"/>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td>{$rs[id]}</td>
+	<td>
+	<select name="monster_id[]" >
+	 <option class="select">选择怪物</option>
+	 <!--{loop $monster_list $mlrs}-->
+	 <option value="{$mlrs[id]}" {if $mlrs[id] == $rs[monster_id]}selected="selected"{/if}>{$mlrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="pos[]" type="text" value="{$rs[pos]}"  size="10"/></td>
+    <!--{if $rs[i]==1}-->
+    <td rowspan="{$num}">
+	<table width="100" border="0" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
+	  <tr align="center">
+		<td {if in_array(2,$n)}bgcolor="#FFFF00"{else}bgcolor="#FFFFFF"{/if}>2</td>
+		<td {if in_array(1,$n)}bgcolor="#FFFF00"{else}bgcolor="#FFFFFF"{/if}>1</td>
+		<td {if in_array(3,$n)}bgcolor="#FFFF00"{else}bgcolor="#FFFFFF"{/if}>3</td>
+	  </tr>
+	  <tr align="center">
+		<td width="25%" {if in_array(6,$n)}bgcolor="#FFFF00"{else}bgcolor="#FFFFFF"{/if}>6</td>
+		<td width="25%" {if in_array(4,$n)}bgcolor="#FFFF00"{else}bgcolor="#FFFFFF"{/if}>4</td>
+		<td width="25%" {if in_array(5,$n)}bgcolor="#FFFF00"{else}bgcolor="#FFFFFF"{/if}>5</td>
+		<td width="25%" {if in_array(7,$n)}bgcolor="#FFFF00"{else}bgcolor="#FFFFFF"{/if}>7</td>
+	  </tr>
+	</table>	
+	
+	</td>
+	<!--{/if}-->
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="monster_id_n" >
+	 <option class="select">选择站位类型</option>
+	 <!--{loop $monster_list $mlrs}-->
+	 <option value="{$mlrs[id]}">{$mlrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="pos_n" type="text" value="1"  size="10"/></td>
+    </tr>  
+  <tr>
+    <td colspan="5" align="center">
+	<input name="mission_area_monster_team_id" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetMissionAreaMonster" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

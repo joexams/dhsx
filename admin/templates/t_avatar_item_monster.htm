@@ -1,0 +1,47 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=item" name="form"  onSubmit="setSubmit('Submit3')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="5"><span class="bluetext">{$name}</span> 对应怪物</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="35">删除</td>
+    <td width="150">怪物</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[npc_id]}<input name="id[]" type="hidden" value="{$rs[item_id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[item_id]},{$rs[monster_id]}" title="选择删除"/></td>
+    <td><input name="monster_id[]" type="hidden" value="{$rs[monster_id]}"/>{$rs[monster_name]}</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="6" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="monster_id_n" >
+	 <option class="select">选择怪物</option>
+	 <!--{loop $monster_list $mrs}-->
+	 <option value="{$mrs[id]}" >{$mrs[name]}</option>
+	 <!--{/loop}-->	
+	</select>	</td>
+    <td>&nbsp;</td>
+    </tr>  
+  <tr>
+    <td colspan="6" align="center">
+	<input name="item_id" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetAvatarItemMonster" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit3" name="Submit3" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

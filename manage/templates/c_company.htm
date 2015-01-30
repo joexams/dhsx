@@ -1,0 +1,57 @@
+<form action="?in=company" method="post" name="form" onSubmit="setSubmit('Submits')">
+<table class="table">
+  <tr>
+    <th colspan="2">{lang PTXXSZ} ＞ <span class="yellowtext">{$rs[name]}</span></th>
+  </tr> 
+   <tr style="display:none;">
+    <td align="right" width="100"><strong>{lang YXBT}</strong></td>
+	<td><input name="game_name" type="text" value="{$rs[game_name]}"  size="30"/></td>
+  </tr>    
+   <tr>
+    <td align="right" width="100"><strong>{lang YXXFMS}</strong></td>
+	<td><input name="game_text" type="text" value="{$rs[game_text]}"  size="50"/> <span class="bluetext">{lang MSSM}</span></td>
+  </tr>  
+  <tr>
+    <td align="right" valign="top" ><strong>{lang GWLJ}</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][0]}"  size="80"/> <span class="bluetext">{lang LJSM}</span></td>
+  </tr> 
+  <tr>
+    <td align="right" valign="top" ><strong>{lang LTLJ}</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][1]}"  size="80"/> <span class="bluetext">{lang LJSM}</span></td>
+  </tr> 
+   <tr>
+    <td align="right" valign="top" ><strong>{lang CZLJ}</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][2]}"  size="80"/> <span class="bluetext">{lang LJSM}</span></td>
+  </tr> 
+  <tr>
+    <td align="right" valign="top" ><strong>{lang VIPLJ}</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][3]}" size="80"/> <span class="bluetext">{lang LJSM}</span></td>
+  </tr>     
+  <tr>
+    <td align="right" valign="top" ><strong>{lang GMLJ}</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][4]}" size="80"/> <span class="bluetext">{lang GMLJSM}</span></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top" ><strong>{lang SCBT}</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][5]}" size="80"/> <span class="bluetext">{lang SCMSSM}</span></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top" ><strong>{lang SCLJ}</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][6]}" size="80"/> <span class="bluetext">{lang SCLJSM}</span></td>
+  </tr>     
+  <tr>
+    <td align="right" valign="top" ><strong>{lang FCMLJ}</strong></td>
+	<td><input type="text" name="link[]" value="{$rs[link][7]}" size="80"/> <span class="bluetext">{lang FCMLJSM}</span></td>
+  </tr>      
+  <tr class="title_2">
+    <td align="right" valign="top" >{lang LJBLSM}</td>
+    <td>{lang LJBL}</td>
+  </tr>    
+  
+    <td>&nbsp;</td>
+    <td>
+	<input type="hidden" name="action" value="SaveCompany" />
+	<input type="hidden" name="cid" value="{$cid}" />
+	<input type="submit" id="Submit" name="Submit" value="{lang SUBMITEDIT}" onClick='javascript: return confirm("{lang DOYOUDO}");'  class="button"/></td>
+  </tr>    
+</table>

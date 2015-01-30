@@ -1,0 +1,129 @@
+<form method="post" action="?in=quest" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="16">特殊伙伴任务信息</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+    <td width="50">删除</td>
+    <td width="150">角色</td>
+    <td width="70">任务索引</td>
+    <td width="70">等级要求</td>
+    <td width="70">需求物品</td>
+    <td width="150">需求物品数量</td>
+    <td width="70">奖励体力</td>
+    <td width="70">奖励声望</td>
+    <td width="70">奖励物品</td>
+    <td width="150">奖励物品数量</td>
+    <td width="70">奖励经验</td>
+    <td width="100">副本</td>
+    <td width="100">怪物</td>
+    <td width="70">物品单价</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td><select name="role_id[]" >
+	 <option class="select" value="0">选择角色</option>
+	 <!--{loop $role_list $rrs}-->
+	 <option value="{$rrs[id]}"  {if $rrs[id] == $rs[role_id]}selected="selected"{/if}>{$rrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+  <td><input name="mission_index[]" type="text" value="{$rs[mission_index]}"  size="5"/></td>
+ <td><input name="require_level[]" type="text" value="{$rs[require_level]}"  size="5"/></td>
+ <td><select name="require_item_id[]" >
+   <option class="select" value="0">选择需求物品</option>
+   <!--{loop $item_list $irs}-->
+   <option value="{$irs[id]}"  {if $irs[id] == $rs[require_item_id]}selected="selected"{/if}>{$irs[name]}</option>
+   <!--{/loop}-->  
+  </select></td>
+  <td><input name="require_item_amount[]" type="text" value="{$rs[require_item_amount]}"  size="5"/></td>
+  <td><input name="award_power[]" type="text" value="{$rs[award_power]}"  size="5"/></td>
+  <td><input name="award_fame[]" type="text" value="{$rs[award_fame]}"  size="5"/></td>
+  <td><select name="award_item_id[]" >
+   <option class="select" value="0">选择奖励物品</option>
+   <!--{loop $awarditem_list $irs}-->
+   <option value="{$irs[id]}"  {if $irs[id] == $rs[award_item_id]}selected="selected"{/if}>{$irs[name]}</option>
+   <!--{/loop}-->  
+  </select></td>
+   <td><input name="award_item_amount[]" type="text" value="{$rs[award_item_amount]}"  size="5"/></td>
+   <td><input name="award_experience[]" type="text" value="{$rs[award_experience]}"  size="5"/></td>
+   <td><select name="mission_id[]" >
+    <option class="select" value="0">选择副本</option>
+    <!--{loop $mission_list $mrs}-->
+    <option value="{$mrs[id]}"  {if $mrs[id] == $rs[mission_id]}selected="selected"{/if}>{$mrs[name]}</option>
+    <!--{/loop}-->  
+   </select></td>
+   <td><select name="monster_id[]" >
+   <option class="select" value="0">选择怪物</option>
+   <!--{loop $monster_list $msrs}-->
+   <option value="{$msrs[id]}"  {if $msrs[id] == $rs[monster_id]}selected="selected"{/if}>{$msrs[name]}</option>
+   <!--{/loop}-->  
+  </select></td>
+   <td><input name="item_price[]" type="text" value="{$rs[item_price]}"  size="5"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="16" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+        <td><select name="role_id_n" >
+       <option class="select" value="0">选择角色</option>
+       <!--{loop $role_list $rrs}-->
+       <option value="{$rrs[id]}">{$rrs[name]}</option>
+       <!--{/loop}-->  
+      </select></td>
+      <td><input name="mission_index_n" type="text" value=""  size="5"/></td>
+     <td><input name="require_level_n" type="text" value=""  size="5"/></td>
+     <td><select name="require_item_id_n" >
+       <option class="select" value="0">选择需求物品</option>
+       <!--{loop $item_list $irs}-->
+       <option value="{$irs[id]}">{$irs[name]}</option>
+       <!--{/loop}-->  
+      </select></td>
+      <td><input name="require_item_amount_n" type="text" value=""  size="5"/></td>
+      <td><input name="award_power_n" type="text" value=""  size="5"/></td>
+      <td><input name="award_fame_n" type="text" value=""  size="5"/></td>
+      <td><select name="award_item_id_n" >
+       <option class="select" value="0">选择奖励物品</option>
+       <!--{loop $awarditem_list $irs}-->
+       <option value="{$irs[id]}">{$irs[name]}</option>
+       <!--{/loop}-->  
+      </select></td>
+       <td><input name="award_item_amount_n" type="text" value=""  size="5"/></td>
+       <td><input name="award_experience_n" type="text" value=""  size="5"/></td>
+       <td><select name="mission_id_n" >
+        <option class="select" value="0">选择副本</option>
+      <!--{loop $mission_list $mrs}-->
+      <option value="{$mrs[id]}">{$mrs[name]}</option>
+      <!--{/loop}-->
+       </select></td>
+       <td><select name="monster_id_n" >
+       <option class="select" value="0">选择怪物</option>
+       <!--{loop $monster_list $msrs}-->
+       <option value="{$msrs[id]}">{$msrs[name]}</option>
+       <!--{/loop}-->  
+      </select></td>
+       <td><input name="item_price_n" type="text" value=""  size="5"/></td>
+        <td>&nbsp;</td>
+  </tr> 
+
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="16" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="16" align="center">
+	<input type="hidden" name="action" value="SetSpecialPartnerMission" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

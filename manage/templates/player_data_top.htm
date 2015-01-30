@@ -1,0 +1,40 @@
+{template player_top}
+<table class="table" style="margin-bottom:5px;">
+   <tr class="title_3">
+    <td>
+	  <!--{if !serverAdmin('data','y')}-->
+	  <a href="?in=player&action=Data&cid={$cid}&sid={$sid}" class="{if !$type} title_menu_on {else} title_menu {/if}">{lang RZDL}<!--{if !serverAdmin('pay_data','y')}-->/{lang CHONGZHI}<!--{/if}--></a>
+	  <a href="?in=player&action=Data&type=role_rate&cid={$cid}&sid={$sid}" class="{if $type == 'role_rate'} title_menu_on {else} title_menu {/if}">{lang JSCJQDTJ}</a>
+	  <br />
+	  <!--{/if}-->
+	  <!--{if !serverAdmin('data_key','y')}-->
+	  <a href="?in=player&action=Data&type=player_level&cid={$cid}&sid={$sid}" class="{if $type == 'player_level'} title_menu_on {else} title_menu {/if}">{lang WJDJFB}</a>
+	  <a href="?in=player&action=Data&type=player_level_vip&cid={$cid}&sid={$sid}" class="{if $type == 'player_level_vip'} title_menu_on {else} title_menu {/if}">{lang WJVIPFB}</a>
+	  <a href="?in=player&action=Data&type=player_out&cid={$cid}&sid={$sid}" class="{if $type == 'player_out'} title_menu_on {else} title_menu {/if}">{lang FJLSL}</a>
+	  <a href="?in=player&action=Data&type=player_town_online&cid={$cid}&sid={$sid}" class="{if $type == 'player_town_online'} title_menu_on {else} title_menu {/if}">{lang DQCZZXRS}</a>
+	  <a href="?in=player&action=Data&type=player_new_out&cid={$cid}&sid={$sid}" class="{if $type == 'player_new_out'} title_menu_on {else} title_menu {/if}">{lang XRYXLS}</a>
+	  <br />
+	  <a href="?in=player&action=Data&type=player_mammon&cid={$cid}&sid={$sid}" class="{if $type == 'player_mammon'} title_menu_on {else} title_menu {/if}">{lang CFTJ}</a>
+	  <a href="?in=player&action=Data&type=item&cid={$cid}&sid={$sid}" class="{if $type == 'item'} title_menu_on {else} title_menu {/if}">{lang ZBTJ}</a>
+	  <a href="?in=player&action=Data&type=fate&cid={$cid}&sid={$sid}" class="{if $type == 'fate'} title_menu_on {else} title_menu {/if}">{lang MGTJ}</a>
+	  <a href="?in=player&action=Data&type=consume&cid={$cid}&sid={$sid}" class="{if $type == 'consume'} title_menu_on {else} title_menu {/if}">{lang XFTJ}</a>
+	  <a href="?in=player&action=Data&type=role&cid={$cid}&sid={$sid}" class="{if $type == 'role'} title_menu_on {else} title_menu {/if}">{lang HBTJ}</a>
+	  <a href="?in=player&action=Data&type=power&cid={$cid}&sid={$sid}" class="{if $type == 'power'} title_menu_on {else} title_menu {/if}">{lang TLTJ}</a>	 
+	  <br />	
+	  <!--{/if}-->
+	  <!--{if !serverAdmin('pay','y')}--><a href="?in=player&action=Data&type=pay&cid={$cid}&sid={$sid}" class="{if $type == 'pay'} title_menu_on {else} title_menu {/if}">{lang COZJL}</a><!--{/if}-->
+	  <!--{if !serverAdmin('pay_order','y')}--><a href="?in=player&action=Data&type=pay_order&cid={$cid}&sid={$sid}" class="{if $type == 'pay_order'} title_menu_on {else} title_menu {/if}">{lang CZPH}</a>	<!--{/if}-->
+	  <!--{if !serverAdmin('pay_data','y')}--><a href="?in=player&action=Data&type=pay_data&cid={$cid}&sid={$sid}" class="{if $type == 'pay_data'} title_menu_on {else} title_menu {/if}">{lang CZBB}</a><!--{/if}-->
+	  <!--{if !serverAdmin('pay_data','y')}--><a href="?in=player&action=Data&type=pay_rate&cid={$cid}&sid={$sid}" class="{if $type == 'pay_rate'} title_menu_on {else} title_menu {/if}">{lang XFCZBL}</a><!--{/if}-->
+	  
+	</td>
+  </tr> 
+</table>
+<!--{if $updatetime > 0}-->
+<table width="100%" cellpadding="0" cellspacing="0">   
+  <tr>
+    <td>&nbsp;</td>
+    <td class="td_title">{lang DQHCSJMSG}</td>
+  </tr>
+</table >
+<!--{/if}-->

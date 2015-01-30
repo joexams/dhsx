@@ -1,0 +1,21 @@
+<table width="100%">   
+  <!--{if $list_array}-->
+  <!--{loop $rows $list_array}-->
+  <tr>
+  	<!--{loop $list_array $rs}-->	  
+    <td width="20%" {if $sid == $rs[sid]}class="td2"{/if}>
+	<!--{if $rs[open]}-->
+	<a href="{$rs[new_url]}" title="{$rs[o_name]}">{$rs[name]}</a>
+	<!--{else}-->
+	{$rs[name]}-{$rs[o_name]} <span class="redtext">({lang WPZ})</span>
+	<!--{/if}-->
+	</td>
+	<!--{/loop}-->
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

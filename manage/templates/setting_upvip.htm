@@ -1,0 +1,91 @@
+<form action="?in=setting" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table" style="margin-bottom:5px;">
+    <tr>
+      <th colspan="2">{lang TVIP}</th>
+    </tr>
+    <tr>
+      <td width="100" align="right"><strong>{lang SERVER}</strong></td>
+      <td>
+		<!--{if $adminWebType == 's'}-->
+		<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+		 <option class="select">{lang COMPANY}</option>
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>	  
+		<!--{else}-->
+		<input name="cid" type="hidden" value="{$cid}" />
+		<!--{/if}-->	
+
+		<select name="sid" id = "sid">
+		<option value="" class="select">{lang ALLSERVER}</option>
+		<!--{if $servers_list}-->
+		 <!--{loop $servers_list $srs}-->
+		 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->		
+		
+		</select>	  </td>
+    </tr>
+    <tr>
+      <td align="right"><strong>{lang USER}</strong></td>
+      <td>
+		<select name="usertype" id="usertype" >
+		<!--option value="1">{lang USERNAME}</option-->
+		<option value="2">{lang USERNICK}</option>
+		</select>		  
+	   <input name="username" type="text" value="" size="30"/></td>
+    </tr>
+     <tr>
+      <td align="right"><strong>{lang VIPLEVEL}</strong></td>
+      <td>
+	<select name="vip">
+		<option value="0">{lang DELVIP}</option>
+		<option value="1">VIP1</option>
+		<option value="2">VIP2</option>
+		<option value="3">VIP3</option>
+		<option value="4">VIP4</option>
+		<option value="5">VIP5</option>
+		<option value="6">VIP6</option>
+		<option value="7">VIP7</option>
+		<option value="8">VIP8</option>
+		<option value="9">VIP9</option>
+		<option value="10">VIP10</option>
+		<option value="11">VIP11</option>
+		<option value="12">VIP12</option>
+		
+	</select>	  
+	  
+	<span class="graytext">{lang TVIPMSG}</span></td>
+   </tr>	
+     <tr>
+      <td align="right"><strong>{lang SYB}</strong></td>
+      <td><input name="money" type="text" value="0" size="40"/> <span class="graytext">{lang TVIPSYBMSG}</span></td>
+   </tr> 
+   <!--{if $status == 1}-->
+     <tr>
+      <td align="right"><strong>{lang SETSTATE}</strong></td>
+      <td>
+	<select name="is_tester">
+		<option value="0">{lang TESTNOSET}</option>
+		<option value="1">{lang SETTEST}</option>
+		<!--{if !webAdmin('key_data_set','y') || $adminWebType == 's'}-->
+		<option value="2">{lang SETTESTHIGHT}</option>
+		<!--{/if}-->
+	</select>	  
+	 <span class="graytext">{lang SETTESTMSG}</span>
+	</td>
+   </tr>  
+   <!--{/if}--> 
+     <tr>
+       <td valign="top" align="right"><strong>{lang SETREASON}</strong></td>
+      <td><input name="cause" type="text" value="TEST" size="40"/> <span class="graytext">{lang SETREASONMSG}</span></td>
+   </tr>
+           
+    <tr>
+      <td><input name="action" type="hidden" value="SaveUpVip"/></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" {lang SUBMITOK} " class="button"/> <span class="bluetext">{lang SYSTEMSG}</span></td>
+    </tr>
+  </table>
+</form >
+  

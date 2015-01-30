@@ -1,0 +1,65 @@
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="6">元宝记录类型列表</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="11">
+	 <a href="?in=other&action=IngotChangeType&type=0" class="{if $type == 0} title_menu_on {else} title_menu {/if}">消费</a>
+	 <a href="?in=other&action=IngotChangeType&type=1" class="{if $type == 1} title_menu_on {else} title_menu {/if}">获取</a>
+	</td>
+  </tr>  
+  
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="180">名称</td>
+	<td width="180">标识</td>
+	<td width="50">类型</td>
+	<td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="30"/></td>
+	<td><input name="sign[]" type="text" value="{$rs[sign]}"  size="30"/></td>	
+	<td>
+	<select name="type[]" >
+	 <option value="0"  {if $rs[type] == 0}selected="selected"{/if}>消费</option>
+	 <option value="1"  {if $rs[type] == 1}selected="selected"{/if}>获取</option>
+	</select>	
+	</td>	
+	<td>&nbsp;</td>	
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="6" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="name_n" type="text" value=""  size="30"/></td>
+	<td><input name="sign_n" type="text" value=""  size="30"/></td>
+	<td>
+	<select name="type_n" >
+	 <option value="0" {if $type == 0}selected="selected"{/if}>消费</option>
+	 <option value="1" {if $type == 1}selected="selected"{/if}>获取</option>
+	</select>		
+	</td>
+	<td>&nbsp;</td>	
+    </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="6" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="6" align="center">
+	<input type="hidden" name="action" value="SetIngotChangeType" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

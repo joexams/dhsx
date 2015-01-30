@@ -1,0 +1,30 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="6">管理员列表</th>
+  </tr>
+  <tr class="title_2" align="center">
+    <td width="50">ID</td>
+    <td>名称</td>
+    <td>最后登陆时间</td>
+    <td>最后登陆IP</td>
+    <td width="50">&nbsp;</td>
+    <td width="50">&nbsp;</td>
+  </tr> 
+  <!--{if $admin_array}-->
+  <!--{loop $admin_array $rs}-->
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" >
+    <td align="center">{$rs[adminID]}</td>
+	<td><strong>{$rs[adminName]}</strong></td>
+	<td>{$rs[adminLoingTime]}</td>
+	<td>{$rs[adminLoingIP]}</td>
+    <td align="center"><!--{if $rs[adminID]!=1}--><a href="?in=admin&action=DelAdmin&id={$rs[adminID]}" onclick='javascript: return confirm("是否删除{$rs[adminName]}？");' class="list_red">×</a><!--{/if}--></td>
+    <td align="center"><a href="?in=admin&action=EditAdmin&id={$rs[adminID]}" class="list_edit">修改</a></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+    <td colspan="6">暂无相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+
+</table>

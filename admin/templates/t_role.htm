@@ -1,0 +1,211 @@
+<form method="post" action="?in=role" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="31">角色信息列表</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="31">
+	<a href="?in=role" class="{if !$role_type} title_menu_on {else} title_menu {/if}">普通</a>
+	<a href="?in=role&role_type=1" class="{if $role_type == 1} title_menu_on {else} title_menu {/if}">紫色伙伴</a>
+	<a href="?in=role&role_type=2" class="{if $role_type == 2} title_menu_on {else} title_menu {/if}">光环工作室伙伴</a>
+	<a href="?in=role&role_type=3" class="{if $role_type == 3} title_menu_on {else} title_menu {/if}">雇佣伙伴</a>
+	<a href="?in=role&role_type=4" class="{if $role_type == 4} title_menu_on {else} title_menu {/if}">金色伙伴</a>
+	</td>
+  </tr>  
+  
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td>名称</td>
+	<td>标识</td>
+	<td>权值</td>
+	<td>招募费用</td>
+	<td>需要元宝</td>
+    <td>性别</td>	
+    <td>职业</td>
+    <td>绝技</td>
+	<td>初始血量</td>
+    <td>武力</td>
+    <td>绝技</td>
+    <td>法术</td>
+	<td>所需声望</td>
+	<td>客栈可见声望</td>
+	<td>爬塔解锁值</td>
+	<td>是否推荐伙伴</td>
+	<td>推荐声望区间上限</td>
+	<td>角色声望等级</td>
+<td>类型</td>
+    <td>介绍</td>
+    <td>邀请类型</td>
+    <td>招募消耗境界点</td>
+    <td>云中界招募等级</td>
+    <td>需求等级</td>
+    <td>怪物团</td>
+    <td>喜好品</td>
+    <td>喜好品数量</td>
+    <td>通关条件</td>
+    <td>评论</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+	<td><input name="sign[]" type="text" value="{$rs[sign]}"  size="15"/></td>	
+	<td><input name="lock[]" type="text" value="{$rs[lock]}"  size="4"/></td>	
+	<td><input name="fees[]" type="text" value="{$rs[fees]}"  size="5"/></td>
+	<td><input name="ingot[]" type="text" value="{$rs[ingot]}"  size="5"/></td>	
+    <td>
+	<select name="gender[]" >
+	 <option class="select">选择性别</option>
+	 <option value="0" {if $rs[gender] == 0}selected="selected"{/if}>男</option>
+	 <option value="1" {if $rs[gender] == 1}selected="selected"{/if}>女</option>
+	</select>	</td>
+    <td>
+	<select name="role_job_id[]" >
+	 <option class="select">选择职业</option>
+	 <!--{loop $role_job_list $jrs}-->
+	 <option value="{$jrs[id]}" {if $jrs[id] == $rs[role_job_id]}selected="selected"{/if}>{$jrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	</td>
+    <td>
+	<select name="role_stunt_id[]" >
+	 <option class="select">选择绝技</option>
+	 <!--{loop $role_stunt_list $srs}-->
+	 <option value="{$srs[id]}" {if $srs[id] == $rs[role_stunt_id]}selected="selected"{/if}>{$srs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	</td>
+	<td><input name="initial_health[]" type="text" value="{$rs[initial_health]}"  size="5"/></td>
+    <td><input name="strength[]" type="text" value="{$rs[strength]}"  size="5"/></td>
+    <td><input name="agile[]" type="text" value="{$rs[agile]}"  size="5"/></td>
+    <td><input name="intellect[]" type="text" value="{$rs[intellect]}"  size="5"/></td>
+	<td><input name="fame[]" type="text" value="{$rs[fame]}"  size="5"/></td>
+	<td><input name="show_require_fame[]" type="text" value="{$rs[show_require_fame]}"  size="5"/></td>
+	<td><input name="tower_lock[]" type="text" value="{$rs[tower_lock]}"  size="5"/></td>
+	<td><select name="is_recommend[]" >
+	 <option value="0" {if $rs[is_recommend] == 0}selected="selected"{/if}>否</option>
+	 <option value="1" {if $rs[is_recommend] == 1}selected="selected"{/if}>是</option>
+	</select></td>
+	<td><input name="recommend_fame[]" type="text" value="{$rs[recommend_fame]}"  size="5"/></td>
+	<td><input name="fame_level_for_role[]" type="text" value="{$rs[fame_level_for_role]}"  size="5"/></td>
+ <td>
+	<select name="role_type[]" >
+	 <option value="0" {if $rs[role_type] == 0}selected="selected"{/if}>普通</option>
+	 <option value="1" {if $rs[role_type] == 1}selected="selected"{/if}>紫色伙伴</option>
+	 <option value="2" {if $rs[role_type] == 2}selected="selected"{/if}>光环工作室伙伴</option>
+	 <option value="3" {if $rs[role_type] == 3}selected="selected"{/if}>雇佣伙伴</option>
+	 <option value="4" {if $rs[role_type] == 4}selected="selected"{/if}>金色伙伴</option>
+	</select>	</td>
+    <td><textarea name="introduction[]" cols="10" rows="1" ondblclick="textareasize(this)">{$rs[introduction]}</textarea></td>
+     <td>
+	<select name="invite_type[]" >
+	 <option value="0" {if $rs[invite_type] == 0}selected="selected"{/if}>废弃</option>
+	 <option value="1" {if $rs[invite_type] == 1}selected="selected"{/if}>客栈</option>
+	 <option value="2" {if $rs[invite_type] == 2}selected="selected"{/if}>仙界</option>
+	 <option value="3" {if $rs[invite_type] == 3}selected="selected"{/if}>战无双</option>
+	</select>	</td>
+	<td><input name="state_point_need[]" type="text" value="{$rs[state_point_need]}"  size="5"/></td>
+	<td><input name="role_paradise_level[]" type="text" value="{$rs[role_paradise_level]}"  size="5"/></td>
+	<td><input name="need_lv[]" type="text" value="{$rs[need_lv]}"  size="5"/></td>
+	<td><input name="mission_monster_team[]" type="text" value="{$rs[mission_monster_team]}"  size="5"/></td>
+	<td><input name="favor_item_id[]" type="text" value="{$rs[favor_item_id]}"  size="5"/></td>
+	<td><input name="favor_item_val[]" type="text" value="{$rs[favor_item_val]}"  size="5"/></td>
+	<td><input name="win_condition[]" type="text" value="{$rs[win_condition]}"  size="15"/></td>
+	<td>
+	<select name="is_comments[]" >
+	 <option value="0" {if $rs[is_comments] == 0}selected="selected"{/if}>可评论</option>
+	 <option value="1" {if $rs[is_comments] == 1}selected="selected"{/if}>不可评论</option>
+	</select>	</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="31" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+	<td><input name="sign_n" type="text" value=""  size="15"/></td>
+	<td><input name="lock_n" type="text" value=""  size="4"/></td>
+	<td><input name="fees_n" type="text" value=""  size="5"/></td>
+	<td><input name="ingot_n" type="text" value=""  size="5"/></td>
+    <td>
+	<select name="gender[]" >
+	 <option class="select">选择性别</option>
+	 <option value="0">男</option>
+	 <option value="1">女</option>
+	</select>
+	</td>
+    <td>
+	<select name="role_job_id_n" >
+	 <option class="select">选择职业</option>
+	 <!--{loop $role_job_list $jrs}-->
+	 <option value="{$jrs[id]}">{$jrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	</td>
+    <td>
+	<select name="role_stunt_id_n" >
+	 <option class="select">选择绝技</option>
+	 <!--{loop $role_stunt_list $srs}-->
+	 <option value="{$srs[id]}">{$srs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="initial_health_n" type="text" value=""  size="5"/></td>
+    <td><input name="strength_n" type="text" value=""  size="5"/></td>
+    <td><input name="agile_n" type="text" value=""  size="5"/></td>
+    <td><input name="intellect_n" type="text" value=""  size="5"/></td>
+	<td><input name="fame_n" type="text" value=""  size="5"/></td>
+	<td><input name="show_require_fame_n" type="text" value=""  size="5"/></td>
+	<td><input name="tower_lock_n" type="text" value=""  size="5"/></td>
+	<td><select name="is_recommend_n" >
+	 <option value="0">否</option>
+	 <option value="1">是</option>
+	</select></td>
+	<td><input name="recommend_fame_n" type="text" value=""  size="5"/></td>
+	<td><input name="fame_level_for_role_n" type="text" value=""  size="5"/></td>
+ <td>
+	<select name="role_type_n" >
+	 <option value="0" {if $role_type == 0}selected="selected"{/if}>普通</option>
+	 <option value="1" {if $role_type == 1}selected="selected"{/if}>紫色伙伴</option>
+	 <option value="2" {if $role_type == 2}selected="selected"{/if}>光环工作室伙伴</option>
+	 <option value="3" {if $role_type == 3}selected="selected"{/if}>雇佣伙伴</option>
+	 <option value="4" {if $role_type == 4}selected="selected"{/if}>金色伙伴</option>
+	</select>	</td>
+    <td><textarea name="introduction_n" cols="10" rows="1" ondblclick="textareasize(this)"></textarea></td>
+    <td>
+	<select name="invite_type_n" >
+	 <option value="0">废弃</option>
+	 <option value="1">客栈</option>
+	 <option value="2">仙界</option>
+	 <option value="3">战无双</option>
+	</select>	</td>
+	<td><input name="state_point_need_n" type="text" value=""  size="5"/></td>
+	<td><input name="role_paradise_level_n" type="text" value=""  size="5"/></td>
+	<td><input name="need_lv_n" type="text" value=""  size="5"/></td>
+	<td><input name="mission_monster_team_n" type="text" value=""  size="5"/></td>
+	<td><input name="favor_item_id_n" type="text" value=""  size="5"/></td>
+	<td><input name="favor_item_val_n" type="text" value=""  size="5"/></td>
+	<td><input name="win_condition_n" type="text" value=""  size="15"/></td>
+	<td>
+	<select name="is_comments_n" >
+	 <option value="0">可评论</option>
+	 <option value="1">不可评论</option>
+	</select>	</td>
+    </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="31" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="31" align="center">
+	<input type="hidden" name="action" value="SetRole" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

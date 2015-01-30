@@ -1,0 +1,221 @@
+<script language="JavaScript" type="text/JavaScript" src="include/js/calendar.js"></script>
+<form method="post" action="?in=setting" name="form"  onSubmit="setSubmit('Submit')">
+<table width="100%" class="table" id="gifttag">
+  <tr>
+    <th colspan="2">礼包配置</th>
+  </tr>
+  <tr>
+    <td width="120"><strong>礼包名称</strong></td>
+    <td><input type="text" name="giftname" value="{$giftarr[giftname]}" size="40"></td>
+  </tr>
+  <tr>
+    <td width="120"><strong>礼包领取类型</strong></td>
+    <td>
+    	<input type="radio" name="gifttype" value="0" {if $giftarr[gifttype] != 1}checked{/if}>每服总领取次数
+    	<input type="radio" name="gifttype" value="1" {if $giftarr[gifttype] == 1}checked{/if}>每服每日领取次数
+    </td>
+  </tr>
+  <tr>
+    <td width="120"><strong>礼包领取限制次数</strong></td>
+    <td>
+    	<input type="text" name="limitnumber" value="{$giftarr[limitnumber]}" size="10">
+    </td>
+  </tr>
+  <tr>
+    <td width="120"><strong>礼包时间限制</strong></td>
+    <td>
+      开始时间：<input type="text" name="starttime" id="starttime" value="{$giftarr[starttime]}" onclick="showcalendar(event, this)" readonly size="15">
+       - 
+      结束时间：<input type="text" name="endtime" id="endtime" value="{$giftarr[endtime]}" onclick="showcalendar(event, this)" readonly size="15">
+    </td>
+  </tr>
+  <tr>
+    <td width="120"><strong>礼包领取提示</strong></td>
+    <td>
+    	<input type="text" name="message" id="message" value="{$giftarr[message]}" size="50">
+       <span class="graytext">例如：恭喜您获得[300000铜钱]、[5000阅历]、[牡丹仙子变身卡*1]、[4级生命道符*1]</span>
+    </td>
+  </tr>
+  <tr>
+    <td width="120"><strong>铜钱数量</strong></td>
+    <td>
+    	<input type="text" name="coins" value="{$giftarr[coin]}" size="10">
+    </td>
+  </tr>
+  <tr>
+    <td width="120"><strong>阅历数量</strong></td>
+    <td>
+    	<input type="text" name="skill" value="{$giftarr[skill]}" size="10">
+    </td>
+  </tr>
+  <tr>
+    <td width="120"><strong>声望数量</strong></td>
+    <td>
+    	<input type="text" name="fame" value="{$giftarr[fame]}" size="10">
+    </td>
+  </tr>
+  <tr>
+    <td width="120"><strong>元宝数量</strong></td>
+    <td>
+    	<input type="text" name="ingot" value="{$giftarr[ingot]}" size="10">
+    </td>
+  </tr>
+  <tr>
+  	<td width="120" align="right"><strong>道具物品：</strong></td>
+  	<td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="120">&nbsp;</td>
+    <td>
+      <!--{if !empty($giftarr[itemlist])}-->
+         <!--{eval $i=0;}-->
+        <!--{loop $giftarr[itemlist] $ilist}-->
+        <!--{eval $i++;}-->
+          <div>
+          物品I  D：<input type="text" name="item[id][]" value="{$ilist[item_id]}" size="10"> &nbsp;&nbsp;
+          物品等级：<input type="text" name="item[level][]" value="{$ilist[level]}" size="10"> &nbsp;&nbsp;
+          物品数量：<input type="text" name="item[number][]" value="{$ilist[number]}" size="10"> &nbsp;&nbsp;
+            <!--{if $i == 1}-->
+      <a href="javascript:;" style="font-size:14px;font-weight:600" class="add">+</a>
+      <!--{else}-->
+      <a href="javascript:;" style="font-size:14px;font-weight:600" class="sub">-</a>
+     <!--{/if}-->
+          </div>
+        <!--{/loop}-->
+      <!--{else}-->
+      <div>
+      物品I  D：<input type="text" name="item[id][]" value="" size="10"> &nbsp;&nbsp;
+      物品等级：<input type="text" name="item[level][]" value="1" size="10"> &nbsp;&nbsp;
+      物品数量：<input type="text" name="item[number][]" value="1" size="10"> &nbsp;&nbsp;
+        <a href="javascript:;" style="font-size:14px;font-weight:600" class="add">+</a>
+      </div>
+      <!--{/if}-->
+    </td>
+  </tr>
+  <tr>
+  	<td width="120" align="right"><strong>命格：</strong></td>
+  	<td >&nbsp;</td>
+  </tr>
+  <tr>
+  	<td>&nbsp;</td>
+    <td>
+      <!--{if !empty($giftarr[fatelist])}-->
+         <!--{eval $i=0;}-->
+        <!--{loop $giftarr[fatelist] $flist}-->
+        <!--{eval $i++;}-->
+          <div>
+    命格I  D：<input type="text" name="fate[id][]" value="{$flist[fate_id]}" size="10"> &nbsp;&nbsp;
+    命格等级：<input type="text" name="fate[level][]" value="{$flist[level]}" size="10"> &nbsp;&nbsp;
+    命格数量：<input type="text" name="fate[number][]" value="{$flist[number]}" size="10"> &nbsp;&nbsp;
+      <!--{if $i == 1}-->
+      <a href="javascript:;" style="font-size:14px;font-weight:600" class="add">+</a>
+      <!--{else}-->
+      <a href="javascript:;" style="font-size:14px;font-weight:600" class="sub">-</a>
+     <!--{/if}-->
+    </div>
+        <!--{/loop}-->
+      <!--{else}-->
+     <div>
+    命格I  D：<input type="text" name="fate[id][]" value="" size="10"> &nbsp;&nbsp;
+    命格等级：<input type="text" name="fate[level][]" value="1" size="10"> &nbsp;&nbsp;
+    命格数量：<input type="text" name="fate[number][]" value="1" size="10"> &nbsp;&nbsp;
+      <a href="javascript:;" style="font-size:14px;font-weight:600" class="add">+</a>
+    </div>
+      <!--{/if}-->
+    </td>
+  </tr>
+  <tr>
+    <td width="120" align="right"><strong>灵件：</strong></td>
+  	<td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+      <!--{if !empty($giftarr[soullist])}-->
+         <!--{eval $i=0}-->
+        <!--{loop $giftarr[soullist] $slist}-->
+        <!--{eval $i++;}-->
+     <div>
+      灵件I  D：<input type="text" name="soul[id][]" value="{$slist[soul_id]}" size="10"> &nbsp;&nbsp;
+      灵件数量：<input type="text" name="soul[number][]" value="{$slist[number]}" size="10"> &nbsp;&nbsp;
+      <!--{if $i == 1}-->
+      <a href="javascript:;" style="font-size:14px;font-weight:600" class="add">+</a>
+      <!--{else}-->
+      <a href="javascript:;" style="font-size:14px;font-weight:600" class="sub">-</a>
+     <!--{/if}-->
+    </div>
+        <!--{/loop}-->
+      <!--{else}-->
+      <div>
+      灵件I  D：<input type="text" name="soul[id][]" value="" size="10"> &nbsp;&nbsp;
+      灵件数量：<input type="text" name="soul[number][]" value="1" size="10"> &nbsp;&nbsp;
+      <a href="javascript:;" style="font-size:14px;font-weight:600" class="add">+</a>
+    </div>
+      <!--{/if}-->
+    </td>
+  </tr>
+   <tr>
+      <td><input name="action" type="hidden" value="SetGiftSetting"/>
+          <input type="hidden" name="giftid" value="{$giftarr[giftid]}">
+      </td>
+      <td><input type="submit" name="Submit" id="Submit" value=" {lang SUBMITOK} " class="button" onclick='javascript: return confirm("{lang DOYOUDO}");' /></td>
+    </tr>
+</table>
+</form>
+<br>
+<table width="100%" class="table">
+  <tr>
+    <th colspan="12">礼包列表</th>
+  </tr>
+  <tr class="title_3">
+    <td width="50">礼包ID</td>
+    <td width="150">礼包名称</td>
+    <td width="100">礼包类型</td>
+    <td width="50">限制次数</td>
+    <td width="100">开始时间</td>
+    <td width="100">结束时间</td>
+    <td width="300">提示内容</td>
+    <td width="200">操作</td>
+    <td>&nbsp;</td>
+  </tr>
+    <!--{if $list_array}-->
+    <!--{loop $list_array $rs}-->
+    <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="td" >
+      <td>{$rs[giftid]}</td>
+      <td>{$rs[giftname]}</td>
+      <td><!--{if $rs[gifttype] == 1}-->每服每日领取次数 <!--{else}--> 每服总领取次数<!--{/if}--></td>
+      <td>{$rs[limitnumber]}</td>
+      <td>{$rs[starttime]}</td>
+      <td>{$rs[endtime]}</td>
+      <td>{$rs[message]}</td>
+      <td><a href="?in=setting&action=GiftSetting&giftid={$rs[giftid]}" class="list_edit">修改</a></td>
+      <td>&nbsp;</td>
+    </tr>
+    <!--{/loop}-->
+    <!--{else}-->
+    <tr align="center">
+      <td colspan="12">暂无相关信息</td>
+    </tr>  
+    <!--{/if}--> 
+    <!--{if $list_array_pages}--> 
+    <tr>
+      <td colspan="12" class="page">{$list_array_pages}</td>
+    </tr> 
+    <!--{/if}-->
+</table>
+
+
+<script type="text/javascript" src="style/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+jQuery.noConflict();
+jQuery(function(){
+  jQuery('#gifttag').on('click', 'a.sub', function() {
+    jQuery(this).parent().remove();
+  });
+  jQuery('#gifttag').on('click', 'a.add', function() {
+    var str = jQuery(this).parent().clone().html();
+    str = str.replace(/\+/g, '-').replace(/add/g, 'sub');
+    jQuery('<div>'+str+'</div>').appendTo(jQuery(this).parent().parent());
+  });
+});
+</script>

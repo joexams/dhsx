@@ -1,0 +1,291 @@
+<table class="table">
+  <tr>
+    <th colspan="22"><a href="?in=quest"><span class="bluetext">{$quest_type_name}</span> 任务列表</a><!--{if $title}--> ＞ 搜索 <span class="bluetext">{$title}</span><!--{/if}--></th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="22">
+	<span class="right" style="padding:3px;">
+	<form action="" method="get" name="forms" onSubmit="setSubmit('Submits')">
+	<select name="type" >
+	 <option class="select">选择类型</option>
+	 <!--{loop $quest_type_list $qtrs}-->
+	 <option value="{$qtrs[id]}" {if $qtrs[id] == $type}selected="selected"{/if}>{$qtrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	<input name="title" type="text" value="{$title}" size="20" maxlength="20"  /> 
+	<input type="submit" name="Submit" id="Submits" value="搜索" class="button"/>
+	<input name="in" type="hidden" value="quest" />
+	</form>	
+	</span>	
+	<!--{if $quest_type_list}-->
+	  <!--{loop $quest_type_list $itrs}-->
+	  <a href="?in=quest&type={$itrs[id]}" class="{if $type == $itrs[id]} title_menu_on {else} title_menu {/if}">{$itrs[name]}</a>
+	  <!--{/loop}-->
+	<!--{/if}-->	</td>
+  </tr>  
+<form method="post" action="?in=quest" name="form"  onSubmit="setSubmit('Submit')">
+  
+  <tr align="center" class="title_2">
+    <td width="35" rowspan="2">ID</td>
+	<td width="35" rowspan="2">删除</td>
+    <td rowspan="2">任务标题/类型</td>
+    <td rowspan="2" title="任务解锁权值">权值</td>
+    <td rowspan="2" title="任务等级">等级</td>
+    <td rowspan="2">NPC起始/结束</td>
+    <td rowspan="2">任务</td>
+	<td rowspan="2">对话</td>
+    <td colspan="4">奖励</td>
+    <td colspan="3" title="奖励城镇解锁权限">解锁</td>
+    <td rowspan="2" >完成类型</td>
+	<!--{if $type == 3}--><td rowspan="2" >依赖功能</td><!--{/if}-->
+    <td rowspan="2" title="是否对话任务 0 普通任务 1 对话框任务">是否对话</td>
+	<td colspan="3" >关联</td>
+	</tr>
+  <tr align="center" class="title_2">
+    <td>经验</td>
+    <td>铜钱</td>
+    <td>阅历</td>
+    <td>物品/数量</td>
+    <td title="奖励城镇解锁权限">城镇</td>
+    <td title="奖励任务解锁权限">任务</td>
+    <td title="接任务奖励城镇的权限">接任务</td>
+    <td >副本</td>
+    <td >物品</td>
+    <td >怪物</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[title]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td align="left">
+	<input name="title[]" type="text" value="{$rs[title]}"  size="12"/><br />
+	<select name="type[]" >
+	 <option class="select">任务类型</option>
+	 <!--{loop $quest_type_list $qtrs}-->
+	 <option value="{$qtrs[id]}" {if $qtrs[id] == $rs[type]}selected="selected"{/if}>{$qtrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="lock[]" type="text" value="{$rs[lock]}"  size="1"/></td>
+    <td><input name="level[]" type="text" value="{$rs[level]}"  size="1"/></td>
+    <td>
+	<select name="begin_npc_id[]" style="width:100px">
+	 <option class="select">起始</option>
+	 <!--{loop $town_npc_list $nrs}-->
+	 <option value="{$nrs[id]}"  {if $nrs[id] == $rs[begin_npc_id]}selected="selected"{/if}>{$nrs[npc_name]}({$nrs[town_name]})</option>
+	 <!--{/loop}-->	 
+	</select><br />
+	<select name="end_npc_id[]" style="width:100px" >
+	 <option class="select">结束</option>
+	 <!--{loop $town_npc_list $nrs}-->
+	 <option value="{$nrs[id]}"  {if $nrs[id] == $rs[end_npc_id]}selected="selected"{/if}>{$nrs[npc_name]}({$nrs[town_name]})</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td nowrap="nowrap" class="graytext">
+	描述:
+	  <textarea name="content[]"  cols="15" rows="1" ondblclick="textareasize(this)">{$rs[content]}</textarea><br />
+	条件:
+	<textarea name="conditions[]"  cols="15" rows="1" ondblclick="textareasize(this)">{$rs[conditions]}</textarea><br />
+	目标:
+	<textarea name="town_text[]"  cols="15" rows="1" ondblclick="textareasize(this)">{$rs[town_text]}</textarea>	</td>
+	<td nowrap="nowrap" class="graytext">
+	接受:
+	  <textarea name="accept_talk[]"  cols="15" rows="1" ondblclick="textareasize(this)">{$rs[accept_talk]}</textarea><br />
+	未完:
+	<textarea name="accepted_talk[]"  cols="15" rows="1" ondblclick="textareasize(this)">{$rs[accepted_talk]}</textarea><br />
+	完成:
+	<textarea name="completed_talk[]"  cols="15" rows="1" ondblclick="textareasize(this)">{$rs[completed_talk]}</textarea>	</td>
+	<td><input name="award_experience[]" type="text" value="{$rs[award_experience]}"  size="6" title="奖励经验"/></td>
+    <td><input name="award_coins[]" type="text" value="{$rs[award_coins]}"  size="6" title="奖励铜钱"/></td>	
+    <td><input name="award_skill[]" type="text" value="{$rs[award_skill]}"  size="2" title="奖励阅历"/></td>
+    <td>
+	<input name="award_item_id[]" id="award_item_id{$rs[id]}" type="hidden" value="{$rs[award_item_id]}"/>
+	<div id="award_item_id{$rs[id]}_htm" onclick="CheckSelect('award_item_id{$rs[id]}','item');"  class="list_down" style="width:80px">{$rs[item_name]}</div>
+	<input name="award_item_count[]" type="text" value="{$rs[award_item_count]}" size="1" title="奖励物品数量"/>
+	</td>
+    <td>
+	<select name="award_town_key[]"  style="width:100px">
+	 <option class="select">城镇解锁</option>
+	 <!--{loop $town_list $trs}-->
+	 <option value="{$trs[lock]}"  {if $trs[lock] == $rs[award_town_key]}selected="selected"{/if}>{$trs[name]} (权值:{$trs[lock]})</option>
+	 <!--{/loop}-->	 
+	</select>	
+	<!--input name="award_town_key[]" id="award_town_key{$rs[id]}" type="hidden" value="{$rs[award_town_key]}"/>
+	<div id="award_town_key{$rs[id]}_htm" onclick="CheckSelect('award_town_key{$rs[id]}','town');"  class="list_down" style="width:50px">{$rs[town_name]}</div-->	</td>		
+    <td><input name="award_quest_key[]" type="text" value="{$rs[award_quest_key]}"  size="4" title="奖励任务解锁权限"/></td>	
+    <td><input name="accept_town_key[]" type="text" value="{$rs[accept_town_key]}"  size="2" title="接任务奖励城镇的权限"/></td>	
+    <td>
+	<select name="quest_complete_type_id[]" >
+	 <option class="select">完成类型</option>
+	 <!--{loop $quest_complete_type_list $qctrs}-->
+	 <option value="{$qctrs[id]}"  {if $qctrs[id] == $rs[quest_complete_type_id]}selected="selected"{/if}>{$qctrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>	
+	<!--{if $type == 3}-->
+    <td>
+	<select name="depend_fun[]" >
+	 <option class="select">依赖功能</option>
+	 <!--{loop $game_function_list $fcrs}-->
+	 <option value="{$fcrs[lock]}"  {if $fcrs[lock] == $rs[depend_fun]}selected="selected"{/if}>{$fcrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>	
+	 <!--{/if}-->
+	<td>
+	<select name="is_talk_quest[]" >
+	 <option value="1"  {if $rs[is_talk_quest] == 1}selected="selected"{/if}>是</option>
+	 <option value="0"  {if $rs[is_talk_quest] == 0}selected="selected"{/if}>不是</option>
+	</select>	</td>
+    <td nowrap="nowrap">
+	<input name="mission_id[]" id="mission_id{$rs[id]}" type="hidden" value="{$rs[mission_id]}"/>
+	<div id="mission_id{$rs[id]}_htm" onclick="CheckSelect('mission_id{$rs[id]}','mission');"  class="list_down" style="width:80px"><!--{if $rs[town_name]}-->{$rs[town_name]}-{$rs[mission_name]}<!--{else}-->无<!--{/if}--></div>	</td>
+	
+    <td nowrap="nowrap"><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallQuestNeedItem&id={$rs[id]}&name={$rs[name_url]}')" class="list_menu">物品</a></td>
+    <td nowrap="nowrap"><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallQuestNeedMonster&id={$rs[id]}&name={$rs[name_url]}')" class="list_menu">怪物</a></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="21" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td align="left">
+	<input name="title_n" type="text" value=""  size="12"/><br />
+	<select name="type_n" >
+	 <option class="select">任务类型</option>
+	 <!--{loop $quest_type_list $qtrs}-->
+	 <option value="{$qtrs[id]}" {if $qtrs[id] == $type}selected="selected"{/if}>{$qtrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="lock_n" type="text" value="{$lock_n}"  size="1"/></td>
+    <td><input name="level_n" type="text" value=""  size="1"/></td>
+    <td>
+	<select name="begin_npc_id_n"  style="width:100px">
+	 <option class="select">起始</option>
+	 <!--{loop $town_npc_list $nrs}-->
+	 <option value="{$nrs[id]}" >{$nrs[npc_name]}({$nrs[town_name]})</option>
+	 <!--{/loop}-->	 
+	</select><br />	
+	<select name="end_npc_id_n"  style="width:100px">
+	 <option class="select">结束</option>
+	 <!--{loop $town_npc_list $nrs}-->
+	 <option value="{$nrs[id]}" >{$nrs[npc_name]}({$nrs[town_name]})</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>
+	描述:
+	  <textarea name="content_n"  cols="15" rows="1" ondblclick="textareasize(this)"></textarea><br />
+	条件:
+	<textarea name="conditions_n"  cols="15" rows="1" ondblclick="textareasize(this)"></textarea><br />
+	目标:
+	<textarea name="town_text_n"  cols="15" rows="1" ondblclick="textareasize(this)"></textarea>	</td>
+	<td>
+	接受:
+	  <textarea name="accept_talk_n"  cols="15" rows="1" ondblclick="textareasize(this)"></textarea><br />
+	未完:
+	<textarea name="accepted_talk_n"  cols="15" rows="1" ondblclick="textareasize(this)"></textarea><br />
+	完成:
+	<textarea name="completed_talk_n"  cols="15" rows="1" ondblclick="textareasize(this)"></textarea>	</td>
+	<td><input name="award_experience_n" type="text" value=""  size="6" title="奖励经验"/></td>
+    <td><input name="award_coins_n" type="text" value=""  size="6" title="奖励铜钱"/></td>	
+    <td><input name="award_skill_n" type="text" value=""  size="2" title="奖励阅历"/></td>
+    <td>
+	<select name="award_item_id_n" >
+	 <option class="select">奖励物品</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}">{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select><br /><input name="award_item_count_n" type="text" value="1" size="1" title="奖励物品数量"/>
+	</td>
+    <td>
+	<select name="award_town_key_n" style="width:100px" >
+	 <option class="select">城镇解锁</option>
+	 <!--{loop $town_list $trs}-->
+	 <option value="{$trs[lock]}" >{$trs[name]} (权值:{$trs[lock]})</option>
+	 <!--{/loop}-->	 
+	</select>	</td>		
+    <td><input name="award_quest_key_n" type="text" value=""  size="4" title="奖励任务解锁权限"/></td>	
+    <td><input name="accept_town_key_n" type="text" value=""  size="2" title="接任务奖励城镇的权限"/></td>	
+    <td>
+	<select name="quest_complete_type_id_n" >
+	 <option class="select">完成类型</option>
+	 <!--{loop $quest_complete_type_list $qctrs}-->
+	 <option value="{$qctrs[id]}">{$qctrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+	<!--{if $type == 3}-->
+    <td>
+	<select name="depend_fun_n" >
+	 <option class="select">依赖功能</option>
+	 <!--{loop $game_function_list $fcrs}-->
+	 <option value="{$fcrs[lock]}" >{$fcrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>	
+	<!--{/if}-->
+	<td>
+	<select name="is_talk_quest_n" >
+	 <option value="1">是</option>
+	 <option value="0">不是</option>
+	</select>	</td>
+	<td>
+	<select name="mission_id_n" >
+	 <option class="select">关联副本</option>
+	 <!--{loop $mission_list $mrs}-->
+	 <option value="{$mrs[id]}">{$mrs[town_name]}-{$mrs[mission_name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+	
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="22" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	     
+  <tr>
+    <td colspan="22" align="center">
+	<input type="hidden" name="action" value="SetQuest" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>
+</form>
+</table>
+<div id="show_htm_menu" class="showMsg" style="display:none;width:160px;padding:10px;">载入中...</div>
+<script language="javascript" type="text/javascript">
+//var nowid = 'show_htm_menu';
+function CheckSelect(targetid,type){
+	//alert(nowid);
+	//$(nowid).id = 'show_htm_menu';
+	$('show_htm_menu').id = targetid+'_htm_menu';
+	showMenu(targetid+'_htm',true,'',3);
+	
+	
+	
+	var list='<div style="background:#f7f7f7;border-bottom:1px solid #ccc;"><a href="javascript:void(0)" onclick="hideMenu()" title="关闭" class="right"><strong>×</strong></a>&nbsp;</div>';
+	list += '<a href="javascript:void(0)" onclick="CheckSave(\''+targetid+'\',\'\',\'无\');hideMenu()">无</a>(不选择)<br />';
+	
+	
+	if (type == 'item') {
+	<!--{loop $item_list $irs}-->
+	list += '<a href="javascript:void(0)" onclick="CheckSave(\''+targetid+'\',\'{$irs[id]}\',\'{$irs[name]}\');hideMenu()">{$irs[name]} ({$irs[type_name]})</a><br />';
+	<!--{/loop}-->
+	}
+	if (type == 'mission') {
+	<!--{loop $mission_list $mrs}-->
+	list += '<a href="javascript:void(0)" onclick="CheckSave(\''+targetid+'\',\'{$mrs[id]}\',\'{$mrs[town_name]}-{$mrs[mission_name]}\');hideMenu()">{$mrs[town_name]}-{$mrs[mission_name]}</a><br />';
+	<!--{/loop}-->
+	}
+
+
+	$(targetid+'_htm_menu').innerHTML=list;
+	//nowid = targetid+'_htm_menu';
+	$(targetid+'_htm_menu').id = 'show_htm_menu';
+}
+
+//---------------------------选择下拉-----------------------------------------
+function CheckSave(input,id,val){
+	$(input).value=id;
+	$(input+'_htm').innerHTML=val;
+}
+</script>

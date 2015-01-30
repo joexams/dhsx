@@ -1,0 +1,22 @@
+<table class="table">
+  <tr>
+    <th colspan="24" class="title_1"><span class="yellowtext">{$day}</span> 的分时记录 最高:{$maxOnlineNum} / 平均:{echo round($allOnlineNum/$hour_count,0)}</th>
+  </tr> 
+  
+  <tr align="center">
+  <!--{loop $hour_list $rs $hour}-->
+  <td valign="bottom" class="smalltext" width="4%" height="120">
+  <!--{if $array[$hour][online_count]}-->
+  <span class="erecttext">{$array[$hour][online_count]}</span><br />
+  <img src="style/n.gif" height="{echo round(($array[$hour][online_count]/$maxOnlineNum)*100)+1}px" width="15"/>
+  <!--{else}-->
+  <div style="border-bottom:1px solid #ccc;width:15px;color:#999">0</div>
+  <!--{/if}-->  </td>	
+  <!--{/loop}--> 
+  </tr> 
+  <tr align="center" class="smalltext">
+  <!--{loop $hour_list $rs $hour}-->
+  <td>{$hour}</td>	
+  <!--{/loop}--> 
+  </tr>    
+</table>

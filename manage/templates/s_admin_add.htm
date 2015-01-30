@@ -1,0 +1,133 @@
+<form action="?in=admin&action=SaveAddAdmin" method="post" name="form" id="form" onSubmit="return ckform();setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2"><a href="?in=admin">管理员列表</a> ＞ 添加</th>
+    </tr>
+    <tr>
+      <td width="120" align="right"><strong>帐户名称</strong></td>
+      <td><input name="adminName" type="text" id="adminName" value="" size="40" maxlength="45" /></td>
+    </tr>
+    <tr>
+      <td align="right"><strong>帐户密码</strong></td>
+      <td><input name="adminPassWord" type="text" id="adminPassWord" value="123456" size="40" maxlength="45"/></td>
+   </tr>
+     <tr>
+      <td  align="right"><strong>帐户类型</strong></td>
+      <td>
+	<select name="adminType"  id="adminType"  onChange="selectAjax('call.php?action=CallSetupPower','adminPower','adminType',1)">
+	 <option value="s" {if $rs[adminType]=='s'} selected="selected" {/if}>开发</option>
+	 <option value="u" {if $rs[adminType]=='u'} selected="selected" {/if}>客服</option>
+	 <option value="c" {if $rs[adminType]=='c'} selected="selected" {/if}>运营</option>
+	</select>	  
+	  </td>
+   </tr>   
+     <tr>
+       <td align="right" valign="top"><strong>系统权限</strong></td>
+      <td>
+		<select name="adminPower[]" id = "adminPower" size="10" multiple="multiple"  >
+		<option class="select" value="">无</option> 
+		<!--{if $power_array}-->
+		 <!--{loop $power_array $prs}-->
+		 <option value="{$prs[power]}" {if $adminPowerArr && in_array($prs[power],$adminPowerArr) || $rs[adminID]==1} selected="selected" {/if}>{$prs[pname]}</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->
+		</select>
+
+	  </td>
+   </tr>   
+  <tr>
+    <td align="right" valign="top" ><strong>允许登陆IP</strong></td>
+	<td><textarea name="adminAllowLoginIP" cols="31" rows="5"></textarea><br /><span class="graytext">一个IP一行</span></td>
+  </tr> 
+      <tr>
+      <td align="right"><strong>语言包</strong></td>
+      <td>
+		<select name="adminLang" >
+		 <option value="zh_CN">中文</option>
+		 <option value="zh_EN">英文</option>
+		 <option value="zh_KOR">韩文</option>
+		</select>
+	  
+	  </td>
+   </tr>       
+       
+    <tr>
+      <th colspan="2">帐号的远程服务器设置(以下可不设置)</th>
+    </tr>    
+    <tr>
+      <td align="right" valign="top"><strong>负责运营商</strong></td>
+      <td>
+	  <input name="companyArr" type="hidden" id="companyArr" />
+	  <!--{loop $company_list $crs}-->
+	  <input name="cid[]" type="checkbox" value="{$crs[cid]}"  id="c_{$crs[cid]}" onclick="setCIDArr({$crs[cid]});"/> {$crs[name]}<br />
+	  <!--{/loop}-->
+		<span class="bluetext">若[帐户类型]选择[开发]则此项可不选</span>  
+	  </td>
+   </tr> 
+   <tr>
+      <td align="right" valign="top"><strong>负责服务器</strong></td>
+      <td>
+	<select name="servers[]" id="servers" size="10" multiple="multiple"  >
+	 <option  class="select">请先从上面选择运营商</option> 
+	</select><br />
+	<span class="bluetext">若[帐户类型]选择[运营]则此项可不选，运营商默认负责所有服务器</span>
+	  </td>
+   </tr>  
+     <tr>
+       <td align="right" valign="top"><strong>服务器权限</strong></td>
+      <td>
+	  <input name="checkbox" type="checkbox" title="全选/取消" onClick="CheckAll(this,'form','serversPower[]')" value="checkbox" /> <strong>所有</strong><br /><br />
+
+	  <!--{if $servers_power_array}-->
+	    <!--{loop $servers_power_array $prs}-->
+		<input name="serversPower[]" type="checkbox" value="{$prs[power]}" {if $serversPowerArr && in_array($prs[power],$serversPowerArr)} checked {/if}/> {$prs[pname]} 
+		<!--{if $prs[ptype]==2}-->
+		<!--{eval $prs[powerLook]=$prs[power].'-look'}-->
+		<input name="serversPower[]" type="checkbox" value="{$prs[powerLook]}" {if $serversPowerArr && in_array($prs[powerLook],$serversPowerArr)} checked {/if}/>  <span class="graytext">只看</span>
+		<!--{/if}-->
+		<br />
+		<!--{/loop}-->
+	  <!--{/if}-->
+	  </td>
+   </tr>         
+    <tr>
+      <td>&nbsp;</td>
+      <td><input type="submit" name="Submit" id="Submit" value=" 提 交 " class="button"/> <span class="bluetext"><!--这里[只看]的意思是指只拥有查看权限，没有操作权限！--></span></td>
+    </tr>
+  </table>
+</form >
+<script language="javascript" type="text/javascript">
+function setCIDArr(id) {
+	var companyArr = $('companyArr');
+	var text;
+	if ($('c_'+id).checked == true) {
+		if (!companyArr.value) {
+			text = id+',';
+		}else{
+			text = companyArr.value + id+',';
+		}
+		companyArr.value = text;
+	}else{
+		text = companyArr.value.replace(id+',','');
+		companyArr.value = text;
+	}
+	selectAjax('call.php?action=CallCompanyServersUrl','servers','companyArr',1);
+}	
+function ckform(){
+	var adminPower=document.getElementsByName('adminPower[]');
+	var obj = document.form;
+	if(obj.adminName.value==""){
+		alert("名称不能为空");
+		return false;
+	}
+	if(obj.adminPassWord.value==""){
+		alert("密码不能为空");
+		return false;
+	}
+	if(obj.adminPassWord.value.length < 6){
+		alert("密码不能少与6个字符");
+		return false;
+	}
+
+}
+</script>

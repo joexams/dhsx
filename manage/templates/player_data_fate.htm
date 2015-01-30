@@ -1,0 +1,54 @@
+{template player_data_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">   
+  <tr class="title_3">
+    <td colspan="5">
+	
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">
+	{lang WJLX}：<select name="p">
+	  <option value="0" {if !$p} selected="selected" {/if}>{lang SYWJ}</option>
+	  <option value="1" {if $p == 1} selected="selected" {/if}>{lang PTWJ}</option>		
+	  <option value="2" {if $p == 2} selected="selected" {/if}>VIP</option>		
+	</select>
+	<select name="v">
+	  <option value="0" {if !$v} selected="selected" {/if}>{lang ALLVIP}</option>
+	  <option value="1" {if $v == 1} selected="selected" {/if}>{lang VIP6D}</option>		
+	  <option value="2" {if $v == 2} selected="selected" {/if}>{lang VIP6U}</option>		
+	</select>
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Data" />
+	<input name="type" type="hidden" value="fate" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr> 
+
+  <tr align="center" class="title_2">
+    <td width="200"><a href="?in=player&action=Data&type=fate&cid={$cid}&sid={$sid}&t={$t}&p={$p}&v={$v}&order=fate_quality_id">{lang MG}</a></td>
+    <td width="150"><a href="?in=player&action=Data&type=fate&cid={$cid}&sid={$sid}&t={$t}&p={$p}&v={$v}&order=player_count">{lang YYRS}</a></td>
+	<td width="150"><a href="?in=player&action=Data&type=fate&cid={$cid}&sid={$sid}&t={$t}&p={$p}&v={$v}&order=fate_count">{lang MGSL}</a></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="purpletext trtitle"  align="center">
+	<td ><strong>{lang ZONGJI}</strong></td>
+	<td>{$player_count}</td>
+	<td>{$fate_count}</td>
+	<td>&nbsp;</td>
+  </tr>
+  
+  <!--{if $fate}-->
+  <!--{loop $fate $rs}-->
+  <tr onmouseover=this.className="td3" onmouseout=this.className=""  align="center">
+	<td class="td4"><strong>{$rs[fate_name]}</strong> ({$rs[quality_name]})</td>
+	<td><!--{if $rs[player_count]}-->{$rs[player_count]} <span class="smalltext graytext">({echo round($rs[player_count]/$player_count*100,2)}%)</span><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[fate_count]}-->{$rs[fate_count]} <span class="smalltext graytext">({echo round($rs[fate_count]/$fate_count*100,2)}%)</span><!--{else}-->-<!--{/if}--></td>
+	<td align="left"><!--{if $rs[player_count]}--><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerDataFateLevel&sid={$sid}&cid={$cid}&id={$rs[id]}&p={$p}&v={$v}&name={$rs[name_url]}&username={$username_url}')" class="title_menu">{lang FJTJ}</a><!--{else}-->-<!--{/if}--></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="5"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>

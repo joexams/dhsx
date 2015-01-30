@@ -1,0 +1,36 @@
+<table class="table">   
+  <tr>
+    <th colspan="5"><span class="yellowtext">{$username}</span> <span class="yellowtext">{$name}</span>  {lang VIPFW}:{$vip_s} --- {$vip_e}  /  {lang LEVELFW}:{$level_s} --- {$level_e}  /  {lang TIMERANGE}:{$stime} --- {$etime} {lang FEDTJ}</th>
+  </tr>  
+  <tr align="center" class="title_2">
+    <td width="100">{lang ERDU}</td>
+    <td width="100">{lang USERNUM}</td>
+    <td width="100">{lang CISHU}</td>
+    <td width="100">{lang YB}</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="purpletext trtitle"  align="center">
+	<td ><strong>总计</strong></td>
+	<td align="right">{$player_count}</td>
+	<td align="right">{$type_count}</td>
+	<td align="right">{echo abs($value_count)}</td>
+	<td>&nbsp;</td>
+  </tr>
+  
+  <!--{if $list_arrray}-->
+  <!--{loop $list_arrray $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className=""  align="right">
+    <td align="center" class="td4">{$rs['value']}</td>
+	<td>{$rs[player_count]}</td>
+	<td>{$rs[type_count]}</td>
+	<td>{$rs[value_count]}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="5"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+  
+</table>

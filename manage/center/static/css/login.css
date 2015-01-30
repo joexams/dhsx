@@ -1,0 +1,106 @@
+
+
+/*========================Login=======================*/
+body {
+	background:url('../images/login_bg_stripe.png') repeat;
+	padding:0; margin:0;
+}
+
+#line { 
+	width:100%;
+	height:10px;
+	background:#181717;
+	border-bottom:1px solid #424242;
+}
+
+#background { background:url('../images/loginbg.png') 50% 0 no-repeat; padding-top:50px; }
+
+#container { 
+	width:960px;
+	margin:0 auto;
+}
+
+#logo {
+	width:600px;
+	margin:0 auto;
+	text-align:center;
+	margin-bottom:50px;
+}
+
+#box {
+	padding:30px 30px 100px 30px;
+	width:560px;
+	border:1px solid #fff;
+	margin:0 auto;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;	
+	
+	-moz-box-shadow: 1px 1px 0px #333;
+	-webkit-box-shadow: 1px 1px 0px #333;
+	box-shadow: 1px 1px 0px #333;
+	
+	background:#fbfbfb;
+	background: -moz-linear-gradient(top,#fbfbfb,#f5f5f5);
+	background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#f5f5f5));
+}
+
+
+#box input.field {
+	font-size:16px;
+	padding:10px 20px;
+	width:215px;
+}
+
+input.login {
+	float:right;
+}
+
+#box label.fix {
+	display: inline-block;
+}
+
+.tips{	
+	width:560px;
+	border:1px solid #fff;
+	margin:0 auto;
+	background:#fbfbfb;
+	background: -moz-linear-gradient(top,#fbfbfb,#f5f5f5);
+	background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#f5f5f5));
+}
+
+.alert_warning{
+	margin:0 auto;
+	background:#FFFBCC;
+	border:1px solid #E6DB55;
+	font-weight:bold;
+	color:#69610A;
+}
+
+.alert_info{
+	margin:0 auto;
+	background:#DBE3FF;
+	border:1px solid #A2B4EE;
+	color:#0888C3;
+	font-weight:bold;
+}
+
+.alert_success{
+	margin:0 auto;
+	background:#D5FFCE;
+	border:1px solid #9ADF8F;
+	color:#508600;
+	font-weight:bold;
+}
+
+.alert_error{
+	margin:0 auto;
+	background:#FFCECE;
+	border:1px solid #DF8F8F;
+	color:#E3302C;
+	font-weight:bold;
+}
+
+.alert_warning p,.alert_info p,.alert_success p,.alert_error p{
+	margin:10px;
+}

@@ -1,0 +1,113 @@
+<form method="post" action="?in=item" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="14">神秘商店物品表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="150">类别</td>
+    <td width="100">类型</td>
+    <td width="100">物品</td>
+    <td width="100">物品数量</td>
+    <td width="100">状态</td>
+    <td width="100">元宝价格'</td>
+    <td width="100">铜钱价格'</td>
+    <td width="100">等级下限'</td>
+    <td width="100">等级上限'</td>
+    <td>&nbsp;</td>
+    </tr>
+  
+    <!--{if $list_array}-->
+    <!--{loop $list_array $rs}-->   
+    <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+    <td>{$rs[id]}<input name="id_old[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td>
+      <select name="categoty[]">
+        <option value="0">请选择类别</option>
+    <!--{loop $category $crs}-->
+     <option value="{$crs[id]}" {if $crs[id] == $rs[categoty]}selected="selected"{/if}>{$crs[name]}</option>
+     <!--{/loop}--> 
+      </select>
+    </td>
+    <td>
+      <select name="type[]">
+         <option value="0">请选择类型</option>
+        <!--{loop $type $srs}-->
+     <option value="{$srs[id]}" {if $srs[id] == $rs[type]}selected="selected"{/if}>{$srs[name]}</option>
+     <!--{/loop}--> 
+      </select>
+    </td>
+    <td><select name="item_id[]" >
+     <option class="select" value="0">选择物品</option>
+     <!--{loop $item_list $irs}-->
+     <option value="{$irs[id]}" {if $irs[id] == $rs[item_id]}selected="selected"{/if}>{$irs[name]}</option>
+     <!--{/loop}-->  
+    </select></td>
+
+      <td><input name="amount[]" type="text" value="{$rs[amount]}" size="10" /></td>
+    <td><select name="available[]" >
+     <option value="0" {if $rs[available] == 0}selected="selected"{/if}>不可用</option>
+     <option value="1" {if $rs[available] == 1}selected="selected"{/if}>可用</option>
+    </select></td>
+      <td><input name="ingot[]" type="text" value="{$rs[ingot]}" size="10" /></td>
+      <td><input name="coin[]" type="text" value="{$rs[coin]}" size="10" /></td>
+      <td><input name="lv_min[]" type="text" value="{$rs[lv_min]}" size="10" /></td>
+      <td><input name="lv_max[]" type="text" value="{$rs[lv_max]}" size="10" /></td>
+      <td>&nbsp;</td>
+      </tr>
+    <!--{/loop}-->
+    <!--{else}-->
+    <tr>
+    <td colspan="14" align="center">找不到相关信息</td>
+    </tr>  
+    <!--{/if}--> 
+    <tr class="td2" align="center" >
+  <td colspan="2">新增记录→</td>
+  <td>
+    <select name="categoty_n">
+      <option value="0">请选择类别</option>
+ <!--{loop $category $crs}-->
+     <option value="{$crs[id]}">{$crs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+  </td>
+  <td>
+    <select name="type_n">
+      <option value="0">请选择类型</option>
+       <!--{loop $type $srs}-->
+     <option value="{$srs[id]}">{$srs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+  </td>
+  <td><select name="item_id_n" >
+   <option class="select" value="0">选择物品</option>
+
+   <!--{loop $item_list $irs}-->
+   <option value="{$irs[id]}">{$irs[name]}</option>
+   <!--{/loop}-->  
+  </select></td>
+    <td><input name="amount_n" type="text" value="" size="10" /></td>
+  <td><select name="available_n" >
+   <option value="1">可用</option>
+   <option value="0">不可用</option>
+  </select></td>
+    <td><input name="ingot_n" type="text" value="" size="10" /></td>
+    <td><input name="coin_n" type="text" value="" size="10" /></td>
+    <td><input name="lv_min_n" type="text" value="" size="10" /></td>
+    <td><input name="lv_max_n" type="text" value="" size="10" /></td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="14" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->     
+  <tr>
+    <td colspan="14" align="center">
+  <input type="hidden" name="action" value="SetMysteriousShopItem" />
+  <input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

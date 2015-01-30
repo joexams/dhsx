@@ -1,0 +1,93 @@
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+	<th>剧情介绍</th>
+  </tr>
+  <tr>
+    <td>{$rs[description]}</td>
+  </tr>
+</table>
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th>信息</th>
+  </tr>
+  <tr>
+    <td>剧情权值：{$rs[lock]}</td>
+  </tr>  
+  <tr>
+    <td>剧情进度：{$rs[completion]}</td>
+  </tr>
+  <tr>
+    <td>需求体力值：{$rs[require_power]}</td>
+  </tr>
+  <tr>
+    <td>需求等级：{$rs[require_level]}</td>
+  </tr> 
+  <tr>
+    <td>关联任务：{$rs[quest_title]}</td>
+  </tr>            
+</table>
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th>评价标准</th>
+  </tr>
+  <tr>
+    <td>伤害：{$rs[average_attack]}</td>
+  </tr>
+  <tr>
+    <td>损血：{$rs[average_damage]}</td>
+  </tr>
+  <tr>
+    <td>回合：{$rs[average_bout]}</td>
+  </tr>             
+</table>
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th>解锁</th>
+  </tr>
+  <tr>
+    <td>剧情：{$rs[award_mission_name]} (权值:{$rs[award_mission_key]})</td>
+  </tr>
+  <tr>
+    <td>功能：{$rs[game_function_name]} (权值:{$rs[award_function_key]})</td>
+  </tr>
+  <tr>
+    <td>角色：{$rs[role_name]} (权值:{$rs[award_role_key]})</td>
+  </tr>             
+</table>
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th>奖励</th>
+  </tr>   
+  <tr>
+  	<td>装备：
+	<!--{if $mission_item_array}-->
+	<!--{loop $mission_item_array $mirs}--> 
+	{$mirs[item_name]}<span class="smalltext">($mirs[probability]%)</span><br />
+	<!--{/loop}-->
+	<!--{else}-->
+	-
+	<!--{/if}--></td>
+  </tr>
+  <tr>
+    <td>铜钱：{$rs[award_coins]}</td>
+  </tr>
+  
+  <tr>
+    <td>阅历：{$rs[award_skill]}</td>
+  </tr> 
+  <tr>
+    <td>经验：{$rs[award_experience]}</td>
+  </tr> 
+  <tr>
+    <td>打怪经验：{$monster_experience}</td>
+  </tr> 
+  <tr>
+    <td>总经验：{echo $rs[award_experience] + $monster_experience}</td>
+  </tr>           
+</table>
+<table class="table" style="margin-bottom:5px;"> 
+  <tr align="center">
+    <td width="50%"><!--{if $pid}--><a href="?in=mission&action=MissionView&id={$pid}&name={$name_url}&type={$type}">上一条剧情</a><!--{else}-->&nbsp;<!--{/if}--></td>
+    <td width="50%"><!--{if $nid}--><a href="?in=mission&action=MissionView&id={$nid}&name={$name_url}&type={$type}">下一条剧情</a><!--{else}-->&nbsp;<!--{/if}--></td>
+  </tr>           
+</table>

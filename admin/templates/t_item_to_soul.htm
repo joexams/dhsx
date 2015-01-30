@@ -1,0 +1,75 @@
+<form method="post" action="?in=item" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="6">牌子商人牌子换灵件列表</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="6">
+	<!--{if $item_list}-->
+	  <!--{loop $item_list $irs}-->
+	  <a href="?in=item&action=ItemToSoul&item_id={$irs[id]}" class="{if $item_id == $irs[id]} title_menu_on {else} title_menu {/if}">{$irs[name]}</a>
+	  <!--{/loop}-->
+	<!--{/if}-->	</td>
+  </tr> 	  
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="150">可获得灵件</td>
+    <td width="150">需要牌子</td>
+    <td width="150">需要牌子数量</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[soul_id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[item_id]},{$rs[soul_id]}" title="选择删除"/></td>
+    <td><input name="soul_id[]" type="hidden" value="{$rs[soul_id]}"/>{$rs[soul_name]}</td>
+    <td>
+	<select name="item_id[]" >
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}" {if $rs[item_id] == $irs[id]} selected="selected" {/if}>{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	
+	</td>
+    <td><input name="item_num[]" type="text" value="{$rs[item_num]}"  size="10"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="6" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="soul_id_n" >
+	 <option class="select" value="0">可获得灵件</option>
+	 <!--{loop $soul_list $srs}-->
+	 <option value="{$srs[id]}">{$srs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>
+	<select name="item_id_n" >
+	 <option class="select" value="0">需要牌子</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}" {if $item_id == $irs[id]} selected="selected" {/if}>{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="item_num_n" type="text" value=""  size="10"/></td>
+    <td>&nbsp;</td>
+    </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="6" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="6" align="center">
+	<input type="hidden" name="action" value="SetItemToSoul" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

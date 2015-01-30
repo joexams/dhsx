@@ -1,0 +1,60 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="8">{lang HTZHCZJL}</th>
+  </tr> 
+  <tr class="title_3">
+    <td colspan="8">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submits')">  	
+	<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+	 <option class="select">{lang COMPANY}</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	  	
+	<select name="sid" id = "sid">
+	<option  value="">{lang ALLSERVER}</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>
+	{lang CZR}： <input name="adminame" type="text" value="{$adminame}" size="20"/>
+	{lang NRBH}： <input name="text" type="text" value="{$text}" size="20"/>
+	<input type="submit" name="Submit" id="Submits" value="{lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="logs" />
+	</form>	</td>
+  </tr> 
+  <tr class="title_2" align="center">
+  	<td width="50">ID</td>
+  	<td width="120">{lang SERVER}</td>
+	<td width="100">{lang CZR}</td>
+	<td width="100">{lang DX}</td>
+	<td width="150">{lang SUBMITIME}</td>
+	<td align="left">{lang CZBZ}</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td"  align="center">
+	<td>{$rs[id]}</td>
+	<td>{$rs[company_name]}-{$rs[servers_name]}</td>
+ 	<td>
+	<!--{if $rs[adminID]}-->
+	<strong>{$rs[adminName]}</strong></span>
+	<!--{else}-->{lang SYSTEM}<!--{/if}-->	</td> 
+	<td><!--{if $rs[player_id]}--><strong>{$rs[username]}</strong><!--{else}-->{$rs[username]}<!--{/if}--></td>
+	<td>{$rs[stime]}</td>
+	<td align="left">{$rs[contents]}</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="8"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}-->   
+</table>

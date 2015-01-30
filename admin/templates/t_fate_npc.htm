@@ -1,0 +1,61 @@
+<form method="post" action="?in=fate" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="10">命格NPC信息列表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td>名称</td>
+	<td>委派价格</td>
+	<td>杂物掉落概率</td>
+	<td>优秀命格概率</td>
+    <td>精良命格概率</td>
+    <td>传奇命格概率</td>
+    <td>神器命格概率</td>
+    <td >非VIP玩家命格碎片掉率</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+	<td><input name="fees[]" type="text" value="{$rs[fees]}"  size="10"/></td>	
+	<td><input name="zawu_probability[]" type="text" value="{$rs[zawu_probability]}"  size="10"/></td>	
+	<td><input name="excellent_probability[]" type="text" value="{$rs[excellent_probability]}"  size="10"/></td>
+    <td><input name="well_probability[]" type="text" value="{$rs[well_probability]}"  size="10"/></td>
+    <td><input name="legend_probability[]" type="text" value="{$rs[legend_probability]}"  size="10"/></td>
+    <td><input name="artifact_probability[]" type="text" value="{$rs[artifact_probability]}"  size="10"/></td>
+    <td><input name="scrap_probability[]" type="text" value="{$rs[scrap_probability]}"  size="10"/></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="10" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+	<td><input name="fees_n" type="text" value=""  size="10"/></td>
+	<td><input name="zawu_probability_n" type="text" value=""  size="10"/></td>
+	<td><input name="excellent_probability_n" type="text" value=""  size="10"/></td>
+    <td><input name="well_probability_n" type="text" value=""  size="10"/></td>
+    <td><input name="legend_probability_n" type="text" value=""  size="10"/></td>
+    <td><input name="artifact_probability_n" type="text" value=""  size="10"/></td>
+    <td><input name="scrap_probability_n" type="text" value=""  size="10"/></td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="10" align="center">
+	<input type="hidden" name="action" value="SetFateNpc" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

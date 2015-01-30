@@ -1,0 +1,79 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="8"><!--{if !webAdmin('gift_set','y')}--><a href="?in=gift&action=GiftDataServersAdd" class="right"><span class="yellowtext">[+ 添加活动]</span></a><!--{/if}-->活动列表</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="8">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')"> 	
+		<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+		 <option class="select">运营平台</option>
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>	  
+	<select name="sid" id = "sid">
+	<option  value="">全部服务器</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<select name="gift_data_id">
+	 <option class="select">活动模版</option>
+	 <!--{loop $gift_data_list $grs}-->
+	 <option value="{$grs[id]}" {if $grs[id] == $gift_data_id} selected="selected" {/if}>{$grs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	<input type="submit" name="Submit" id="Submit" value=" 搜 索 " class="button"/>
+	<input name="in" type="hidden" value="gift" />
+	<input name="action" type="hidden" value="GiftDataServers" />
+	</form>	</td>
+  </tr>     
+
+  <tr class="title_2" align="center">
+    <td width="50">ID</td>
+	<td >服务器</td>
+	<td >活动类型</td>
+	<td >活动主题/提示内容</td>
+    <td >赠送</td>
+    <td >开始/过期时间</td>
+    <!--{if !webAdmin('gift_set','y')}-->
+    <td >修改/查看明细</td>
+    <td>删除</td>
+	<!--{/if}-->
+  </tr> 
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="" >
+    <td {if $rs[i] > 1 && $sid_l != $rs[sid]} style="border-top:3px solid #CECFDA;"{/if}>{$rs[gid]}</td>
+	<td {if $rs[i] > 1 && $sid_l != $rs[sid]} style="border-top:3px solid #CECFDA;"{/if}>{$rs[company_name]}-<strong>{$rs[servers_name]}</strong></td>
+	<td {if $rs[i] > 1 && $sid_l != $rs[sid]} style="border-top:3px solid #CECFDA;"{/if} class="bluetext"><!--{if $rs[type] == 1}-->首充送礼<!--{/if}--><!--{if $rs[type] == 2}-->礼券兑换<!--{/if}--><!--{if $rs[type] == 3}-->等级排行<!--{/if}--><!--{if $rs[type] == 4}-->普通副本排行<!--{/if}--><!--{if $rs[type] == 5}-->声望排行<!--{/if}--></td>
+	<td {if $rs[i] > 1 && $sid_l != $rs[sid]} style="border-top:3px solid #CECFDA;"{/if} align="left" title="{if $adminWebType == 's'}[{$rs[adminName]}]{/if}创建于:{$rs[ctime]}"><strong>{$rs[name]}</strong> <!--{if $rs[type] == 2}--><span class="graytext">(已生成:{$rs[code_num]} / 已领取:{$rs[code_num_y]})</span><!--{/if}--><br /><span class="graytext">{$rs[message]}</span></td>
+	<td {if $rs[i] > 1 && $sid_l != $rs[sid]} style="border-top:3px solid #CECFDA;"{/if}>
+	<!--{if $rs[type] == 3 || $rs[type] == 4 || $rs[type] == 5}-->
+	赠送[<!--{if $rs[gift_type] == 1}-->元宝<!--{/if}--><!--{if $rs[gift_type] == 2}-->物品<!--{/if}--><!--{if $rs[gift_type] == 3}-->元宝+物品<!--{/if}-->]给前{$rs[order_limit]}名玩家
+	<!--{else}-->
+	<!--{if $rs[gift_type] == 1}-->元宝({$rs[ingot]}<!--{if $rs[ingot_rate] == 1}-->%<!--{/if}-->)<!--{/if}-->
+	<!--{if $rs[gift_type] == 2}-->物品({$rs[gift_name]})<!--{/if}-->
+	<!--{if $rs[gift_type] == 3}-->元宝({$rs[ingot]}<!--{if $rs[ingot_rate] == 1}-->%<!--{/if}-->)+物品({$rs[gift_name]})<!--{/if}-->
+	<!--{/if}-->	</td>
+    <td {if $rs[i] > 1 && $sid_l != $rs[sid]} style="border-top:3px solid #CECFDA;"{/if}>{$rs[stime]}<br /><!--{if $rs[etime] == '9999-01-01 00:00'}-->永久<!--{elseif $rs[etime] < date('Y-m-d H:i:s')}--><span class="graytext" title="过期时间:{$rs[etime]}">已过期</span><!--{else}-->{$rs[etime]}<!--{/if}--></td>
+    <!--{if !webAdmin('gift_set','y')}-->
+	<td {if $rs[i] > 1 && $sid_l != $rs[sid]} style="border-top:3px solid #CECFDA;"{/if}><a href="?in=gift&action=GiftDataServersEdit&cid={$rs[cid]}&sid={$rs[sid]}&gid={$rs[gid]}" class="title_menu" >修改/查看明细</a></td>
+    <td {if $rs[i] > 1 && $sid_l != $rs[sid]} style="border-top:3px solid #CECFDA;"{/if}><a href="?in=gift&action=DelGiftDataServers&cid={$rs[cid]}&sid={$rs[sid]}&gid={$rs[gid]}" class="list_red" onclick='javascript: return confirm("确定删除活动吗？");'>×</a></td>
+	<!--{/if}-->
+  </tr>
+  <!--{eval $sid_l = $rs[sid]}-->
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="8">暂无相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+</table>

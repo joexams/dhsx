@@ -1,0 +1,54 @@
+<form action="?in=admin&action=SaveEditAdmin" method="post" name="form" id="form" onSubmit="return ckform();setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2"><a href="?in=admin">管理员列表</a> ＞ 修改</th>
+    </tr>
+    <tr>
+      <td width="100" align="right"><strong>名称</strong></td>
+      <td><input name="adminName" type="text" id="adminName" value="{$rs[adminName]}" size="40" maxlength="45" /></td>
+    </tr>
+    <tr>
+      <td width="100" align="right"><strong>密码</strong></td>
+      <td><input name="adminPassWord" type="text" id="adminPassWord" value="" size="40" maxlength="45"/> 不修改留空</td>
+   </tr>	
+     <tr>
+       <td width="100" align="right" valign="top"><strong>权限</strong></td>
+      <td>
+	  <!--{if $power_array}-->
+	    <!--{loop $power_array $prs}-->
+		<input name="adminPower[]" type="checkbox" value="{$prs[Mpower]}" {if in_array($prs[Mpower],$adminPowerArr) || $rs[adminID]==1} checked {/if}/> {$prs[Mname]} 
+		<!--{if $prs[Mtype]==2}-->
+		<!--{eval $prs[MpowerLook]=$prs[Mpower].'-look'}-->
+		<input name="adminPower[]" type="checkbox" value="{$prs[MpowerLook]}" {if in_array($prs[MpowerLook],$adminPowerArr)} checked {/if}/>  <span class="graytext">只看</span>
+		<!--{/if}-->
+		<br />
+		<!--{/loop}-->
+	  <!--{/if}-->
+	  </td>
+   </tr> 
+    <tr>
+      <td><input name="id" type="hidden" value="{$adminID}"/></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" 提 交 " class="button"/></td>
+    </tr>
+  </table>
+</form >
+<script language="javascript" type="text/javascript">
+function ckform(){
+	var adminPower=document.getElementsByName('adminPower[]');
+	var obj = document.form;
+	if(obj.adminName.value==""){
+		alert("名称不能为空");
+		return false;
+	}
+	for(var i = 0;i<adminPower.length;i++) {
+		if (adminPower[i].checked) {
+			var adminPowerOk = 'y';
+		}
+	}
+	
+	if(adminPowerOk !='y'){
+		alert("权限不能为空");
+		return false;
+	}
+}
+</script>

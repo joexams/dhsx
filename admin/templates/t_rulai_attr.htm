@@ -1,0 +1,57 @@
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="9">如来属性表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">等级</td>
+	  <td width="35">删除</td>
+    <td width="100">等级</td>
+    <td width="150">名称</td>
+    <td width="100">升级需要的经验</td>
+    <td width="100">上香类型1声望提升百分比</td>
+    <td width="100">上香类型2声望提升百分比</td>
+    <td width="100">上香类型3声望提升百分比</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+  	<td>{$rs[level]}</td>
+  	<td><input type="checkbox" name="level_del[]" value="{$rs[level]}" title="选择删除"/></td>
+    <td><input name="level_old[]" type="hidden" value="{$rs[level]}"/><input name="level[]" type="text" value="{$rs[level]}" size="10" /></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}" size="10" /></td>
+    <td><input name="experience[]" type="text" value="{$rs[experience]}" size="10" /></td>
+    <td><input name="lift_fame_prob_1[]" type="text" value="{$rs[lift_fame_prob_1]}" size="10" /></td>
+    <td><input name="lift_fame_prob_2[]" type="text" value="{$rs[lift_fame_prob_2]}" size="10" /></td>
+    <td><input name="lift_fame_prob_3[]" type="text" value="{$rs[lift_fame_prob_3]}" size="10" /></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="9" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+   <td><input name="level_n" type="text" value="" size="10" /></td>
+    <td><input name="name_n" type="text" value="" size="10" /></td>
+    <td><input name="experience_n" type="text" value="" size="10" /></td>
+    <td><input name="lift_fame_prob_1_n" type="text" value="" size="10" /></td>
+    <td><input name="lift_fame_prob_2_n" type="text" value="" size="10" /></td>
+    <td><input name="lift_fame_prob_3_n" type="text" value="" size="10" /></td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="9" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="9" align="center">
+	<input type="hidden" name="action" value="SetRulaiAttr" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

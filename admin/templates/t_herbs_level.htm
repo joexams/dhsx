@@ -1,0 +1,51 @@
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="8">草药信息列表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="100">草药星级</td>
+	<td width="100">升星概率</td>
+    <td width="100">维持概率</td>
+    <td width="100">降星概率</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[star_level]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[star_level]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[star_level]}"/></td>
+    <td><strong>{$rs[star_level]}</strong>级</td>
+	<td><input name="upgrade_pbt[]" type="text" value="{$rs[upgrade_pbt]}"  size="10"/></td>
+    <td><input name="keep_pbt[]" type="text" value="{$rs[keep_pbt]}"  size="10"/></td>
+    <td><input name="demote_pbt[]" type="text" value="{$rs[demote_pbt]}"  size="10"/></td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="8" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="star_level_n" type="text" value=""  size="10"/></td>
+	<td><input name="upgrade_pbt_n" type="text" value=""  size="10"/></td>
+    <td><input name="keep_pbt_n" type="text" value=""  size="10"/></td>
+    <td><input name="demote_pbt_n" type="text" value=""  size="10"/></td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="8" align="center">
+	<input type="hidden" name="action" value="SetHerbsLevel" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

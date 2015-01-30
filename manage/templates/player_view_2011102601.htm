@@ -1,0 +1,337 @@
+{template player_top}
+<table class="table">
+  <!--tr class="title_2">
+    <td colspan="2">
+	<span class="right">
+	<form action="" method="get" name="form" id="form" onSubmit="setSubmit('Submit')">
+	{lang USER}：	
+	<input name="username" type="text" value="" size="20" maxlength="20"  /> 
+	<input type="submit" name="Submit" id="Submit" value="{lang SEARCH}" class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	
+	</span>
+	</td>
+  </tr-->
+  <tr>
+    <td valign="top"  align="center" width="70" nowrap="nowrap">
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerSoul&sid={$sid}&uid={$uid}')" class="title_menu">{lang WJLJ}</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerFate&sid={$sid}&uid={$uid}')" class="title_menu">{lang WJMG}</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerResearch&sid={$sid}&uid={$uid}')" class="title_menu">{lang QSZF}</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerItem&sid={$sid}&uid={$uid}')" class="title_menu">{lang BBCK}</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerMissionRecord&sid={$sid}&uid={$uid}')" class="title_menu">{lang WJFB}</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerQuest&sid={$sid}&uid={$uid}')" class="title_menu">{lang WJRW}</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerDayQuest&sid={$sid}&uid={$uid}')" class="title_menu">{lang MRRW}</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerFriends&sid={$sid}&uid={$uid}')" class="title_menu">{lang WJHY}</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerFarmland&sid={$sid}&uid={$uid}')" class="title_menu">{lang WJYY}</a><br /><br />
+
+	<!--{if !serverAdmin('logs','y')}-->
+	<a href="?in=player&action=Logs&type=ingot&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang YBJL}</a><br />
+	<a href="?in=player&action=Logs&type=coins&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang TQJL}</a><br />
+	<a href="?in=player&action=Logs&type=item&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang WPJL}</a><br />
+	<a href="?in=player&action=Logs&type=soul&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang LJJL}</a><br />
+	<a href="?in=player&action=Logs&type=soul_stone&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang LSJL}</a><br />
+	<a href="?in=player&action=Logs&type=fate&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang LMJL}</a><br />
+	<a href="?in=player&action=Logs&type=fame&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang SWJL}</a><br />
+	<a href="?in=player&action=Logs&type=power&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang TLJL}</a><br />
+	<a href="?in=player&action=Logs&type=exp&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang JYJL}</a><br />
+	<a href="?in=player&action=Logs&type=take&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang QJJL}</a><br />
+	<a href="?in=player&action=Logs&type=skill&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang YLJL}</a><br />
+	<a href="?in=player&action=Logs&type=farmland&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang YYJL}</a><br />
+	<a href="?in=player&action=Logs&type=flower&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang XHJL}</a><br />
+	<a href="?in=player&action=Logs&type=tree&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang XLJL}</a><br />
+	<a href="?in=player&action=Logs&type=boss&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">{lang BOSSJL}</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerLevelUpRecord&sid={$sid}&uid={$uid}')" class="title_menu">{lang SJJL}</a><br />
+	<!--{/if}-->
+	<!--{if !serverAdmin('pay','y')}-->
+	<a href="?in=player&action=Data&type=pay&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}&uid={$uid}" class="title_menu" target="_blank">{lang COZJL}</a><br />
+	<!--{/if}-->	
+	<!--{if $adminWebType == 's'}-->
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerKey&sid={$sid}&uid={$uid}')" class="title_menu">玩家权值</a><br />
+	<!--{/if}-->
+	</td>
+    <td valign="top" >
+		<table class="table" style="margin-bottom:5px;"> 
+		  <tr class="title_3">
+			<td colspan="6"><strong>{lang WJSJ}</strong></td>
+		  </tr>		
+		  <tr>
+			<td width="150" align="right"><strong>{lang USERID}</strong></td>
+			<td colspan="3"><strong >{$player[id]}</strong> <!--{if $server[slug] == 'verycd'}-->(网站用户名:{$username_web})<!--{/if}--></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td align="right"><strong>{lang USERNAME}</strong></td>
+			<td colspan="3"><strong >{$player[username]}</strong> <span class="graytext"><!--{if $player[is_tester] == 1}-->{lang CSH}<!--{elseif $player[is_tester] == 2}-->{lang GJCSH}<!--{elseif $player[is_tester] == 3}--><span class="bluetext">GM</span><!--{elseif $player[is_tester] == 4}--><span class="bluetext">{lang XSZDY}</span><!--{/if}--></span></td>
+			<td>&nbsp;</td>
+		  </tr>	  		
+		  <tr>
+			<td align="right"><strong>{lang USERNICK}</strong></td>
+			<td colspan="3">{$player[nickname]} <!--{if $player[camp_name]}--><span class="graytext" title="{lang ZHENYING}/{lang BANGPAI}">({$player[camp_name]}<!--{if $faction_name}--> - {$faction_name}<!--{/if}-->)</span><!--{/if}--></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td align="right"><strong>{lang JJCPM}</strong></td>
+			<td colspan="3">{$player[ranking]}</td>
+			<td>&nbsp;</td>
+		  </tr>		  
+		  <tr>
+			<td align="right"><strong>{lang SFJYDJ}</strong></td>
+			<td colspan="3">
+			<!--{if $player[disable_login] > time()}-->
+			<strong class="redtext" title="{lang CZSJ}：{echo date('Y-m-d H:i:s',$player[disable_login])}">{lang BFREEZE}</strong>
+			<!--{/if}-->
+			<!--{if $player[disable_talk] > time()}-->
+			<strong class="redtext" title="{lang CZSJ}：{echo date('Y-m-d H:i:s',$player[disable_talk])}">{lang BBANNED}</strong>
+			<!--{/if}-->			</td>
+			<td>&nbsp;</td>
+		  </tr>		  
+		  
+		  <tr>
+			<td align="right"><strong>vip</strong></td>
+			<td colspan="3">{$player[vip_level]}</td>
+			<td>&nbsp;</td>
+		  </tr>		  
+		  <!--{if !serverAdmin('pay','y')}-->	
+	  
+		   <tr>
+			<td align="right"><strong>{lang DGJBCZYB}</strong></td>
+			<td colspan="3">{$player[ingot_vip]} <span class="graytext">({lang DGJBSJ}：<!--{if $player[level_up_time]}-->{echo date('Y-m-d H:i:s',$player[level_up_time])}<!--{else}-->-<!--{/if}-->)</span></td>
+			<td>&nbsp;</td>
+		  </tr>
+		   <tr>
+			<td align="right"><strong>{lang LJCZYB}</strong></td>
+			<td colspan="3">{$player[total_ingot]}</td>
+			<td>&nbsp;</td>
+		  </tr>
+		   <tr>
+			<td align="right"  style="border-bottom:3px solid #CECFDA;"><strong>{lang LJXFYB}</strong></td>
+			<td colspan="3" style="border-bottom:3px solid #CECFDA;"><!--{if !serverAdmin('data_key','y')}--><a href="?in=player&action=Data&type=consume&cid={$cid}&sid={$sid}&username={$player[username]}">{$consume_ingot}</a><!--{else}-->{$consume_ingot}<!--{/if}--></td>
+			<td style="border-bottom:3px solid #CECFDA;">&nbsp;</td>
+		  </tr>		  
+		  <!--{/if}-->	  			  	  
+		  <tr>
+			<td align="right"><strong>{lang YB}</strong></td>
+			<td width="150"><strong class="greentext">{$player[ingot]}</strong><!--/a--></td>
+			<td align="right" width="150"><strong>{lang TQ}</strong></td>
+			<td width="150">{$player[coins]}</td>
+			<td>&nbsp;</td>
+	      </tr>	
+		  
+		  <tr>	
+			<td align="right"><strong>{lang SW}</strong></td>
+			<td>{$player[fame]}</td>
+			<td align="right"><strong>{lang SWDJ}</strong></td>
+			<td >{$player[fame_level]}</td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>	
+			<td align="right"><strong>{lang YL}</strong></td>
+			<td>{$player[skill]}</td>
+			<td align="right"><strong>{lang QXB}/{lang CS}</strong></td>
+			<td>{$player[medical]}/{$player[init_medical]}</td>		
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>	
+			<td align="right"><strong>{lang TL}/{lang SX}</strong></td>
+			<td >{$player[power]}/{$player[max_power]}</td>
+			<td align="right"><strong>{lang TLZHGX}</strong></td>
+			<td><!--{if $player[power_up_at]}-->{echo date('Y-m-d H:i:s',$player[power_up_at])}<!--{else}-->-<!--{/if}--></td>
+			<td>&nbsp;</td>
+		  </tr>	
+		  <tr>	
+			<td align="right"><strong>{lang EWTL}/{lang SX}</strong></td>
+			<td >{$player[extra_power]}/{$player[max_extra_power]}</td>
+			<td align="right"><strong>{lang EWTLHQSJ}</strong></td>
+			<td><!--{if $player[last_extra_power_date]}-->{echo date('Y-m-d H:i:s',$player[last_extra_power_date])}<!--{else}-->-<!--{/if}--></td>
+			<td>&nbsp;</td>
+		  </tr>		
+		  
+		  <tr>	
+			<td align="right"><strong>{lang LGKS}</strong></td>
+			<td><!--{if $player[practice_start]}-->{echo date('Y-m-d H:i:s',$player[practice_start])}<!--{else}-->-<!--{/if}--></td>
+			<td align="right"><strong>{lang LGJS}</strong></td>
+			<td><!--{if $player[practice_end]}-->{echo date('Y-m-d H:i:s',$player[practice_end])}<!--{else}-->-<!--{/if}--></td>		
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>	
+			<td align="right"><strong>{lang LGJY}</strong></td>
+			<td>{$player[practice_experience]}</td>
+			<td align="right"><strong>{lang LGZT}</strong></td>
+			<td><!--{if $player[practice_status] == 0}-->{lang MGJ}<!--{elseif $player[practice_status] == 1}-->{lang ZZGJ}<!--{elseif $player[practice_status] == 2}-->{lang GJJS}<!--{/if}--></td>		
+			<td>&nbsp;</td>
+		  </tr>	
+		  <tr>	
+			<td align="right"><strong>{lang MGBBS}</strong></td>
+			<td>{$player[fate_grid_number]}</td>		
+			<td align="right"><strong>{lang MRZX}</strong></td>
+			<td>{$player[deploy_mode_name]}</td>		
+			<td>&nbsp;</td>
+		  </tr>			  	  
+	
+		  <tr>	
+			<td align="right"><strong>{lang ZCSFJRLJ}</strong></td>
+			<td title="{echo date('Y-m-d H:i:s',$player[change_money_last_date])}">{$player[change_money_count]}{lang HITS}</td>
+			<td align="right"><strong>{lang MRRWXJ}</strong></td>
+			<td title="{echo date('Y-m-d H:i:s',$player[day_quest_last_date])}">{$player[quest_star]}{lang LEVEL}</td>		
+			<td>&nbsp;</td>
+		  </tr>
+
+		  <tr>	
+			<td align="right"><strong>{lang QXBZHLQ}</strong></td>
+			<td><!--{if $player[get_medical_last_date]}-->{echo date('Y-m-d H:i:s',$player[get_medical_last_date])}<!--{else}-->-<!--{/if}--></td>
+			<td align="right"><strong>{lang BPFLZHLQ}</strong></td>
+			<td><!--{if $player[get_faction_salary_last_date]}-->{echo date('Y-m-d H:i:s',$player[get_faction_salary_last_date])}<!--{else}-->-<!--{/if}--></td>		
+			<td>&nbsp;</td>
+		  </tr>	
+		  <tr>	
+			<td align="right"><strong>{lang JRGMTL}</strong></td>
+			<td>{$player[buy_power_times_today]}{lang HITS}</td>
+			<td align="right"><strong>{lang ZHGMTLSJ}</strong></td>
+			<td><!--{if $player[last_buy_power_time]}-->{echo date('Y-m-d H:i:s',$player[last_buy_power_time])}<!--{else}-->-<!--{/if}--></td>		
+			<td>&nbsp;</td>
+		  </tr>		
+		  <tr>	
+			<td align="right"><strong>{lang XLQYCJ}</strong></td>
+			<td>{$player[travel_event_join_count]}{lang HITS}</td>
+			<td align="right"><strong>{lang XLQYZHCJ}</strong></td>
+			<td><!--{if $player[travel_event_last_time]}-->{echo date('Y-m-d H:i:s',$player[travel_event_last_time])}<!--{else}-->-<!--{/if}--></td>		
+			<td>&nbsp;</td>
+		  </tr>	
+		  <tr>	
+			<td align="right"><strong>{lang ZHSXSMSR}</strong></td>
+			<td><!--{if $player[last_refresh_lucky_shop_time]}-->{echo date('Y-m-d H:i:s',$player[last_refresh_lucky_shop_time])}<!--{else}-->-<!--{/if}--></td>
+			<td align="right"><strong>{lang SFZDZC}</strong></td>
+			<td><!--{if $player[is_auto_rune]}-->YES<!--{else}-->NO<!--{/if}--></td>		
+			<td>&nbsp;</td>
+		  </tr>
+		 <tr>	
+			<td align="right"><strong>{lang YSXCS}</strong></td>
+			<td>{$player[incense_count]}</td>
+			<td align="right"><strong>{lang ZHSXSJ}</strong></td>
+			<td>{echo date('Y-m-d H:i:s',$player[last_increase_time])}</td>		
+			<td>&nbsp;</td>
+		  </tr>	
+		 <tr>	
+			<td align="right"><strong>{lang PTZGDS}</strong></td>
+			<td>{$player[max_layer]}</td>
+			<td align="right"><strong>{lang PTZGCS}</strong></td>
+			<td>{$player[max_sequence]}</td>		
+			<td>&nbsp;</td>
+		  </tr>	
+		 <tr>	
+			<td align="right"><strong>{lang PTRQDS}</strong></td>
+			<td>{$player[cur_layer]}</td>
+			<td align="right"><strong>{lang PTDYCTZ}</strong></td>
+			<td><!--{if $player[is_first_challenge]}-->YES<!--{else}-->NO<!--{/if}--></td>		
+			<td>&nbsp;</td>
+		  </tr>		  		  		  	  			  	  	  	  			  	  		  	   	      
+		</table>
+		<!--{if !serverAdmin('pay','y')}-->
+		<table class="table" style="margin-bottom:5px;">
+		  <tr class="title_3">
+			<td colspan="5"><strong>{lang QTFCZQK}</strong></td>
+		  </tr>
+		  <tr align="center" class="title_2">
+			<td>{lang SERVER}</td>
+			<td width="100">{lang PAY}</td>
+			<td width="80">{lang PAYNUM}</td>
+		  </tr>
+		  <!--{if $other_servers_pay_array}-->
+		  <!--{loop $other_servers_pay_array $prs}-->	  
+		  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center" >
+			<td>{$prs[name]}-{$prs[o_name]} <span class="graytext">{$prs[server]}</span></td>
+			<td><strong class="orangetext">{$prs[pay_amount]}</strong></td>
+			<td>{$prs[pay_count]}{lang HITS}</td>
+		  </tr>
+		  <!--{/loop}-->
+		  <!--{else}-->
+		  <tr>
+			<td colspan="6" align="center">{lang NULL}</td>
+		  </tr>  
+		  <!--{/if}--> 
+		</table>
+		<!--{/if}-->			
+		<table class="table" style="margin-bottom:5px;">
+		  <tr class="title_3">
+			<td colspan="14"><strong>{lang HUOBANMSG}</strong></td>
+		  </tr>
+		  <tr align="center" class="title_2">
+			<td width="35" rowspan="2" >ID</td>
+			<td rowspan="2">{lang HBMC}</td>
+			<td rowspan="2">{lang JY}</td>
+			<td rowspan="2">{lang HP}/{lang SX}</td>
+			<td rowspan="2">{lang GONGJI}/{lang FANGYU}</td>
+			<td>{lang FASHU}</td>
+			<td>{lang JUEJI}</td>
+			<td rowspan="2">{lang BAOJI}/{lang SANBI}/{lang MINGZHONG}/{lang GEDANG}/{lang PODANG}/{lang POBAOJI}/{lang BISHA}</td>
+			<td rowspan="2" title="{lang SXMSG}">{lang WULI}</td>
+			<td rowspan="2" title="{lang SXMSG}">{lang JUEJI}</td>
+			<td rowspan="2" title="{lang SXMSG}">{lang FASHU}</td>
+			<td rowspan="2">{lang MG}</td>
+			<td rowspan="2">{lang DYJL}</td>
+			<!--{if !webAdmin('u_increase','y')}-->
+			<!--td rowspan="2">送经验</td-->
+			<!--{/if}-->
+		  </tr>
+		  <tr align="center" class="title_2">
+		    <td>{lang GONG}/{lang FANG}</td>
+		    <td>{lang GONG}/{lang FANG}</td>
+		  </tr>
+		  <!--{if $player_role_array}-->
+		  <!--{loop $player_role_array $rs}-->	  
+		  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+			<td>{$rs[id]}</td>
+			<td align="left"><span class="right"><!--{if $player[follow_role_id] == $rs[id]}--><span class="bluetext">{lang GENSUI}<br /></span><!--{/if}--><!--{if $rs[state]}--><span class="graytext">{lang LIDUI}</span><!--{else}--><!--{if $rs[deploy_mode_id]}-->{lang SHANGZHEN}<br /><!--{/if}-->{lang NORMAL}<!--{/if}--></span><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerRoleEqui&sid={$sid}&uid={$uid}&role_id={$rs[id]}&role_name={$rs[role_name_url]}')"><strong>{$rs[role_name]}</strong></a> (Lv.{$rs[level]})</td>
+			<td>{$rs[experience]}</td>
+			<td>{$rs[health]}/{$rs[max_health]}</td>
+			<td><span class="redtext">{$rs[attack]}</span>/<span class="bluetext">{$rs[defense]}</span></td>
+			<td><span class="redtext">{$rs[magic_attack]}</span>/<span class="bluetext">{$rs[magic_defense]}</span></td>
+			<td><span class="redtext">{$rs[stunt_attack]}</span>/<span class="bluetext">{$rs[stunt_defense]}</span></td>
+			<td>{$rs[critical]}/{$rs[dodge]}/{$rs[hit]}/{$rs[block]}/{$rs[break_block]}/{$rs[break_critical]}/{$rs[kill]}</td>
+			<td>{$rs[strength]}<span class="greentext smalltext">(+{$rs[strength_additional]} +{$rs[mission_strength]})</span></td>
+			<td>{$rs[agile]}<span class="greentext smalltext">(+{$rs[agile_additional]} +{$rs[mission_agile]})</span></td>
+			<td>{$rs[intellect]}<span class="greentext smalltext">(+{$rs[intellect_additional]} +{$rs[mission_intellect]})</span></td>
+			<td><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerRoleFate&sid={$sid}&uid={$uid}&role_id={$rs[id]}&role_name={$rs[role_name_url]}')" class="title_menu">{lang MG}{$rs[can_wear_fate_number]}</a></td>
+			<td><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerRoleElixir&sid={$sid}&uid={$uid}&role_id={$rs[id]}&role_name={$rs[role_name_url]}')" class="title_menu">{lang DYJL}</a></td>
+		  </tr>
+		  <!--{/loop}-->
+		  <!--{else}-->
+		  <tr>
+			<td colspan="14" align="center" height="100">{lang NULL}</td>
+		  </tr>  
+		  <!--{/if}--> 
+		</table>
+		<table class="table"> 
+		  <tr class="title_3">
+			<td colspan="13"><strong>{lang USER}</strong></td>
+		  </tr>
+		  <tr>
+			<td align="right"><strong>{lang REG}</strong></td>
+			<td class="graytext">{echo date('Y-m-d H:i:s',$player[first_login_time])} / {$player[first_login_ip]}</td>
+		  </tr>  
+		  <tr>
+			<td align="right"><strong>{lang LASLOGIN}</strong></td>
+			<td class="graytext">{echo date('Y-m-d H:i:s',$player[last_login_time])} / {$player[last_login_ip]}</td>
+		  </tr>  
+		  <!--{if !serverAdmin('player_edit','y')}-->
+		  <tr>
+			<td align="right" width="100"><strong>{lang USERNICK}</strong></td>
+			<td>
+			<form action="?in=player&action=SavePlayerEdit" method="post" name="form" id="form" onSubmit="setSubmit('SubmitEdit')">
+			<input name="nickname" type="text" id="nickname" size="20" value="{$player[nickname]}"  maxlength="20" />
+			<input type="hidden" name="uid" value="{$uid}" />
+			<input type="hidden" name="cid" value="{$cid}" />
+			<input type="hidden" name="sid" value="{$sid}" />
+			<input type="hidden" name="nickname_old" value="{$player[nickname]}" />
+			<input type="submit" name="Submit" id="SubmitEdit" value="{lang SUBMITEDIT}"  class="button"/>
+			<span class="bluetext">{lang FBYWXG}</span>
+			</form >
+			</td>
+		  </tr>	 
+		<!--{/if}--> 	    
+	  </table>
+	</td>
+  </tr>
+</table>  

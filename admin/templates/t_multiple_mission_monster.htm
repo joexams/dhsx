@@ -1,0 +1,91 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=mission" name="form"  onSubmit="setSubmit('Submit3')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="6"><span class="bluetext">{$name}</span> 的怪物</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="35">删除</td>
+    <td width="150">怪物</td>
+    <td width="100">速度</td>
+    <td width="100">站位</td>
+    <td>参考</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr align="center" >
+	<td>{$rs[id]}<input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td>
+	<select name="monster_id[]" >
+	 <option class="select">选择怪物</option>
+	 <!--{loop $monster_list $mrs}-->
+	 <option value="{$mrs[id]}" {if $mrs[id] == $rs[monster_id]}selected="selected"{/if}>{$mrs[level]}级-{$mrs[name]}</option>
+	 <!--{/loop}-->	
+	</select>	</td>
+	<td><input type="text" name="speed[]" value="{$rs[speed]}" size="5"/></td>
+    <td>
+	<select name="deploy_grid_id[]" >
+	 <option class="select">选择站位</option>
+	 <!--{loop $deploy_grid_list $drs}-->
+	 <option value="{$drs[id]}" {if $drs[id] == $rs[deploy_grid_id]}selected="selected"{/if}>{$drs[desc]}</option>
+	 <!--{/loop}-->	
+	</select>	</td>
+    <!--{if $rs[i]==1}-->
+	<td rowspan="{$num}">
+	<table width="110" border="0" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
+	  <tr align="center">
+		<td {if in_array(1,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>前上</td>
+		<td {if in_array(4,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>中上</td>
+		<td {if in_array(7,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>后上</td>
+	  </tr>
+	  <tr align="center">
+		<td {if in_array(2,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>前中</td>
+		<td {if in_array(5,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>中中</td>
+		<td {if in_array(8,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>后中</td>
+	  </tr>
+	  <tr align="center">
+		<td {if in_array(3,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>前下</td>
+		<td {if in_array(6,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>中下</td>
+		<td {if in_array(9,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>后下</td>
+	  </tr>
+	</table>
+	</td>
+	<!--{/if}-->
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="7" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="monster_id_n" >
+	 <option class="select">选择怪物</option>
+	 <!--{loop $monster_list $mrs}-->
+	 <option value="{$mrs[id]}" >{$mrs[level]}级-{$mrs[name]}</option>
+	 <!--{/loop}-->	
+	</select>	</td>
+	<td><input type="text" name="speed_n" value="" size="5"/></td>
+    <td>
+	<select name="deploy_grid_id_n" >
+	 <option class="select">选择站位</option>
+	 <!--{loop $deploy_grid_list $drs}-->
+	 <option value="{$drs[id]}">{$drs[desc]}</option>
+	 <!--{/loop}-->	
+	</select>	</td>
+    <td>&nbsp;</td>
+    </tr>  
+  <tr>
+    <td colspan="7" align="center">
+	<input name="multiple_mission_monster_team_id" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetMultipleMissionMonster" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit3" name="Submit3" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

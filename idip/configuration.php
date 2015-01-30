@@ -1,0 +1,112 @@
+<?php 
+$config = array(
+
+	'url'                 => 'http://127.0.0.1/idip/v1',
+	'dispatch'            => 'index.php/',
+	'timezone'            => 'Asia/ShangHai',
+	'gzip'                => false,
+	'debug'               => true,
+	
+	'module_default'      => 'user/info',
+	'module_input'        => isset($_REQUEST['data_packet']) ? $_REQUEST['data_packet'] : (isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : ''),
+	'module_input_length' => 512,
+
+	'path_cache'          => '../cache',
+	'path_library'        => '../lib',
+	'path_module'         => '../module',
+
+	'db_master'			  => false,
+	'sql_host'            => 'localhost',
+	'sql_user'            => 'root',
+	'sql_pw'              => 'ybybyb',
+	'sql_db'              => 'halo',
+	'sql_port'			  => '8810',
+	'sql_db_other'		  => 'game_other',
+
+	'route'				  => array(
+			'0x4097' => array(
+					'rsponse ' => 'IDIP_QUERY_USER_INFO_RSP',
+					'cmdid'    => '4098',
+					'class'    => 'user_info',
+					'reqbody'  => 'szOpenId,uiAreaId,uiRoleId',
+					'body'     => 'uiRoleId,szRoleName,usLevel,usVipLevel,uiRegisterTime,uiLastLoginTime',
+				),
+			'0x4099' => array(
+					'rsponse' => 'IDIP_QUERY_CASH_NUM_RSP',
+					'cmdid'   => '4100',
+					'class'   => 'cash_num',
+					'reqbody' => 'szOpenId,uiAreaId,uiBeginTime,uiEndTime',
+					'body'    => 'uiBeginTime,uiEndTime,uiCashNum,uiConsumeNum',
+				),
+			'0x4103' => array(
+					'rsponse' => 'IDIP_QUERY_ROLE_INFO_RSP',
+					'cmdid'   => '4104',
+					'class'   => 'user/baseinfo',
+					'reqbody' => 'uiAreaId,uiRoleId',
+					'body'    => 'szRoleName,usLevel,ucJob,szFactionName,uiCharTitle,uiReputation,uiRanking,uiCopyStep,uiServer',
+				),
+			'0x4105' => array(
+					'rsponse' => 'IDIP_QUERY_EVENT_STATE_RSP',
+					'cmdid'   => '4106',
+					'class'   => 'event_state',
+					'reqbody' => 'szOpenId,uiAreaId,uiRoleId,uiEventId',
+					'body'    => 'ucState',
+				),
+			'0x4107' => array(
+					'rsponse' => 'IDIP_DO_SEND_ITEM_MAIL_RSP',
+					'cmdid'   => '4108',
+					'class'   => 'send/itemmail',
+					'reqbody' => 'szOpenId,uiAreaId,uiItemId,iItemCount,uiStrengLevel,uiEffectiveTime,ucBindState,szMailTitle,szMailContent',
+					'body'    => 'iResult,szRetMsg',
+				),
+			'0x4109' => array(
+					'rsponse' => 'IDIP_QUERY_ROLE_FRIEND_LIST_RSP',
+					'cmdid'   => '4110',
+					'class'   => 'user/friend',
+					'reqbody' => 'uiAreaId,szOpenId',
+					'body'    => 'FriendList_count,FriendList',
+				),
+			'0x4113' => array(
+					'rsponse' => 'IDIP_QUERY_OPENID_TO_UIN_TRANS_RSP',
+					'cmdid'   => '4114',
+					'class'   => 'user/openidtoqq',
+					'reqbody' => 'szOpenId',
+					'body'    => 'szOpenId',
+				),
+			'0x4115' => array(
+					'rsponse' => 'IDIP_QUERY_USR_RELATIONSHIP_RSP',
+					'cmdid'   => '4116',
+					'class'   => 'user/marryfavor',
+					'reqbody' => 'uiAreaId,szOpenId',
+					'body'    => 'szMyselfRoleName,szOtherRoleName,uiCohesion',
+				),
+			'0x4117' => array(
+					'rsponse' => 'IDIP_QUERY_ROLE_GAMETIME_LIST_RSP',
+					'cmdid'   => '4118',
+					'class'   => 'user/backuptimelist',
+					'reqbody' => 'uiAreaId,szOpenId',
+					'body'    => 'pGameTimeList',
+				),
+			'0x4119' => array(
+					'rsponse' => 'IDIP_DO_RETURN_BACKUP_RSP',
+					'cmdid'   => '4120',
+					'class'   => 'user/restore',
+					'reqbody' => 'uiAreaId,szOpenId,uiBackupId,uiBackupTime',
+					'body'    => 'iResult,szRetMsg',
+				),
+			'0x4121' => array(
+					'rsponse' => 'IDIP_QUERY_RECHARGE_RSP',
+					'cmdid'   => '4122',
+					'class'   => 'query/recharge',
+					'reqbody' => 'uiAreaId,uiBeginTime,uiEndTime,ucPageNo',
+					'body'    => 'ucPageNo,ucPageSize,uiTotalOpenId,pOpenIdList_count,pOpenIdList',
+				),
+			'0x4123' => array(
+					'rsponse' => 'IDIP_QUERY_CONSUME_RSP',
+					'cmdid'   => '4124',
+					'class'   => 'query/consume',
+					'reqbody' => 'uiAreaId,uiBeginTime,uiEndTime,ucPageNo',
+					'body'    => 'ucPageNo,ucPageSize,uiTotalOpenId,pOpenIdList_count,pOpenIdList',
+				),
+		),
+);

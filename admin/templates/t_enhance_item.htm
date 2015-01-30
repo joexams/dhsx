@@ -1,0 +1,93 @@
+<form method="post" action="?in=item" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="13">道符属性表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="150">道符物品</td>
+    <td width="100">等级</td>
+    <td width="100">属性</td>
+    <td width="100">属性值</td>
+    <td width="100">需要物品</td>
+    <td width="100">需要物品数量</td>
+    <td width="100">持续时间秒</td>
+    <td width="100">合成需要铜钱</td>
+    <td>&nbsp;</td>
+    </tr>
+    <!--{if $list_array}-->
+    <!--{loop $list_array $rs}-->   
+    <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+    <td>{$rs[item_id]}<input name="item_id_old[]" type="hidden" value="{$rs[item_id]}"/></td>
+    <td><input type="checkbox" name="id_del[]" value="{$rs[item_id]},{$rs[lv]}" title="选择删除"/></td>
+      <td><select name="item_id[]" >
+     <option class="select" value="0">选择物品</option>
+     <!--{loop $item_list $irs}-->
+     <option value="{$irs[id]}"  {if $irs[id] == $rs[item_id]}selected="selected"{/if}>{$irs[name]}</option>
+     <!--{/loop}-->  
+    </select></td>
+      <td><input name="lv_old[]" type="hidden" value="{$rs[lv]}"/><input name="lv[]" type="text" value="{$rs[lv]}" size="10" /></td>
+      <td><select name="war_attribute_type_id[]" >
+     <option class="select" value="0">经验</option>
+     <!--{loop $war_attribute_type_list $wrs}-->
+     <option value="{$wrs[id]}" {if $wrs[id] == $rs[war_attribute_type_id]}selected="selected"{/if}>{$wrs[name]}</option>
+     <!--{/loop}-->  
+    </select></td>
+      <td><input name="value[]" type="text" value="{$rs[value]}" size="10" /></td>
+      <td><select name="need_item_id[]" >
+     <option class="select" value="0">选择物品</option>
+     <!--{loop $item_list $irs}-->
+     <option value="{$irs[id]}"  {if $irs[id] == $rs[need_item_id]}selected="selected"{/if}>{$irs[name]}</option>
+     <!--{/loop}-->  
+    </select></td>
+      <td><input name="need_item_count[]" type="text" value="{$rs[need_item_count]}" size="10" /></td>
+      <td><input name="duration[]" type="text" value="{$rs[duration]}" size="10" /></td>
+      <td><input name="need_coins[]" type="text" value="{$rs[need_coins]}" size="10" /></td>
+      <td>&nbsp;</td>
+      </tr>
+    <!--{/loop}-->
+    <!--{else}-->
+    <tr>
+    <td colspan="14" align="center">找不到相关信息</td>
+    </tr>  
+    <!--{/if}--> 
+    <tr class="td2" align="center" >
+  <td colspan="2">新增记录→</td>
+    <td><select name="item_id_n" >
+   <option class="select" value="0">选择物品</option>
+   <!--{loop $item_list $irs}-->
+   <option value="{$irs[id]}">{$irs[name]}</option>
+   <!--{/loop}-->  
+  </select></td>
+    <td><input name="lv_n" type="text" value="" size="10" /></td>
+    <td><select name="war_attribute_type_id_n" >
+   <option class="select" value="0">经验</option>
+   <!--{loop $war_attribute_type_list $wrs}-->
+   <option value="{$wrs[id]}">{$wrs[name]}</option>
+   <!--{/loop}-->  
+  </select></td>
+    <td><input name="value_n" type="text" value="" size="10" /></td>
+  <td><select name="need_item_id_n" >
+   <option class="select" value="0">选择物品</option>
+   <!--{loop $item_list $irs}-->
+   <option value="{$irs[id]}">{$irs[name]}</option>
+   <!--{/loop}-->  
+  </select></td>
+    <td><input name="need_item_count_n" type="text" value="" size="10" /></td>
+    <td><input name="duration_n" type="text" value="" size="10" /></td>
+      <td><input name="need_coins_n" type="text" value="" size="10" /></td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="13" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->     
+  <tr>
+    <td colspan="13" align="center">
+  <input type="hidden" name="action" value="SetEnhanceItem" />
+  <input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

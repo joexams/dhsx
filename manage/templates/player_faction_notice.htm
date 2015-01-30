@@ -1,0 +1,30 @@
+<table class="table">
+  <tr>
+    <th colspan="5"><span class="yellowtext">{$name}</span>  的公告</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="100">玩家</td>
+    <td width="120">发布时间</td>
+    <td align="left">公告内容</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+    <td><strong>{$rs[username]}</strong></td>
+    <td>{$rs[req_time]}</td>
+    <td align="left">{$rs[content]}</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="5" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	  
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

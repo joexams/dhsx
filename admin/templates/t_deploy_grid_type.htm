@@ -1,0 +1,61 @@
+<form method="post" action="?in=deploy" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="5">阵法站位类型列表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="150">名称</td>
+    <td width="150">描述</td>
+    <td>参考</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+    <td><input name="desc[]" type="text" value="{$rs[desc]}"  size="20"/></td>
+    <!--{if $rs[i]==1}-->
+	<td rowspan="{$num}">
+	<table width="200" border="0" cellspacing="1" bgcolor="#CCCCCC">
+	  <tr align="center" height="50">
+		<td bgcolor="#FFFFFF">前上</td>
+		<td bgcolor="#FFFFFF">中上</td>
+		<td bgcolor="#FFFFFF">后上</td>
+	  </tr>
+	  <tr align="center" height="50">
+		<td bgcolor="#FFFFFF">前中</td>
+		<td bgcolor="#FFFFFF">中中</td>
+		<td bgcolor="#FFFFFF">后中</td>
+	  </tr>
+	  <tr align="center" height="50">
+		<td bgcolor="#FFFFFF">前下</td>
+		<td bgcolor="#FFFFFF">中下</td>
+		<td bgcolor="#FFFFFF">后下</td>
+	  </tr>
+	</table>
+	
+	</td>
+	<!--{/if}-->
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+    <td><input name="desc_n" type="text" value=""  size="20"/></td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="5" align="center">
+	<input type="hidden" name="action" value="SetDeployGridType" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

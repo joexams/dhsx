@@ -1,0 +1,5 @@
+<?php exit;?>	2014-05-22 15:00:15	0		
+<?php exit;?>	2014-05-22 15:03:01	0		
+<?php exit;?>	2014-05-22 15:04:11	1049	Unknown database 'gamedb_trunk'	
+<?php exit;?>	2014-05-26 16:05:52	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') and userid not in (48,55)) ORDER BY status LIMIT 0, 15' at line 1	SELECT `userid`,`username`,`realname`,lastloginip,lastlogintime,`logintimes`,`roleid`,`status`,`isrolepriv` FROM `game_manage_qq`.`ho_sys_user` WHERE userid in (48) or (roleid in () and userid not in (48,55)) ORDER BY status LIMIT 0, 15
+<?php exit;?>	2014-05-26 16:05:57	1064	You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') and userid not in (48,55)) ORDER BY status LIMIT 0, 15' at line 1	SELECT `userid`,`username`,`realname`,lastloginip,lastlogintime,`logintimes`,`roleid`,`status`,`isrolepriv` FROM `game_manage_qq`.`ho_sys_user` WHERE userid in (48) or (roleid in () and userid not in (48,55)) ORDER BY status LIMIT 0, 15

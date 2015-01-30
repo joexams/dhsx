@@ -1,0 +1,163 @@
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th>{lang SJHZ}</th>
+  </tr>
+  <tr align="left">
+	<td>{lang JRSR} <span class="orangetext"><strong id="todaypay" style="font-size:20px;">{$amount_today}</strong>{lang YUAN}</span></td>
+  </tr> 
+  <tr align="left">
+	<td>{lang ZRSR} <span><strong>{$amount_yesterday}</strong>{lang YUAN}</span></td>
+  </tr>  
+  <tr align="left">
+	<td >{lang BYSR} <span><strong>{$amount_thismonth}</strong>{lang YUAN}</span></td>
+  </tr> 
+  
+  <tr align="left">
+	<td >{lang SYSR} <span><strong>{$amount_lastmonth}</strong>{lang YUAN}</span></td>
+  </tr>   
+  
+  <tr align="left">
+	<td style="border-bottom:3px solid #CECFDA;">{lang ZSR} <span class="greentext"><strong>{$amount_all}</strong>{lang YUAN}</span></td>
+  </tr>
+  <!--{if !webAdmin('key_data_set','y')}-->
+  <tr align="left">
+	<td>{lang DQZX}: <span class="bluetext"><strong id="nowonline" style="font-size:20px;">{$total_online_num}</strong>{lang REN}</span></td>
+  </tr>   
+  <tr align="left">
+	<td style="border-bottom:3px solid #CECFDA;">{lang LSZG}: <strong>{$max_online}</strong>{lang REN} <span class="graytext">{lang FSY}{$max_online_time}</span></td>
+  </tr>  
+  <tr align="left">
+	<td>{lang ZCS}: <strong>{$player_reg[register_count]}</strong>{lang REN}</td>
+  </tr>  
+  <tr align="left">
+	<td>{lang CJS}: <strong>{$player_reg[create_count]}</strong>{lang REN}</td>
+  </tr> 
+  <tr align="left">
+	<td style="border-bottom:3px solid #CECFDA;">{lang CJL}: {echo round($player_reg[create_count]/$player_reg[register_count]*100,2)}%</td>
+  </tr>  
+  <tr align="left">
+	<td>{lang GYPT}: <strong>{$company_count}</strong></td>
+  </tr>   
+  
+  <tr align="left">
+	<td>{lang JRKF}: <strong>{$open_today_count}</strong></td>
+  </tr>   
+  <tr align="left">
+	<td>{lang JRHF}: <strong>{$m[open_today_count]}</strong></td>
+  </tr>   
+  <tr align="left">
+	<td>{lang YJHF}: <strong>{$m[open_count]}</strong></td>
+  </tr>  
+  
+  <tr align="left">
+	<td>{lang ZSYY}: <strong>{$open_count}</strong></td>
+  </tr> 
+  <!--{/if}-->  
+</table>
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th colspan="100">{lang SDTJ}</th>
+  </tr> 
+
+  <tr align="center" class="title_2">
+    <td>{lang DATE}</td>
+	<!--{loop $datesArr $rs $day}--><td>{$day}<br /><span class="graytext smalltext">{echo GetWeekDay($day)}</span></td><!--{/loop}-->
+	<td>{lang JRSR}</td>
+  </tr>  
+  <tr class="trtitle" align="center">
+    <td>{lang QRCZ}</td>
+	<!--{loop $datesArr $rs $day}--><td><!--{if $payall[$day][pay_amount]}--><strong class="bluetext">{$payall[$day][pay_amount]}</strong><!--{else}-->-<!--{/if}--></td><!--{/loop}-->
+	<td rowspan="3"  style="font-size:16px;"><!--{if $amount_today}--><strong class="orangetext">{$amount_today}</strong><br /><span class="graytext smalltext">{$amount_today_user}{lang REN}</span><!--{else}-->-<!--{/if}--></td>
+  </tr>
+  <tr class="trtitle" align="center">
+    <td>非Q点充值</td>
+    <!--{loop $datesArr $rs $day}--> <td><!--{if $payall[$day][pay_amount]}-->{$payamt[$day][payamt_amount]}<!--{else}-->-<!--{/if}--></td> <!--{/loop}-->
+  </tr>
+  <tr align="center">
+    <td>00~{echo substr($now,0,5)}</td>
+	<!--{loop $datesArr $rs $day}--><td><!--{if $dayhis[$day][pay_hour_amount]}--><strong class="orangetext">{$dayhis[$day][pay_hour_amount]}</strong><br /><span class="graytext smalltext">{$dayhis[$day][pay_hour_user]}{lang REN}</span><!--{else}-->-<!--{/if}--></td><!--{/loop}-->
+  </tr>
+</table>
+<!--{if !webAdmin('key_data_set','y')}-->
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="50%" valign="top">
+		<table width="100%" class="table">
+		  <tr>
+			<th colspan="6" class="title_1"><!--{if $amount_today}--><span class="right">{lang HJZJRCZZE}</span><!--{/if}-->{lang JRGRCZPH}</th>
+		  </tr>
+			
+		  <tr class="title_2" align="center">
+			<td width="50">{lang ORDER}</td> 
+			<td >{lang SERVER}</td>
+			<td>{lang USER}</td>
+			<td>{lang PAY}</td>
+			<td>{lang PAYNUM}</td>
+		  </tr>
+		  <!--{if $today_order_array}-->
+		  <!--{loop $today_order_array $rs}-->	  
+		  <tr  onmouseover=this.className="td3" onmouseout=this.className=""  align="center">
+			<td>{$rs[i]}</td>
+			<td>{$rs[name]}</td>
+			<td align="left"><a href="?in=player&action=PlayerView&cid={$rs[cid]}&sid={$rs[sid]}&uid={$rs[player_id]}" target="_blank"><strong>{$rs[username]}</strong> ({$rs[nickname]})</a></td> 
+			<td class="orangetext"><strong>{$rs[amount]}</strong>{lang YUAN}</td>
+			<td>{$rs[pay_num]}</td>
+		  </tr>
+		  <!--{/loop}-->
+		  <!--{else}--> 
+		  <tr >
+			<td colspan="6"  align="center">{lang NULL}</td>
+		  </tr>			  
+		  <!--{/if}--> 
+		</table>
+	
+	
+	
+	</td>
+    <td width="1%"></td>
+    <td width="50%" valign="top">
+		<table width="100%" class="table">
+		  <tr>
+			<th colspan="5" class="title_1">{lang JRDFCZPH}</th>
+		  </tr>
+			
+		  <tr class="title_2" align="center">
+			<td width="50">{lang ORDER}</td> 
+			<td>{lang SERVER}</td>
+			<td>{lang PAY}</td>
+			<td>{lang PAYUSER}</td>
+		  </tr>
+		  <!--{if $servers_order_array}-->
+		  <!--{loop $servers_order_array $rs}-->	  
+		  <tr  onmouseover=this.className="td3" onmouseout=this.className=""  align="center">
+			<td>{$rs[i]}</td>
+			<td align="left"><a href="?in=player&action=Data&cid={$rs[cid]}&sid={$rs[sid]}" target="_blank"><strong>{$rs[name]}_{$rs[o_name]}</strong></a></td>
+			<td class="orangetext"><strong>{$rs[pay_amount]}</strong>{lang YUAN}</td>
+			<td>{$rs[pay_user]}{lang REN}</td>
+		  </tr>
+		  <!--{/loop}-->
+		  <!--{else}--> 
+		  <tr >
+			<td colspan="5"  align="center">{lang NULL}</td>
+		  </tr>			  
+		  <!--{/if}--> 
+		</table>	
+	
+	</td>
+  </tr>
+</table>
+<!--{/if}-->
+<script language="javascript" type="text/javascript">
+	<!--{if !webAdmin('key_data_set','y')}-->
+	setInterval('upNowOnline()',{SXD_SYSTEM_UP_ONLINE});
+	function upNowOnline() {
+		selectAjax('call.php?action=CallNowOnline&r={RAND_NUM}','nowonline','','',1);
+	}	
+	<!--{/if}-->
+	<!--{if !webAdmin('c_data','y')}-->
+	setInterval('upTodayPay()',{SXD_SYSTEM_UP_ONLINE});
+	function upTodayPay() {
+		selectAjax('call.php?action=CallTodayPay&r={RAND_NUM}','todaypay','','',1);
+	}	
+	<!--{/if}-->
+</script>

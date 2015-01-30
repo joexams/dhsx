@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{GAMETITLENAME}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<link href="style/style.css" rel="stylesheet" type="text/css" />
+
+<script language = "javaScript" src = "include/js/common.js" type="text/javascript"></script>
+<script language = "javaScript" src = "include/js/menu.js" type="text/javascript"></script>
+
+
+
+<body>
+<div id="append_parent"></div><div id="ajaxwaitid"></div>
+<div id="top">
+ <div class="top_user">Hello {$adminWebName} - <a href="login.php?action=out">退出</a></div><br>
+  <ul class="view_menu">
+	<li class="manage_title">{GAMETITLENAME}</li>
+	<!--{if !webAdmin('s','y')}--><li {if $nowUrl == 's.php'}class="view_cur"{else}class="view_no_cur"{/if}><a href="s.php">系统设置</a></li><!--{/if}-->
+	<!--{if !webAdmin('t','y')}--><li {if $nowUrl == 't.php'}class="view_cur"{else}class="view_no_cur"{/if}><a href="t.php">模版数据</a></li><!--{/if}-->
+ 		<!--{loop $list_array $rs}-->
+ 		<li {if $father_id == $rs[id]}class="view_cur"{else}class="view_no_cur"{/if}>
+
+ 		<a href="{$rs[url]}">{$rs[describe]}</a>
+  			<ul>
+  				<!--{loop $rs[second_menu] $srs}-->
+  				<li><a href="#" class="hide">{$srs[describe]}</a>
+   					<ul>
+   						<!--{loop $srs[third_menu] $trs}-->
+   						<li><a href="{$trs[url]}">{$trs[describe]}</a></li>
+   						
+   						<!--{/loop}-->
+   					</ul>
+  		    	</li>
+  		    	<!--{/loop}-->
+  			</ul>
+ 			</li>
+ 			<!--{/loop}-->
+  </ul>
+</div>
+<div id="wrap">

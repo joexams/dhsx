@@ -1,0 +1,25 @@
+<table class="table">
+  <tr>
+    <th colspan="4">最高等级统计</th>
+  </tr>  
+  <tr align="center" class="title_2">
+    <td  width="100"><a href="?in=data&action=DataMaxLevel&order=level">等级</a></td>
+    <td  width="100"><a href="?in=data&action=DataMaxLevel&order=s_num">服务器数量</a></td>
+    <td  width="100">比例</td>
+	<td>&nbsp;</td>
+    </tr>  
+<!--{if $list_array}-->
+<!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center">
+    <td>Lv.{$rs[level]}</td>
+	<td>{$rs[s_num]}</td>
+	<td>{echo round($rs[s_num]/$all_num*100,2)}%</td>
+	<td align="left"><img src="style/n.gif" width="{echo round(($rs[s_num]/$max_num)*300)+1}px" height="10"/></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="4" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}-->      
+</table>

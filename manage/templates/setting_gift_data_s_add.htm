@@ -1,0 +1,60 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<form action="?in=gift" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2"><a href="?in=gift">活动列表</a> ＞ 活动发布</th>
+    </tr>
+         	
+    <tr>
+      <td width="100" align="right"><strong>服务器</strong></td>
+      <td>
+		<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+		 <option class="select">运营平台</option>
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>	  
+		<select name="sid" id = "sid" >
+		<option value="" class="select">选择服务器</option>
+		<!--{if $servers_list}-->
+		 <!--{loop $servers_list $srs}-->
+		 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->
+		</select>	  </td>
+    </tr>	
+    <tr>
+      <td align="right"><strong>活动模版</strong></td>
+      <td> 
+		<select name="gift_data_id">
+		 <option class="select">选择活动模版</option>
+		 <!--{loop $gift_data_list $grs}-->
+		 <option value="{$grs[id]}">{$grs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>
+	 </td>
+    </tr>
+
+   <tr>
+      <td align="right"><strong>开始时间</strong></td>
+      <td> <input name="stime" id="stime" type="text" onclick="showcalendar(event, this,true)"   value="{echo date('Y-m-d H:i')}" size="18" readonly /> <span class="graytext">活动开始时间</span></td>
+   </tr>     
+   <tr>
+      <td align="right"><strong>过期时间</strong></td>
+      <td> <input name="etime" id="etime" type="text" onclick="showcalendar(event, this,true)"   value="9999-01-01 00:00" size="18" readonly /> <span class="graytext">活动过期时间，不选择为永久不过期</span></td>
+   </tr>              
+    <tr>
+      <td><input name="action" type="hidden" value="SaveGiftDataServersAdd"/></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" 发 布 " class="button"/></td>
+    </tr>
+    <tr class="title_2">
+      <td>&nbsp;</td>
+      <td><span class="bluetext">注意：3个活动默认开启，无需手动添加！</span></td>
+    </tr>	
+	
+    <!--tr class="title_2">
+      <td>&nbsp;</td>
+      <td><span class="bluetext">注意：请勿将[过期时间]设置与[活动奖励执行时间]相同，避免服务器之间出现时差，导致活动未执行！如[活动奖励执行时间]在每晚23:59，则可将[过期时间]设置成隔天凌晨01:00，以此类推</span></td>
+    </tr-->	
+  </table>
+</form >

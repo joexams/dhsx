@@ -1,0 +1,57 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=tower" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="7"><span class="bluetext">{$name}</span> 的各个级别详细概率</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">删除</td>
+    <td>数值单位放大10倍</td>
+    <td>颜色</td>
+    <td>百分比概率放大10倍</td>
+    <td>最小值</td>
+    <td>最大值</td>
+    </tr>
+  
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td><input name="soul_quality_id[]" type="hidden" value="{$rs[soul_quality_id]}"/><input type="checkbox" name="id_del[]" value="{$rs[soul_quality_id]},{$rs[unit]},{$rs[colour]}" title="选择删除"/></td>
+    <td><input name="unit[]" type="hidden" value="{$rs[unit]}"/><strong>{$rs[unit]}</strong></td>
+    <td style="color:{$colour[$rs[colour]][c]}"><input name="colour[]" type="hidden" value="{$rs[colour]}"/>{$colour[$rs[colour]][name]}</td>
+	<td><input name="probability[]" type="text" value="{$rs[probability]}" size="10"/></td>
+	<td><input name="min[]" type="text" value="{$rs[min]}" size="10"/></td>
+	<td><input name="max[]" type="text" value="{$rs[max]}" size="10"/></td>
+	</tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="8" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td>新增→</td>
+    <td><input name="unit_n" type="text" value=""  size="10"/></td>
+    <td>
+	<select name="colour_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $colour $rs}-->
+	 <option value="{$rs[c]}"  style="background:{$rs[c]};">{$rs[name]}</option>
+	 <!--{/loop}-->	 
+	 
+	</select>	
+	</td>
+	<td><input name="probability_n" type="text" value="" size="10"/></td>
+	<td><input name="min_n" type="text" value="" size="10"/></td>
+	<td><input name="max_n" type="text" value="" size="10"/>	</td>
+	</tr>  
+  <tr>
+    <td colspan="8" align="center">
+	<input name="soul_quality_id_n" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetSoulQualityValue" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

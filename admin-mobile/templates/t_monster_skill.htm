@@ -1,0 +1,50 @@
+<form method="post" action="?in=monster" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="3">怪物技能</th>
+  </tr>
+  <tr align="center" class="title_2">
+  	<td width="35">删除</td>  
+  	<td width="35" >ID</td>
+    <td>怪物</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr align="center" >
+	<input name="id_old[]" type="hidden" value="{$rs[id]}"/>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td>{$rs[id]}</td>
+	<td>
+	<select name="skill_id[]" >
+	 <option class="select">选择技能</option>
+	 <!--{loop $skill_list $mlrs}-->
+	 <option value="{$mlrs[id]}" {if $mlrs[id] == $rs[skill_id]}selected="selected"{/if}>{$mlrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="3" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="skill_id_n" >
+	 <option class="select">选择技能</option>
+	 <!--{loop $skill_list $mlrs}-->
+	 <option value="{$mlrs[id]}">{$mlrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    </tr>  
+  <tr>
+    <td colspan="3" align="center">
+	<input name="monster_id" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetMonsterSkill" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

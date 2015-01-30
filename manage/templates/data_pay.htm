@@ -1,0 +1,107 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<!--{if $adminWebType != 'u'}-->
+<!--{if ($stime && $etime) || $username}-->
+<table class="table" style="margin-bottom:5px;">
+  <tr style="font-size:14px;" align="center">
+	<td width="250">{lang PAY}:<strong class="orangetext">{echo round($amount,2)}</strong>{lang YUAN} <span class="graytext">({$company[money_type]})</span></td>
+	<td width="250"><a href="?in=data&action=DataPay&cid={$cid}&s=1">{lang PAYDC}:<strong>{echo round($amount_no,2)}</strong>{lang YUAN}</a></td>
+	<td width="250"><a href="?in=data&action=DataPay&cid={$cid}&t=1">{lang PAYCS}:<strong>{echo round($amount_test,2)}</strong>{lang YUAN}</a></td>
+	<td>&nbsp;</td>
+  </tr>
+</table>
+<!--{/if}-->
+<!--{/if}-->
+<table width="100%" class="table">
+  <tr>
+    <th colspan="10"><span class="yellowtext">{$username}</span> {lang PTCZJL}</th>
+  </tr> 
+  <tr class="title_3">
+    <td colspan="9">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">
+	<!--{if $adminWebType == 's'}-->
+	<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	  
+	<!--{else}-->
+	<input name="cid" type="hidden" value="{$cid}" />
+	<!--{/if}-->	
+	<select name="sid" id = "sid">
+	<option  value="">{lang ALLSERVER}</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	{lang USER}： <input name="username" type="text" value="{$username}" size="20"/>
+	{lang PAYORDER}： <input name="oid" type="text" value="{$oid}" size="20"/>	
+	<!--{if $adminWebType != 'u'}-->
+	{lang TIMERANGE}： <input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly />
+	<!--{/if}-->
+	<!--{if $company[slug] == 'verycd'}-->
+	<select name="liquan" >
+	 <option value="0" class="select">是否使用礼券</option>
+	 <option value="1" {if $liquan == 1} selected="selected" {/if}>是</option>
+	</select>		
+	<!--{/if}-->
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="data" />
+	<input name="action" type="hidden" value="DataPay" />
+	<!--{if !webAdmin('data_export','y')}-->
+	<a href="call.php?action=CallPayExport&cid={$cid}&sid={$sid}&stime={$stime}&etime={$etime}" class="title_menu" >{lang PAYDOWN}</a>
+	<!--{/if}-->
+	</form>	</td>
+  </tr> 
+  <tr class="title_2" align="center">
+  	<td width="50">&nbsp;</td>
+	<td>{lang SERVER}</td>
+	<td>{lang USERNAME}</td>
+	<!--{if $adminWebType != 'u'}--><td width="80">{lang PAY}</td><!--{/if}-->
+	<td width="80">{lang YB}</td>
+	<td width="180">{lang PAYORDER}</td>
+	<td width="120">{lang PAYTIME}</td>
+	<td align="left">{lang STATE}</td>
+	<!--{if $adminWebName == 'admin'}--><td width="80">&nbsp;</td><!--{/if}-->
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $prs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className=""  align="center">
+	<td><!--{if $adminWebType == 's'}-->{$prs[pid]}<!--{else}-->><!--{/if}--></td>
+	<td>{$ss[$prs[sid]][company_name]}-{$ss[$prs[sid]][servers_name]}</td>
+ 	<td  align="left"><a href="?in=player&action=PlayerView&cid={$cid}&sid={$prs[sid]}&uid={$prs[player_id]}"><strong>{$prs[username]}</strong> ({$prs[nickname]})</a></td> 
+	<!--{if $adminWebType != 'u'}--><td><strong class="orangetext">{$prs[amount]}</strong></td><!--{/if}-->
+	<td>{$prs[coins]}</td>
+	<td>{$prs[oid]}<!--{if $prs[vc_oid]}--><span class="bluetext">[使用礼券]</span><!--{/if}--></td>
+	<td title="{$prs[ditme_up]}">{$prs[dtime]}</td>
+	<td align="left" {if $adminWebType == 's'} title="SIGN = {$prs[sign]}&#13;IP = {$prs[ip]}"{/if}>
+	<!--{if $prs[success] == 0}-->
+	<span class="bluetext">{lang PAYDC}</span>
+	<!--{if $prs[vip_level_up] == 0 && $adminWebType == 's'}--> <span class="graytext">{lang VIPJKWZX}</span><!--{/if}-->
+	<!--{else}-->
+	<span class="greentext">{lang PAYOK}</span>
+	<!--{/if}-->
+	<!--{if $prs[status] == 1}--><span class="graytext">{lang PAYCS}</span><!--{/if}-->
+	</td>
+	<!--{if $adminWebName == 'admin'}--><td>
+	<a href="?in=data&action=SetPaySuccess&cid={$prs[cid]}&sid={$prs[sid]}&oid={$prs[oid]}&pid={$prs[pid]}&s={$prs[success]}&username={echo urlencode($prs[username])}&is_combined={$ss[$prs[sid]][is_combined]}" onClick="javascript: return confirm('你确定设置成[待充/成功]状态？');">[待/成]</a>
+	<!--{if $prs[success] == 0}-->
+	<a href="?in=data&action=SetPayVIP&cid={$prs[cid]}&sid={$prs[sid]}&oid={$prs[oid]}&pid={$prs[pid]}&s={$prs[vip_level_up]}" onClick="javascript: return confirm('你确定设置VIP接口为[失败/成功]状态？');">[V/N]</a>
+	<!--{/if}-->
+	<a href="?in=data&action=SetPayStatus&cid={$prs[cid]}&sid={$prs[sid]}&oid={$prs[oid]}&pid={$prs[pid]}&s={$prs[status]}&username={echo urlencode($prs[username])}&is_combined={$ss[$prs[sid]][is_combined]}" onClick="javascript: return confirm('你确定设置成[测试/正常]状态？');">[测/正]</a>
+	</td><!--{/if}-->
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="10"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>

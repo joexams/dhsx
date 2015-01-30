@@ -1,0 +1,122 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">
+  <tr>
+    <th colspan="9">{lang KFLB}</th>
+  </tr>
+ <!--{if !webAdmin('key_power','y')}-->  
+	<tr class="title_3">
+    <td colspan="14">
+	<form action="" method="get" name="forms" id="forms" onSubmit="setSubmit('Submits')">
+	<select name="apis">
+	<option value="" class="select">{lang SERVERSADD}</option>
+	<!--{if $servers_address_api_list}-->
+	 <!--{loop $servers_address_api_list $sars}-->
+	 <option value="{$sars[api_server]}" {if $sars[api_server] == $apis} selected="selected" {/if}>{$sars[api_server]} ({$sars[s_num]}{lang TAI})</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<input type="submit" name="Submit" id="Submits" value="{lang SEARCH}" class="button"/>
+	<input name="in" type="hidden" value="open" />
+	<input name="action" type="hidden" value="ServersOpen" />
+	<!--{if $apis || $dbs}-->{lang SSJG}：<strong>{$num}</strong>{lang TAI}<!--{/if}-->
+	</form>		
+	</td>
+  </tr> 
+  <!--{/if}--> 
+<form method="post" action="?in=open" name="form"  onSubmit="setSubmit('Submit')">
+<!--{if !$apis}-->
+  <tr class="title_3">
+    <td colspan="9">
+	<span class="bluetext">{lang OPENSERVERYPZDKQ}<strong>{$wait_open_count}</strong>{lang TAI}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+	<span class="redtext">{lang OPENSERVERYDWPZ}<strong>{$yd_count}</strong>{lang TAI}</span>&nbsp;&nbsp;&nbsp;&nbsp;	
+	<span class="greentext">{lang OPENSERVERJRXK}<strong>{$open_today_count}</strong>{lang TAI}</span>&nbsp;&nbsp;&nbsp;&nbsp;	
+	<span class="greentext">{lang OPENSERVERYKQ}<strong>{$open_count}</strong>{lang TAI}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+	<select name="odate" id="odate" onChange="jumpMenu(this)">
+	  <option value="" >{lang OPENDATE}</option>
+	<!--{if $day_list}-->
+	  <!--{loop $day_list $drs}-->
+	  <option value="{$drs[odate]}" {if $drs[odate] == $odate} selected="selected" {/if}>{$drs[odate]} 【{$drs[s_num]}{lang TAI}】</option>
+	  <!--{/loop}-->
+	  <!--{else}-->
+	<!--{/if}-->		
+	</select>	
+	
+	</td>
+  </tr>  
+  <!--{/if}-->  
+  <tr align="center" class="title_2">
+    <td width="50">&nbsp;</td>
+    <td width="120">{lang OPENDATE}</td>
+	<td width="80">{lang COMPANY}</td>
+	<td width="250">{lang SERVERNAME}</td>
+    <td width="150">{lang YXDZ}</td>
+    <td width="60">{lang STATE}</td>
+    <td width="60">{lang KAIFU}</td>
+    <td>&nbsp;</td>
+    </tr>
+<!--{if !$apis}-->	
+  <tr class="td2" align="center" height="60">
+	<td>{lang NEWADD}→</td>
+    <td><input name="open_date_n" id="open_date_n" type="text" value="{echo date('Y-m-d H:i',time())}"  size="18" onclick="showcalendar(event, this,true)" readonly/></td>	
+    <td>
+	<select name="cid">
+	 <!--option class="select">{lang COMPANY}</option-->
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}">{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	</td>
+    <td><input name="o_name_n" id="o_name_n" type="text" value="大话神仙s"  size="40" /></td>
+    <td><input name="server_n" type="text" id="server_n" value="{RAND_NUM}" size="40"  onBlur="checkserversN()"/><br /><span id="server_n_show" class="redtext"></span></td>
+    <td colspan="2"><input type="hidden" name="action" value="SetServersOpen" />
+	<input type="submit" id="Submit" name="Submit" value=" {lang SUBMITOK} " onClick='javascript: return confirm("{lang OPENSERVERMSG}");'  class="button"/></td>
+    <td>&nbsp;</td>
+  </tr> 
+  <tr align="center" class="title_2">
+    <td colspan="7" height="50"><strong class="redtext">{lang OPENSERVERMSG2}</strong></td>
+    <td >&nbsp;</td>
+    </tr>
+	<!--{/if}-->     	
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center" >
+	<td><!--{if $adminWebType == 's'}-->{$rs[sid]}<!--{else}-->><!--{/if}--></td>
+    <td class="bluetext">{echo date('Y-m-d H:i',strtotime($rs[open_date]))}</td>	
+	<td>{$rs[company_name]}</td>
+	<td>
+	<!--{if $rs[open]}-->
+	<a href="?in=player&action=Data&cid={$rs[cid]}&sid={$rs[sid]}"><strong>{$rs[o_name]}</strong></a>
+	<!--{else}-->
+	<strong>{$rs[o_name]}</strong>
+	<!--{/if}-->		
+	</td>
+    <td align="left" >{$rs[server]}</td>
+    <td><!--{if $rs[open] == 1}--><span class="greentext">√{lang YPZ}</span><!--{else}--><span class="redtext">{lang WPZ}</span><!--{/if}--></td>
+	<td><!--{if $rs[open_date] < date('Y-m-d H:i:s')}--><span class="greentext">√{lang YKQ}</span><!--{else}--><span class="redtext">{lang WKQ}</span><!--{/if}--></td>
+	<td align="left" ><!--{if $rs[open] == 0 && $rs[open_date] > date('Y-m-d H:i:s')}--><a href="javascript:void(0)" onclick="pmwin('open','call.php?action=CallServersSet&sid={$rs[sid]}')" class="title_menu">{lang EDIT}</a><!--{/if}--></td>
+	</tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="9" align="center">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="9" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+ </form>   
+</table>
+<script language="javascript">
+function checkservers(id) {
+	selectAjax('call.php?action=CallCheckServers&server='+encodeURIComponent($('server_'+id).value)+'&sid='+id, 'server_'+id+'_show','','',1);
+}
+function checkserversN() {
+	selectAjax('call.php?action=CallCheckServers&server='+encodeURIComponent($('server_n').value), 'server_n_show','','',1);
+}
+function jumpMenu(selObj){
+	location="?in=open&action=ServersOpen&odate="+selObj.options[selObj.selectedIndex].value+"";
+}
+</script>

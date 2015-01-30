@@ -1,0 +1,108 @@
+<form action="?in=setting" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table" style="margin-bottom:5px;">
+    <tr>
+      <th colspan="2">设置游戏数据</th>
+    </tr>
+    <tr>
+      <td width="100" align="right"><strong>{lang SERVER}</strong></td>
+      <td>
+		<!--{if $adminWebType == 's'}-->
+		<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+		 <option class="select">{lang COMPANY}</option>
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>
+		<br />	  
+		<!--{else}-->
+		<input name="cid" type="hidden" value="{$cid}" />
+		<!--{/if}-->	  
+		<select name="sid[]"  size="10" multiple="multiple" id = "sid">
+		<option value="" class="select">{lang ALLSERVER}</option>
+		<!--{if $servers_list}-->
+		 <!--{loop $servers_list $srs}-->
+		 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->		
+		</select>	  </td>
+    </tr>
+    <tr class="title_2">
+      <td colspan="2"><strong>BOSS设置</strong></td>
+    </tr> 
+    <tr>
+      <td align="right"><strong>BOSS</strong></td>
+      <td>
+		<select name="world_boss_id" >
+		<option value="0" class="select">不操作</option>
+		<option value="1">擎天木</option>
+		<option value="2">赤炎兽</option>
+		</select></td>
+    </tr> 
+    <tr>
+      <td align="right"><strong>开关</strong></td>
+      <td>
+		<select name="boss_openclose" >
+		<option value="0" class="select">不操作</option>
+		<option value="1">开</option>
+		<option value="2">关</option>
+		</select></td>
+    </tr> 	
+    <tr>
+      <td align="right"><strong>等级</strong></td>
+      <td><input name="level" type="text" value="0" size="10"/> 0为不操作，BOSS关闭时设置有效，勿与[设置BOSS开关]同时操作</td>
+    </tr> 
+    <tr class="title_2">
+      <td colspan="2"><strong>帮派战设置</strong></td>
+    </tr> 
+    <tr>
+      <td align="right"><strong>帮派战</strong></td>
+      <td>
+		<select name="faction_war_id" >
+		<option value="0" class="select">不操作</option>
+		<option value="1">白虎殿</option>
+		<!--option value="18">玄武殿</option>
+		<option value="19">朱雀殿</option>
+		<option value="20">青龙殿</option-->
+		</select></td>
+    </tr> 
+    <tr>
+      <td align="right"><strong>开关</strong></td>
+      <td>
+		<select name="bp_openclose" >
+		<option value="0" class="select">不操作</option>
+		<option value="1">开</option>
+		<option value="2">关</option>
+		</select></td>
+    </tr>
+	
+    <tr class="title_2">
+      <td colspan="2"><strong>阵营战设置</strong></td>
+    </tr> 
+    <tr>
+      <td align="right"><strong>开关</strong></td>
+      <td>
+		<select name="open_flag" >
+		<option value="-1" class="select">不操作</option>
+		<option value="1">开</option>
+		<option value="0">关</option>
+		</select></td>
+    </tr> 		 		           
+    <tr class="title_2">
+      <td colspan="2"><strong>魔王试炼设置</strong></td>
+    </tr> 
+    <tr>
+      <td align="right"><strong>开关</strong></td>
+      <td>
+		<select name="control_flag" >
+		<option value="-1" class="select">不操作</option>
+		<option value="1">开</option>
+		<option value="0">关</option>
+		</select></td>
+    </tr> 		 		           
+    <tr>
+      <td><input name="action" type="hidden" value="SaveGameData"/></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" {lang SUBMITOK} " class="button"  onClick='javascript: return confirm("{lang DOYOUDO}");'/></td>
+    </tr>
+  </table>
+</form >
+  

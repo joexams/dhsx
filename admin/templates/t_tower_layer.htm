@@ -1,0 +1,70 @@
+<form method="post" action="?in=tower" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="10">爬塔列表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="50">道途/层</td>
+	<td width="35">删除</td>
+    <td>道途</td>
+    <td>层</td>
+    <td>怪物团</td>
+	<td>奖励经验</td>
+	<td>奖励声望</td>
+	<td>奖励铜钱</td>
+  <td>奖励灵石</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[layer]}-{$rs[sequence]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[layer]},{$rs[sequence]}" title="选择删除{$rs[name]}"/></td>
+    <td><input name="layer[]" type="text" value="{$rs[layer]}"  size="10" readonly/></td>
+    <td><input name="sequence[]" type="text" value="{$rs[sequence]}"  size="10" readonly/></td>
+	
+    <td>
+	<select name="monster_team_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $monster_team_list $mtrs}-->
+	 <option value="{$mtrs[id]}"  {if $mtrs[id] == $rs[monster_team_id]}selected="selected"{/if}>{$mtrs[monster_name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="award_experience[]" type="text" value="{$rs[award_experience]}"  size="20"/></td>
+    <td><input name="award_fame[]" type="text" value="{$rs[award_fame]}"  size="20"/></td>
+    <td><input name="award_coin[]" type="text" value="{$rs[award_coin]}"  size="20"/></td>
+    <td><input name="award_stone[]" type="text" value="{$rs[award_stone]}"  size="10"/></td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="10" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="layer_n" type="text" value=""  size="10"/></td>
+	<td><input name="sequence_n" type="text" value=""  size="10"/></td>
+    <td>
+	<select name="monster_team_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $monster_team_list $mtrs}-->
+	 <option value="{$mtrs[id]}">{$mtrs[monster_name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="award_experience_n" type="text" value=""  size="20"/></td>
+    <td><input name="award_fame_n" type="text" value=""  size="20"/></td>
+    <td><input name="award_coin_n" type="text" value=""  size="20"/></td>
+    <td><input name="award_stone_n" type="text" value=""  size="10"/></td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="10" align="center">
+	<input type="hidden" name="action" value="SetTowerLayer" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

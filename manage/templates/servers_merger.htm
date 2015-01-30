@@ -1,0 +1,166 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">
+  <tr>
+    <th colspan="9">合服计划</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="9">
+	<select name="cid" id="cid"  onChange="jumpMenu2(this)">
+	 <option class="select">按平台</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	  
+	<select name="odate" id="odate" onChange="jumpMenu(this)">
+	  <option value="" >按日期</option>
+	<!--{if $day_list}-->
+	  <!--{loop $day_list $drs}-->
+	  <option value="{$drs[odate]}" {if $drs[odate] == $odate} selected="selected" {/if}>{$drs[odate]} 【{$drs[s_num]}台】</option>
+	  <!--{/loop}-->
+	  <!--{else}-->
+	<!--{/if}-->		
+	</select>
+	<!--a href="?in=server&action=ServersMerger" class="{if !$combined_to} title_menu_on {else} title_menu {/if}">所有</strong></a-->
+	<a href="?in=server&action=ServersMerger&combined_to=1" class="{if $combined_to == 1} title_menu_on {else} title_menu bluetext {/if}">已配置合服<strong>{$c[combined_count]}</strong></a>
+	<a href="?in=server&action=ServersMerger&combined_to=2" class="{if $combined_to == 2} title_menu_on {else} title_menu redtext {/if}">未配置合服<strong>{$c[combinedn_count]}</strong></a>
+	<a href="?in=server&action=ServersMerger&odate={echo date('Y-m-d')}" class="{if $odate == date('Y-m-d')} title_menu_on {else} title_menu greentext {/if}">今日合服<strong>{$merger_today_count}</strong>台</a>	</td>
+  </tr>
+<form method="post" action="?in=server" name="form"  onSubmit="setSubmit('Submit')">
+  <tr align="center" class="title_2">
+    <td width="50">ID</td>
+    <td width="100">启动日期</td>
+	<td width="50">平台</td>
+	<td>要合并的服务器</td>
+	<td>备注</td>
+ 	<!--{if !webAdmin('server','y')}-->
+	<td>添加/配置</td>
+	<!--{/if}-->
+   <!--td width="120">提交</td-->
+	<!--{if !webAdmin('server','y')}--><!--td width="50">&nbsp;</td--><!--{/if}-->
+    </tr>  	
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="6" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	 
+   <!--{eval $sn = explode(",",$rs[sid_m]);}-->	
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center" >
+	<td>{$rs[id]}</td>
+    <td class="bluetext">{echo date('Y-m-d H:i',strtotime($rs[open_date]))}<br />
+	<!--{if $rs[combined_to] && !webAdmin('server','y')}--><a href="?in=server&action=SetCombinedTo&id={$rs[id]}" class="title_menu"  onClick="javascript: return confirm('确定合服指向');">合服指向</a><!--{/if}-->
+	</td>	
+	<td>{$rs[company_name]}</td>
+	<td align="left">
+	<!--{if $sn}-->
+	  <!--{loop $sn $srs $sid}-->	
+		<!--{if $s[$sid][name]}-->
+		<span class="graytext">·</span> <a href="javascript:void(0)" onclick="pmwin('open','s_call.php?action=CallServersSet&sid={$sid}')" title="配置[{$s[$sid][name]}]&#13;开服时间{$s[$sid][open_date_old]}&#13;合服时间{$s[$sid][open_date]}"><strong>{$s[$sid][name]}</strong></a>
+		<span class="graytext">{$s[$sid][server]}<!--{if !webAdmin('server','y')}--> / API:{$s[$sid][api_server]} / DB主:{$s[$sid][name2]} / DB从:{$s[$sid][db_server]}<!--{/if}--></span>
+		<!--{if $s[$sid][combined_to]}--> <!--{if $rs[combined_to] && $s[$sid][combined_to] && $rs[combined_to] != $s[$sid][combined_to]}--><span class="redtext" title="sid:{$s[$sid][combined_to]}">[不匹配或被多次合服]</span><!--{else}--><span class="greentext" title="sid:{$s[$sid][combined_to]}">[已合服]</span><!--{/if}--><!--{/if}--><br />
+		<!--{/if}-->
+		<!--{if $s[$sid][is_combined]}-->
+		<!--{eval $d[] = $s[$sid][open_date_old]}-->
+		<!--{else}-->
+		<!--{eval $d[] = $s[$sid][open_date]}-->
+		<!--{/if}-->
+	 <!--{/loop}-->
+	<!--{/if}-->
+	<!--{eval $min_date = min($d)}-->
+	</td>
+
+	<td align="left" valign="top" title="BY:{$rs[adminName]}({$rs[mdate]})">
+	<!--{if $rs[contents]}-->{echo dehtml($rs[contents])}<br /><!--{/if}-->
+	<!--{if $sn}-->
+	  <!--{loop $sn $srs $sid}-->
+		<!--{if $s[$sid][is_combined]}-->
+	  		<!--{eval $days = ceil(abs(strtotime(date('Y-m-d',strtotime($s[$sid][open_date_old]))) - strtotime(date('Y-m-d',strtotime($min_date))))/86400)}-->
+		<!--{else}-->
+	  		<!--{eval $days = ceil(abs(strtotime(date('Y-m-d',strtotime($s[$sid][open_date]))) - strtotime(date('Y-m-d',strtotime($min_date))))/86400)}-->
+		<!--{/if}-->			
+	 	<!--{if $min_date == $s[$sid][open_date]}-->
+			<!--{eval $bc = '补偿200W铜币'}-->
+		<!--{else}-->
+			<!--{eval $bc = '补偿'.(200+$days*20).'W铜币与'.($days*40).'体力'}-->
+		<!--{/if}-->		
+		<!--{if $s[$sid][name]}-->
+		<!--{if $min_date == $s[$sid][open_date] || $min_date == $s[$sid][open_date_old]}-->
+			<!--{eval $f1_id = $s[$sid][name]}-->
+			<!--{eval $f1_zdb = $s[$sid][name2]}-->
+			<!--{eval $f1_cdb = $s[$sid][db_server]}-->
+			<!--{eval $f1_dz = $s[$sid][api_server]}-->
+			<!--{eval $f1_ver = $s[$sid][server_ver]}-->
+			<!--{eval $oldsid = $sid}-->
+		<!--{else}-->
+			<!--{eval $f2_id = $s[$sid][name]}-->
+			<!--{eval $f2_zdb = $s[$sid][name2]}-->	
+			<!--{eval $f2_dz = $s[$sid][api_server]}-->	
+			<!--{eval $f2_days = $days}-->	
+		<!--{/if}-->
+		<strong>{$s[$sid][name]}</strong> <span class="bluetext">{$bc}</span><!--{if $days > 0}--><span class="graytext">[{$days}天]</span><!--{/if}--><br />
+		<!--{/if}-->
+	 <!--{/loop}-->
+	<!--{/if}-->
+	<span class="graytext">注册7天（含7天）以上的角色方能获得合服补偿。</span><br />
+	<!--{if !webAdmin('server','y')}-->
+	./hefu.sh {$f1_id} {$f2_id} {$rs[sname]} # {$f1_dz}<br />
+	<!--{if $rs[newserver_port]}-->
+	<a href="javascript:void(0)" title="./do-merge {$f1_id} {$f1_dz} {$f2_id} {$f2_dz} {$rs[sname]} {$rs[newserver_port]} {$f1_zdb} {$f1_cdb} {$f2_zdb}" onclick="copyurl('./do-merge {$f1_id} {$f1_dz} {$f2_id} {$f2_dz} {$rs[sname]} {$rs[newserver_port]} {$f1_zdb} {$f1_cdb} {$f2_zdb}');" class="title_menu smalltext">do-merge</a> 
+	<a href="javascript:void(0)" title="php ./tools/ServerMerge/merge.php {$f1_id} {$f1_zdb} {$f2_id} {$f2_zdb} {$rs[sname]} {$f2_days}" onclick="copyurl('php ./tools/ServerMerge/merge.php {$f1_id} {$f1_zdb} {$f2_id} {$f2_zdb} {$rs[sname]} {$f2_days}');" class="title_menu smalltext">php</a> 
+	
+	<!--{/if}-->
+	<!--{/if}-->
+	</td>
+	<!--{if !webAdmin('server','y')}-->
+	<td>
+	<!--{if $rs[combined_to]}-->
+	<a href="javascript:void(0)" onclick="pmwin('open','s_call.php?action=CallServersSet&sid={$rs[combined_to]}&hf=0&oldsid={$oldsid}')" class="title_menu" title="开服时间{$rs[open_date_old]}">配置{$rs[sname]}</a>
+	<input type="hidden" name="sid[]" value="{$rs[combined_to]}" />
+	<input type="hidden" name="open_date_old[]" value="{$min_date}" />
+	<!--{else}-->
+	<a href="javascript:void(0)" onclick="pmwin('open','s_call.php?action=CallServersAdd&cid={$rs[cid]}&id={$rs[id]}')" class="title_menu">添加</a>
+	<!--{/if}-->	</td>
+	<!--{/if}-->	
+	<!--{eval unset($d,$min_date,$days,$bc,$f1_id,$f2_id,$f1_zdb,$f2_zdb,$f2_days)}-->
+    <!--td>{$rs[adminName]}<br />{echo date('Y-m-d H:i',strtotime($rs[mdate]))}</td-->
+	<!--{if !webAdmin('server','y')}--><!--td><a href="?in=server&action=DelServersMerger&id={$rs[id]}" class="list_red"  onClick='javascript: return confirm("你确定删除合服计划？");'>删除</a></td--><!--{/if}-->
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="6" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="6" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->
+  <!--{if !webAdmin('server','y')}-->
+  <!--tr>
+    <td colspan="15" align="center">
+	<input type="hidden" name="action" value="SetUpdateMerger" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr-->  
+  <!--{/if}-->
+</form>  
+  	
+</table>
+<script language="javascript">
+function jumpMenu(selObj){
+	location="?in=server&action=ServersMerger&odate="+selObj.options[selObj.selectedIndex].value+"";
+}
+function jumpMenu2(selObj){
+	location="?in=server&action=ServersMerger&cid="+selObj.options[selObj.selectedIndex].value+"";
+}
+function copyurl(url){
+	window.clipboardData.setData('text',url);
+	alert("已复制");
+}
+function checkservers(id) {
+	selectAjax('call.php?action=CallCheckServers&server='+encodeURIComponent($('server_'+id).value)+'&sid='+id, 'server_'+id+'_show','','',1);
+}
+
+</script>

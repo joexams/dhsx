@@ -1,0 +1,48 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table width="100%" class="table">
+  <tr>
+    <th colspan="3">SQL错误日志</th>
+  </tr> 
+  <tr class="title_3">
+    <td colspan="3">
+	<form action="" method="get" name="forms" id="forms" onSubmit="setSubmit('Submits')"> 	
+	时间范围： <input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly />	
+	<input type="submit" name="Submits" id="Submits" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="server" />
+	<input name="action" type="hidden" value="SqlLog" />
+	</form>	</td>
+  </tr>   
+<form method="post" action="?in=server" name="form"  id="form" onSubmit="setSubmit('Submit')">      
+  <tr class="title_2" align="center">
+  	<td width="50"><input type="checkbox" name="allid"  onclick="CheckAll(this,'form','id_del[]');" /></td>
+	<td width="120">时间</td>
+	<td>&nbsp;</td>
+	</tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td"  align="center">
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}"/></td>
+	<td>{echo date('Y-m-d H:i:s',$rs[time])}</td>
+	<td align="left">{$rs[val]}</td>
+ 	</tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="3" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="3"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+ 
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="2">
+	<input type="hidden" name="action" value="DelSqlLog" />
+	<input type="submit" id="Submit" name="Submit" value="删除日志" onClick='javascript: return confirm("确定删除？");'  class="button"/></td>
+  </tr> 
+</form>   
+</table>

@@ -1,0 +1,69 @@
+{template player_log_top}
+<table class="table">
+  <tr class="title_3">
+    <td colspan="10">
+	<form action="" method="get" name="form" id="form" onSubmit="setSubmit('Submit')">
+	{lang SERVER}：<input name="server_name" type="text" value="{$server_name}" size="20" maxlength="20"  />
+	{lang USERNICK}：<input name="nickname" type="text" value="{$nickname}" size="20" maxlength="20"  />
+	<select name="ltype" id="ltype" >
+	  <option value="0"  class="select">{lang TYPE}</option>
+	  <option value="1" {if $ltype == 1} selected="selected" {/if}>{lang ZHENGBS}</option>
+	  <option value="2" {if $ltype == 2} selected="selected" {/if}>{lang KUAFS}</option>
+	</select>
+	<select name="group" id="group" >
+	  <option value="0"  class="select">{lang SUOZAIBANG}</option>
+	  <option value="1" {if $group == 1} selected="selected" {/if}>{lang TIANBANG}</option>
+	  <option value="2" {if $group == 2} selected="selected" {/if}>{lang DIBANG}</option>
+	</select>	
+	<select name="record_time" id="record_time" >
+	  <option value="0" class="select">{lang XZTIME}</option>
+	<!--{if $day_list}-->
+	  <!--{loop $day_list $drs}-->
+	  <option value="{$drs[year]}" {if $date == $drs[year]} selected="selected" {/if}>{$drs[year]}</option>
+	  <!--{/loop}-->
+	<!--{/if}-->		
+	</select>
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Logs" />
+	<input name="type" type="hidden" value="server_war" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr>   
+  <tr class="title_2" align="center">
+    <td width="35">ID</td>
+    <td width="100">{lang DATE}</td>
+	<td width="100" >{lang ORDER}</td>
+	<td width="100" >{lang USERNICK}</td>
+    <td width="100" >{lang SERVER}</td>
+    <td width="100" >{lang TYPE}</td>
+    <td width="100" >{lang SUOZAIBANG}</td>
+    <td >&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{eval $i=0}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}"  align="center" >
+	<td>{$rs[id]}</td>
+	<td>{echo date('Y-m-d H:i:s',$rs[record_time])}</td>
+	<td>{$rs[race_step]}</td>
+	<td>{$rs[nickname]}</td>
+	<td>{$rs[server_name]}</td>
+	<td><!--{if $rs[type] == 1}-->{lang ZHENGBS}<!--{elseif $rs[type] == 2}-->{lang KUAFS}<!--{/if}--></td>
+	<td><!--{if $rs[group] == 1}-->{lang TIANBANG}<!--{elseif $rs[group] == 2}-->{lang DIBANG}<!--{/if}--></td>
+	<td >&nbsp;</td>
+  </tr>
+  <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+	<td colspan="10" class="page">{$list_array_pages}</td>
+  </tr>  
+	<!--{/if}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="10">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

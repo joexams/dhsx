@@ -1,0 +1,64 @@
+{template player_data_top}
+<table class="table" style="margin-bottom:5px;">      
+  <tr align="center" class="title_2">
+  	<td rowspan="2" style="border-right:3px">{lang ZBQHDJ}</td>
+	<td colspan="2" style="border-right:3px">{lang BAISE}</td>
+	<td colspan="2" style="border-right:3px"><span class="greentext">{lang LVSE}</span></td>
+	<td colspan="2" style="border-right:3px"><span class="bluetext">{lang LANSE}</span></td>
+	<td colspan="2" style="border-right:3px"><span style="color:#FF00FF">{lang ZISE}</span></td>
+	<td colspan="2" style="border-right:3px"><span style="color:#FF9900">{lang HUANGSE}</span></td>
+    <td colspan="2"><span class="redtext">{lang ZONGJI}</span></td>
+  </tr>
+  <tr align="center" class="title_2">
+    <td>{lang ZBSL}</td>
+    <td style="border-right:3px">{lang CYRS}</td>
+    <td>{lang ZBSL}</td>
+    <td style="border-right:3px">{lang CYRS}</td>
+    <td>{lang ZBSL}</td>
+    <td style="border-right:3px">{lang CYRS}</td>
+    <td>{lang ZBSL}</td>
+    <td style="border-right:3px">{lang CYRS}</td>
+    <td>{lang ZBSL}</td>
+    <td style="border-right:3px">{lang CYRS}</td>
+    <td><span class="redtext">{lang ZBSL}</span></td>
+    <td><span class="redtext">{lang CYRS}</span></td>
+  </tr>
+  <tr align="center" class="purpletext trtitle">
+    <td style="border-right:3px">{lang ZONGJI}</td>
+	<td>{$irs[num_1]}</td>
+	<td style="border-right:3px">{$irs[player_1]}</td>
+	<td>{$irs[num_3]}</td>
+	<td style="border-right:3px">{$irs[player_2]}</td>
+	<td>{$irs[num_3]}</td>
+	<td style="border-right:3px">{$irs[player_3]}</td>
+	<td>{$irs[num_4]}</td>
+	<td style="border-right:3px">{$irs[player_4]}</td>
+	<td>{$irs[num_5]}</td>
+	<td style="border-right:3px">{$irs[player_5]}</td>
+	<td>{$irs[num]}</td>
+	<td>{$irs[player]}</td>
+  </tr>    
+  <!--{if $level_list}-->
+  <!--{loop $level_list $rs $level}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center">
+    <td style="border-right:3px" class="td4">Lv.<strong>{$level}</strong></td>
+	<td><!--{if $item[$level][num_1]}-->{$item[$level][num_1]}<!--{else}-->-<!--{/if}--></td>
+	<td style="border-right:3px"><!--{if $item[$level][player_1]}-->{$item[$level][player_1]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $item[$level][num_2]}-->{$item[$level][num_2]}<!--{else}-->-<!--{/if}--></td>
+    <td style="border-right:3px"><!--{if $item[$level][player_2]}-->{$item[$level][player_2]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $item[$level][num_3]}-->{$item[$level][num_3]}<!--{else}-->-<!--{/if}--></td>
+    <td style="border-right:3px"><!--{if $item[$level][player_3]}-->{$item[$level][player_3]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $item[$level][num_4]}--><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerDataItemLevel&sid={$sid}&cid={$cid}&quality=4&level={$level}')">{$item[$level][num_4]}</a><!--{else}-->-<!--{/if}--></td>
+    <td style="border-right:3px"><!--{if $item[$level][player_4]}-->{$item[$level][player_4]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $item[$level][num_5]}--><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerDataItemLevel&sid={$sid}&cid={$cid}&quality=5&level={$level}')">{$item[$level][num_5]}</a><!--{else}-->-<!--{/if}--></td>
+    <td style="border-right:3px"><!--{if $item[$level][player_5]}-->{$item[$level][player_5]}<!--{else}-->-<!--{/if}--></td>
+	<td class="redtext"><!--{if $item[$level][num]}-->{$item[$level][num]}<!--{else}-->-<!--{/if}--></td>
+    <td class="redtext"><!--{if $item[$level][player]}-->{$item[$level][player]}<!--{else}-->-<!--{/if}--></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="15"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>

@@ -1,0 +1,35 @@
+{template player_data_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">	
+<table class="table">
+  <tr>
+	<td width="150" align="right">{lang TIMERANGE}</td>
+    <td >
+	<input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly />
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Data" />
+	<input name="type" type="hidden" value="pay_rate" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</td>
+  </tr> 
+  <tr>
+	<td align="right">{lang XIAOFEI}</td>
+	<td><span class="redtext">{$consume}</span> <!--<span class="graytext">({$server[money_type]})</span>--></td>
+  </tr>
+  <tr>
+	<td align="right">{lang PAY}</td>
+	<td><strong class="orangetext">{$amount}</strong> <!--<span class="graytext">({$server[money_type]})</span>--></td>
+  </tr>
+  <tr>
+	<td align="right">{lang BILV}</td>
+	<td>{echo round((abs($consume)/$amount),2)}</td>
+  </tr> 
+  <tr class="bluetext td4">
+	<td align="right">&nbsp;</td>
+	<td>{lang JTJFFWJ}</td>
+  </tr>    
+</table>
+</form>

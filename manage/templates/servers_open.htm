@@ -1,0 +1,124 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">
+  <tr>
+    <th colspan="12">开服时间表</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="12">
+	<a href="?in=server&action=ServersOpen" class="{if !$t} title_menu_on {else} title_menu {/if}">所有</a>
+	<a href="?in=server&action=ServersOpen&t=woc" class="{if $t == 'woc'} title_menu_on {else} title_menu bluetext {/if}">已配置待开启<strong>{$wait_open_count}</strong>台</a>
+	<a href="?in=server&action=ServersOpen&t=yc" class="{if $t == 'yc'} title_menu_on {else} title_menu redtext {/if}">预定未配置<strong>{$yd_count}</strong>台</a>
+	<a href="?in=server&action=ServersOpen&t=otc" class="{if $t == 'otc'} title_menu_on {else} title_menu greentext {/if}">今日新开<strong>{$open_today_count}</strong>台</a>
+	<a href="?in=server&action=ServersOpen&t=oc" class="{if $t == 'oc'} title_menu_on {else} title_menu greentext {/if}">已开启<strong>{$open_count}</strong>台</a>
+	<select name="cid" id="cid"  onChange="jumpMenu2(this)">
+	 <option class="select" value="">按平台</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	<select name="odate" id="odate" onChange="jumpMenu(this)">
+	  <option value="" >选择日期</option>
+	<!--{if $day_list}-->
+	  <!--{loop $day_list $drs}-->
+	  <option value="{$drs[odate]}" {if $drs[odate] == $odate} selected="selected" {/if}>{$drs[odate]} 【{$drs[s_num]}台】</option>
+	  <!--{/loop}-->
+	  <!--{else}-->
+	<!--{/if}-->		
+	</select>	
+	</td>
+  </tr>    
+  <tr align="center" class="title_2">
+  
+    <td width="60">DB状态</td>
+    <td >开服日期</td>
+	<td>平台</td>
+	<td>代号</td>
+	<!--{if !webAdmin('server','y')}-->
+	<td>API</td>
+	<td>DB</td>
+	<!--{/if}-->
+	<td>服务器名</td>
+    <td>游戏地址</td>
+    <td>版本</td>
+    <td>状态</td>
+    <td>开服</td>
+    <td>&nbsp;</td>
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="12" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center" >
+	<td><!--{if !webAdmin('server','y') && $rs[open] == 1}--><span id="showDB{$rs[sid]}"></span><!--{else}-->-<!--{/if}--></td>
+    <td class="bluetext">{echo date('Y-m-d H:i',strtotime($rs[open_date]))}</td>	
+	<td>{$rs[company_name]}</td>
+	<td nowrap="nowrap"><strong>{$rs[name]}</strong></td>
+	<!--{if !webAdmin('server','y')}-->
+	<td nowrap="nowrap">{$rs[api_server]}</td>
+	<td nowrap="nowrap">{$rs[db_server1]}</td>
+	<!--{/if}-->
+	<td>
+	<!--{if $rs[open]}-->
+	<a href="?in=player&action=Data&cid={$rs[cid]}&sid={$rs[sid]}"><strong>{$rs[o_name]}</strong></a>
+	<!--{else}-->
+	<strong>{$rs[o_name]}</strong>
+	<!--{/if}-->		
+	
+	<!--{if $rs[test] == 1}--> <span class="graytext">(测试服)</span><!--{/if}--></td>
+    <td align="left" >{$rs[server]}</td>
+    <td>{$rs[server_ver]}</td>
+    <td><!--{if $rs[open] == 1}--><span class="greentext">√已配置</span><!--{else}--><span class="redtext">未配置</span><!--{/if}--></td>
+	<td><!--{if $rs[open_date] < date('Y-m-d H:i:s')}--><span class="greentext">√已开启</span><!--{else}--><span class="redtext">未开启</span><!--{/if}--></td>
+	<td align="left" >
+	<!--{if !webAdmin('server','y')}-->
+	<a href="javascript:void(0)" onclick="pmwin('open','s_call.php?action=CallServersSet&sid={$rs[sid]}')" class="title_menu">配置</a>
+	<a href="http://s1.sxd.xd.com/?test_server={$rs[server]}&force=1" onclick="javascript: return confirm('你确定测试？');" class="title_menu">测</a>
+	<!--{/if}-->
+	
+	</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="12" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+   
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="12" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+</table>
+<script language="javascript" type="text/javascript">
+<!--{if !webAdmin('server','y')}-->
+
+	<!--{if $list_array}-->
+	<!--{loop $list_array $rs}-->
+		<!--{if $rs[open]}-->
+		<!--{eval $rs[s] = SXD_SYSTEM_UP_ONLINE+($rs[i]*1000)}-->
+		ckTestDB({$rs[sid]},'{$rs[db_server]}','{$rs[db_name]}','{$rs[db_root]}','{$rs[db_pwd]}');
+		<!--{/if}-->
+	  <!--{/loop}-->
+	<!--{/if}-->
+
+	function ckTestDB(sid,server,name,root,pwd) {
+		selectAjax('s_call.php?action=CallTestDB&sid='+sid+'&db_server_e_'+sid+'='+server+'&db_name_e_'+sid+'='+name+'&db_root_e_'+sid+'='+root+'&db_pwd_e_'+sid+'='+pwd+'&t=1', 'showDB'+sid,'','',1);
+	}
+<!--{/if}-->
+
+	function jumpMenu2(selObj){
+		location="?in=server&action=ServersOpen&cid="+selObj.options[selObj.selectedIndex].value+"";
+	}
+
+
+	function jumpMenu(selObj){
+		location="?in=server&action=ServersOpen&odate="+selObj.options[selObj.selectedIndex].value+"";
+	}
+	function checkservers(id) {
+		selectAjax('call.php?action=CallCheckServers&server='+encodeURIComponent($('server_'+id).value)+'&sid='+id, 'server_'+id+'_show','','',1);
+	}
+</script>

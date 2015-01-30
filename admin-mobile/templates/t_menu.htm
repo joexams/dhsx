@@ -1,0 +1,26 @@
+<!--{if $show_menu_admin}-->
+<table class="menu_table">
+	<tr>
+    	<th><a href={QQ_ADMIN} target="_blank">菜单管理</a></th>
+    </tr>
+</table>
+<!--{/if}-->
+<table class="menu_table">
+	<tr>
+    	<th style="padding:0px">&nbsp;&nbsp;&nbsp;&nbsp;搜索<br>
+    	<input type="text" size="18" id="autocomplete" ></input></th>
+    </tr>
+
+</table>
+<!--{loop $list_array $rs}-->
+<table class="menu_table">
+	<tr>
+    	<th>{$rs[describe]}</th>
+    </tr>
+    <!--{loop $rs[second_menu] $srs}-->
+    <tr class="{$rs[id]}">
+		<td nowrap="nowrap" width="120"><a href="{$srs[url]}">{$srs[describe]}</a></td>
+    </tr>
+    <!--{/loop}-->
+</table>
+<!--{/loop}-->

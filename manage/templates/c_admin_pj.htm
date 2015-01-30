@@ -1,0 +1,50 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table width="100%" class="table">
+  <tr>
+    <th colspan="7">客服评价</th>
+  </tr>
+  <tr class="title_3">
+	<td colspan="7">
+	<form method="get" action="" name="form" id="form"  onSubmit="setSubmit('Submit')">
+	{lang TIMERANGE}： <input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly />
+	<input type="hidden" name="in" value="setting" />
+	<input type="hidden" name="action" value="AdminPj" />
+	<input type="hidden" name="cid" id="cid" value="{$cid}"/>
+	<input type="submit" id="Submit" name="Submit" value=" {lang SEARCH} " class="button"/>
+	</form>
+	</td>
+  </tr>  
+  
+  <tr class="title_2" align="center">
+    <td width="150">{lang ADMINNAME}</td>
+    <td width="100">很满意</td>
+    <td width="100">满意</td>
+    <td width="100">一般</td>
+    <td width="100">不满意</td>
+    <td width="100">很不满意</td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $admin_array}-->
+  <!--{loop $admin_array $rs}-->
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="" >
+    <td nowrap="nowrap"><strong style="font-size:14px;">{$rs[adminName]}</strong></td>
+	<td><!--{if $pj[$rs[adminID]][p_1]}--><strong>{$pj[$rs[adminID]][p_1]}</strong><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $pj[$rs[adminID]][p_2]}--><strong>{$pj[$rs[adminID]][p_2]}</strong><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $pj[$rs[adminID]][p_3]}--><strong>{$pj[$rs[adminID]][p_3]}</strong><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $pj[$rs[adminID]][p_4]}--><strong>{$pj[$rs[adminID]][p_4]}</strong><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $pj[$rs[adminID]][p_5]}--><strong>{$pj[$rs[adminID]][p_5]}</strong><!--{else}-->-<!--{/if}--></td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="7">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="7" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+</table>

@@ -1,0 +1,61 @@
+{template player_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table" style="margin-bottom:5px;">
+  <tr class="title_3">
+    <td colspan="11">
+	<a href="?in=player&action=TollGate&cid={$cid}&sid={$sid}" class="{if !$tt} title_menu_on {else} title_menu {/if}">{lang PTGK}</a>
+	<a href="?in=player&action=TollGate&cid={$cid}&sid={$sid}&tt=1" class="{if $tt == 1} title_menu_on {else} title_menu {/if}">{lang YXGK}</a>
+	</tr>   
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">
+  <tr class="title_3">
+    <td colspan="11">	
+	 <span class="bluetext">{lang GKMSG}</span>	</td>
+  </tr> 
+  </form>	
+</table>  
+<!--{if $updatetime > 0}-->
+<table width="100%" cellpadding="0" cellspacing="0">   
+  <tr>
+    <td>&nbsp;</td>
+    <td class="td_title">{lang DQHCSJMSG}</td>
+  </tr>
+</table >
+<!--{/if}-->
+<table class="table">
+  <tr align="center" class="title_2">
+    <td width="150">{lang FUBEN}</td>
+    <td width="50" title="{lang DDRSMSG}">{lang DDRS}</td>
+    <td width="50" title="{lang JIANSHAOMSG}" style="border-right:4px">{lang JIANSHAO}</td>
+    <td width="50" title="{lang WCRSMSG}">{lang WCRS}</td>
+    <td width="60" title="{lang WWCMSG}" style="border-right:4px">{lang WWC}</td>
+    <td width="50">{lang TIAOZHAN}</td>
+    <td width="200">&nbsp;</td>
+    <td width="200">&nbsp;</td>
+    <td width="50">{lang ZHANBAI}</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	
+	<!--{eval $loss_people =  $list_array[$rs[i]+1][people] - $rs[people]}-->	
+
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center" >
+	<td><!--{if $rs[camp_id] == 2}-->{$rs[town_name]}-<!--{/if}-->{$rs[mission_name]}</td>
+    <td title="{lang DDRSMSG}">{$rs[people]}</td>
+    <td class="graytext" style="border-right:4px" title="{lang JIANSHAOMSG}"><!--{if $loss_people > 0}-->{echo -abs($loss_people)}<!--{else}-->-<!--{/if}--></td>
+    <td title="{lang WCRSMSG}"><!--a href="?in=player&sid={$sid}&lock={$rs[lock]}" target="_blank">{$rs[finished_people]}人</a-->{$rs[finished_people]}</td>
+    <td style="border-right:4px" title="{lang WWCMSG}"><!--{if $rs[no_finished_people]}-->{$rs[no_finished_people]}<!--{else}-->-<!--{/if}--></td>
+    <td><!--a href="?in=player&sid={$sid}&lock={$rs[lock]}&t=t&mid={$rs[mission_id]}" target="_blank" title="查看挑战排序"><strong class="bluetext">{$rs[times]}</strong></a--><strong class="bluetext">{$rs[times]}</strong></td>
+    <td align="right"  title="{$rs[town_name]}-{$rs[mission_name]} {lang TIAOZHANMSG}" style="padding:0px;">
+	<!--{if $rs[times] > 0}--><img src="style/n.gif" width="{echo round(($rs[times]/$timesmax)*200)+1}" height="15"/><!--{else}-->&nbsp;<!--{/if}-->	</td>
+    <td align="left"  title="{$rs[town_name]}-{$rs[mission_name]} {lang ZHANBAIMSG}" style="padding:0px;">
+	<!--{if $rs[failed_challenge] > 0}--><img src="style/n2.gif" width="{echo round(($rs[failed_challenge]/$failedchallengemax)*200)+1}" height="15"/><!--{else}-->&nbsp;<!--{/if}-->	</td>
+    <td><!--a href="?in=player&sid={$sid}&lock={$rs[lock]}&t=f&mid={$rs[mission_id]}" target="_blank" title="查看战败排序"></a--><strong class="redtext">{$rs[failed_challenge]}</strong></td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--{/loop}--> 
+  <!--{else}-->
+  <tr>
+	<td colspan="11" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

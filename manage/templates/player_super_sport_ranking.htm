@@ -1,0 +1,46 @@
+{template player_top}
+<table class="table">
+  <tr class="title_3">
+    <td colspan="9">{lang SCFJSJ}：{$last_time} | {lang XCFJSJ}：{$next_time}</td>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="50" >{lang ORDER}</td>
+    <td width="210" >{lang USER}</td>
+	<td width="80" >{lang XHYB}</td>
+    <td width="60"  >{lang SCPM}</td>
+    <td width="60"  >{lang JTTZ}</td>
+    <td width="120"  >{lang ZHTZSJ}</td>
+    <td width="70"  >{lang JTGM}</td>
+    <td width="120"  >{lang ZHGMSJ}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td><strong>{$rs[ranking]}</strong></td>
+	<td align="left">
+	<!--{if $rs[is_tester] == 1}--><span class="right graytext">{lang CSH}</span><!--{elseif $rs[is_tester] == 2}--><span class="right graytext">{lang GJCSH}</span><!--{else}--><!--{if $rs[vip_level]}--><span class="right redtext">vip:{$rs[vip_level]}</span><!--{/if}--><!--{/if}-->
+	
+	<a href="?in=player&action=PlayerView&cid={$cid}&sid={$sid}&uid={$rs[player_id]}" target="_blank"><strong style="font-size:14px;">{$rs[username]}</strong>  ({$rs[nickname]})</a>
+	<!--{if $rs[last_ranking] > $rs[ranking]}--><strong class="greentext">↑</strong><!--{elseif $rs[last_ranking] < $rs[ranking]}--><strong class="redtext">↓</strong><!--{/if}-->
+	</td>	
+	<td>{$rs[consume_ingot]}</td>
+	<td>{$rs[last_ranking]}</td>
+	<td><!--{if $rs[challenged_times_today]}-->{$rs[challenged_times_today]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[last_challenge_time]}-->{echo date('Y-m-d H:i:s',$rs[last_challenge_time])}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[buy_times_today]}-->{$rs[buy_times_today]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[last_buy_time]}-->{echo date('Y-m-d H:i:s',$rs[last_buy_time])}<!--{else}-->-<!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="9" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	    
+  <!--{else}-->
+  <tr>
+	<td colspan="9" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

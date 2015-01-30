@@ -1,0 +1,60 @@
+<table class="table">
+  <tr>
+    <th colspan="25">自动适应等级的材料包</th>
+  </tr>
+<form method="post" action="?in=item" name="form"  onSubmit="setSubmit('Submit')">
+  
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td>材料</td>
+    <td>材料包等级</td>
+    <td>材料数量</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+  <td>
+	<select name="material_id[]" >
+	 <option class="select" value="0">请选择材料</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}"  {if $irs[id] == $rs[material_id]}selected="selected"{/if}>{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+    </td>
+    <td><input name="material_package_level[]" type="text" value="{$rs[material_package_level]}"  size="2"/></td>
+    <td><input name="material_number[]" type="text" value="{$rs[material_number]}"  size="2"/></td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="23" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+	<td>
+  <select name="material_id_n" >
+   <option class="select" value="0">请选择材料</option>
+   <!--{loop $item_list $irs}-->
+   <option value="{$irs[id]}">{$irs[name]}</option>
+   <!--{/loop}-->  
+  </select>
+    </td>
+   <td><input name="material_package_level_n" type="text" value=""  size="2"/></td>
+    <td><input name="material_number_n" type="text" value=""  size="2"/></td>
+   </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="25" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	     
+  <tr>
+    <td colspan="25" align="center">
+	<input type="hidden" name="action" value="SetItemMaterialPackage" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>
+</form>
+</table>

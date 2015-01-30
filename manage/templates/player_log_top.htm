@@ -1,0 +1,36 @@
+{template player_top}
+<table class="table" style="margin-bottom:5px;">
+   <tr class="title_3">
+    <td><span class="bluetext">{lang JLMSG}</span><br />
+	  <a href="?in=player&action=Logs&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if !$type || $type == 'ingot'} title_menu_on {else} title_menu {/if}">{lang YBJL}</a>
+	  <a href="?in=player&action=Logs&type=coins&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'coins'} title_menu_on {else} title_menu {/if}">{lang TQJL}</a>
+	  <a href="?in=player&action=Logs&type=item&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'item'} title_menu_on {else} title_menu {/if}">{lang WPJL}</a>
+	  <a href="?in=player&action=Logs&type=fate&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'fate'} title_menu_on {else} title_menu {/if}">{lang LMJL}</a>
+	  <a href="?in=player&action=Logs&type=fame&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'fame'} title_menu_on {else} title_menu {/if}">{lang SWJL}</a>
+	  <a href="?in=player&action=Logs&type=power&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'power'} title_menu_on {else} title_menu {/if}">{lang TLJL}</a>
+	  <a href="?in=player&action=Logs&type=exp&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'exp'} title_menu_on {else} title_menu {/if}">{lang JYJL}</a>
+	  <a href="?in=player&action=Logs&type=skill&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'skill'} title_menu_on {else} title_menu {/if}">{lang YLJL}</a><br />
+	  <a href="?in=player&action=Logs&type=farmland&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'farmland'} title_menu_on {else} title_menu {/if}">{lang YYJL}</a>
+	  <a href="?in=player&action=Logs&type=take&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'take'} title_menu_on {else} title_menu {/if}">{lang QJJL}</a>
+	  <a href="?in=player&action=Logs&type=soul&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'soul'} title_menu_on {else} title_menu {/if}">{lang LJJL}</a>
+	  <a href="?in=player&action=Logs&type=soul_stone&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'soul_stone'} title_menu_on {else} title_menu {/if}">{lang LSJL}</a>
+	  <a href="?in=player&action=Logs&type=flower&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'flower'} title_menu_on {else} title_menu {/if}">{lang XHJL}</a>
+	  <a href="?in=player&action=Logs&type=tree&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'tree'} title_menu_on {else} title_menu {/if}">{lang XLJL}</a>
+	  <!--{if $server[server_ver] >= '2012011201'}-->
+	  <a href="?in=player&action=Logs&type=elixir&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'elixir'} title_menu_on {else} title_menu {/if}">{lang DYJL}</a>
+	  <a href="?in=player&action=Logs&type=point&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'point'} title_menu_on {else} title_menu {/if}">{lang JJDJL}</a>
+	  <a href="?in=player&action=Logs&type=peach&cid={$cid}&sid={$sid}&usertype={$usertype}&username={echo urlencode($username)}" class="{if $type == 'peach'} title_menu_on {else} title_menu {/if}">{lang XTJL}</a>
+	  <a href="?in=player&action=Logs&type=stone&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($username)}" class="title_menu" target="_blank">{lang XSJL}</a>
+	  <!--{/if}-->
+	  <br />
+	  <a href="?in=player&action=Logs&type=faction&cid={$cid}&sid={$sid}" class="{if $type == 'faction'} title_menu_on {else} title_menu {/if}">{lang BZJL}</a>
+	  <a href="?in=player&action=Logs&type=boss&cid={$cid}&sid={$sid}" class="{if $type == 'boss'} title_menu_on {else} title_menu {/if}">{lang BOSSJL}</a>
+	  <!--{if $server[server_ver] >= '2012011201'}-->
+	  <a href="?in=player&action=Logs&type=war&cid={$cid}&sid={$sid}" class="{if $type == 'war'} title_menu_on {else} title_menu {/if}">{lang BSJL}</a>
+	  <a href="?in=player&action=Logs&type=server_war&cid={$cid}&sid={$sid}" class="{if $type == 'server_war'} title_menu_on {else} title_menu {/if}">{lang XDHJL}</a>
+	  <a href="?in=player&action=Logs&type=roll_cake_faction&cid={$cid}&sid={$sid}" class="{if $type == 'roll_cake_faction'} title_menu_on {else} title_menu {/if}">{lang BPJXRZ}</a>
+	  <a href="?in=player&action=Logs&type=roll_cake_member&cid={$cid}&sid={$sid}" class="{if $type == 'roll_cake_member'} title_menu_on {else} title_menu {/if}">{lang BPJXCYRZ}</a>
+	  <!--{/if}-->
+	</td>
+  </tr> 
+</table>

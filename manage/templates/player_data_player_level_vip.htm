@@ -1,0 +1,32 @@
+{template player_data_top}
+
+<table class="table">    
+
+  <tr align="center" class="title_2">
+    <td width="100">VIP</td>
+    <td width="100">{lang USERNUM}</td>
+    <td width="100">{lang BILI}%</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr  align="right" class="purpletext trtitle">
+    <td align="center">{lang ZONGJI}</td>
+	<td>{$player_vip_num}</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+  </tr>
+  
+  <!--{if $level_list}-->
+  <!--{loop $level_list $rs $level}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className=""  align="right">
+    <td align="center" class="td4">{$level}</td>
+	<td><!--{if $player[$level][num]}--><strong>{$player[$level][num]}</strong><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $player[$level][num]}-->{echo round($player[$level][num]/$player_vip_num*100,2)}%<!--{else}-->-<!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="4"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>

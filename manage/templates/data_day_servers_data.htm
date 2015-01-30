@@ -1,0 +1,53 @@
+<table class="table">
+  <tr>
+    <th colspan="12"><a href="?in=data&action=DataDayData&cid={$cid}">{lang PTSJMRHZ}</a> > {$day}</th>
+  </tr>  
+  <tr align="center" class="title_2">
+    <td width="50">&nbsp;</td>
+    <td >{lang SERVER}</td>
+    <td >{lang ZCS}</td>
+    <td >{lang CJS}/{lang CJL}</td>
+	<td >{lang DLS}</td>
+    <td >{lang ZGZX}</td>
+    <td >{lang PJZX}</td>
+    <td >{lang PAYUSER}</td>
+    <td >{lang PAYNUM}</td>
+    <td >{lang PAY}</td>
+    <td>ARPU</td>
+    </tr>  
+<!--{if $list_array}-->
+<!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center">
+    <td><!--{if $adminWebType == 's'}-->{$rs[sid]}<!--{else}-->><!--{/if}--></td>	
+    <td title="{$rs[o_name]}">
+	<!--{if $rs[open]}-->
+	<a href="?in=player&action=Data&cid={$cid}&sid={$rs[sid]}"><strong>{$rs[name]}</strong></a>
+	<!--{else}-->
+	<strong>{$rs[name]}-{$rs[o_name]}</strong>
+	<!--{/if}-->	
+	<!--{if !$rs[open]}--> <span class="redtext">({lang WPZ})</span><!--{/if}-->
+	<!--{if $rs[test] == 1}--> <span class="graytext">({lang CSF})</span><!--{/if}-->
+	<!--{if $rs[combined_to]}--> <span class="bluetext">({lang YHF})</span><!--{/if}-->
+	</td>
+    <td><!--{if $rs[register_count]}-->{$rs[register_count]}<!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $rs[create_count]}-->{$rs[create_count]} <span class="graytext smalltext">({echo round($rs[create_count]/$rs[register_count]*100,2)}%)</span><!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $rs[login_count]}-->{$rs[login_count]}<!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $rs[max_online_count]}-->{$rs[max_online_count]}<!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $rs[avg_online_count]}-->{$rs[avg_online_count]}<!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $rs[pay_player_count]}-->{$rs[pay_player_count]}<!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $rs[pay_num]}-->{$rs[pay_num]}<!--{else}-->-<!--{/if}--></td>	
+    <td class="orangetext"><!--{if $rs[pay_amount]}--><strong>{$rs[pay_amount]}</strong><!--{else}-->-<!--{/if}--></td>
+    <td class="bluetext"><!--{if $rs[pay_amount]}-->{echo round($rs[pay_amount]/$rs[pay_player_count],2)}<!--{else}-->-<!--{/if}--></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="12" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}-->      
+</table>
+<script type="text/JavaScript">
+	function jumpMenu(selObj){
+		location="?in=data&cid="+selObj.options[selObj.selectedIndex].value+"";
+	}
+</script>

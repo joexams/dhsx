@@ -1,0 +1,70 @@
+<table class="table">
+  <tr>
+    <th colspan="12">{lang PTSJHZ}</th>
+  </tr>  
+  <!--{if $adminWebType == 's'}-->
+  <tr class="title_3">
+    <td colspan="12">
+	
+	<!--{if $company_list}-->
+	  <!--{loop $company_list $crs}-->
+	  <a href="?in=data&cid={$crs[cid]}" class="{if $cid == $crs[cid]} title_menu_on {else} title_menu {/if}">{$crs[name]}</a>
+	  <!--{/loop}-->
+	<!--{/if}-->
+	<!--select name="cid" id="cid" onChange="jumpMenu(this)">
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	</select-->	  	
+	</td>
+  </tr>
+  <!--{/if}-->
+  <tr align="center" class="title_2">
+    <td width="50">&nbsp;</td>
+    <td >{lang SERVER}</td>
+    <td >{lang KFTS}</td>
+    <td >{lang ZCS}</td>
+    <td >{lang CJS}/{lang CJL}</td>
+    <td >{lang ZGZX}</td>
+    <td >{lang PJZX}</td>
+    <td >{lang PAYUSER}</td>
+    <td >{lang PAYNUM}</td>
+    <td >{lang PAY} <!--({$company[money_type]})--></td>
+    <td>ARPU</td>
+	<td>{lang MAXPLAYERLEVEL}</td>
+    </tr>  
+<!--{if $list_array}-->
+<!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center">
+    <td><!--{if $adminWebType == 's'}-->{$rs[sid]}<!--{else}-->><!--{/if}--></td>	
+    <td title="{$rs[o_name]}">
+	<!--{if $rs[open]}-->
+	<a href="?in=player&action=Data&cid={$cid}&sid={$rs[sid]}"><strong>{$rs[name]}</strong></a>
+	<!--{else}-->
+	<strong>{$rs[name]}-{$rs[o_name]}</strong>
+	<!--{/if}-->	
+	<!--{if !$rs[open]}--> <span class="redtext">({lang WPZ})</span><!--{/if}-->
+	<!--{if $rs[test] == 1}--> <span class="graytext">({lang CSF})</span><!--{/if}-->
+	<!--{if $rs[combined_to]}--> <span class="bluetext">({lang YHF})</span><!--{/if}-->
+	</td>
+	<td><!--{if $rs[open_date] < date('Y-m-d H:i:s')}-->{echo round((strtotime(date('Y-m-d')) - strtotime(date('Y-m-d',strtotime($rs[open_date]))))/86400)+1}{lang DAYS}<!--{else}--><span class="graytext">{lang WKQ}</span><!--{/if}--></td>
+    <td>{$data[$rs[sid]][register_count]}</td>	
+    <td><!--{if $data[$rs[sid]][create_count]}-->{$data[$rs[sid]][create_count]} <span class="graytext smalltext">({echo round($data[$rs[sid]][create_count]/$data[$rs[sid]][register_count]*100,2)}%)</span><!--{else}-->-<!--{/if}--></td>	
+    <td>{$data[$rs[sid]][max_online_count]}</td>	
+    <td><!--{if $data[$rs[sid]][max_online_count]}-->{echo round($data[$rs[sid]][online_count]/$data[$rs[sid]][data_count])}<!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $data[$rs[sid]][pay_player_count]}-->{$data[$rs[sid]][pay_player_count]}<!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $data[$rs[sid]][pay_num]}-->{$data[$rs[sid]][pay_num]}<!--{else}-->-<!--{/if}--></td>	
+    <td class="orangetext"><!--{if $data[$rs[sid]][pay_amount]}--><strong>{$data[$rs[sid]][pay_amount]}</strong><!--{else}-->-<!--{/if}--></td>
+    <td class="bluetext"><!--{if $data[$rs[sid]][pay_amount]}-->{echo round($data[$rs[sid]][pay_amount]/$data[$rs[sid]][pay_player_count],2)}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[max_player_level]}-->Lv.{$rs[max_player_level]}<!--{else}-->-<!--{/if}--></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="12" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}-->      
+</table>
+<script type="text/JavaScript">
+	function jumpMenu(selObj){
+		location="?in=data&cid="+selObj.options[selObj.selectedIndex].value+"";
+	}
+</script>

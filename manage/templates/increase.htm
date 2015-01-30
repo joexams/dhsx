@@ -1,0 +1,65 @@
+<form method="post" action="?in=increase" name="form" id="form"  onSubmit="setSubmit('Submit')">
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th colspan="5">全服赠送/补偿</th>
+  </tr>  
+  <tr class="title_3">
+    <td colspan="5">
+	<!--{if $company_list}-->
+	<!--{eval $i=1}-->
+	  <!--{loop $company_list $crs}-->
+	  <a href="?in=increase&cid={$crs[cid]}" class="{if $cid == $crs[cid]} title_menu_on {else} title_menu {/if}">{$crs[name]}</a>
+	  <!--{if $i % 15 == 0}--><br /><!--{/if}-->
+	  <!--{eval $i++}-->
+	  <!--{/loop}-->
+	<!--{/if}-->
+	</td>
+  </tr>  
+</table>
+<table class="table">
+  <tr align="center" class="title_2">
+    <td width="50"><!--input name="checkbox" type="checkbox" title="全选/取消" onClick="CheckAll(this,'form','sid[]')" value="checkbox" /-->选择 </td>
+    <td align="left">服务器名</td>
+    </tr>  
+<!--{if $list_array}-->
+<!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center">
+    <td><!--input type="checkbox" name="sid[]" value="{$rs[sid]}" title="选择{$rs[name]}"/--> <input name="sid[]" type="radio" value="{$rs[sid]}" title="选择{$rs[name]}"/></td>
+    <td align="left">
+	<a href="?in=player&cid={$rs[cid]}&sid={$rs[sid]}" title="进入[{$rs[name]}]查看"><strong style="font-size:14px;">{$rs[name]}-{$rs[o_name]}</strong></a> <!--{if $rs[open_date] > date('Y-m-d H:i:s')}--> <span class="redtext">(未开启,可不送)</span><!--{/if}--><!--{if $rs[test] == 1}--> <span class="redtext">(测试服,可不送)</span><!--{/if}-->
+	<br /><span class="graytext">{$rs[server]}</span></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr >
+	<th colspan="3">赠送/补偿设置</th>
+  </tr>			  
+  
+  <tr>
+    <td align="center">赠送类型</td>
+    <td colspan="2" >
+	<select name="type">
+	 <option value="ingot" >元宝</option>
+	 <option value="coins">铜钱</option>
+	 <option value="thew">体力</option>
+	</select>	</td>
+  </tr>
+  <tr>
+    <td align="center">赠送数量</td>
+    <td colspan="2" ><input name="val" type="text" value="10"  size="15" /></td>
+  </tr>     
+  <tr>
+    <td><input type="hidden" name="action" value="SetIncrease" /><input type="hidden" name="cid" value="{$cid}" /></td>
+    <td colspan="2">
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/> <strong class="redtext">每次只能选择一个服进行补偿，提交后补偿执行时间较慢，请勿刷新！</strong>	</td>
+  </tr>   
+  <tr class="title_2">
+    <td>&nbsp;</td>
+    <td colspan="2"><strong class="bluetext">注意：勿重复赠送！</strong>	</td>
+  </tr> 
+</table>
+</form>  

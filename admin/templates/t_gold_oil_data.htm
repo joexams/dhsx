@@ -1,0 +1,88 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="13"><span class="bluetext">{$name}星金油</span> 的提升装备数据</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="30">删除</td>
+    <td>物品类型</td>
+    <td>武器类型</td>
+    <td>物品物理攻击成长值</td>
+    <td>物品物理防御成长值</td>
+    <td>物品绝技攻击成长值</td>
+    <td>物品绝技防御成长值</td>
+    <td>物品魔法攻击成长值</td>
+    <td>物品魔法防御成长值</td>
+    <td>物品气血成长值</td>
+    <td>物品速度成长值</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td><input name="gold_oil_item_id[]" type="hidden" value="{$rs[gold_oil_item_id]}"/><input type="checkbox" name="id_del[]" value="{$rs[gold_oil_item_id]},{$rs[item_type]},{$rs[attack_type]}" title="选择删除"/></td>
+    <td><input name="item_type_old[]" type="hidden" value="{$rs[item_type]}"/><select name="item_type[]" >
+	 <option class="select" value="0">选择</option>
+	 <!--{loop $item_type_list $itrs}-->
+	 <option value="{$itrs[id]}"  {if $itrs[id] == $rs[item_type]}selected="selected"{/if}>{$itrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><input name="attack_type_old[]" type="hidden" value="{$rs[attack_type]}"/><select name="attack_type[]" >
+	 <option value="0">全部</option>
+	 <!--{loop $role_job_list $rjrs}-->
+	 <option value="{$rjrs[id]}"  {if $rjrs[id] == $rs[attack_type]}selected="selected"{/if}>{$rjrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><input name="item_attack_up[]" type="text" value="{$rs[item_attack_up]}" size="6"/></td>
+	<td><input name="item_defense_up[]" type="text" value="{$rs[item_defense_up]}" size="6"/></td>
+	<td><input name="item_stunt_attack_up[]" type="text" value="{$rs[item_stunt_attack_up]}"  size="6"/>	</td>	
+	<td><input name="item_stunt_defense_up[]" type="text" value="{$rs[item_stunt_defense_up]}" size="6"/></td>
+	<td><input name="item_magic_attack_up[]" type="text" value="{$rs[item_magic_attack_up]}" size="6"/></td>
+	<td><input name="item_magic_defense_up[]" type="text" value="{$rs[item_magic_defense_up]}" size="6"/></td>
+	<td><input name="item_health_up[]" type="text" value="{$rs[item_health_up]}" size="6"/></td>
+	<td><input name="item_speed_up[]" type="text" value="{$rs[item_speed_up]}" size="6"/></td>
+	</tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="13" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->  
+  <!--{else}-->
+  <tr>
+	<td colspan="13" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td>新增→</td>
+    <td><select name="item_type_n" >
+	 <option class="select" value="0">选择</option>
+	 <!--{loop $item_type_list $itrs}-->
+	 <option value="{$itrs[id]}">{$itrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><select name="attack_type_n" >
+	 <option value="0">全部</option>
+	 <!--{loop $role_job_list $rjrs}-->
+	 <option value="{$rjrs[id]}" >{$rjrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+	<td><input name="item_attack_up_n" type="text" value="" size="6"/></td>
+	<td><input name="item_defense_up_n" type="text" value="" size="6"/></td>
+	<td><input name="item_stunt_attack_up_n" type="text" value=""  size="6"/>	</td>	
+	<td><input name="item_stunt_defense_up_n" type="text" value="" size="6"/></td>
+	<td><input name="item_magic_attack_up_n" type="text" value="" size="6"/></td>
+	<td><input name="item_magic_defense_up_n" type="text" value="" size="6"/></td>
+	<td><input name="item_health_up_n" type="text" value="" size="6"/></td>
+	<td><input name="item_speed_up_n" type="text" value="" size="6"/></td>
+	</tr>  
+  <tr>
+    <td colspan="13" align="center">
+	<input name="gold_oil_item_id_n" type="hidden" value="{$item_id}"/>
+	<input type="hidden" name="action" value="SetCallGoldOilData" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

@@ -1,0 +1,81 @@
+<form method="post" action="?in=regions" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="13">九界信息表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">LEVEL</td>
+	<td width="35">删除</td>
+    <td width="50">等级</td>
+    <td width="150">名称</td>
+    <td >等级要求</td>
+    <td >祝福名称</td>
+    <td >战争属性</td>
+    <td >三星</td>
+    <td >四星</td>
+    <td >五星</td>
+    <td >六星</td>
+	<td width="100">关卡</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+    <td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><strong>{$rs[id]}</strong></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="10"/></td>
+    <td><input name="require_level[]" type="text" value="{$rs[require_level]}"  size="10"/></td>
+	<td><input name="bless_name[]" type="text" value="{$rs[bless_name]}"  size="10"/></td>
+	<td>
+	<select name="war_attribute_type_id[]" >
+	 <option class="select" value="0">选择</option>
+	 <!--{loop $war_attribute_type_list $wtrs}-->
+	 <option value="{$wtrs[id]}"  {if $wtrs[id] == $rs[war_attribute_type_id]}selected="selected"{/if}>{$wtrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	</td>
+	<td><input name="three_star[]" type="text" value="{$rs[three_star]}"  size="10"/></td>
+	<td><input name="four_star[]" type="text" value="{$rs[four_star]}"  size="10"/></td>
+	<td><input name="five_star[]" type="text" value="{$rs[five_star]}"  size="10"/></td>
+	<td><input name="six_star[]" type="text" value="{$rs[six_star]}"  size="10"/></td>
+	<td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallNineRegionsLevel&id={$rs[id]}&name={$rs[name_url]}')" class="list_menu">关卡</a></td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="15" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+	<td><input name="id_n" type="text" value=""  size="5"/></td>
+	<td><input name="name_n" type="text" value=""  size="10"/></td>
+	<td><input name="require_level_n" type="text" value=""  size="10"/></td>
+	<td><input name="bless_name_n" type="text" value=""  size="10"/></td>
+	<td>
+	<select name="war_attribute_type_id_n" >
+	 <option class="select" value="0">选择</option>
+	 <!--{loop $war_attribute_type_list $wtrs}-->
+	 <option value="{$wtrs[id]}"  {if $wtrs[id] == $rs[war_attribute_type_id]}selected="selected"{/if}>{$wtrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	
+	</td>
+	<td><input name="three_star_n" type="text" value=""  size="10"/></td>
+	<td><input name="four_star_n" type="text" value=""  size="10"/></td>
+	<td><input name="five_star_n" type="text" value=""  size="10"/></td>
+	<td><input name="six_star_n" type="text" value=""  size="10"/></td>
+	<td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="13" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="15" align="center">
+	<input type="hidden" name="action" value="SetNineRegions" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

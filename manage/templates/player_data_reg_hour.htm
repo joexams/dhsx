@@ -1,0 +1,117 @@
+<table class="table">
+  <tr>
+    <th colspan="24" class="title_1">{lang FSJL}</th>
+  </tr> 
+  <tr align="left" class="title_2">
+    <td colspan="24" style="color:green">
+	<a href="javascript:void(0)" onClick="pmwin('open','player_call.php?action=callPlayerDataOnline&sid={$sid}&day={$day}')" class="right">[{lang DETAILONLINE}]</a>
+	<strong>{lang ZXSJ} ({lang ZUIGAO}:{$maxOnlineNum} / {lang PINGJUN}:{echo round($allOnlineNum/$hour_count,0)})</strong>
+	</td>	
+  </tr> 
+  
+  <tr align="center">
+  <!--{loop $hour_list $rs $hour}-->
+  <td valign="bottom" class="smalltext" width="4%" height="120">
+  <!--{if $array[$hour][online_count]}-->
+  <span class="erecttext">{$array[$hour][online_count]}</span><br />
+  <img src="style/n.gif" height="{echo round(($array[$hour][online_count]/$maxOnlineNum)*100)+1}px" width="15"/>
+  <!--{else}-->
+  <div style="border-bottom:1px solid #ccc;width:15px;color:#999">0</div>
+  <!--{/if}-->
+  </td>	
+  <!--{/loop}--> 
+  </tr> 
+  <tr align="center" class="smalltext">
+  <!--{loop $hour_list $rs $hour}-->
+  <td>{$hour}</td>	
+  <!--{/loop}--> 
+  </tr>
+  <tr align="center" class="title_2">
+    <td colspan="24" style="color:blue"><strong>{lang DLSJ} ({lang ZUIGAO}:{$maxLoginNum} / {lang PINGJUN}:{echo round($allLoginNum/$hour_count,0)} /{lang ZONGHE}:{$allLoginNum}) </strong></td>	
+  </tr> 
+  
+  <tr align="center">
+  <!--{loop $hour_list $rs $hour}-->
+  <td valign="bottom" class="smalltext" width="4%" height="120">
+  <!--{if $array[$hour][login_count]}-->
+  <span class="erecttext">{$array[$hour][login_count]}</span><br />
+  <img src="style/n3.gif" height="{echo round(($array[$hour][login_count]/$maxLoginNum)*100)+1}px" width="15"/>
+  <!--{else}-->
+  <div style="border-bottom:1px solid #ccc;width:15px;color:#999">0</div>
+  <!--{/if}-->
+  </td>	
+  <!--{/loop}--> 
+  </tr> 
+  <tr align="center" class="smalltext">
+  <!--{loop $hour_list $rs $hour}-->
+  <td>{$hour}</td>	
+  <!--{/loop}--> 
+  </tr>     
+  <tr align="center" class="title_2">
+    <td colspan="24" style="color:#FFA200"><strong>{lang CJSJ} ({lang ZUIGAO}:{$maxCreateNum} / {lang PINGJUN}:{echo round($allCreateNum/$hour_count,0)} / {lang ZONGHE}:{$allCreateNum})</strong></td>	
+  </tr>         
+  
+  <tr align="center">
+  <!--{loop $hour_list $rs $hour}-->
+  <td valign="bottom" class="smalltext" width="4%" height="120">
+  <!--{if $array[$hour][create_count]}-->
+ <span class="erecttext"> {$array[$hour][create_count]}</span><br />
+  <img src="style/n2.gif" height="{echo round(($array[$hour][create_count]/$maxCreateNum)*100)+1}px" width="15"/>
+  <!--{else}-->
+  <div style="border-bottom:1px solid #ccc;width:15px;color:#999">0</div>
+  <!--{/if}-->
+  </td>	
+  <!--{/loop}--> 
+  </tr> 
+  <tr align="center" class="smalltext">
+  <!--{loop $hour_list $rs $hour}-->
+  <td>{$hour}</td>	
+  <!--{/loop}--> 
+  </tr>  
+   
+  <tr align="center" class="title_2">
+    <td colspan="24" style="color:#666"><strong>{lang ZCSJ} ({lang ZUIGAO}:{$maxRegNum} / {lang PINGJUN}:{echo round($allRegNum/$hour_count,0)} / {lang ZONGHE}:{$allRegNum})</strong></td>	
+  </tr>         
+  
+  <tr align="center">
+  <!--{loop $hour_list $rs $hour}-->
+  <td valign="bottom" class="smalltext" width="4%" height="120">
+  <!--{if $array[$hour][register_count]}-->
+  <span class="erecttext">{$array[$hour][register_count]}</span><br />
+  <img src="style/n4.gif" height="{echo round(($array[$hour][register_count]/$maxRegNum)*100)+1}px" width="15"/>
+  <!--{else}-->
+  <div style="border-bottom:1px solid #ccc;width:15px;color:#999">0</div>
+  <!--{/if}-->
+  </td>	
+  <!--{/loop}--> 
+  </tr> 
+  <tr align="center" class="smalltext">
+  <!--{loop $hour_list $rs $hour}-->
+  <td>{$hour}</td>	
+  <!--{/loop}--> 
+  </tr>
+  
+  
+  <tr align="center" class="title_2">
+    <td colspan="24" style="color:#666"><strong>{lang LTCSTJ} ({lang ZUIGAO}:{$maxChatNum} / {lang PINGJUN}:{echo round($allChatNum/$hour_count,0)} / {lang ZONGHE}:{$allChatNum})</strong></td>	
+  </tr>         
+  
+  <tr align="center">
+  <!--{loop $hour_list $rs $hour}-->
+  <td valign="bottom" class="smalltext" width="4%" height="120">
+  <!--{if $chat[$hour][chat_times]}-->
+  <span class="erecttext">{$chat[$hour][chat_times]}</span><br />
+  <img src="style/n4.gif" height="{echo round(($chat[$hour][chat_times]/$maxChatNum)*100)+1}px" width="15"/>
+  <!--{else}-->
+  <div style="border-bottom:1px solid #ccc;width:15px;color:#999">0</div>
+  <!--{/if}-->
+  </td>	
+  <!--{/loop}--> 
+  </tr> 
+  <tr align="center" class="smalltext">
+  <!--{loop $hour_list $rs $hour}-->
+  <td>{$hour}</td>	
+  <!--{/loop}--> 
+  </tr>      
+
+</table>

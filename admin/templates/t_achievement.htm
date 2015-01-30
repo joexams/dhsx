@@ -1,0 +1,105 @@
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="12">成就信息列表</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="12">
+	  <a href="?in=other&action=Achievement" class="{if !$tag} title_menu_on {else} title_menu {/if}">全部</a>
+	<!--{if $achievement_tag_list}-->
+	  <!--{loop $achievement_tag_list $trs}-->
+	  <a href="?in=other&action=Achievement&tag={$trs[id]}" class="{if $tag == $trs[id]} title_menu_on {else} title_menu {/if}">{$trs[name]}</a>
+	  <!--{/loop}-->
+	<!--{/if}-->
+	</td>
+  </tr>  
+    
+  
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+	<td>TAG</td>
+	<td>排序</td>
+    <td>名称</td>
+	<td>标识</td>
+	<td>内容</td>
+    <td>总值</td>
+    <td>点数</td>
+    <td>特殊奖励</td>
+	<td>成就的时间类型</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td>
+	<select name="tag[]" >
+	 <option class="select" value="0">系统标签</option>
+	 <!--{loop $achievement_tag_list $trs}-->
+	 <option value="{$trs[id]}" {if $trs[id] == $rs[tag]}selected="selected"{/if}>{$trs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	</td>
+    <td><input name="sort_order[]" type="text" value="{$rs[sort_order]}"  size="10"/></td>
+	<td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+	<td><input name="sign[]" type="text" value="{$rs[sign]}"  size="15"/></td>	
+	<td><textarea name="content[]" cols="30" rows="3">{$rs[content]}</textarea></td>	
+    <td><input name="total[]" type="text" value="{$rs[total]}"  size="10"/></td>
+    <td><input name="points[]" type="text" value="{$rs[points]}"  size="10"/></td>
+    <td><input name="special_award[]" type="text" value="{$rs[special_award]}"  size="20"/></td>
+    <td>
+	<select name="time_type[]" >
+	 <option value="0" {if $rs[time_type] == 0}selected="selected"{/if}>普通</option>
+	 <option value="1" {if $rs[time_type] == 1}selected="selected"{/if}>以日为连续性</option>
+	 <option value="2" {if $rs[time_type] == 2}selected="selected"{/if}>以周为连续性</option>
+	</select>	
+	</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="12" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="tag_n" >
+	 <option class="select" value="0">系统标签</option>
+	 <!--{loop $achievement_tag_list $trs}-->
+	 <option value="{$trs[id]}" {if $trs[id] == $tag}selected="selected"{/if}>{$trs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	</td>
+	
+    <td><input name="sort_order_n" type="text" value=""  size="10"/></td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+	<td><input name="sign_n" type="text" value=""  size="15"/></td>
+	<td><textarea name="content_n" cols="30" rows="3"></textarea></td>	
+    <td><input name="total_n" type="text" value="0"  size="10"/></td>
+    <td><input name="points_n" type="text" value=""  size="10"/></td>
+    <td><input name="special_award_n" type="text" value=""  size="20"/></td>
+    <td>
+	<select name="time_type_n" >
+	 <option value="0">普通</option>
+	 <option value="1">以日为连续性</option>
+	 <option value="2">以周为连续性</option>
+	</select>	
+	</td>
+	<td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="12" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="12" align="center">
+	<input type="hidden" name="action" value="SetAchievement" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

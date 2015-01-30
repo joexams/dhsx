@@ -1,0 +1,81 @@
+<table class="table">
+  <tr>
+    <th colspan="7"><a href="?in=quest&action=DayQuestAward">每日任务物品星级奖励</a> <span class="bluetext">{$quest_title}</span> </th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="8">
+	<!--{if $quest_list}-->
+	  <!--{loop $quest_list $qrs}-->
+	  <a href="?in=quest&action=DayQuestAward&quest_id={$qrs[id]}" class="{if $quest_id == $qrs[id]} title_menu_on {else} title_menu {/if}">{$qrs[title]}</a>
+	  <!--{/loop}-->
+	<!--{/if}-->	</td>
+  </tr>   
+<form method="post" action="?in=quest" name="form"  onSubmit="setSubmit('Submit')">
+  <tr align="center" class="title_2">
+    <td width="35">星级</td>
+	<td width="35">删除</td>
+    <td width="150">任务</td>
+    <td width="100">任务星级</td>
+    <td width="150">奖励物品</td>
+    <td width="150">奖励阅历</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[star_count]}<input name="id[]" type="hidden" value="{$rs[star_count]}" /></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[star_count]}" title="选择删除{$rs[star_count]}"/></td>
+    <td><strong>{$rs[quest_title]}</strong><input name="quest_id[]" type="hidden" value="{$rs[quest_id]}" /></td>
+    <td><strong>{$rs[star_count]}星</strong></td>
+    <td>
+	<select name="item_id[]" >
+	 <option class="select">奖励物品</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}"  {if $irs[id] == $rs[item_id]}selected="selected"{/if}>{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	</td>
+    <td><input name="skill[]" type="text" value="{$rs[skill]}"  size="10"/></td>
+	<td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="7" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="quest_id_n" >
+	 <option class="select" value="">选择任务</option>
+	 <!--{loop $quest_list $qrs}-->
+	 <option value="{$qrs[id]}" {if $qrs[id] == $quest_id}selected="selected"{/if}>{$qrs[title]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	</td>
+	
+    <td><input name="star_count_n" type="text" value=""  size="10"/> 星</td>
+    <td>
+	<select name="item_id_n" >
+	 <option class="select">奖励物品</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}">{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	</td>
+    <td><input name="skill_n" type="text" value=""  size="10"/></td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="7" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="7" align="center">
+	<input type="hidden" name="action" value="SetDayQuestAward" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr> 
+</form>
+</table>

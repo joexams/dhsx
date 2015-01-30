@@ -1,0 +1,78 @@
+<form method="post" action="?in=item" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="11">功勋物品表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+	<td width="50">类型</td>
+    <td width="50">物品</td>
+    <td width="50">物品数量</td>
+    <td width="50">功勋</td>
+	<td width="50">功勋等级</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[id]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td>
+     <select name="award_type[]" >
+     <option value="0">选择类型</option>
+     <option value="0" {if $rs[award_type] == 0}selected="selected"{/if}>物品</option>
+    </select>
+    </td>
+	<td>
+     <select name="item_id[]" >
+     <option value="0">选择物品</option>
+     <!--{loop $item_list $irs}-->
+     <option value="{$irs[id]}" {if $irs[id] == $rs[item_id]}selected="selected"{/if}>{$irs[sign]}-{$irs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+    </td>
+    <td><input name="value[]" type="text" value="{$rs[value]}"  size="10"/></td>
+    <td><input name="feats[]" type="text" value="{$rs[feats]}"  size="10"/></td>
+    <td><input name="feats_lv[]" type="text" value="{$rs[feats_lv]}"  size="10"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="11" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td>
+     <select name="award_type_n" >
+     <option value="0">选择类型</option>
+     <option value="0">物品</option>
+    </select>
+    </td>
+	<td>
+     <select name="item_id_n" >
+     <option value="0">选择物品</option>
+     <!--{loop $item_list $irs}-->
+     <option value="{$irs[id]}">{$irs[sign]}-{$irs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+    </td>
+    <td><input name="value_n" type="text" value=""  size="10"/></td>
+    <td><input name="feats_n" type="text" value=""  size="10"/></td>
+    <td><input name="feats_lv_n" type="text" value=""  size="10"/></td>
+    <td>&nbsp;</td>
+  </tr>  
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="11" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->  
+  <tr>
+    <td colspan="11" align="center">
+	<input type="hidden" name="action" value="SetFeatsItem" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

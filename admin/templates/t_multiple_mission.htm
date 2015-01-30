@@ -1,0 +1,102 @@
+<table class="table">
+  <tr>
+    <th colspan="10"><a href="?in=mission&action=MultipleMission"><!--{if $type == 1}-->渡劫<!--{else}-->多人<!--{/if}-->副本列表</a><!--{if $name}--> ＞ 搜索 <span class="bluetext">{$name}</span><!--{/if}--></th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="10">
+	<span class="right" style="padding:3px;">
+	<form action="" method="get" name="forms" onSubmit="setSubmit('Submits')">
+	<select name="mission_id" >
+	 <option class="select">选择副本</option>
+	 <!--{loop $mission_list $mrs}-->
+	 <option value="{$mrs[id]}" {if $mrs[id] == $mission_id}selected="selected"{/if}>{$mrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	<input name="name" type="text" value="{$name}" size="20" maxlength="20"  /> 
+	<input type="submit" name="Submits" id="Submits" value="搜索" class="button"/>
+	<input name="in" type="hidden" value="mission" />
+	<input name="action" type="hidden" value="MultipleMission" />
+	<input type="hidden" name="type" value="{$type}" />
+	</form>	
+	</span>	</td>
+  </tr>  
+<form method="post" action="?in=mission" name="form"  onSubmit="setSubmit('Submit')">
+  <tr align="center" class="title_2">
+    <td width="35">ID</th>
+	<td width="35">删除</td>
+    <td width="150">名称</td>
+    <td width="100">普通副本</td>
+    <td width="80">奖励阅历</td>
+    <td width="80">奖励经验</td>
+    <td width="100">奖励物品</td>
+    <td width="100">奖励声望</td>
+    <td width="60">怪物团</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input name="name[]" type="text" value="{$rs[name]}"  size="15"/></td>
+    <td>
+	<select name="mission_id[]">
+	 <option class="select">选择副本</option>
+	 <!--{loop $mission_list $mrs}-->
+	 <option value="{$mrs[id]}" {if $mrs[id] == $rs[mission_id]}selected="selected"{/if}>{$mrs[name]}</option>
+	 <!--{/loop}-->	
+	</select>	</td>
+	<td><input name="award_skill[]" type="text" value="{$rs[award_skill]}"  size="5"/></td>
+	<td><input name="award_experience[]" type="text" value="{$rs[award_experience]}"  size="5"/></td>
+	<td>
+	<select name="award_item[]" >
+	 <option class="select">掉落物品</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}"  {if $irs[id] == $rs[award_item]}selected="selected"{/if}>{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+        <td><input name="award_fame[]" type="text" value="{$rs[award_fame]}"  size="5"/></td>
+	<td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallMultipleMissionMonsterTeam&id={$rs[id]}&name={$rs[name_url]}&type={$type}')" class="list_menu">怪物团</a></td>
+	<td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="10" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→<input type="hidden" name="type_n" value="{$type}" /></td>
+	<td><input name="name_n" type="text" value=""  size="15"/></td>
+	<td>
+	<select name="mission_id_n" >
+	 <option class="select">选择副本</option>
+	 <!--{loop $mission_list $mrs}-->
+	 <option value="{$mrs[id]}"  {if $mrs[id] == $mission_id}selected="selected"{/if}>{$mrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+	<td><input name="award_skill_n" type="text" value=""  size="5"/></td>
+	<td><input name="award_experience_n" type="text" value=""  size="5"/></td>
+	<td>
+	<select name="award_item_n" >
+	 <option class="select">掉落物品</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}">{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+        <td><input name="award_fame_n" type="text" value=""  size="5"/></td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	</tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+  <tr>
+    <td colspan="9" class="greentext">
+	<input type="hidden" name="action" value="SetMultipleMission" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr> 
+</form>     
+</table>

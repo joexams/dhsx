@@ -1,0 +1,36 @@
+<table class="table">
+  <tr>
+    <th colspan="10"><span class="yellowtext">{$name}</span>  {lang BPCY}</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td>{lang USER}</td>
+    <td>{lang JRSJ}</td>
+    <td>{lang DRZW}</td>
+    <td>{lang GONGXIAN}</td>
+	<td>{lang JRGONGXIAN}</td>
+	<td>{lang ZHGXSJ}</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+    <td align="left"><strong>{$rs[username]}</strong>({$rs[nickname]})</td>
+    <td>{$rs[add_time]}</td>
+    <td>{$rs[faction_job_name]}</td>
+    <td>{$rs[contribution]}</td>
+	<td>{$rs[today_con]}</td>
+	<td>{echo date('Y-m-d H:i:s',$rs[last_con_time])}</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	  
+  <!--{else}-->
+  <tr>
+	<td colspan="10" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

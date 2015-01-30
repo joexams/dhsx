@@ -1,0 +1,99 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="12">管理员列表</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="12">
+	<a href="?in=admin&type=s&cid={$cid}" class="{if $type == 's'} title_menu_on {else} title_menu {/if}">开发</a>
+	<a href="?in=admin&type=u&cid={$cid}" class="{if $type == 'u'} title_menu_on {else} title_menu {/if}">客服</a>
+	<a href="?in=admin&type=c&cid={$cid}" class="{if $type == 'c'} title_menu_on {else} title_menu {/if}">运营</a>
+	<a href="?in=admin&type=c&cid=999999999" class="{if $cid == 999999999} title_menu_on {else} title_menu {/if}"><strong>多平台权限(运营)</strong></a>
+	<a href="?in=admin&type=u&cid=888888888" class="{if $cid == 888888888} title_menu_on {else} title_menu {/if}"><strong>多平台权限(客服)</strong></a>
+	</td>
+  </tr>
+  <tr class="title_3">
+    <td colspan="14">
+	  <a href="?in=admin&type={$type}" class="{if !$cid} title_menu_on {else} title_menu {/if}">全部</a>
+	<!--{if $company_list}-->
+	  <!--{eval $i=1}-->
+	  <!--{loop $company_list $crs}-->
+	  <a href="?in=admin&cid={$crs[cid]}&type={$type}" class="{if $cid == $crs[cid]} title_menu_on {else} title_menu {/if}">{$crs[name]}</a>
+	  <!--{if $i % 15 == 0}--><br /><!--{/if}-->
+	  <!--{eval $i++}-->
+	  <!--{/loop}-->
+	<!--{/if}-->	</td>
+  </tr>  
+  <tr class="title_3">
+    <td colspan="14">
+	<form action="" method="get" name="forms" id="forms" onSubmit="setSubmit('Submits')">
+	名称：	
+	<input name="adminName" type="text" value="{$adminName}" size="10" />	
+	<input type="submit" name="Submits" id="Submits" value="搜索" class="button"/>
+	<input name="in" type="hidden" value="admin" />
+	</form>		
+	</td>
+  </tr>  
+<form method="post" action="" name="form" id="form"  onSubmit="setSubmit('Submit')">
+  <tr class="title_2" align="center">
+    <td width="50">ID</td>
+    <!--{if ($type == 'c' && $cid == 999999999) || ($type == 'u' && $cid == 888888888)}--><td width="50"><input type="checkbox" name="allid"  onclick="CheckAll(this,'form','id[]');" /></td><!--{/if}-->
+    <td width="250">名称/类型</td>
+    <td width="150">最后登陆时间/IP</td>
+    <td width="50">登陆数</td>
+    <td width="50">错误登陆</td>
+    <td width="30">删除</td>
+    <td width="100">操作记录</td>
+    <td width="50">修改</td>
+	<td width="50">复制</td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $admin_array}-->
+  <!--{loop $admin_array $rs}-->
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="td" >
+    <td>{$rs[adminID]}</td>
+	<!--{if ($type == 'c' && $cid == 999999999) || ($type == 'u' && $cid == 888888888)}--><td><input type="checkbox" name="id[]" value="{$rs[adminID]}" title="选择{$rs[name]}"/></td><!--{/if}-->
+	<td nowrap="nowrap" align="left">
+	<strong style="font-size:14px;">{$rs[adminName]}</strong>
+	 <span class="graytext"><!--{if $rs[adminType]=='s'}-->开发<!--{/if}--><!--{if $rs[adminType]=='u'}-->客服<!--{/if}--><!--{if $rs[adminType]=='c'}-->运营<!--{/if}--></span>
+	 </td>
+	<td>{$rs[adminLoingTime]}<br />{$rs[adminLoingIP]}</td>
+    <td><a href="javascript:void(0)" onclick="pmwin('open','s_call.php?action=CallServersAdminLogin&aid={$rs[adminID]}&name={$rs[name_url]}')" title="查看登陆历史">{$rs[adminLoginHits]}</a></td>
+    <td title="{echo date('Y-m-d H:i:s',$rs[adminLoginErrTime])}">{$rs[adminLoginErr]}</td>
+    <td><!--{if $rs[adminID]!=1}--><!--a href="?in=admin&action=DelAdmin&id={$rs[adminID]}" onclick='javascript: return confirm("是否删除{$rs[adminName]}？");' class="list_red">×</a--><!--{/if}--></td>
+	<td><a href="?in=server&action=ServersAdminData&cid={$cid}&aid={$rs[adminID]}">操作记录</a></td>
+    <td><a href="?in=admin&action=EditAdmin&id={$rs[adminID]}" class="list_edit">修改</a></td>
+    <td><a href="?in=admin&action=AddAdmin&id={$rs[adminID]}" class="list_edit">复制</a></td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="12">暂无相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="12" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->
+ <!--{if ($type == 'c' && $cid == 999999999) || ($type == 'u' && $cid == 888888888)}-->
+ <tr class="title_2">
+    <td colspan="12">
+	  <input type="checkbox" name="allcid"  onclick="CheckAll(this,'form','cid[]');" /> <strong>所有</strong>
+	  <!--{eval $i=1}-->
+	  <!--{loop $company_list $crs}-->
+	  <input name="cid[]" type="checkbox" value="{$crs[cid]}"  id="c_{$crs[cid]}" onclick="setCIDArr({$crs[cid]});"/> {$crs[name]}
+	  <!--{if $i % 15 == 0}--><br /><!--{/if}-->
+	  <!--{eval $i++}-->	  
+	  <!--{/loop}-->
+	</td>
+  </tr> 
+  <tr>
+    <td colspan="12">
+	<input type="hidden" name="in" value="admin" />
+	<input type="hidden" name="action" value="SetAdminCompany" />
+	<input type="submit" id="Submit" name="Submit" value=" 设置负责平台 " class="button"/></td>
+  </tr>  
+ <!--{/if}--> 	
+</form>
+</table>

@@ -1,0 +1,45 @@
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="5">挂机练功等级</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="150">玩家等级</td>
+    <td width="150">获得经验</td>
+	<td>&nbsp;</td>
+	</tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[player_level]}<input name="id[]" type="hidden" value="{$rs[player_level]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[player_level]}" title="选择删"/></td>
+    <td><strong>{$rs[player_level]}</strong>级</td>
+    <td><input name="experience[]" type="text" value="{$rs[experience]}" size="20"/></td>
+	<td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="player_level_n" type="text" value=""  size="10"/> 级</td>
+    <td><input name="experience_n" type="text" value="" size="20"/></td>
+	<td>&nbsp;</td>
+    </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="5" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	 	   
+  <tr>
+    <td colspan="5" align="center">
+	<input type="hidden" name="action" value="SetPracticeLevel" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");' class="button"/></td>
+  </tr>  
+</table>
+</form>

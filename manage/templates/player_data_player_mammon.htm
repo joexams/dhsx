@@ -1,0 +1,55 @@
+{template player_data_top}
+<table class="table" style="margin-bottom:5px;">
+  <tr style="font-size:14px;" align="center">
+
+	<td width="400" height="30">{lang YBZS}:<strong class="greentext">{echo number_format($ingot_num,3)}</strong> <span class="graytext">{lang CYRS}:{$ingot_player}</span></td>
+	<td width="400">{lang TQZS}:<strong class="bluetext">{echo number_format($coins_num,3)}</strong> <span class="graytext">{lang CYRS}:{$coins_player}</span></td>
+	<td>&nbsp;</td>
+  </tr>
+</table>
+<table class="table" style="margin-bottom:5px;">      
+  <tr align="center" class="title_2">
+  	<td width="150">{lang YBFW}</td>
+	<td width="150">{lang CYRS}/{lang BILI}</td>
+	<td width="150">{lang CYSL}/{lang BILI}</td>
+	<td width="150">{lang PJCY}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{if $level_ingot_list}-->
+  <!--{loop $level_ingot_list $rs $level}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="">
+    <td>{$level}</td>
+	<td><strong>{$ingot[$rs][player]}</strong> <!--{if $ingot[$rs][player]}--><span class="smalltext graytext">({echo round($ingot[$rs][player]/$ingot_player*100,2)}%)</span><!--{/if}--></td>
+	<td><strong>{$ingot[$rs][num]}</strong> <!--{if $ingot[$rs][num]}--><span class="smalltext graytext">({echo round($ingot[$rs][num]/$ingot_num*100,2)}%)</span><!--{/if}--></td>
+	<td><strong><!--{if $ingot[$rs][num]}-->{echo round($ingot[$rs][num]/$ingot[$rs][player])}</strong><!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="5"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+  <tr align="center" class="title_2">
+  	<td width="150">{lang TQFW}</td>
+	<td width="150">{lang CYRS}/{lang BILI}</td>
+	<td width="150">{lang CYSL}/{lang BILI}</td>
+	<td width="150">{lang PJCY}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{if $level_coins_list}-->
+  <!--{loop $level_coins_list $rs $level}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="">
+    <td>{$level}</td>
+	<td><strong>{$coins[$rs][player]}</strong> <!--{if $coins[$rs][player]}--><span class="smalltext graytext">({echo round($coins[$rs][player]/$coins_player*100,2)}%)</span><!--{/if}--></td>
+	<td><strong>{$coins[$rs][num]}</strong> <!--{if $coins[$rs][num]}--><span class="smalltext graytext">({echo round($coins[$rs][num]/$coins_num*100,2)}%)</span><!--{/if}--></td>
+	<td><!--{if $coins[$rs][num]}--><strong>{echo round($coins[$rs][num]/$coins[$rs][player])}</strong><!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="5"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}-->    
+</table>

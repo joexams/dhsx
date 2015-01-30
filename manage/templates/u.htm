@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title><!--{if $mod == 'server'}-->{$company[name]}-<!--{/if}--> {lang TITLE}</title>
+<meta http-equiv="x-ua-compatible" content="ie=7" />
+<link href="style/style.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" type="image/ico" href="favicon.ico">
+<script language = "javaScript" src = "include/js/common.js" type="text/javascript"></script>
+<script language = "javaScript" src = "include/js/menu.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="append_parent"></div><div id="ajaxwaitid"></div>
+<div id="top">
+  <div class="top_user">Hello <strong>{$adminWebName}</strong> - <a href="login.php?action=Out">{lang OUT}</a></div>
+  <ul class="view_menu">
+	<li class="manage_title">{lang TITLE}</li>
+	<li {if $mod == 'server'  || $mod == 'company' || $mod == 'player' || $mod == 'data' || $mod == 'code' || ($mod == 'setting' && ReqStr('action') != 'KfPj')}class="view_cur"{else}class="view_no_cur"{/if} id="other_company" onmouseover="showMenu('other_company');"><a href="?in=server&cid={$cid}">{$company[name]}</a></li>
+	<!--{if !webAdmin('bug','y')}--><li {if $mod == 'bug' }class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=bug">{lang WJFK}</a></li><!--{/if}-->
+	<!--{if !webAdmin('u_apply','y')}--><li {if $mod == 'apply' && ReqStr('action') == 'Apply' || ReqStr('action') == 'ApplyAdd'}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=apply&action=Apply">{lang WPSQ}</a></li><!--{/if}-->
+	<!--{if !webAdmin('u_apply','y')}--><li {if $mod == 'apply' && ReqStr('action') == 'FindData'}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=apply&action=FindData">{lang BDZH}</a></li><!--{/if}-->
+	<!--{if !webAdmin('admin_pj','y')}--><li {if $mod == 'setting' && ReqStr('action') == 'KfPj'}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=setting&action=KfPj">客服评价</a></li><!--{/if}-->
+	<li {if $mod == 'password'}class="view_cur"{else}class="view_no_cur"{/if}><a href="?in=password">{lang XGMM}</a><!--{if $adminWebPwd == md5(123456)}--><span class="redtext">({lang XGMMSM})</span><!--{/if}--></li>
+	
+  </ul>
+</div>
+<!--{if count($company_list) > 1}-->
+<div id="other_company_menu" class="table" style="display:none;width:750px;padding:10px;">
+<table width="100%">   
+  <!--{if $company_list}-->
+  <!--{loop $crows $company_list}-->
+  <tr>
+  	<!--{loop $company_list $crs}-->	  
+    <td width="20%" {if $cid == $crs[cid]}class="td2"{/if}><a href="?in=server&cid={$crs[cid]}">{$crs[name]}</a></td>
+	<!--{/loop}-->
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>
+</div>
+<!--{/if}-->
+
+<div id="wrap">
+<!--{if $adminWebPwd == md5(123456) && $mod != 'password'}-->
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <td valign="top"  style="font-size:14px;line-height:100px;background:#fbfbe0;" class="redtext" align="center"><a href="?in=password"><strong class="redtext">{lang PWDSMSG}</strong></a></td>
+  </tr>
+</table>
+<!--{else}-->
+
+<table cellpadding="0" cellspacing="0" class="table2" height="100%" style="margin-bottom:0px;" id="box">
+  <tr>
+
+	<!--{if $mod == 'server' || $mod == 'data' || $mod == 'company'  || $mod == 'player' || $mod == 'code'|| ($mod == 'setting' && ReqStr('action') != 'KfPj')}-->
+	<td width="120" valign="top" id="leftmenu">{template u_menu}</td>
+    <td width="8" valign="top"><a href="#" onclick="CheckShowLeft();"><span id ="nnn">＜</span></a></td>
+	<!--{/if}-->
+    <td valign="top"  style="height:100%;">{eval include_once($contentUrl)}</td>
+  </tr>
+</table>
+<!--{/if}-->
+<div id="bot">{lang NOWTIME}:{$timenow}</div>
+</div>
+</body>
+</html>

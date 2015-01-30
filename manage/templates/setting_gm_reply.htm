@@ -1,0 +1,38 @@
+<form action="?in=setting" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2">回复玩家反馈</th>
+    </tr>
+    <tr>
+      <td width="100" align="right"><strong>反馈类型</strong></td>
+      <td><!--{if $rs[type]=='1'}-->BUG<!--{/if}--><!--{if $rs[type]=='2'}-->投诉<!--{/if}--><!--{if $rs[type]=='3'}-->建议<!--{/if}--><!--{if $rs[type]=='4'}-->其它<!--{/if}--></td>
+    </tr>	
+    
+    <tr>
+      <td align="right"><strong>反馈玩家</strong></td>
+      <td><strong>{$rs[username]}</strong>  ({$rs[nickname]})</td>
+    </tr>
+     <tr>
+       <td align="right" valign="top"><strong>反馈内容</strong></td>
+      <td>{$rs[content]}</td>
+   </tr>
+     <tr>
+       <td align="right" valign="top"><strong>反馈时间</strong></td>
+      <td>{echo date('Y-m-d H:i:s',$rs[submit_time])}</td>
+   </tr> 
+     	
+     <tr>
+       <td width="100" align="right" valign="top"><strong>回复</strong></td>
+      <td><textarea name="reply" cols="60" rows="5">{$rs[reply_content]}</textarea><br /><span class="graytext">200字以内</span></td>
+   </tr>           
+    <tr>
+      <td>
+	  <input name="cid" type="hidden" value="{$cid}" />
+	  <input name="sid" type="hidden" value="{$sid}" />
+	  <input name="id" type="hidden" value="{$id}" />
+	  <input name="action" type="hidden" value="ReplyGm"/>
+	  </td>
+      <td><input type="submit" name="Submit" id="Submit" value=" 回 复 " class="button"/> </td>
+    </tr>
+  </table>
+</form >

@@ -1,0 +1,52 @@
+<form method="post" action="?in=active" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="9">玩家团购礼包类型</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	  <td width="35">删除</td>
+    <td width="150">名字</td>
+    <td width="100">原价</td>
+    <td width="100">折扣</td>
+    <td width="100">节省</td>
+    <td width="100">积分</td>
+    <td width="100">限制数量'</td>
+    <td>&nbsp;</td>
+    </tr>
+    <!--{if $list_array}-->
+    <!--{loop $list_array $rs}-->   
+    <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+    <td>{$rs[id]}<input name="id_old[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+      <td><input name="name[]" type="text" value="{$rs[name]}" size="10" /></td>
+      <td><input name="price[]" type="text" value="{$rs[price]}" size="10" /></td>
+      <td><input name="discount[]" type="text" value="{$rs[discount]}" size="10" /></td>
+      <td><input name="spare[]" type="text" value="{$rs[spare]}" size="10" /></td>
+      <td><input name="jifen[]" type="text" value="{$rs[jifen]}" size="10" /></td>
+      <td><input name="limit_amount[]" type="text" value="{$rs[limit_amount]}" size="10" /></td>
+      <td>&nbsp;</td>
+      </tr>
+    <!--{/loop}-->
+    <!--{else}-->
+    <tr>
+    <td colspan="9" align="center">找不到相关信息</td>
+    </tr>  
+    <!--{/if}--> 
+    <tr class="td2" align="center" >
+  <td colspan="2">新增记录→</td>
+  <td><input name="name_n" type="text" value="" size="10" /></td>
+  <td><input name="price_n" type="text" value="" size="10" /></td>
+  <td><input name="discount_n" type="text" value="" size="10" /></td>
+  <td><input name="spare_n" type="text" value="" size="10" /></td>
+  <td><input name="jifen_n" type="text" value="" size="10" /></td>
+  <td><input name="limit_amount_n" type="text" value="" size="10" /></td>
+    <td>&nbsp;</td>
+  </tr>     
+  <tr>
+    <td colspan="9" align="center">
+  <input type="hidden" name="action" value="SetTeamBuyingGiftType" />
+  <input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

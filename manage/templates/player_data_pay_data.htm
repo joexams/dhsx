@@ -1,0 +1,87 @@
+{template player_data_top}
+<table class="table" style="margin-bottom:5px;">
+  <tr style="font-size:14px;" align="center">
+    <td width="110" height="30">
+	<select name="month" id="month" onChange="jumpMenu(this)">
+	<!--{if $day_moth_list}-->
+	  <!--{loop $day_moth_list $drs}-->
+	  <option value="{$drs[time]}" {if $drs[time] == $month} selected="selected" {/if}>{$drs[time]}</option>
+	  <!--{/loop}-->
+	  <!--{else}-->
+	  <option value="{$month}" >{$month}</option>	  
+	<!--{/if}-->		
+	</select>	
+	</td>
+	<td width="200">{lang PAY}:<strong class="orangetext">{echo round($pay_amount,2)}</strong> <!--<span class="graytext">({$server[money_type]})</span>--></td>
+	<td width="200">{lang PAYUSER}:<strong>{$pay_player_count}</strong></td>
+	<td width="200">ARPU:<strong class="bluetext"><!--{if $pay_amount}-->{echo round($pay_amount/$pay_player_count,2)}<!--{else}-->0<!--{/if}--></strong></td>
+	<td>&nbsp;</td>
+  </tr>
+</table>
+<table class="table">    
+  <tr align="center" class="title_2">
+  	<td width="120">{lang DATE}</td>
+	<td width="100">{lang PAY}</td>
+	<td width="80" >{lang PAYUSER}</td>
+	<td width="80" >{lang NERUSERNUM}</td>
+	<td width="80">{lang PAYNUM}</td>
+	<td width="80">ARPU</td>
+	<td width="80" title="{lang XIAOFEIMSG}">{lang XIAOFEI}</td>
+	<td width="80">{lang XFCZBL}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{if $day_list}-->
+  <!--{eval $i=0}-->
+  <!--{loop $day_list $drs $day}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}"  align="right">
+    <td align="center"><strong>{$day}</strong> <span class="graytext smalltext">{echo GetWeekDay($day)}</span></td>
+    <td><!--{if $data[$day][pay_amount]}-->
+        <strong class="orangetext">{$data[$day][pay_amount]}</strong>
+      <!--{else}-->
+      -
+      <!--{/if}--></td>
+    <td><!--{if $data[$day][pay_player_count]}-->
+      {$data[$day][pay_player_count]}
+        <!--{else}-->
+      -
+      <!--{/if}--></td>
+    <td><!--{if $data[$day][new_player]}-->
+      {$data[$day][new_player]}
+        <!--{else}-->
+      -
+      <!--{/if}--></td>
+    <td><!--{if $data[$day][pay_num]}-->
+      {$data[$day][pay_num]}
+        <!--{else}-->
+      -
+      <!--{/if}--></td>
+    <td><!--{if $data[$day][pay_amount]}-->
+        <span class="bluetext">{echo round($data[$day][pay_amount]/$data[$day][pay_player_count],2)}</span>
+      <!--{else}-->
+      -
+      <!--{/if}--></td>
+    <td><!--{if $data[$day][consume]}-->
+        <span class="redtext">{$data[$day][consume]}</span>
+      <!--{else}-->
+      -
+      <!--{/if}--></td>
+    <td><!--{if $data[$day][consume] && $data[$day][pay_amount] }-->
+      {echo round((abs($data[$day][consume])/$data[$day][pay_amount]),2)}
+        <!--{else}-->
+      -
+      <!--{/if}--></td>
+    <td>&nbsp;</td>
+  </tr>
+   <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="10"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>
+<script type="text/JavaScript">
+	function jumpMenu(selObj){
+		location="?in=player&action=Data&type=pay_data&cid={$cid}&sid={$sid}&month="+selObj.options[selObj.selectedIndex].value+"";
+	}
+</script>

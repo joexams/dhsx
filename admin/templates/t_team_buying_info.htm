@@ -1,0 +1,89 @@
+<form method="post" action="?in=active" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="14">玩家团购信息</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+  <td width="35">删除</td>
+    <td width="150">礼包ID</td>
+    <td width="100">奖励类型</td>
+    <td width="100">物品</td>
+    <td width="100">物品数量</td>
+    <td>&nbsp;</td>
+    </tr>
+      <!--{if $list_array}-->
+    <!--{loop $list_array $rs}-->   
+    <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+    <td>{$rs[id]}<input name="id_old[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td>
+      <select name="gift_id[]">
+        <option value="0">请选择礼包</option>
+    <!--{loop $gift_list $crs}-->
+     <option value="{$crs[id]}" {if $crs[id] == $rs[gift_id]}selected="selected"{/if}>{$crs[name]}</option>
+     <!--{/loop}--> 
+      </select>
+    </td>
+    <td>
+      <select name="award_id[]">
+         <option value="0">请选择奖励</option>
+        <!--{loop $award_list $srs}-->
+     <option value="{$srs[id]}" {if $srs[id] == $rs[award_id]}selected="selected"{/if}>{$srs[name]}</option>
+     <!--{/loop}--> 
+      </select>
+    </td>
+    <td><select name="item_id[]" >
+     <option class="select" value="0">选择物品</option>
+     <!--{loop $item_list $irs}-->
+     <option value="{$irs[id]}" {if $irs[id] == $rs[item_id]}selected="selected"{/if}>{$irs[name]}</option>
+     <!--{/loop}-->  
+    </select></td>
+      <td><input name="amount[]" type="text" value="{$rs[amount]}" size="10" /></td>
+      <td>&nbsp;</td>
+      </tr>
+    <!--{/loop}-->
+    <!--{else}-->
+    <tr>
+    <td colspan="14" align="center">找不到相关信息</td>
+    </tr>  
+    <!--{/if}--> 
+    <tr class="td2" align="center" >
+  <td colspan="2">新增记录→</td>
+  <td>
+    <select name="gift_id_n">
+      <option value="0">请选择礼包</option>
+ <!--{loop $gift_list $crs}-->
+     <option value="{$crs[id]}">{$crs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+  </td>
+  <td>
+    <select name="award_id_n">
+      <option value="0">请选择奖励</option>
+       <!--{loop $award_list $srs}-->
+     <option value="{$srs[id]}">{$srs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+  </td>
+  <td><select name="item_id_n" >
+   <option class="select" value="0">选择物品</option>
+   <!--{loop $item_list $irs}-->
+   <option value="{$irs[id]}">{$irs[name]}</option>
+   <!--{/loop}-->  
+  </select></td>
+    <td><input name="amount_n" type="text" value="" size="10" /></td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="14" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->     
+  <tr>
+    <td colspan="14" align="center">
+  <input type="hidden" name="action" value="SetTeamBuyinginfo" />
+  <input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

@@ -1,0 +1,47 @@
+<form method="post" action="?in={$mod}" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="5">{$table_info}</th>
+  </tr>
+  <tr align="center" class="title_2">
+	<td width="35">删除</td>
+	<!--{loop $table_Columns_list $tclrs}-->
+    <td width="150">{$tclrs[Comment]}</td>
+    <!--{/loop}-->
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+    <td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/></td>
+	<td>{$rs[id]}<input name="id_old[]" type="hidden" value="{$rs[id]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<!--{loop $table_Columns_list $key $tclrs}-->
+	<!--{if $key>0}-->
+    <td><input name="{$tclrs[Field]}[]" type="text" value="{$rs[$tclrs[Field]]}"  size="20"/></td>
+    <!--{/if}-->
+    <!--{/loop}-->
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+	<!--{loop $table_Columns_list $key $tclrs}-->
+	<!--{if $key>0}-->
+    <td><input name="{$tclrs[Field]}_n" type="text" value=""  size="20"/></td>
+    <!--{/if}-->
+    <!--{/loop}-->
+    
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="5" align="center">
+	<input type="hidden" name="action" value="{$action}" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

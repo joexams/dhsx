@@ -1,0 +1,95 @@
+<table class="table">
+  <tr>
+    <th colspan="10"><a href="?in=passivity">被动技能列表</a><!--{if $name}--> ＞ 搜索 <span class="bluetext">{$name}</span><!--{/if}--></th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="10">
+	<span class="right" style="padding:3px;">
+	<form action="" method="get" name="forms" onSubmit="setSubmit('Submits')">
+	<select name="type_id" >
+	 <option class="select">选择被动技能类型</option>
+	 <!--{loop $passivity_stunt_list $psrs}-->
+	 <option value="{$psrs[id]}" {if $psrs[id] == $type_id}selected="selected"{/if}>{$psrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	<input name="name" type="text" value="{$name}" size="20" maxlength="20"  /> 
+	<input type="submit" id="Submits" name="Submits" value="搜索" class="button"/>
+	<input name="in" type="hidden" value="passivity" />
+	</form>	
+	</span>	
+	 <a href="?in=passivity" class="{if !$type_id} title_menu_on {else} title_menu {/if}">所有</a>
+	<!--{if $passivity_stunt_list}-->
+	  <!--{loop $passivity_stunt_list $psrs}-->
+	  <a href="?in=passivity&type_id={$psrs[id]}" class="{if $type_id == $psrs[id]} title_menu_on {else} title_menu {/if}">{$psrs[name]}</a>
+	  <!--{/loop}-->
+	<!--{/if}-->	</td>
+  </tr>  
+<form method="post" action="?in=passivity" name="form"  onSubmit="setSubmit('Submit')">
+  
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="150">被动技能类型</td>
+    <td width="100">名称</td>
+    <td width="100">等级</td>
+    <td width="80">值1</td>
+	<td width="80">值2</td>
+    <td width="60">值3</td>
+    <td width="400">描述</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id_old[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/></td>
+    <td>
+	<select name="passivity_stunt_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $passivity_stunt_list $prs}-->
+	 <option value="{$prs[id]}"  {if $prs[id] == $rs[passivity_stunt_id]}selected="selected"{/if}>{$prs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="15"/></td>
+    <td><input name="level[]" type="text" value="{$rs[level]}"  size="5"/></td>
+    <td><input name="value[]" type="text" value="{$rs[value]}"  size="5"/></td>
+    <td><input name="value2[]" type="text" value="{$rs[value2]}"  size="5"/></td>
+    <td><input name="value3[]" type="text" value="{$rs[value3]}"  size="5"/></td>
+    <td><input name="description[]" type="text" value="{$rs[description]}"  size="60"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="10" align="center" height="40">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="passivity_stunt_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $passivity_stunt_list $prs}-->
+	 <option value="{$prs[id]}"  {if $prs[id] == $type_id}selected="selected"{/if}>{$prs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="name_n" type="text" value=""  size="15"/></td>
+    <td><input name="level_n" type="text" value=""  size="5"/></td>
+    <td><input name="value_n" type="text" value=""  size="5"/></td>
+    <td><input name="value2_n" type="text" value=""  size="5"/></td>
+    <td><input name="value3_n" type="text" value=""  size="5"/></td>
+    <td><input name="description_n" type="text" value=""  size="60"/></td>
+    <td>&nbsp;</td>	
+   </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	     
+  <tr>
+    <td colspan="10" align="center">
+	<input type="hidden" name="action" value="SetPassivity" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>
+</form>
+</table>

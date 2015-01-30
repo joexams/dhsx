@@ -1,0 +1,77 @@
+<!--{if $mission_scene_array}-->
+<!--{loop $mission_scene_array $rs}-->	
+
+<table class="table" style="margin-bottom:8px;">
+  <tr>
+    <th colspan="13">房间:{$rs[name]}</th>
+  </tr>
+  <tr align="center" class="title_2">
+	<td colspan="5" title="下属怪物组"><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallMissionMonsterTeam&id={$rs[id]}&name={$rs[name_url]}&type={$type}')" title="编辑[{$rs[name]}]的怪物组" class="list_edit">怪物组</a></td>
+	<td colspan="8" >组里怪物</td>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="100" title="出场顺序">顺序</td>
+    <td width="35" title="敌人数量">数量</td>
+    <td width="50" title="展示形象">形象</td>
+    <td width="80">阵型</td>
+    <td width="100">名称</td>
+    <td width="50">位置</td>
+    <td width="50">经验</td>
+    <td width="50">速度</td>
+    <td width="100">掉落</td>
+    <td width="100">奖励</td>
+    <td width="50">编辑</td>
+  </tr>
+  <!--{if $rs[mission_monster_team_array]}-->
+  <!--{loop $rs[mission_monster_team_array] $mtrs}-->	  
+  <tr class="trline" align="center" >
+	<td>{$mtrs[id]}</td>
+	<td>{$mtrs[lock]}</td>
+	<td>{$mtrs[monster_num]}</td>
+	<td><strong>{$mtrs[monster_name]}</strong></td>
+	<td>{$mtrs[deploy_mode_name]}</td>
+	<td colspan="6">
+		<table class="table3 bluetext">
+		<!--{if $mtrs[mission_monster_array]}-->
+		<!--{loop $mtrs[mission_monster_array] $mmrs}-->		
+		  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="" >
+		    <td width="100">{$mmrs[monster_name]} - Lv.{$mmrs[level]}</td>
+			<td width="50">{$mmrs[deploy_grid_name]}</td>
+			<td width="50">{$mmrs[award_experience]}</td>
+			<td width="50">{$mmrs[speed]}</td>
+			<td width="100">{$mmrs[award_item_name]}</td>
+		    <td width="100">
+			<!--{if $mmrs[mission_monster_quest_item_array]}-->
+			<!--{loop $mmrs[mission_monster_quest_item_array] $mqirs}-->
+			{$mqirs[quest_item_name]}<span class="smalltext">({$mqirs[probability]}%)</span> 
+			<!--{/loop}-->
+			<!--{else}-->
+			-
+			<!--{/if}-->			</td>
+		  </tr>
+		<!--{/loop}-->
+		<!--{else}-->
+		  <tr align="center">
+		    <td colspan="5">暂无数据</td>
+		  </tr>		
+		<!--{/if}-->
+	</table>	</td>
+	<td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallMissionMonster&id={$mtrs[id]}&deploy_mode_id={$mtrs[deploy_mode_id]}&name={$mtrs[name_url]}&type={$type}')" class="list_edit" title="编辑怪物数据">编辑</a></td>
+  </tr>  
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td align="center" colspan="13">找不到相关信息</td>
+  </tr>
+  <!--{/if}-->
+</table>
+
+<!--{/loop}-->
+<!--{else}-->
+<table class="table">
+  <tr>
+	<td align="center" height="100">找不到相关信息</td>
+  </tr>
+</table>
+<!--{/if}-->

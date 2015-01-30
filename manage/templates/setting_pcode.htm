@@ -1,0 +1,80 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="9">活动兑换券记录</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="9">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')"> 
+	<select name="p_db">
+	 <option class="select" value="0">选择活动</option>
+	 <!--{loop $party_code_list $trs}-->
+	 <option value="{$trs[TABLE_NAME]}" {if $p_db == $trs[TABLE_NAME]} selected="selected" {/if}>{$trs[TABLE_COMMENT]}</option>
+	 <!--{/loop}-->	 
+	</select>		
+	<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+	 <option class="select" value="0">运营平台</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	  
+
+	<select name="sid" id = "sid" onChange="selectAjax('call.php?action=CallCodeBatch','batch_id','sid',1)">
+	<option class="select" value="">选择服务器</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<select name="number" id = "number">
+	<option class="select" value="">批次</option>
+	<!--{if $code_number_array}-->
+	 <!--{loop $code_number_array $nrs}-->
+	 <option value="{$nrs[number]}"  {if $nrs[number] == $number} selected="selected" {/if}>第{$nrs[number]}次</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<select name="use" id = "use">
+	<option class="select" value="0">是否使用</option>
+	 <option value="1"  {if $use == 1} selected="selected" {/if}>使用</option>
+	 <option value="2"  {if $use == 2} selected="selected" {/if}>未使用</option>
+	</select>	
+	兑换券:<input name="code" type="text" value="{$code}" size="25"/>
+	帐号:<input name="username" type="text" value="{$username}" size="15"/>
+	<input type="submit" name="Submit" id="Submit" value=" 搜 索 " class="button"/>
+	<!--{if $p_db}--><a href="call.php?action=CallCodePartyExport&p_db={$p_db}&cid={$cid}&number={$number}" class="title_menu">导出未领取新手卡</a><!--{/if}-->
+	<input name="in" type="hidden" value="code" />
+	<input name="action" type="hidden" value="Pcode" />
+	</form>	</td>
+  </tr>     
+
+  <tr class="title_2" align="center">
+    <td width="50">ID</td>
+	<td width="150">服务器</td>
+    <td width="250">兑换券</td>
+    <td width="150">领取时间</td>
+    <td width="200">领取用户</td>
+	<td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="" >
+    <td>{$rs[id]}</td>
+	<td>{$rs[company_name]}<!--{if $rs[servers_name]}-->-{$rs[servers_name]}<!--{/if}--></span></td>
+	<td>{$rs[code]}</td>
+	<td><!--{if $rs[ctime] != '0000-00-00 00:00:00'}-->{$rs[ctime]}<!--{else}-->-<!--{/if}--></td>
+    <td><!--{if $rs[username] != ''}--><a href="?in=player&action=PlayerView&cid={$rs[cid]}&sid={$rs[sid]}&uid={$rs[player_id]}" target="_blank"><strong>{$rs[username]}</strong>({$rs[nickname]})</a><!--{else}-->-<!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="7">暂无相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="7" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+</table>

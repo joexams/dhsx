@@ -1,0 +1,134 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th colspan="3">{lang GGLB}</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="3">
+	<form action="" method="get" name="forms" id="forms" onSubmit="setSubmit('Submits')"> 	
+	<!--{if $adminWebType == 's'}-->
+	<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+	 <option class="select">{lang COMPANY}</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	  
+	<!--{else}-->
+	<input name="cid" type="hidden" value="{$cid}" />
+	<!--{/if}-->	
+	
+	<select name="sid" id = "sid">
+	<option  value="">{lang ALLSERVER}</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<input type="submit" name="Submits" id="Submits" value="{lang SEARCH}" class="button"/>
+	{lang FGGMSG}
+	<input name="in" type="hidden" value="setting" />
+	<input name="action" type="hidden" value="Bulletin" />
+	</form>
+	</td>
+  </tr>     
+  <!--{if $sid}-->
+  <tr class="title_2">
+  	<td width="50" align="center">{lang DEL}</td>
+	<td width="150" align="center">{lang GQTIME}</td>
+	<td align="left">{lang GGNR}</td>
+  </tr>
+  <!--{if $bulletin_array}-->
+  <!--{loop $bulletin_array $rs}-->
+  <tr>
+    <td><a href="?in=setting&action=DelBulletin&cid={$cid}&sid={$sid}&id={$rs[id]}" onclick='javascript: return confirm("{lang DOYOUDO}");' class="list_red">×</a></td>
+	 <td align="center"><!--{if !$rs[expired_time]}-->{lang YJZS}<!--{else}--><!--{if $rs[expired_time] < time()}--><strong class="redtext">{lang YGQ}</strong><!--{else}-->{echo date('Y-m-d H:i:s',$rs[expired_time])}<!--{/if}--><!--{/if}--></td>
+    <td align="left">{$rs[content][1]}</td>	
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td align="center" height="100" colspan="3">{lang NULL}</td>
+  </tr>  
+  <!--{/if}-->   
+  <!--{elseif $cid}-->
+  <form action="?in=setting" method="post" name="formd" id="formd" onSubmit="setSubmit('Submitd')"> 	
+  <tr class="title_2">
+  	<td align="left" colspan="3"><input type="checkbox" name="allid"  onclick="CheckAll(this,'formd','sid_del[]');" /> {lang SERVER}</td>
+  </tr>
+  <!--{if $servers_list}-->
+  <!--{loop $servers_list $srs}-->
+  <tr>
+    <td colspan="3"><input type="checkbox" name="sid_del[]" value="{$srs[sid]}" title="选择删除{$srs[sid]}"/> {$srs[name]}-{$srs[o_name]}</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="3" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr>
+	<td colspan="3"><input type="hidden" name="action" value="SetDelBulletin" /><input type="hidden" name="cid" value="{$cid}" />
+    <input type="submit" id="Submitd" name="Submitd" value="批量清除公告" onClick='javascript: return confirm("此操作将清空您所选择的服务器里所有公告");'  class="button"/></td>
+  </tr>   
+  </form>    
+  <!--{/if}-->
+
+  </table>
+
+<!--{if $cid}-->
+<table class="table" >
+<form method="post" action="?in=setting" name="form" id="form"  onSubmit="setSubmit('Submit')">
+  <tr>
+    <th colspan="3">{lang FGG}</th>
+  </tr>
+  <tr>
+  <td align="right" valign="top">选择发布QQ平台</td>
+  <td  colspan="2">
+    <select name="pf_id">
+      <option value="0">所有平台</option>
+      <option value="1">qq空间</option>
+      <option value="2">朋友网</option>
+      <option value="3">微博</option>
+      <option value="4">q加</option>
+      <option value="5">财付通</option>
+      <option value="6">qq游戏</option>
+      <option value="7">官网</option>
+      <option value="8">3366平台</option>
+      <option value="9">联盟</option>
+    </select>
+  </td>
+  </tr> 
+  <tr>
+	<td align="right" valign="top" width="100">{lang SERVER}</td>
+	<td colspan="2">
+	<span class="graytext">{lang MORECHOOSE}</span><br />
+	<select id = "servers" name="servers[]" size="10" multiple="multiple" style="width:500px;">
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	</td>
+  </tr> 
+    
+  <tr>
+	<td align="right" valign="top">{lang GGNR}</td>
+	<td  colspan="2"><input type="text" name="content" value="" size="50" maxlength="25"/> <span class="graytext">{lang GGNRMSG}</span></td>
+  </tr> 
+  <tr>
+	<td align="right">{lang GGLINK}</td>
+	<td  colspan="2"><input type="text" name="url" value="" size="50"/> <span class="graytext">{lang GGLINKMSG}</span></td>
+  </tr>  
+  <tr>
+	<td align="right">{lang GQTIME}</td>
+	<td  colspan="2"><input type="text" name="time" value="{echo date('Y-m-d H:i',time()+86400)}"  size="18" onclick="showcalendar(event, this,true)" readonly/> <span class="graytext">{lang GGZSMSG}</span></td>
+  </tr>    
+  <tr>
+	<td><input type="hidden" name="action" value="SaveBulletin" /><input type="hidden" name="sid" value="{$sid}" /><input type="hidden" name="cid" value="{$cid}" /></td>
+    <td  colspan="2"><input type="submit" id="Submit" name="Submit" value="{lang SUBMITOK}" onClick='javascript: return confirm("{lang DOYOUDO}");'  class="button"/></td>
+  </tr>
+</form>
+</table>
+<!--{/if}--> 

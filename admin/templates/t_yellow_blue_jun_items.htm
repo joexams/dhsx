@@ -1,0 +1,77 @@
+<form method="post" action="?in=item" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="11">六月黄钻蓝钻奖励物品</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="50">声望</td>
+    <td width="50">境界点</td>
+	<td width="50">阅历</td>
+	<td width="50">元宝</td>	
+    <td width="50">铜钱</td>
+    <td width="50">灵石</td>
+    <td width="50">物品</td>
+    <td width="50">物品数量</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[id]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="fame[]" type="text" value="{$rs[fame]}"  size="10"/></td>
+    <td><input name="state_point[]" type="text" value="{$rs[state_point]}"  size="10"/></td>
+    <td><input name="skill[]" type="text" value="{$rs[skill]}"  size="10"/></td>
+    <td><input name="ingot[]" type="text" value="{$rs[ingot]}"  size="10"/></td>
+    <td><input name="coin[]" type="text" value="{$rs[coin]}"  size="10"/></td>
+    <td><input name="stone[]" type="text" value="{$rs[stone]}"  size="10"/></td>
+    <td>
+     <select name="items_id[]" >
+     <option value="0">选择物品</option>
+     <!--{loop $item_list $irs}-->
+     <option value="{$irs[id]}" {if $irs[id] == $rs[items_id]}selected="selected"{/if}>{$irs[sign]}-{$irs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+    </td>
+    <td><input name="items_count[]" type="text" value="{$rs[items_count]}"  size="10"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="11" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="fame_n" type="text" value=""  size="10"/></td>
+    <td><input name="state_point_n" type="text" value=""  size="10"/></td>
+    <td><input name="skill_n" type="text" value=""  size="10"/></td>
+    <td><input name="ingot_n" type="text" value=""  size="10"/></td>
+    <td><input name="coin_n" type="text" value=""  size="10"/></td>
+    <td><input name="stone_n" type="text" value=""  size="10"/></td>
+    <td>
+     <select name="items_id_n" >
+     <option value="0">选择物品</option>
+     <!--{loop $item_list $irs}-->
+     <option value="{$irs[id]}" {if $irs[id] == $rs[items_id]}selected="selected"{/if}>{$irs[sign]}-{$irs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+    </td>
+    <td><input name="items_count_n" type="text" value=""  size="10"/></td>
+    <td>&nbsp;</td>
+  </tr>
+   <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="11" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->    
+  <tr>
+    <td colspan="11" align="center">
+	<input type="hidden" name="action" value="SetYellowBlueJunItems" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

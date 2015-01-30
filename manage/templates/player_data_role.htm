@@ -1,0 +1,31 @@
+{template player_data_top}
+<table class="table">   
+   
+
+  <tr align="center" class="title_2">
+    <td width="150">{lang HUOBAN}</td>
+    <td width="100">{lang ZMRS}</td>
+    <td width="100">{lang ZDRS}</td>
+    <td width="100">{lang LDRS}</td>
+    <td width="80">{lang LDBL}</td>
+    <td>&nbsp;</td>
+  </tr>
+  
+  
+  <!--{if $role}-->
+  <!--{loop $role $rs}-->
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center">
+	<td class="td4"><strong>{$rs[role_name]}</strong> <!--{if $rs[fame] > 0}--><span class="graytext">({lang SWJ})</span><!--{/if}--></td>
+	<td><!--{if $rs[role_count]}-->{$rs[role_count]}<!--{else}-->-<!--{/if}--></td>
+	<td class="greentext"><!--{if $rs[role_in_count]}-->{$rs[role_in_count]}<!--{else}-->-<!--{/if}--></td>
+	<td class="bluetext"><!--{if $rs[role_out_count]}-->{$rs[role_out_count]}<!--{else}-->-<!--{/if}--></td>
+	<td class="graytext"><!--{if $rs[role_out_count]}-->{echo round(($rs[role_out_count]/$rs[role_count])*100,2)}%<!--{else}-->-<!--{/if}--></td>
+	<td align="left"><!--{if $rs[role_count]}--><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerDataRoleLevel&sid={$sid}&cid={$cid}&id={$rs[id]}&name={$rs[name_url]}&username={$username_url}')" class="title_menu">{lang DJTJ}</a><!--{else}-->-<!--{/if}--></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="7"  align="center">暂无记录</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>

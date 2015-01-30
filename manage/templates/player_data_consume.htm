@@ -1,0 +1,60 @@
+{template player_data_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">   
+  <tr class="title_3">
+    <td colspan="6">
+	
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">
+	{lang TJLX}：<select name="t">
+	  <option value="0" {if !$t} selected="selected" {/if}>{lang XFTJ}</option>
+	  <option value="1" {if $t == 1} selected="selected" {/if}>{lang HQTJ}</option>		
+	</select><br />
+	VIP等级：
+	<input name="vip_s" type="text" value="{$vip_s}" size="1"/> ~	
+	<input name="vip_e" type="text" value="{$vip_e}" size="1" /><br />
+	角色等级：<input name="level_s" type="text" value="{$level_s}" size="1"/> ~	
+	<input name="level_e" type="text" value="{$level_e}" size="1" /><br />		
+	{lang USERNAME}：<input name="username" type="text" value="{$username}" size="28" maxlength="28"  /> 	<br />
+	{lang TSFW}：<input name="day" type="text" value="{$day}" size="10" /> {lang TSFWMSG}<br />
+	{lang TIMERANGE}：<input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly /> <input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Data" />
+	<input name="type" type="hidden" value="consume" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr> 
+
+  <tr align="center" class="title_2">
+    <td width="200">{lang TYPE}</td>
+    <td width="100"><a href="?in=player&action=Data&username={echo urlencode($username)}&stime={$stime}&etime={$etime}&type=consume&cid={$cid}&sid={$sid}&t={$t}&vip_s={$vip_s}&vip_e={$vip_e}&level_s={$level_s}&level_e={$level_e}&order=player_count">{lang USERNUM}</a></td>
+    <td width="100"><a href="?in=player&action=Data&username={echo urlencode($username)}&stime={$stime}&etime={$etime}&type=consume&cid={$cid}&sid={$sid}&t={$t}&vip_s={$vip_s}&vip_e={$vip_e}&level_s={$level_s}&level_e={$level_e}&order=type_count">{lang CISHU}</a></td>
+    <td width="100"><a href="?in=player&action=Data&username={echo urlencode($username)}&stime={$stime}&etime={$etime}&type=consume&cid={$cid}&sid={$sid}&t={$t}&vip_s={$vip_s}&vip_e={$vip_e}&level_s={$level_s}&level_e={$level_e}">{lang YB}</a></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="purpletext trtitle"  align="center">
+	<td ><strong>{lang ZONGJI}</strong></td>
+	<td>{$player_count}</td>
+	<td>{$type_count}</td>
+	<td>{$value_count}</td>
+	<td>&nbsp;</td>
+  </tr>
+  
+  <!--{if $consume}-->
+  <!--{loop $consume $rs}-->
+  <tr onmouseover=this.className="td3" onmouseout=this.className=""  align="center">
+	<td class="td4">{$rs[type_name]}</td>
+	<td><!--{if $rs[player_count]}-->{$rs[player_count]} <span class="smalltext graytext">({echo round($rs[player_count]/$player_count*100,2)}%)</span><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[type_count]}-->{$rs[type_count]} <span class="smalltext graytext">({echo round($rs[type_count]/$type_count*100,2)}%)</span><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[player_count]}-->{$rs[value_count]} <span class="smalltext graytext">({echo round($rs[value_count]/$value_count*100,2)}%)</span><!--{else}-->-<!--{/if}--></td>
+	<td align="left"><!--{if $rs[player_count]}--><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerDataConsumeLevel&sid={$sid}&cid={$cid}&type={$rs[type]}&vip_s={$vip_s}&vip_e={$vip_e}&level_s={$level_s}&level_e={$level_e}&day={$day}&name={$rs[name_url]}&stime={$stime}&etime={$etime}&username={$username_url}')" class="title_menu">{lang FEDTJ}</a><!--{else}-->-<!--{/if}--></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="6"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+  
+</table>

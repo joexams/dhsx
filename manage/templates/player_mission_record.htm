@@ -1,0 +1,51 @@
+<table class="table">
+  <tr>
+    <th colspan="13"><span class="yellowtext">{$player[username]} ({$player[nickname]})</span>  ＞ {lang FUBEN}</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="13">
+	{template player_mission_record_button}	</td>
+  </tr>  
+  <tr align="center" class="title_2">
+    <td width="35" rowspan="2" >ID</td>
+    <td rowspan="2">{lang FUBEN}</td>
+    <td rowspan="2">{lang TIAOZHAN}</td>
+	<td rowspan="2">{lang ZHANBAI}</td>
+    <td rowspan="2">{lang PINGJIA}</td>
+    <td rowspan="2">{lang WANCHENG}</td>
+	<td rowspan="2">{lang DYGGSJ}</td>
+	<td rowspan="2">{lang ZHGGSJ}</td>
+	<td colspan="3">{lang YXGK}</td>	  
+	</tr>
+  <tr align="center" class="title_2">
+    <td>{lang ZHGMSJ}</td>
+    <td>{lang JRYM}</td>
+    <td>{lang SYGMCS}</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[mission_id]}</td>
+	<td><strong>{$rs[town_name]}-{$rs[mission_name]}</strong></td>
+    <td>{$rs[times]}</td>
+    <td>{$rs[failed_challenge]}</td>
+    <td>{$rs[rank]}</td>
+	<td><!--{if $rs[is_finished]}-->OK<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[is_finished]}-->{echo date('Y-m-d H:i:s',$rs[first_challenge_time])}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[is_finished]}-->{echo date('Y-m-d H:i:s',$rs[challenge_time])}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[hero_last_buy_time]}-->{echo date('Y-m-d H:i:s',$rs[hero_last_buy_time])}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[hero_buy_times_today]}-->{$rs[hero_buy_times_today]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[hero_remain_times]}-->{$rs[hero_remain_times]}<!--{else}-->-<!--{/if}--></td>
+  </tr>
+  <!--{/loop}-->
+   <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="13" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <!--{else}-->
+  <tr>
+	<td colspan="13" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

@@ -1,0 +1,102 @@
+<form method="post" action="?in=furnace" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="15">可升级角色信息</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="150">角色</td>
+	<td width="150">升级角色</td>
+    <td width="150">喜好品</td>
+    <td width="100">升级好感度</td>
+    <td width="100">随机好感度下限</td>
+    <td width="100">随机好感度上限</td>
+    <td width="100">奖励武力</td>
+    <td width="100">奖励绝技</td>
+    <td width="100">奖励法术</td>
+    <td width="100">奖励武魂</td>
+    <td width="100">推荐星级</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[role_id]}<input name="role_id_old[]" type="hidden" value="{$rs[role_id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[role_id]}" title="选择删除"/></td>
+    <td><select name="role_id[]" >
+	 <option class="select" value="0">选择角色</option>
+	 <!--{loop $role_list $rrs}-->
+	 <option value="{$rrs[id]}"  {if $rrs[id] == $rs[role_id]}selected="selected"{/if}>{$rrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><select name="levelup_role_id[]" >
+	 <option class="select" value="0">选择角色</option>
+	 <!--{loop $role_list $rrs}-->
+	 <option value="{$rrs[id]}"  {if $rrs[id] == $rs[levelup_role_id]}selected="selected"{/if}>{$rrs[name]} ($roletype[$rrs[role_type]])</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><select name="favor_item_id[]" >
+	 <option class="select" value="0">选择物品</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}"  {if $irs[id] == $rs[favor_item_id]}selected="selected"{/if}>{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><input name="need_favor_value[]" type="text" value="{$rs[need_favor_value]}" size="10" /></td>
+    <td><input name="random_min[]" type="text" value="{$rs[random_min]}" size="10" /></td>
+    <td><input name="random_max[]" type="text" value="{$rs[random_max]}" size="10" /></td>
+    <td><input name="award_strength[]" type="text" value="{$rs[award_strength]}" size="10" /></td>
+    <td><input name="award_agile[]" type="text" value="{$rs[award_agile]}" size="10" /></td>
+    <td><input name="award_intellect[]" type="text" value="{$rs[award_intellect]}" size="10" /></td>
+    <td><input name="award_aura[]" type="text" value="{$rs[award_aura]}" size="10" /></td>
+    <td><input name="star[]" type="text" value="{$rs[star]}" size="10" /></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="15" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><select name="role_id_n" >
+	 <option class="select" value="0">选择角色</option>
+	 <!--{loop $role_list $rrs}-->
+	 <option value="{$rrs[id]}">{$rrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><select name="levelup_role_id_n" >
+	 <option class="select" value="0">选择角色</option>
+	 <!--{loop $role_list $rrs}-->
+	 <option value="{$rrs[id]}" >{$rrs[name]} ($roletype[$rrs[role_type]])</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><select name="favor_item_id_n" >
+	 <option class="select" value="0">选择物品</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}">{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><input name="need_favor_value_n" type="text" value="" size="10" /></td>
+    <td><input name="random_min_n" type="text" value="" size="10" /></td>
+    <td><input name="random_max_n" type="text" value="" size="10" /></td>
+    <td><input name="award_strength_n" type="text" value="" size="10" /></td>
+    <td><input name="award_agile_n" type="text" value="" size="10" /></td>
+    <td><input name="award_intellect_n" type="text" value="" size="10" /></td>
+    <td><input name="award_aura_n" type="text" value="" size="10" /></td>
+    <td><input name="star_n" type="text" value="" size="10" /></td>
+	<td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="15" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="15" align="center">
+	<input type="hidden" name="action" value="SetRoleLevelupInfo" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

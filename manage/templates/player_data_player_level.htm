@@ -1,0 +1,62 @@
+{template player_data_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table" style="margin-bottom:5px;">
+  <tr style="font-size:14px;" align="center">
+
+	<td width="200" height="30">{lang SSRS}:<strong>{$ss_num}</strong> <span class="smalltext graytext">{$ss_rate}%</span></td>
+	<td width="200">{lang KLRS}:<strong>{$kl_num}</strong> <span class="smalltext graytext">{$kl_rate}%</span></td>
+	<td width="200">{lang MANRS}:<strong class="bluetext">{$boy_num}</strong> <span class="smalltext graytext">{$boy_rate}%</span></td>
+	<td width="200">{lang WOMANRS}:<strong class="redtext">{$girl_num}</strong> <span class="smalltext graytext">{$girl_rate}%</span></td>
+	
+	<td width="200">{lang ZCJRS}:{$num}</td>
+	<td>&nbsp;</td>
+  </tr>
+</table>
+<table class="table">    
+  <!--tr class="title_3">
+    <td colspan="8">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">	
+	时间范围： <input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly />
+	<input type="submit" name="Submit" id="Submit" value=" 查 询 " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Data" />
+	<input name="type" type="hidden" value="player_level" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr--> 
+
+  <tr align="center" class="title_2">
+  	<td width="100">{lang LV}</td>
+	<td width="100">{lang ZJWFP}</td>
+	<td width="100">{lang SSRS}</td>
+	<td width="100">{lang KLRS}</td>
+  	<td width="60" style="border-left:3px">{lang CENJI}</td>
+	<td width="100">{lang ZJWFP}</td>
+	<td width="100">{lang SSRS}</td>
+	<td width="100">{lang KLRS}</td>
+	
+	<td>&nbsp;</td>
+  </tr>
+  
+  <!--{if $level_list}-->
+  <!--{loop $level_list $rs $level}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" >
+    <td align="center" class="td4">Lv.{$level}</td>
+	<td><!--{if $player[$level][num]}--><strong>{$player[$level][num]}</strong> <span class="smalltext graytext">({echo round($player[$level][num]/$num*100,2)}%)</span><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $player[$level][ss_num]}--><strong>{$player[$level][ss_num]}</strong> <span class="smalltext graytext">({echo round($player[$level][ss_num]/$ss_num*100,2)}%)</span><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $player[$level][kl_num]}--><strong>{$player[$level][kl_num]}</strong> <span class="smalltext graytext">({echo round($player[$level][kl_num]/$kl_num*100,2)}%)</span><!--{else}-->-<!--{/if}--></td>
+    <td align="center" class="td4" style="border-left:3px"><!--{if $lv[$level][level_num]}--><!--{if ($level - 9) == 0}-->1<!--{else}-->{echo $level - 9}<!--{/if}--> ~ {$level}<!--{/if}--></td>
+	<td class="bluetext"><!--{if $lv[$level][level_num]}--><strong>{$lv[$level][level_num]}</strong> <span class="smalltext graytext">({echo round($lv[$level][level_num]/$num*100,2)}%)</span><!--{/if}--></td>
+	<td class="bluetext"><!--{if $lv[$level][level_ss_num]}--><strong>{$lv[$level][level_ss_num]}</strong> <span class="smalltext graytext">({echo round($lv[$level][level_ss_num]/$ss_num*100,2)}%)</span><!--{/if}--></td>
+	<td class="bluetext"><!--{if $lv[$level][level_kl_num]}--><strong>{$lv[$level][level_kl_num]}</strong> <span class="smalltext graytext">({echo round($lv[$level][level_kl_num]/$kl_num*100,2)}%)</span><!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="10"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>

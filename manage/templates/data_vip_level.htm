@@ -1,0 +1,108 @@
+<!--{if !$ok}-->
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<form action="?in=data&action=DataVipLevel" method="post" name="form" id="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2">{lang PTVIPDJTJ}</th>
+    </tr>
+    <tr>
+      <td align="right" valign="top"><strong>{lang COMPANY}</strong></td>
+      <td>
+	  <select name="cid" id="cid">
+		 <!--option class="select">{lang ALL}</option-->
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>	
+		<input type="button" name="button" value=" {lang SEARCH} " class="button" onclick="selectAjax('call.php?action=CallOpenDateServers','sid','cid',1);"/>
+      </td>
+    </tr>
+	
+    <tr>
+      <td align="right" valign="top"><strong>{lang SERVER}</strong></td>
+      <td><select name="sid[]" id="sid" size="30" multiple="multiple"  >
+          <!--{if $servers_list}-->
+          <!--{loop $servers_list $srs}-->
+          <option value="{$srs[sid]}" >{$srs[name]}-{$srs[o_name]} ({$srs[server]})</option>
+          <!--{/loop}-->
+          <!--{else}-->
+          <option  class="select">---------------------{lang CHOOSE}---------------------</option>
+          <!--{/if}-->
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td width="100"><input name="ok" type="hidden" value="1" />
+          <input name="action" type="hidden" value="DataVipLevel" /></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" {lang SUBMITOK} " class="button"/></td>
+    </tr>
+  </table>
+</form >
+<!--{else}-->
+<table class="table">    
+  <tr>
+    <th colspan="6">{lang PTVIPDJTJ}</th>
+  </tr> 
+
+  <tr align="center" class="title_2">
+    <td width="100">VIP</td>
+    <td width="100">{lang USERNUM}</td>
+    <td width="100">{lang BILI}%</td>
+    <td><span id="sss" onmouseover="showMenu(this.id);">{lang CYTJFWQ}</span></td>
+  </tr>
+  <tr  align="right" class="purpletext trtitle">
+    <td align="center">{lang ZONGJI}</td>
+	<td>{$player_num}</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+  </tr>
+  
+  <!--{if $level_list}-->
+  <!--{loop $level_list $rs $level}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className=""  align="right">
+    <td align="center" class="td4">{$level}</td>
+	<td><!--{if $p[$level][num]}--><strong>{$p[$level][num]}</strong><!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $p[$level][num]}-->{echo round($p[$level][num]/$player_num*100,2)}%<!--{else}-->-<!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="4"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>
+<div id="sss_menu" class="table" style="display:none;width:300px;padding:10px;">
+<span onclick="CycleUpdate()">{lang GXWCHQSX}</span>
+<table width="100%" class="table">   
+  <!--{if $list_array}-->
+	<!--{loop $list_array $srs}-->	  
+  <tr>
+	<td width="50"><strong>{$srs[name]}</strong></td>
+	<td><!--{if time()-$srs[filetime] > 3600}--><span id="s_{$srs[sid]}" ><input type="hidden" name="sid[]" value="{$srs[cid]}|{$srs[sid]}"/><a href="#" onclick="SetUrl('?in=player&action=Data&type=player_level_vip&cid={$srs[cid]}&sid={$srs[sid]}&s=s_{$srs[sid]}','{$srs[sid]}')">{lang SJYGQCXSC}</a></span><iframe id="d_{$srs[sid]}" name="d_{$srs[sid]}" width="0" height="0" frameborder="0"></iframe><!--{/if}--></td>
+	</tr>
+  <!--{/loop}--> 
+  <!--{/if}--> 
+</table>
+</div>
+<!--{/if}-->
+<script language="javascript" type="text/javascript">
+
+function CycleUpdate(){
+	var sidArr = document.getElementsByName("sid[]");
+	var sidArrL = sidArr.length;
+	if(sidArrL > 0){
+		var sidVal = sidArr[0].value;
+		var val = sidVal.split("|");
+		SetUrl('?in=player&action=Data&type=player_level_vip&cid='+val[0]+'&sid='+val[1]+'&s=s_'+val[1]+'',val[1]);
+	}else{
+		location.reload();
+	}
+
+}
+
+function SetUrl(url,sid){
+	top.frames['d_'+ sid].location.href  = url;
+	$('s_'+ sid).innerHTML='updating...';
+}
+</script>

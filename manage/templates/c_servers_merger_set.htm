@@ -1,0 +1,57 @@
+<form action="?in=open" method="post" name="form" onSubmit="setSubmit('Submits')">
+<table class="table">
+  <tr>
+    <th colspan="2">{lang HFJH} > <span class="yellowtext">{$rs[company_name]}</span> > {lang EDIT}</th>
+  </tr>
+   <tr>
+    <td align="right" width="100"><strong>{lang COMPANY}</strong></td>
+	<td>{$rs[company_name]}</td>
+  </tr>   
+  <tr>
+    <td align="right"><strong>{lang OPENDATE}</strong></td>
+	<td>
+	<!--{if !$ism}-->
+	<input name="open_date" id="open_date" type="text" value="{echo date('Y-m-d H:i',strtotime($rs[open_date]))}"  size="18" onclick="showcalendar(event, this,true)" readonly/>
+	<!--{else}-->
+	{echo date('Y-m-d H:i',strtotime($rs[open_date]))}
+	<input name="open_date" type="hidden" value="{echo date('Y-m-d H:i',strtotime($rs[open_date]))}" />
+	<!--{/if}-->
+	</td>
+  </tr> 
+  <tr >
+    <td align="right" valign="top"><strong>{lang SERVER}</strong></td>
+    <td>
+	<!--{if !$ism}-->
+	<span class="bluetext">{lang XZHBFWQ}</span><br /><select name="sid_m[]" size="10" multiple="multiple" id="sid_m">
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if in_array($srs[sid],$mergerServersArr)} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}{$srs[name2]}<!--{if $srs[combined_to]}--> [{lang YHF}]<!--{/if}--></option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->	 
+	</select>
+	<!--{else}-->
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <!--{if in_array($srs[sid],$mergerServersArr)}-->
+	 <input type="hidden" name="sid_m[]" value="{$srs[sid]}" />
+	 <span class="graytext">·</span> <strong>{$srs[name]}-{$srs[o_name]}</strong><!--{if $srs[combined_to]}--> <span class="greentext">[{lang YHF}]</span><!--{/if}--><br />
+	 <!--{/if}-->
+	 <!--{/loop}-->	
+	 <!--{/if}-->	 	
+	<!--{/if}-->
+	</td>
+    </tr>     	
+  <tr>       
+  <tr>
+    <td align="right"><strong>{lang NOTE}</strong></td>
+	<td><textarea name="contents" cols="80" rows="6" >{$rs[contents]}</textarea></td>
+  </tr>       
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+	<input type="hidden" name="action" value="SaveEditServersMerger" />
+	<input type="hidden" name="id" value="{$id}" />
+	<input type="hidden" name="combined_to" value="{$rs[combined_to]}" />
+	<input type="submit" id="Submits" name="Submit" value="{lang SUBMITEDIT}" onClick='javascript: return confirm("{lang DOYOUDO}");'  class="button"/>	</td>
+  </tr>   
+</table>

@@ -1,0 +1,57 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+
+
+<form method="post" action="?in=mission" name="form" id="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="7"><span class="bluetext">{$name}</span> 剧情的宝箱掉落物品</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="35">删除</td>
+    <td width="150">剧情奖励</td>
+    <td width="100">数量</td>
+    <td width="100">掉落概率</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[mission_id]}<input name="mission_id[]" type="hidden" value="{$rs[mission_id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[mission_id]},{$rs[item_id]}" title="选择删除"/></td>
+    <td><input name="item_id[]" type="hidden" value="{$rs[item_id]}"/>{$rs[item_name]} ({$rs[type_name]})</td>
+    <td><input name="number[]" type="text" value="{$rs[number]}"  size="10"/></td>
+    <td><input name="probability[]" type="text" value="{$rs[probability]}"  size="10"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="8" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="item_id_n" >
+	 <option class="select">选择物品</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}" >{$irs[name]} ({$irs[type_name]})</option>
+	 <!--{/loop}-->	
+	</select>	</td>
+    <td><input name="number_n" type="text" value=""  size="10"/></td>
+    <td><input name="probability_n" type="text" value=""  size="10"/></td>
+    <td>&nbsp;</td>
+    </tr>  
+  <tr>
+    <td>&nbsp;</td>
+   <td> <input type="checkbox" name="allid"  onclick="CheckAll(this,'form','id_del[]');" />全选</td>
+    <td colspan="6" align="center">
+	<input name="mission_id_n" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetMissionItem" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

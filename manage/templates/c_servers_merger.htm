@@ -1,0 +1,141 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<form method="post" action="?in=open" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th colspan="3">{lang HFJH}</th>
+  </tr>
+  <tr>
+	<td width="100" align="right"><strong>{lang OPENDATE}</strong></td>
+    <td><input name="open_date" id="open_date" type="text" value="{echo date('Y-m-d H:i',time())}"  size="18" onclick="showcalendar(event, this,true)" readonly/></td>	
+    </tr> 
+  <tr >
+  
+    <td align="right"><strong>{lang COMPANY}</strong></td>
+    <td><select name="cid" id="cid" onChange="selectAjax('call.php?action=CallCompanyServersMerger','sid_m','cid',1)">
+	 <option class="select">{lang CHOOSE}</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}">{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    </tr>     	
+  <tr>
+  <tr >
+  
+    <td align="right" valign="top"><strong>{lang SERVER}</strong></td>
+    <td><span class="bluetext">{lang COMPANY}</span><br />
+	<select name="sid_m[]" size="10" multiple="multiple" id="sid_m">
+	<option class="select">{lang ALLSERVER}</option>
+	</select></td>
+    </tr>     	
+  <tr>
+  
+  
+    <td align="right" valign="top"><strong>{lang NOTE}</strong></td>
+    <td><textarea name="contents" cols="80" rows="6" ></textarea></td>
+    </tr>   
+  <tr>
+	<td align="right"><input type="hidden" name="action" value="SetServersMerger" /></td>
+    <td >
+	<input type="submit" id="Submit" name="Submit" value=" {lang SUBMITOK} " onClick='javascript: return confirm("{lang DOYOUDO}");'  class="button"/> 
+	<strong class="redtext">&nbsp;</strong>
+	</td>
+    </tr> 
+</table>
+</form>  
+
+<table class="table">
+  <tr class="title_3">
+    <td colspan="9">
+	<select name="cid" id="cid"  onChange="jumpMenu2(this)">
+	 <option class="select">{lang COMPANY}</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	  
+	<select name="odate" id="odate" onChange="jumpMenu(this)">
+	  <option value="" >{lang OPENDATE}</option>
+	<!--{if $day_list}-->
+	  <!--{loop $day_list $drs}-->
+	  <option value="{$drs[odate]}" {if $drs[odate] == $odate} selected="selected" {/if}>{$drs[odate]} 【{$drs[s_num]}台】</option>
+	  <!--{/loop}-->
+	  <!--{else}-->
+	<!--{/if}-->		
+	</select>	
+	<a href="?in=open&action=ServersMerger&odate={echo date('Y-m-d')}" class="{if $odate == date('Y-m-d')} title_menu_on {else} title_menu greentext {/if}">{lang JRHFMSG}</a>
+	</td>
+  </tr>    
+   <tr align="center" class="title_2">
+    <td width="50">ID</td>
+    <td width="120">{lang OPENDATE}</td>
+	<td width="80">{lang COMPANY}</td>
+	<td>{lang HBFWQ}</td>
+	<td>{lang MBFWQ}</td>
+	<td>{lang NOTE}</td>
+    <td width="50">&nbsp;</td>
+    </tr>  	
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	 
+   <!--{eval $sn = explode(",",$rs[sid_m]);}-->	
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center" >
+	<td>{$rs[id]}</td>
+    <td class="bluetext">{echo date('Y-m-d H:i',strtotime($rs[open_date]))}</td>	
+	<td><a href="?in=server&cid={$rs[cid]}">{$rs[company_name]}</a></td>
+	<td align="left">
+	<!--{if $sn}-->
+	  <!--{loop $sn $srs $sid}-->	
+		<!--{if $s[$sid][name]}--><span class="graytext">·</span> <strong>{$s[$sid][name]}-{$s[$sid][o_name]}</strong><!--{if $s[$sid][combined_to]}--> <span class="greentext">[{lang YHF}]</span><!--{/if}--><br /><!--{/if}-->
+		<!--{if $s[$sid][is_combined]}-->
+		<!--{eval $d[] = $s[$sid][open_date_old]}-->
+		<!--{else}-->
+		<!--{eval $d[] = $s[$sid][open_date]}-->
+		<!--{/if}-->
+	 <!--{/loop}-->
+	<!--{/if}-->
+	<!--{eval $min_date = min($d)}-->
+	
+	</td>
+	<td><!--{if $rs[combined_to]}--><a href="?in=player&cid={$rs[cid]}&sid={$rs[combined_to]}">{$rs[sname]}</a><!--{else}-->-<!--{/if}--></td>
+	<td align="left" valign="top">
+	<!--{if $rs[contents]}-->{echo dehtml($rs[contents])}<br /><!--{/if}-->
+	<!--{if $sn}-->
+	  <!--{loop $sn $srs $sid}-->
+		<!--{if $s[$sid][is_combined]}-->
+	  		<!--{eval $days = ceil(abs(strtotime(date('Y-m-d',strtotime($s[$sid][open_date_old]))) - strtotime(date('Y-m-d',strtotime($min_date))))/86400)}-->
+		<!--{else}-->
+	  		<!--{eval $days = ceil(abs(strtotime(date('Y-m-d',strtotime($s[$sid][open_date]))) - strtotime(date('Y-m-d',strtotime($min_date))))/86400)}-->
+		<!--{/if}-->			
+	 	<!--{if $min_date == $s[$sid][open_date]}-->
+			<!--{eval $bc = '补偿200W铜币'}-->
+		<!--{else}-->
+			<!--{eval $bc = '补偿'.(200+$days*20).'W铜币与'.($days*40).'体力'}-->
+		<!--{/if}-->		
+		<!--{if $s[$sid][name]}--><span class="graytext">·</span><strong>{$s[$sid][name]}</strong> <span class="bluetext">{$bc}</span><!--{if $days > 0}--><span class="graytext">[{$days}天]</span><!--{/if}--><br /><!--{/if}-->
+	 <!--{/loop}-->
+	<!--{/if}-->
+	<span class="graytext">注册7天（含7天）以上的角色方能获得合服补偿。</span>
+	<!--{eval unset($d,$min_date,$days,$bc)}-->
+	
+	</td>
+	<td><a href="javascript:void(0)" onclick="pmwin('open','call.php?action=CallServersMergerSet&cid={$rs[cid]}&id={$rs[id]}&sid={$rs[combined_to]}')" class="title_menu">{lang EDIT}</a></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="7" align="center">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="7" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+</table>
+<script language="javascript">
+function jumpMenu(selObj){
+	location="?in=open&action=ServersMerger&odate="+selObj.options[selObj.selectedIndex].value+"";
+}
+function jumpMenu2(selObj){
+	location="?in=open&action=ServersMerger&cid="+selObj.options[selObj.selectedIndex].value+"";
+}
+</script>

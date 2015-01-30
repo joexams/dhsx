@@ -1,0 +1,109 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=deploy" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="8"><span class="bluetext">{$name}</span> 的阵法站位信息</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="35">删除</td>
+    <td>阵法类型</td>
+    <td>要求玩家等级</td>
+    <td>阵眼选择</td>
+    <td colspan="2">参考</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr align="center" >
+	<td>{$rs[id]}<input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td>
+	<select name="deploy_grid_type_id[]" >
+	 <option class="select">选择站位类型</option>
+	 <!--{loop $deploy_grid_type_list $dgtrs}-->
+	 <option value="{$dgtrs[id]}" {if $dgtrs[id] == $rs[deploy_grid_type_id]}selected="selected"{/if}>{$dgtrs[desc]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="require_level[]" type="text" value="{$rs[require_level]}"  size="10"/></td>
+    <td>
+    	<select name="type[{$rs[id]}]">
+    		<option value="0">无</option>
+    		<option value="1" {if $rs[type] == 1}selected="selected"{/if}>第一阵眼</option>
+    		<option value="2" {if $rs[type] == 2}selected="selected"{/if}>第二阵眼</option>
+    	</select>
+    </td>
+    <!--{if $rs[i]==1}-->
+	<td rowspan="{$num}">
+	<table width="110" border="0" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
+	  <tr align="center">
+		<td {if in_array(7,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>后上</td>
+		<td {if in_array(4,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>中上</td>
+		<td {if in_array(1,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>前上</td>
+	  </tr>
+	  <tr align="center">
+		<td {if in_array(8,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>后中</td>
+		<td {if in_array(5,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>中中</td>
+		<td {if in_array(2,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>前中</td>
+	  </tr>
+	  <tr align="center">
+		<td {if in_array(9,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>后下</td>
+		<td {if in_array(6,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>中下</td>
+		<td {if in_array(3,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>前下</td>
+	  </tr>
+	</table>	</td>
+	<td rowspan="{$num}">
+	<table width="110" border="0" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
+	  <tr align="center">
+		<td {if in_array(1,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>前上</td>
+		<td {if in_array(4,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>中上</td>
+		<td {if in_array(7,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>后上</td>
+	  </tr>
+	  <tr align="center">
+		<td {if in_array(2,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>前中</td>
+		<td {if in_array(5,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>中中</td>
+		<td {if in_array(8,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>后中</td>
+	  </tr>
+	  <tr align="center">
+		<td {if in_array(3,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>前下</td>
+		<td {if in_array(6,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>中下</td>
+		<td {if in_array(9,$n)}bgcolor="#FFFF99"{else}bgcolor="#FFFFFF"{/if}>后下</td>
+	  </tr>
+	</table>	
+	
+	</td>
+	<!--{/if}-->
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="9" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="deploy_grid_type_id_n" >
+	 <option class="select">选择站位类型</option>
+	 <!--{loop $deploy_grid_type_list $dgtrs}-->
+	 <option value="{$dgtrs[id]}">{$dgtrs[desc]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="require_level_n" type="text" value=""  size="10"/></td>
+    
+     <td><select name="type_n">
+    	<option value="0">无</option>
+		<option value="1">第一阵眼</option>
+		<option value="2">第二阵眼</option>
+	</select></td>
+	<td colspan="2">&nbsp;</td>
+    </tr>  
+  <tr>
+    <td colspan="9" align="center">
+	<input name="deploy_mode_id_n" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetDeployGrid" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

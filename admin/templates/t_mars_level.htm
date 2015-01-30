@@ -1,0 +1,48 @@
+<form method="post" action="?in=mars" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="6">关公等级</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">&nbsp;</td>
+  <td width="35">删除</td>
+    <td width="80">等级</td>
+    <td width="120">到此等级需要的灵气</td>
+    <td width="100">副本经验加成</td>
+  <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->   
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+  <td>{$rs[level]}<input name="level[]" type="hidden" value="{$rs[level]}"/></td>
+  <td><input type="checkbox" name="id_del[]" value="{$rs[level]}" title="选择删除"/></td>
+    <td><strong>{$rs[level]}</strong></td>
+    <td><input name="require_exp[]" type="text" value="{$rs[require_exp]}"  size="10"/></td>
+    <td><input name="mission_exp_add[]" type="text" value="{$rs[mission_exp_add]}"  size="10"/></td>
+  <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+  <td colspan="6" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+  <td colspan="2">新增记录→</td>
+    <td><input name="level_n" type="text" value=""  size="10"/></td>
+    <td><input name="require_exp_n" type="text" value=""  size="10"/></td>
+    <td><input name="mission_exp_add_n" type="text" value=""  size="10"/></td>
+  <td>&nbsp;</td>
+    </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="6" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->       
+  <tr>
+    <td colspan="5" align="center">
+  <input type="hidden" name="action" value="SetMarsLevel" />
+  <input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

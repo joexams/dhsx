@@ -1,0 +1,65 @@
+<form action="?in=open" method="post" name="form" onSubmit="setSubmit('Submits')">
+<table class="table">
+  <tr>
+    <th colspan="2">{lang KFLB} > <span class="yellowtext">{$rs[company_name]}-{$rs[o_name]}</span> > {lang EDIT}</th>
+  </tr>
+   <tr>
+    <td align="right" width="100"><strong>{lang COMPANY}</strong></td>
+	<td>{$rs[company_name]}</td>
+  </tr>    
+   <tr>
+    <td align="right" width="100"><strong>{lang SERVERNAME}</strong></td>
+	<td><input name="o_name" type="text" value="{$rs[o_name]}"  size="40"/></td>
+  </tr>  
+  <tr>
+    <td align="right"><strong>{lang YXDZ}</strong></td>
+	<td><input name="server" id="server_{$rs[sid]}" type="text" value="{$rs[server]}" size="40" onBlur="checkservers({$rs[sid]})"/><br /><span id="server_{$rs[sid]}_show" class="redtext"></span></td>
+  </tr>   
+  <tr>
+    <td align="right"><strong>{lang OPENDATE}</strong></td>
+	<td><input name="open_date" id="open_date" type="text" value="{echo date('Y-m-d H:i',strtotime($rs[open_date]))}"  size="18" onclick="showcalendar(event, this,true)" readonly/></td>
+  </tr> 
+   <tr class="title_3">
+    <td colspan="2">{lang MRHDSZMSG}</td>
+  </tr>    
+  <tr>
+    <td align="right"><strong>{lang SCHD}</strong></td>
+	<td>
+	<input name="first_pay_act" type="radio" value="0" {if $rs[first_pay_act] == 0} checked="checked" {/if}/> {lang CLOSE}
+	<input name="first_pay_act" type="radio" value="1" {if $rs[first_pay_act] == 1} checked="checked" {/if} /> {lang OPEN}
+	<span class="graytext">{lang SCHDMSG}</span>
+	</td>
+  </tr>  
+  <tr>
+    <td align="right"><strong>{lang DJPHHD}</strong></td>
+	<td>
+	<input name="level_act" type="radio" value="0" {if $rs[level_act] == 0} checked="checked" {/if}/> {lang CLOSE}
+	<input name="level_act" type="radio" value="1" {if $rs[level_act] == 1} checked="checked" {/if} /> {lang OPEN}
+	<span class="graytext">{lang DJPHHDMSG}</span>
+	</td>
+  </tr> 
+  <tr>
+    <td align="right"><strong>{lang FBPHHD}</strong></td>
+	<td>
+	<input name="mission_act" type="radio" value="0" {if $rs[mission_act] == 0} checked="checked" {/if}/> {lang CLOSE}
+	<input name="mission_act" type="radio" value="1" {if $rs[mission_act] == 1} checked="checked" {/if} /> {lang OPEN}
+	<span class="graytext">{lang FBPHHDMSG}</span>
+	</td>
+  </tr>  
+  <tr>
+    <td align="right"><strong>{lang XSKHD}</strong></td>
+	<td>
+	<input name="new_card_act" type="radio" value="0" {if $rs[new_card_act] == 0} checked="checked" {/if}/> {lang CLOSE}
+	<input name="new_card_act" type="radio" value="1" {if $rs[new_card_act] == 1} checked="checked" {/if} /> {lang OPEN}
+	<span class="graytext">{lang XSKHDMSG}</span>
+	</td>
+  </tr>       
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+	<input type="hidden" name="action" value="SaveEditServersOpen" />
+	<input type="hidden" name="sid" value="{$sid}" />
+	<input type="hidden" name="cid" value="{$rs[cid]}" />
+	<input type="submit" id="Submit" name="Submit" value="{lang SUBMITEDIT}" onClick='javascript: return confirm("{lang DOYOUDO}");'  class="button"/>	</td>
+  </tr>   
+</table>

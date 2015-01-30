@@ -1,0 +1,71 @@
+{template player_data_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">    
+  <tr class="title_3">
+    <td colspan="12">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">	
+	{lang TSFW}： <input name="day" type="text" value="{$day}" size="10" /> {lang TSFWMSG}<br />
+	{lang TIMERANGE}： <input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> -  
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly /> ({lang SJFWMSG})<br />
+	{lang LEVELFW}： <input name="slevel" type="text" value="{$slevel}" size="10" /> - <input name="elevel" type="text" value="{$elevel}" size="10" />
+	
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Data" />
+	<input name="type" type="hidden" value="player_out" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr> 
+
+  <tr align="center" class="title_2">
+  	<td width="80">{lang LEVEL}</td>
+	<td width="80">{lang CJS}</td>
+	<td width="80">{lang LSRS}</td>
+	<td width="80" style="border-right:3px;">{lang LSL}</td>
+	<td width="80">{lang PAYUSER}</td>
+	<td width="80">{lang CZLSRS}</td>
+	<td width="80" style="border-right:3px;">{lang CZLSL}</td>
+    <td width="80">VIP{lang USERNUM}</td>
+    <td width="80">VIP{lang LSRS}</td>
+    <td width="80">VIP{lang LSL}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <tr align="center" class="purpletext trtitle">
+    <td>{lang ZONGJI}</td>
+	<td><!--{if $all[player_count]}-->{$all[player_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $all[player_out_count]}-->{$all[player_out_count]}<!--{else}-->-<!--{/if}--></td>
+	<td style="border-right:3px;"><!--{if $all[player_count]}-->{echo round($all[player_out_count]/$all[player_count],2)*100}%<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $all[player_pay_count]}-->{$all[player_pay_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $all[player_out_pay_count]}--><a href="?in=player&cid={$cid}&sid={$sid}&order=vip&day={$day}" target="_blank">{$all[player_out_pay_count]}</a><!--{else}-->-<!--{/if}--></td>
+	<td style="border-right:3px;"><!--{if $all[player_pay_count]}-->{echo round($all[player_out_pay_count]/$all[player_pay_count],2)*100}%<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $vipall[player_vip_count]}-->{$vipall[player_vip_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $vipall[player_out_vip_count]}-->{$vipall[player_out_vip_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $vipall[player_vip_count]}-->{echo round($vipall[player_out_vip_count]/$vipall[player_vip_count],2)*100}%<!--{else}-->-<!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+  
+  <!--{if $level_list}-->
+  <!--{eval $i=0}-->
+  <!--{loop $level_list $rs $level}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}"  align="center">
+    <td>Lv.{$level}</td>
+	<td><!--{if $player[$level][player_count]}-->{$player[$level][player_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $player[$level][player_out_count]}-->{$player[$level][player_out_count]}<!--{else}-->-<!--{/if}--></td>
+	<td style="border-right:3px;"><!--{if $player[$level][player_count]}-->{echo round($player[$level][player_out_count]/$player[$level][player_count],2)*100}%<!--{else}-->-<!--{/if}--></td>
+	<td class="bluetext"><!--{if $player[$level][player_pay_count]}-->{$player[$level][player_pay_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $player[$level][player_out_pay_count]}--><a href="?in=player&cid={$cid}&sid={$sid}&order=vip&day={$day}&level={$level}" target="_blank">{$player[$level][player_out_pay_count]}</a><!--{else}-->-<!--{/if}--></td>
+	<td style="border-right:3px;"><!--{if $player[$level][player_pay_count]}-->{echo round($player[$level][player_out_pay_count]/$player[$level][player_pay_count],2)*100}%<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $vip[$level][player_vip_count]}-->{$vip[$level][player_vip_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $vip[$level][player_out_vip_count]}-->{$vip[$level][player_out_vip_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $vip[$level][player_vip_count]}-->{echo round($vip[$level][player_out_vip_count]/$vip[$level][player_vip_count],2)*100}%<!--{else}-->-<!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="12"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>

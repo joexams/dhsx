@@ -1,0 +1,63 @@
+<form method="post" action="?in=faction" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="10">帮派金库</th>
+  </tr>
+ 
+  <tr align="center" class="title_2">
+    <td width="35">建筑等级</td>
+	<td width="35">删除</td>
+    <td width="100">建筑等级</td>
+    <td width="100">基金上限</td>
+    <td width="100">升级所需花费</td>
+    <td width="100">每小时维护费用</td>
+    <td width="100">资金下限</td>
+    <td width="100">升级所需经验</td>
+    <td width="100">所需天数</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[level]}<input name="id_old[]" type="hidden" value="{$rs[level]}" /></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[level]}" title="选择删除"/></td>
+  <td><input name="level[]" type="text" value="{$rs[level]}"  size="20"/></td>
+  <td><input name="upper_limit_money[]" type="text" value="{$rs[upper_limit_money]}"  size="20"/></td>
+  <td><input name="levelup_need_cost[]" type="text" value="{$rs[levelup_need_cost]}"  size="20"/></td>
+  <td><input name="maintain_cost[]" type="text" value="{$rs[maintain_cost]}"  size="20"/></td>
+  <td><input name="lower_limit_money[]" type="text" value="{$rs[lower_limit_money]}"  size="20"/></td>
+  <td><input name="levelup_need_exp[]" type="text" value="{$rs[levelup_need_exp]}"  size="20"/></td>
+  <td><input name="need_day[]" type="text" value="{$rs[need_day]}"  size="20"/></td>
+  <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+
+   <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}--> 
+  
+  <!--{else}-->
+  <tr>
+	<td colspan="10" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+   <td><input name="level_n" type="text" value=""  size="20"/></td>
+  <td><input name="upper_limit_money_n" type="text" value=""  size="20"/></td>
+  <td><input name="levelup_need_cost_n" type="text" value=""  size="20"/></td>
+  <td><input name="maintain_cost_n" type="text" value=""  size="20"/></td>
+  <td><input name="lower_limit_money_n" type="text" value=""  size="20"/></td>
+  <td><input name="levelup_need_exp_n" type="text" value=""  size="20"/></td>
+  <td><input name="need_day_n" type="text" value=""  size="20"/></td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="10" align="center">
+	<input type="hidden" name="action" value="SetFactionGoldenRoomInfo" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

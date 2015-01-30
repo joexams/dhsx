@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>战争评价模拟</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+
+  <style type="text/css">
+      .report_item{
+          float: left;
+          height: 100%;
+          border-right:1px solid teal;
+      }
+  </style>
+
+      <center>
+          <a href="index.php">战争模拟器</a>
+          <span style="color:red;font-weight: bold;font-size: 12px;"> 备注:下列表格中蓝色值表示支持从Excel中直接复制粘贴</span><br><br>
+          <form action="index.php?ac=rank" method="post" onsubmit="return checkForm(this)" >
+          <table width="1300px" border="0" bgcolor="#333333">
+                <tr align="center" bgcolor="#FFFFFF">
+                  <td>
+                    <table border="0" cellspacing="1" bgcolor="#333222" width="100%">
+                      <?php foreach($SoldierAttributeList as $ArmyType => $SoldierAttribute) {
+                        if ('attack' == $ArmyType) {
+                            $CheckSoldierList = $AttackSoldierList;
+                            $ArmyTypeText = '攻击方';
+                        }
+                        else {
+                            $CheckSoldierList = $DefenseSoldierList;
+                            $ArmyTypeText = '防守方';
+                        }
+                    ?>
+
+              <tr align="center" bgcolor="#FFFFFF">
+
+              <td width="80px"><?=$ArmyTypeText?></td>
+              <td width="1120px">
+                  <table border="0" cellspacing="1" bgcolor="#333222" width="100%">
+                      <tr align="center" bgcolor="#CCCCFF">
+                          <td>参战</td>
+                          <td>名称</td>
+                          <td>角色</td>
+                          <td>攻击<br>范围</td>
+                          <td width="200px">战法</td>
+                          <td>战法<br>攻击<br>范围</td>
+                          <td>等级</td>
+                          <td>生命</td>
+                          <td>攻击</td>
+                          <td>防御</td>
+                          <td>法术<br>攻击</td>
+                          <td>法术<br>防御</td>
+                          <td>绝技<br>攻击</td>
+                          <td>绝技<br>防御</td>
+                          <td>命中</td>
+                          <td>格挡</td>
+                          <td>闪避</td>
+                          <td>暴击</td>
+                          <td>阵形<br>坐标</td>
+                          <td>初始<br>气势</td>
+                      </tr>
+                      <?php
+                        $I = 1;
+                        foreach($SoldierAttribute as $Attribute) {
+                            $RoleKey = $I;
+
+                            foreach($Attribute as $AttributeKey => $Value) {
+                                $$AttributeKey           = $Value;
+                                $Key = "{$AttributeKey}_text_name";
+                                $$Key = "{$ArmyType}_{$RoleKey}_{$AttributeKey}";
+                            }
+
+                            $IsChk = in_array($role_id, $CheckSoldierList) ? 'checked' : '';
+                            $BgColor = 'checked' == $IsChk ? "gray" : "#FFFFFF";
+
+                            $I++;
+                    ?>
+                 <tr align="center" bgcolor="<?=$BgColor?>" id="<?=$ArmyType?>_<?=$role_id?>" style="background-color:<?=$BgColor?>;">
+                          <td><input name="<?=$ArmyType?>_role_list[]" type="checkbox" value="<?=$role_id?>" onclick="choose(this, '<?=$ArmyType?>_<?=$role_id?>')" <?=$IsChk?> /></td>
+                          <td><input id="<?=$role_name_text_name?>" name="<?=$role_name_text_name?>" type ="text" value="<?=$role_name?>" onclick="this.select();"  size="10" /></td>
+                          <td align="left">
+                              <select name="<?=$role_sign_text_name?>">
+                                  <?php
+                                  foreach ($Role as $RoleSign => $RoleName) {
+                                  ?>
+                                    <option value="<?=$RoleSign?>" <?php if($RoleSign==$role_sign) {echo "selected";} ?>><?=$RoleName?></option>
+                                  <?php }?>
+                              </select>
+                          </td>
+
+                          <td>
+                              <select name="<?=$attack_range_text_name?>">
+                                  <?php
+                                  foreach ($AttackRangeType as $AttackTypeKey => $AttackTypeValue) {
+                                  ?>
+                                    <option value="<?=$AttackTypeKey?>" <?php if($AttackTypeKey==$attack_range) {echo "selected";} ?>><?=$AttackTypeValue?></option>
+                                  <?php }?>
+                              </select>
+                          </td>
+
+                          <td>
+                              <select name="<?=$role_stunt_text_name?>">
+                                  <?php
+                                  foreach ($StuntType as $StuntKey => $StuntValue) {
+                                  ?>
+                                    <option value="<?=$StuntKey?>" <?php if($StuntKey==$role_stunt) {echo "selected";} ?>><?=$StuntValue?></option>
+                                  <?php }?>
+                              </select>
+                          </td>
+
+                          <td>
+                              <select name="<?=$role_stunt_attack_range_text_name?>">
+                                  <?php
+                                  foreach ($AttackRangeType as $AttackTypeKey => $AttackTypeValue) {
+                                  ?>
+                                    <option value="<?=$AttackTypeKey?>" <?php if($AttackTypeKey==$role_stunt_attack_range) {echo "selected";} ?>><?=$AttackTypeValue?></option>
+                                  <?php }?>
+                              </select>
+                          </td>
+                          <td><input id="<?=$role_level_text_name?>" name="<?=$role_level_text_name?>" onclick="this.select();" type ="text" value="<?=$role_level?>" size="2" /></td>
+                          <td><input style="color:blue" id="<?=$health_text_name?>" name="<?=$health_text_name?>" onchange="fill_data('<?=$ArmyType?>', '<?=$role_id?>', this.id);" onclick="this.select();" type ="text" value="<?=$health?>" size="3" /></td>
+                          <td><input style="color:blue" id="<?=$attack_text_name?>" name="<?=$attack_text_name?>" onchange="fill_data('<?=$ArmyType?>', '<?=$role_id?>', this.id);" onclick="this.select();" type ="text" value="<?=$attack?>" size="3" /></td>
+                          <td><input style="color:blue" id="<?=$defense_text_name?>" name="<?=$defense_text_name?>" onchange="fill_data('<?=$ArmyType?>', '<?=$role_id?>', this.id);" onclick="this.select();" type ="text" value="<?=$defense?>" size="3" /></td>
+                          <td><input style="color:blue" id="<?=$magic_attack_text_name?>" name="<?=$magic_attack_text_name?>" onchange="fill_data('<?=$ArmyType?>', '<?=$role_id?>', this.id);" onclick="this.select();" type ="text" value="<?=$magic_attack?>" size="3" /></td>
+                          <td><input style="color:blue" id="<?=$magic_defense_text_name?>" name="<?=$magic_defense_text_name?>" onchange="fill_data('<?=$ArmyType?>', '<?=$role_id?>', this.id);" onclick="this.select();" type ="text" value="<?=$magic_defense?>" size="3" /></td>
+                          <td><input style="color:blue" id="<?=$stunt_attack_text_name?>" name="<?=$stunt_attack_text_name?>" onchange="fill_data('<?=$ArmyType?>', '<?=$role_id?>', this.id);" onclick="this.select();" type ="text" value="<?=$stunt_attack?>" size="3" /></td>
+                          <td><input style="color:blue" id="<?=$stunt_defense_text_name?>" name="<?=$stunt_defense_text_name?>" onchange="fill_data('<?=$ArmyType?>', '<?=$role_id?>', this.id);" onclick="this.select();" type ="text" value="<?=$stunt_defense?>" size="3" /></td>
+                          <td><input style="color:blue" id="<?=$hit_text_name?>" name="<?=$hit_text_name?>" onchange="fill_data('<?=$ArmyType?>', '<?=$role_id?>', this.id);" onclick="this.select();" type ="text" value="<?=$hit?>" size="2" /></td>
+                          <td><input style="color:blue" id="<?=$block_text_name?>" name="<?=$block_text_name?>" onchange="fill_data('<?=$ArmyType?>', '<?=$role_id?>', this.id);" onclick="this.select();" type ="text" value="<?=$block?>" size="2" /></td>
+                          <td><input style="color:blue" id="<?=$dodge_text_name?>" name="<?=$dodge_text_name?>" onchange="fill_data('<?=$ArmyType?>', '<?=$role_id?>', this.id);" onclick="this.select();" type ="text" value="<?=$dodge?>" size="2" /></td>
+                          <td><input style="color:blue" id="<?=$critical_text_name?>" name="<?=$critical_text_name?>" onchange="fill_data('<?=$ArmyType?>', '<?=$role_id?>', this.id);" onclick="this.select();" type ="text" value="<?=$critical?>" size="2" /></td>
+                          
+            
+                          <td>
+                              <select name="<?=$position_text_name?>">
+                                  <?php
+                                  foreach ($PositionList as $PositionValue => $PositionDesc) {
+                                  ?>
+                                    <option value="<?=$PositionValue?>" <?php if($PositionValue==$position) {echo "selected";} ?>><?=$PositionDesc?></option>
+                                  <?php }?>
+                              </select>
+                          </td>
+                          
+                          <td><input id="<?=$momentum_text_name?>" name="<?=$momentum_text_name?>" onchange="fill_data('<?=$ArmyType?>', '<?=$role_id?>', this.id);" onclick="this.select();" type ="text" value="<?=$momentum?>" size="3" /></td>
+                      </tr>
+                  <?php }?>
+                  </table>
+              </td>
+          </tr>
+          <?php } ?>
+          <tr bgcolor="#FFFFFF" align="center">
+              <td colspan="2">
+                  副本:<select name="mission">
+                      <?php foreach ($MissionList as $Mission) {
+                            $TempMissionId   = $Mission['id'];
+                            $TempMissionName = $Mission['name'];
+                          ?>
+                      <option value="<?=$TempMissionId?>" <?php if($MissionId==$TempMissionId) {echo "selected";} ?>><?=$TempMissionName?></option>
+                      <?php }?>
+                  </select>
+                  平均伤害: <input name="vag_attack" type="text" value="<?=$VagAttack?>" size="4" />
+                  平均损血: <input name="vag_defense" type="text" value="<?=$VagDefense?>" size="4" />
+                  战争次数: <input name="runtimes" type="text" value="<?=$Runtimes?>" size="4" />
+                  <input name="submit" type="submit" value="开 始" />
+              </td></tr>
+          <tr bgcolor="#FFFFFF"><td  height="100px" align="center">结果</td><td>
+                  <table width="100%" border="0" cellspacing="1" bgcolor="#333222">
+                      <tr bgcolor="#FFFFFF">
+                      <td height="100%" colspan="2"><div style="margin-left: 100px;margin-top: 10px; line-height: 25px; height: 170px;">
+                              <?=$Result?><br><?=$FightResult?>
+                          </div></td>
+                      </tr>
+                  </table>
+              </td></tr>
+          </table></form>
+      </center>
+
+      <script language="javascript">
+          function fill_data (army_type, role_id, text_id) {
+
+              ele = document.getElementById(text_id);
+              text_value = ele.value;
+              values = text_value.split('\t');
+              if (values.length != 11) {
+                  if (values.length > 1) {
+                      alert('参数无效');
+                      ele.focus();
+                  }
+                  return true;
+              }
+              document.getElementById(army_type + '_' + role_id + '_health').value        = values[0];
+              document.getElementById(army_type + '_' + role_id + '_attack').value        = values[1];
+              document.getElementById(army_type + '_' + role_id + '_defense').value       = values[2];
+              document.getElementById(army_type + '_' + role_id + '_magic_attack').value  = values[3];
+              document.getElementById(army_type + '_' + role_id + '_magic_defense').value = values[4];
+              document.getElementById(army_type + '_' + role_id + '_stunt_attack').value  = values[5];
+              document.getElementById(army_type + '_' + role_id + '_stunt_defense').value = values[6];
+              document.getElementById(army_type + '_' + role_id + '_hit').value           = values[7];
+              document.getElementById(army_type + '_' + role_id + '_block').value         = values[8];
+              document.getElementById(army_type + '_' + role_id + '_dodge').value         = values[9];
+              document.getElementById(army_type + '_' + role_id + '_critical').value      = values[10];
+          }
+
+          function choose (chk, tr_id) {
+              trcolor = '#FFFFFF';
+              if(chk.checked == true) {
+                  trcolor = 'gray';
+              }
+              tr_obj = document.getElementById(tr_id);
+              tr_obj.style.backgroundColor = trcolor;
+          }
+
+          function checkForm (f) {
+              attack = "attack_role_list[]";
+              attack_role = false;
+
+              for(i=0; i<f.elements.length; i++) {
+                  obj = f.elements[i];
+                  if(obj.type == "checkbox") {
+                      if(obj.checked == true) {
+                          if(obj.name == attack) {
+                              attack_role = true;
+                          }
+                      }
+                  }
+              }
+              if(attack_role != true) {
+                  alert("请选择攻方出战角色");
+                  return false;
+              }
+
+              return true;
+          }
+      </script>
+  </body>
+</html>

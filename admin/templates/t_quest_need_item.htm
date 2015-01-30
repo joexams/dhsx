@@ -1,0 +1,55 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=quest" name="form"  onSubmit="setSubmit('Submit2')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="7"><span class="bluetext">{$name}</span> 的任务物品关联</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="35">删除</td>
+    <td width="150">物品</td>
+    <td width="100">数量</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[item_id]}<input type="hidden" name="id[]" value="{$rs[quest_id]}" /></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[quest_id]},{$rs[item_id]}" title="选择删除"/></td>
+    <td><input type="hidden" name="item_id[]" value="{$rs[item_id]}" /><strong>{$rs[item_name]}</strong> ({$rs[type_name]})</td>
+    <td><input name="item_count[]" type="text" value="{$rs[item_count]}"  size="5"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="8" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="item_id_n" >
+	 <option class="select">选择物品</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}" >{$irs[name]} ({$irs[type_name]})</option>
+	 <!--{/loop}-->	
+	</select>	</td>
+    <td><input name="item_count_n" type="text" value=""  size="5"/></td>	
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->      
+  <tr>
+    <td colspan="8" align="center">
+	<input name="quest_id" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetQuestNeedItem" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit4" name="Submit4" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

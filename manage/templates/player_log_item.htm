@@ -1,0 +1,186 @@
+{template player_log_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table" style="margin-bottom:5px;">
+  <tr class="title_3">
+    <td colspan="7">
+	<form action="" method="get" name="form" id="form" onSubmit="setSubmit('Submit')">
+	{lang WJCX}：<select name="usertype" id="usertype" >
+	<option value="1" {if $usertype == 1} selected="selected" {/if}>{lang USERNAME}</option>
+	<option value="2" {if $usertype == 2} selected="selected" {/if}>{lang USERNICK}</option>
+	</select>
+	<input name="username" type="text" value="{$username}" size="20" maxlength="20"  /><br />
+	{lang WPMC}：<input name="itemname" type="text" value="{$itemname}" size="20" maxlength="20"  /><br />
+	{lang TIMERANGE}：<input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly /><br />
+	<!--{if $server[server_ver] >= '2011092801'}-->
+	{lang DATAFROM}：<select name="f_db" id="f_db" >
+	<option value="0" {if !$f_db} selected="selected" {/if}>{lang NDATA}</option>
+	<option value="1" {if $f_db == 1} selected="selected" {/if}>{lang ODATA}</option>
+	</select><br />
+	<!--{/if}-->
+	{lang CZLX}：({lang CZLXMSG})<br />
+	{lang XFLX}：<br />
+	<!--{if $item_change_type1_array}-->
+	<!--{eval $i=1}-->
+	<!--{loop $item_change_type1_array $ictrs}-->
+	<input type="checkbox" id="tid_box_{$ictrs[id]}" {if in_array($ictrs[id],$tidArrList)} checked {/if} style="display:none;"/>
+	<a href="javascript:void(0)" id="tid_{$ictrs[id]}" class="{if in_array($ictrs[id],$tidArrList)} title_menu_on {else} title_menu {/if}" onclick="setTidArr({$ictrs[id]})" >{$ictrs[name]}</a>
+	<!--{if $i % 6 == 0}--><br /><!--{/if}-->
+	<!--{eval $i++}-->	
+	<!--{/loop}-->
+	<!--{/if}-->
+	<br />
+	{lang HQLX}：<br />
+	<!--{if $item_change_type0_array}-->
+	<!--{eval $i=1}-->
+	<!--{loop $item_change_type0_array $ictrs}-->
+	<input type="checkbox" id="tid_box_{$ictrs[id]}" {if in_array($ictrs[id],$tidArrList)} checked {/if} style="display:none;"/>
+	<a href="javascript:void(0)" id="tid_{$ictrs[id]}" class="{if in_array($ictrs[id],$tidArrList)} title_menu_on {else} title_menu {/if}" onclick="setTidArr({$ictrs[id]})" >{$ictrs[name]}</a>
+	<!--{if $i % 6 == 0}--><br /><!--{/if}-->
+	<!--{eval $i++}-->		
+	<!--{/loop}-->
+	<!--{/if}--><br />	
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Logs" />
+	<input name="type" type="hidden" value="item" />
+	<input name="tidArr" id="tidArr" value="{$tidArr}" style="display:none;">
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr> 
+  </table>
+<div id="threadlist" class="threadlist datalist" style="position: relative;"> 
+<form action="?in=apply" method="post" name="formF" id="formF" onSubmit="setSubmit('SubmitF')">
+<table class="table">
+  <tr class="title_2" align="center">
+    <td width="35">ID</td>
+    <td >{lang CZSJ}</td>
+	<td >{lang WPMC}</td>
+    <td >{lang ZENGJIAN}</td>
+	<td >{lang CZLX}</td>
+    <td >{lang USER}</td>
+	<td >{lang USERID}</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{eval $i=0}-->
+  <!--{loop $list_array $irs}-->
+    <!--{eval $apply = array(
+					'id'=>$irs['item_id'],
+					'name'=>$irs['item_name'],
+					'level'=>$irs[item_lv],
+					'number'=>1,
+				);
+		$irs[apply] = json_encode($apply);
+				}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}"  align="center" >
+	<td><!--{if $adminWebType == 's'}-->{$irs[id]}<!--{else}-->><!--{/if}--></td>
+	<td>{echo date('Y-m-d H:i:s',$irs[change_time])}</td>
+	<td>
+	<!--{if $idsArr && in_array($irs[id],$idsArr)}-->
+		<input type="checkbox" disabled="disabled" title="{lang YZH}"/>
+	<!--{else}-->
+
+		<!--{if in_array($irs[type],array(4,9))}--><input type="checkbox" name="apply[]" value='{$irs[id]}|{$irs[apply]}' onclick="tmodclick(this)"/><!--{/if}-->
+	<!--{/if}-->
+	<strong>{$irs[item_name]}</strong><!--{if !$f_db}-->(Lv.{$irs[item_lv]})<!--{/if}-->
+	</td>
+	<td >
+	<!--{if $irs[value] >= 0}-->
+	<strong class="greentext">+{$irs[value]}</strong>
+	<!--{else}-->
+	<strong class="bluetext">{$irs[value]}</strong>
+	<!--{/if}-->	</td>
+	<td >{$itemtype[$irs[type]][name]}</td>
+	<td align="left">
+	<strong><a href="?in=player&action=PlayerView&cid={$cid}&sid={$sid}&uid={$irs[player_id]}" target="_blank">{$irs[username]}</a></strong> ({$irs[nickname]})	</td>
+	<td>{$irs[player_id]}</td>
+  </tr>
+  <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+	<td colspan="7" class="page">{$list_array_pages}</td>
+  </tr>  
+	<!--{/if}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="7">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>
+<div id="modlayer" style="display: none;position:position">
+<input name="in" type="hidden" value="apply" />
+<input name="action" type="hidden" value="FindPlayerData" />
+<input name="username" type="hidden" value="{$username}" />
+<input name="nickname" type="hidden" value="{$nickname}" />
+<input name="player_id" type="hidden" value="{$player_id}" />
+<input name="cid" type="hidden" value="{$cid}" />
+<input name="sid" type="hidden" value="{$sid}" />	
+<input name="type" type="hidden" value="2" />
+<a class="collapse" href="javascript:;" onclick="$('modlayer').className='collapsed'"><img src="style/collapsed_yes.gif" alt="缩小" title="缩小" /></a>
+<span>选中</span><strong onmouseover="$('moremodoption').style.display='block'" onclick="$('modlayer').className=''" id="modcount"></strong><span>条记录 </span>
+
+<div id="moremodoption">
+<hr class="solidline" />
+<table>
+     <tr>
+      <td align="left"><strong>{lang BDZHYY}</strong><br /><textarea name="cause" cols="40" rows="5"></textarea></td>
+   </tr>
+     <tr>
+      <td align="left"><input type="submit" name="Submit" id="SubmitF" value=" {lang BDZHTJ} " class="button"/></td>
+   </tr>   
+ </table>  
+ </div>
+</div>
+</form>	
+</div>
+<script language="javascript" type="text/javascript">
+var modclickcount = 0;
+function tmodclick(obj) {
+
+	if(obj.checked) {
+			
+		modclickcount++;
+	} else {
+		modclickcount--;
+	}
+
+	
+	
+	
+	$('modcount').innerHTML = modclickcount;
+	if(modclickcount > 0) {
+		var top_offset = obj.offsetTop;
+		while((obj = obj.offsetParent).id != 'threadlist') {
+			top_offset += obj.offsetTop;
+		}
+		$('modlayer').style.top = top_offset - 7 + 'px';
+		$('modlayer').style.display = '';
+	} else {
+		$('modlayer').style.display = 'none';
+	}
+}
+
+function setTidArr(id) {
+	var tidValueOld = $('tidArr').value;
+	var tidValue = $('tidArr');
+
+	if ($('tid_box_'+id).checked ==false) {
+		$('tid_box_'+id).checked = true;
+		$('tid_'+id).className = 'title_menu_on';
+		var text;
+		if (!tidValueOld) {
+			text = id+',';
+		}else{
+			text = tidValueOld + id+',';
+		}
+		tidValue.value = text;
+	}else{
+		$('tid_box_'+id).checked = false;
+		$('tid_'+id).className = 'title_menu';
+		text = tidValueOld.replace(','+id+',',',');
+		tidValue.value = text;
+	}
+}	
+</script>

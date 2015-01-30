@@ -1,0 +1,57 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=mars" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="6"><span class="bluetext">{$name}</span> 的生肖关卡</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="30">删除</td>
+    <td width="100">关卡</td>
+    <td width="200">怪物团</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td><input name="zodiac_level[]" type="hidden" value="{$rs[zodiac_level]}"/><input type="checkbox" name="id_del[]" value="{$rs[zodiac_level]},{$rs[barrier]}" title="选择删除"/></td>
+    <td><input name="barrier[]" type="hidden" value="{$rs[barrier]}"/>{$rs[barrier]}</td>
+	<td><select name="monster_team_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $monster_team_list $mtrs}-->
+	 <option value="{$mtrs[id]}"  {if $mtrs[id] == $rs[monster_team_id]}selected="selected"{/if}>{$mtrs[level]}级-{$mtrs[monster_name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td>&nbsp;</td>
+	</tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="6" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->  
+  <!--{else}-->
+  <tr>
+	<td colspan="6" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td>新增→</td>
+    <td><input name="barrier_n" type="text" value="" size="10"/></td>
+	<td><select name="monster_team_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $monster_team_list $mtrs}-->
+	 <option value="{$mtrs[id]}"  {if $mtrs[id] == $rs[monster_team_id]}selected="selected"{/if}>{$mtrs[level]}级-{$mtrs[monster_name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td>&nbsp;</td>
+	</tr>  
+  <tr>
+    <td colspan="6" align="center">
+	<input name="zodiac_level_n" type="hidden" value="{$level}"/>
+	<input type="hidden" name="action" value="SetZodiacRequire" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

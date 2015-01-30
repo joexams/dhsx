@@ -1,0 +1,70 @@
+<form method="post" action="?in=setup" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="7">全局权限列表</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="7">
+	<a href="?in=setup&action=SetupPower"  class="{if !$type} title_menu_on {else} title_menu {/if}">开发</a>
+	<a href="?in=setup&action=SetupPower&type=u"  class="{if $type == 'u'} title_menu_on {else} title_menu {/if}">客服</a>
+	<a href="?in=setup&action=SetupPower&type=c"  class="{if $type == 'c'} title_menu_on {else} title_menu {/if}">运营商</a>
+	</td>
+  </tr>     
+  <tr class="title_2" align="center">
+    <td width="35">ID</th>
+    <td width="35">删除</th>
+    <td width="100">排序</thd>
+    <td width="250">名称</td>
+    <td width="150">权限值</td>
+    <td width="100">类型</td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $prs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center">
+	<td>{$prs[pid]}</td>
+	<td><!--{if $prs[pid]!=1}--><input type="checkbox" name="id_del[]" value="{$prs[pid]}" title="选择删除{$prs[pname]}" /><!--{else}-->-<!--{/if}--></td>
+	<td><input name="porder[]" type="text" value="{$prs[porder]}" size="10" maxlength="2"/></td>
+	<td>	
+	<input name="id[]" type="hidden" value="{$prs[pid]}"/>
+	<input name="pname[]" type="text" value="{$prs[pname]}" size="40"/>	</td>
+	<td><input name="power[]" type="text" value="{$prs[power]}" size="20" /></td>
+	<td>
+	<select name="ptype[]" >
+	 <option value="s" {if $prs[ptype]=='s'} selected="selected" {/if}>开发</option>
+	 <option value="u" {if $prs[ptype]=='u'} selected="selected" {/if}>客服</option>
+	 <option value="c" {if $prs[ptype]=='c'} selected="selected" {/if}>运营商</option>	 
+	</select>
+	</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="7">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+    <td colspan="2" align="center">新增→</td>
+    <td><input name="porder_n" type="text" value="" size="10" maxlength="2"/></td>
+	<td><input name="pname_n" type="text" value="" size="40"/></td>
+	<td><input name="power_n" type="text" value="" size="20" /></td>
+	<td>
+	<select name="ptype_n" >
+	 <option value="s" {if $type=='s'} selected="selected" {/if}>开发</option>
+	 <option value="u" {if $type=='u'} selected="selected" {/if}>客服</option>
+	 <option value="c" {if $type=='c'} selected="selected" {/if}>运营商</option>	 
+	</select>
+	</td>
+	<td>&nbsp;</td>
+  </tr>  
+  <tr align="left">
+    <td colspan="2" >&nbsp;</td>
+    <td colspan="6">
+	<input type="hidden" name="action" value="SetSetupPower" />
+	<input type="submit" id="Submit" name="Submit" value="执 行 操 作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/>
+	<span class="bluetext">这里设置的是本系统管理员的权限</span>
+	</td>
+  </tr>	
+</table>
+</form>

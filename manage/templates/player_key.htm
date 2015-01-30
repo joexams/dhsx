@@ -1,0 +1,148 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form action="?in=player" method="post" name="form" onSubmit="setSubmit('Submits')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="2"><span class="yellowtext">{$player[username]} ({$player[nickname]})</span> 的解锁权值情况</th>
+  </tr>
+  <tr>
+    <td>城镇</td>
+	<td>
+	<select name="town" >
+	 <option class="select">选择</option>
+	 <!--{loop $town_list $trs}-->
+	 <option value="{$trs[lock]}"  {if $trs[lock] == $playerkey[town]}selected="selected"{/if}>{$trs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	{$playerkey[town]}
+	</td>
+  </tr>
+  <tr>
+    <td>任务</td>
+	<td>
+	<select name="quest" >
+	 <option class="select">选择</option>
+	 <!--{loop $quest_list $qrs}-->
+	 <option value="{$qrs[lock]}"  {if $qrs[lock] == $playerkey[quest]}selected="selected"{/if}>{$qrs[title]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	{$playerkey[quest]}
+	</td>	
+  </tr>
+  <tr>	
+    <td>副本</td>
+	<td>
+	<select name="section" >
+	 <option class="select">选择</option>
+	 <!--{loop $mission_section_list $msrs}-->
+	 <option value="{$msrs[lock]}"  {if $msrs[lock] == $playerkey[section]}selected="selected"{/if}>{$msrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	{$playerkey[section]}
+	</td>	
+  </tr>
+  <tr>	
+    <td>剧情</td>
+	<td>
+	<select name="mission" >
+	 <option class="select">选择</option>
+	 <!--{loop $mission_list $mrs}-->
+	 <option value="{$mrs[lock]}"  {if $mrs[lock] == $playerkey[mission]}selected="selected"{/if}>{$mrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	{$playerkey[mission]}
+	</td>	
+  </tr>
+  
+  <tr>	
+    <td>背包格子</td>
+	<td>
+	<select name="pack_grid" >
+	 <option class="select">选择</option>
+	 <!--{loop $pack_grid_list $prs}-->
+	 <option value="{$prs[unlock_level]}"  {if $prs[unlock_level] == $playerkey[pack_grid]}selected="selected"{/if}>{$prs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	{$playerkey[pack_grid]}
+	</td>	
+  </tr>
+  <tr>	
+    <td>装备位置</td>
+	<td>
+	<select name="role_equi" >
+	 <option class="select">选择</option>
+	 <!--{loop $role_equi_list $rers}-->
+	 <option value="{$rers[unlock_level]}"  {if $rers[unlock_level] == $playerkey[role_equi]}selected="selected"{/if}>{$rers[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	{$playerkey[role_equi]}
+	</td>	
+  </tr>
+  <tr>	
+    <td>仓库格子</td>
+	<td>
+	<select name="warehouse" >
+	 <option class="select">选择</option>
+	 <!--{loop $warehouse_list $wrs}-->
+	 <option value="{$wrs[unlock_level]}"  {if $wrs[unlock_level] == $playerkey[warehouse]}selected="selected"{/if}>{$wrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	{$playerkey[warehouse]}
+	</td>	
+  </tr>
+  
+  <tr>	
+    <td>功能开放</td>
+	<td>
+	<select name="function" >
+	 <option class="select">选择</option>
+	 <!--{loop $game_function_list $gfrs}-->
+	 <option value="{$gfrs[lock]}"  {if $gfrs[lock] == $playerkey[function]}selected="selected"{/if}>{$gfrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	{$playerkey[function]}
+	</td>	
+  </tr> 
+  <tr>	
+    <td>功能开放播放</td>
+	<td>
+	<select name="function_played" >
+	 <option class="select">选择</option>
+	 <!--{loop $game_function_list $fprs}-->
+	 <option value="{$fprs[lock]}"  {if $fprs[lock] == $playerkey[function_played]}selected="selected"{/if}>{$fprs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	{$playerkey[function_played]}
+	</td>	
+  </tr>  
+  <tr>	
+    <td>招募等级</td>
+	<td>
+	<select name="role" >
+	 <option class="select">选择</option>
+	 <!--{loop $role_list $rrs}-->
+	 <option value="{$rrs[lock]}"  {if $rrs[lock] == $playerkey[role]}selected="selected"{/if}>{$rrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	{$playerkey[role]}
+	</td>	
+  </tr>      
+  <tr>	
+    <td>剧情动画播放锁</td>
+	<td><input name="mission_video" type="text" value="{$playerkey[mission_video]}"  size="10"/></td>	
+  </tr>    
+  <tr>	
+    <td>附增的强化队列个数</td>
+	<td><input name="upgrade_queue_number" type="text" value="{$playerkey[upgrade_queue_number]}"  size="10"/></td>	
+  </tr>   
+  <!--{if !webAdmin('player','y','y')}-->
+  <!--tr>
+    <td colspan="2" align="center">
+	<input type="hidden" name="action" value="SetPlayerKey" />
+	<input type="hidden" name="id" value="{$id}" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>	
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr-->  
+  <!--{/if}-->
+</table>
+</form>

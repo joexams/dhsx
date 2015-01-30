@@ -1,0 +1,67 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<form action="?in=code" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2"><a href="?in=code">兑换券批次</a> ＞ 追加兑换券</th>
+    </tr>
+    	
+    <tr>
+      <td width="100" align="right"><strong>服务器</strong></td>
+      <td>{$rs[servers_name]}</td>
+    </tr>
+    <tr>
+      <td align="right"><strong>用途说明</strong></td>
+      <td>{$rs[name]}</td>
+    </tr>  
+     <tr>
+      <td align="right"><strong>兑换物品</strong></td>
+      <td><!--{if $rs[item_name]}-->{$rs[item_name]}({$rs[item_val]}件)<!--{else}-->-<!--{/if}-->
+	  <input name="item_id" type="text" value="{$rs[item_id]}" size="20" {if $adminWebName != 'admin'} style="display:none;"{/if}/>
+	  <input name="item_name" type="text" value="{$rs[item_name]}" size="20"  {if $adminWebName != 'admin'} style="display:none;"{/if}/>
+	  </td>
+   </tr>
+   <!--{if $adminWebType == 's'}-->
+     <tr>
+      <td align="right"><strong>已有数量</strong></td>
+      <td>{$rs[num]}</td>
+   </tr>
+   <!--{/if}-->
+   <tr>
+      <td align="right"><strong>自主生成</strong></td>
+      <td>
+	  <!--{if $adminWebType == 's'}-->
+		<select name="juche">
+		 <option value="1" {if $rs[juche] == 1} selected="selected" {/if}>支持</option> 
+		 <option value="0" {if $rs[juche] == 0} selected="selected" {/if}>不支持</option> 
+		</select>	
+		<span class="graytext">设置为[支持]，玩家可在运营平台提供的生成页面自主生成兑换券，一个号只能生成一个(生成公式：md5(游戏登陆帐号_游戏服二级域名))</span>
+	  <!--{else}-->
+	  <input name="juche" type="hidden" value="1" />支持
+	  <!--{/if}-->
+	  
+	   </td>
+   </tr>    
+   <tr>
+      <td align="right"><strong>过期时间</strong></td>
+      <td> <input name="edate" id="edate" type="text" onclick="showcalendar(event, this)"   value="{$rs[edate]}" size="10" readonly />	  <span class="graytext">可修改</span></td>
+   </tr>  
+   <!--{if $adminWebType == 's'}-->           
+   <tr>
+      <td align="right"><strong>追加数量</strong></td>
+      <td><input name="num" type="text" value="0" size="10" maxlength="5"/>	  
+      <span class="graytext">若你想增加本批兑换券可以在此输入要追加的数量，一次输入最高请勿超过10000，超过10000请提交后再追加</span>
+	  <a href="call.php?action=CallCodeExport&cid={$rs[cid]}&sid={$rs[sid]}&batch_id={$rs[id]}&title={echo urlencode($rs[servers_name].'-'.$rs[name])}" class="title_menu" >导出</a>
+	  </td>
+   </tr>  
+   <!--{/if}-->         
+    <tr>
+      <td><input name="action" type="hidden" value="SaveCodeAddAgain"/>
+	  <input name="batch_id" type="hidden" value="{$batch_id}"/>
+	  <input name="cid" type="hidden" value="{$rs[cid]}"/>
+	  <input name="sid" type="hidden" value="{$rs[sid]}"/>
+	  <input name="title" type="hidden" value="{$rs[servers_name]}-{$rs[name]}"/>
+	  </td>
+      <td><input type="submit" name="Submit" id="Submit" value=" 追 加 " class="button"/> <a href="{$_SERVER['HTTP_REFERER']}" class="bluetext">取消</a></td>
+    </tr>
+  </table>
+</form >

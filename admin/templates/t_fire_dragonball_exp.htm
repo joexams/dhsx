@@ -1,0 +1,51 @@
+<table class="table">
+  <tr>
+    <th colspan="7">神龙上供 火龙珠经验表</th>
+  </tr>
+<form method="post" action="?in=dragonball" name="form"  onSubmit="setSubmit('Submit')">
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width"100">小火龙珠经验</td>
+    <td width"100">中火龙珠经验</td>
+    <td width"100">大火龙珠经验</td>
+    <td width"100">烈火龙珠经验</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="xiao[]" type="text" value="{$rs[xiao]}"  size="15"/></td>
+    <td><input name="zhong[]" type="text" value="{$rs[zhong]}"  size="15"/></td>
+    <td><input name="da[]" type="text" value="{$rs[da]}"  size="15"/></td>
+    <td><input name="lie[]" type="text" value="{$rs[lie]}"  size="15"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="7" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="xiao_n" type="text" value=""  size="15"/></td>
+    <td><input name="zhong_n" type="text" value=""  size="15"/></td>
+    <td><input name="da_n" type="text" value=""  size="15"/></td>
+    <td><input name="lie_n" type="text" value=""  size="15"/></td>
+    <td>&nbsp;</td>
+   </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="7" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	     
+  <tr>
+    <td colspan="7" align="center">
+	<input type="hidden" name="action" value="SetFireDragonballExp" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>
+</form>
+</table>

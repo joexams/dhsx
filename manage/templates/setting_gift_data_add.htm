@@ -1,0 +1,140 @@
+<!--{if !$type}-->
+<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2"><a href="?in=gift&action=GiftData">活动模版</a> ＞ 活动模版发布 ＞ 第1步</th>
+    </tr>
+    <tr>
+      <td width="150" align="right"><strong>活动类型</strong></td>
+      <td>
+		<select name="type">
+		 <option value="1">首充送礼</option> 
+		 <!--option value="2">礼券兑换</option--> 
+		 <option value="3">等级排行</option>
+		 <option value="4">普通副本排行</option>
+		 <option value="5">声望排行</option>
+		</select>
+		</td>
+    </tr>
+    <tr>
+      <td><input name="in" type="hidden" value="gift" /><input name="cid" type="hidden" value="{$cid}" /><input name="action" type="hidden" value="GiftDataAdd"/></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" 下一步 " class="button"/></td>
+    </tr>
+  </table>
+</form >
+<!--{/if}-->
+<!--{if $type}-->
+<form action="?in=gift" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2"><a href="?in=gift&action=GiftData">活动模版</a> ＞ 活动模版发布 ＞ 第2步</th>
+    </tr>
+      <tr>
+      <td align="right"><strong>活动类型</strong></td>
+      <td><!--{if $type == 1}-->首充送礼<!--{/if}--><!--{if $type == 2}-->礼券兑换<!--{/if}--><!--{if $type == 3}-->等级排行<!--{/if}--><!--{if $type == 4}-->普通副本排行<!--{/if}--><!--{if $type == 5}-->声望排行<!--{/if}--></td>
+   </tr>   	
+    <tr>
+      <td align="right"><strong>活动主题</strong></td>
+      <td> <input name="name" type="text" value="" size="40"/></td>
+    </tr>  
+    <tr {if $type == 3 || $type == 4 || $type == 5}style="display:none;"{/if}>
+      <td align="right"><strong>提示内容</strong></td>
+      <td> <input name="message" type="text" value="" size="60"/> 
+      <span class="graytext">玩家获得礼包时提示的内容，高亮加“[]”号如：您获得[10元宝]、1件10级武器等</span></td>
+    </tr> 
+     <tr>
+      <td align="right"><strong>赠送类型</strong></td>
+      <td>
+		<select name="gift_type"  id="gift_type" onChange="selectType();">
+		 <option value="1">元宝</option> 
+		 <option value="2">物品</option> 
+		 <option value="3">元宝/铜钱+物品</option> 
+		</select>
+		
+		</td>
+   </tr>		
+     <tr id="gift_t" style="display:none;">
+      <td align="right"><strong>获取礼包</strong></td>
+      <td>
+	  <select name="gift_id" id="gift_id" onchange="selectInput(this,'gift_name')">
+	  	<option value="0">选择礼包</option>
+	  </select><input name="gift_name" id="gift_name" type="hidden" /> <span class="graytext">类型选择[物品][元宝+物品]时有效</span></td>
+   </tr>
+   <!--{if $type != 3 && $type != 4 && $type != 5}-->
+     <tr id="ingot_t">
+      <td align="right"><strong>获取元宝</strong></td>
+      <td><input name="ingot" id="ingot" type="text" value="0" size="18"/> 
+	  <!--{if $type == 1}-->
+	  <input name="ingot_rate" type="checkbox"/> 按充值百分比 <span class="graytext">按充值比在玩家充值时有效，选择按充值百分比，则输入数值表示百分比</span>
+	  <!--{else}-->
+	  <span class="graytext">类型选择[元宝]时有效</span>
+	  <!--{/if}-->
+	  </td>
+   </tr>
+   
+     <tr id="coins_t" style="display:none;">
+      <td align="right"><strong>获取铜钱</strong></td>
+      <td><input name="coins" id="coins" type="text" value="0" size="18"/> <span class="graytext">类型选择[铜钱]时有效</span></td>
+   </tr> 
+   <!--{/if}--> 
+   <!--{if $type == 2}-->   
+   <tr>
+      <td align="right"><strong>生成数量</strong></td>
+      <td><input name="code_num" type="text" value="0" size="18"/> <span class="graytext">本次要生成礼券数量，一次输入最高请勿超过10000</span></td>
+   </tr>  
+   <!--{/if}-->  
+   <!--{if $type == 3 || $type == 4 || $type == 5}-->   
+   <tr>
+      <td align="right"><strong>排行范围</strong></td>
+      <td><input name="order_limit" type="text" value="10" size="18"/> <span class="graytext">输入排行范围，如前10名则输入10；最大不能超过20</span></td>
+   </tr>  
+   <!--{/if}-->    
+    <tr>
+      <td><input name="action" type="hidden" value="SaveGiftDataAdd"/><input name="type" type="hidden" value="{$type}"/></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" 发 布 " class="button"/> <a href="{$_SERVER['HTTP_REFERER']}" class="bluetext">上一步</a></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><span class="bluetext">注意：若您发布的活动涉及物品则需要进行下一步物品添加操作！</span></td>
+    </tr>	
+  </table>
+</form >
+<script language="javascript">
+
+function selectType()
+{  
+	if ($('gift_type').value == 2)
+	{
+		selectAjax('player_call.php?action=callItemGift&sid=17','gift_id','gift_type',1);
+		$('gift_name').value = '';
+		$('gift_t').style.display = 'block';
+		$('ingot_t').style.display = 'none';
+		$('ingot').value = 0;
+		$('coins_t').style.display = 'none';
+		$('coins').value = 0;		
+		
+	}else if ($('gift_type').value == 3){
+		selectAjax('player_call.php?action=callItemGift&sid=17','gift_id','gift_type',1);
+		$('gift_name').value = '';
+		$('gift_t').style.display = 'block';
+		$('ingot_t').style.display = 'block';
+		$('coins_t').style.display = 'block';
+		
+	}else if ($('gift_type').value == 1){
+		$('gift_id').options.length = 0;
+		$('gift_name').value = '';
+		$('gift_t').style.display = 'none';
+		$('ingot_t').style.display = 'block';
+		$('coins_t').style.display = 'none';
+		$('coins').value = 0;	
+	}
+
+}
+
+
+function selectInput(choose,id)
+{  
+	$(id).value = (choose.options[choose.selectedIndex].text); 
+}
+</script>
+<!--{/if}-->

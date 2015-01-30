@@ -1,0 +1,40 @@
+<form method="post" action="?in=tower" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="6">灵件品质</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="50">ID</td>
+	<td width="35">删除</td>
+    <td width="150">名称</td>
+    <td width="80">详细概率</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input type="hidden" name="id[]" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="20" /></td>
+    <td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallSoulQualityValue&id={$rs[id]}&name={$rs[name_url]}')" class="list_menu">详细概率</a></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="6" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr> 
+  <tr>
+    <td colspan="6" align="center">
+	<input type="hidden" name="action" value="SetSoulQuality" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

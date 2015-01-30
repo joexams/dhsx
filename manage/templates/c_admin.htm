@@ -1,0 +1,40 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="9">{lang KFGL}</th>
+  </tr>
+  <tr class="title_2" align="center">
+    <td width="150">{lang ADMINNAME}</td>
+    <td width="150">{lang LASTIME}</td>
+    <td width="150">{lang LASTIP}</td>
+    <td width="50">{lang LOGIN}</td>
+    <td width="50">{lang STATE}</td>
+    <td width="100">{lang CZJL}</td>
+    <td width="50">{lang EDIT}</td>
+    <td width="50">{lang COPY}</td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $admin_array}-->
+  <!--{loop $admin_array $rs}-->
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="" >
+    <td nowrap="nowrap"><strong style="font-size:14px;">{$rs[adminName]}</strong></td>
+	<td>{$rs[adminLoingTime]}</td>
+	<td>{$rs[adminLoingIP]}</td>
+    <td>{$rs[adminLoginHits]}</td>
+    <td><!--{if $rs[adminLock] == 1}-->{lang NORMAL}<!--{else}--><span class="graytext">{lang LOCK}</span><!--{/if}--></td>
+    <td><a href="?in=server&action=ServersAdminData&cid={$cid}&aid={$rs[adminID]}">{lang CZJL}</a></td>
+    <td><a href="?in=setting&action=EditAdmin&cid={$cid}&id={$rs[adminID]}" class="list_edit">{lang EDIT}</a></td>
+    <td><a href="?in=setting&action=AddAdmin&id={$rs[adminID]}" class="list_edit">{lang COPY}</a></td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="9">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="9" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+</table>

@@ -1,0 +1,82 @@
+<form method="post" action="?in=tower" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="10">爬塔灵件列表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="50">道途/层</td>
+	<td width="35">删除</td>
+    <td width="100">道途</td>
+    <td width="100">层</td>
+    <td width="100">灵件品质</td>
+	<td width="100">灵件位置</td>
+	<td width="150">掉落概率</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[layer]}-{$rs[sequence]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[layer]},{$rs[sequence]},{$rs[soul_quality_id]},{$rs[soul_location_id]}" title="选择删除{$rs[name]}"/></td>
+    <td><input name="layer[]" type="text" value="{$rs[layer]}"  size="10" readonly/></td>
+    <td><input name="sequence[]" type="text" value="{$rs[sequence]}"  size="10" readonly/></td>
+    <td><input type="hidden" name="soul_quality_id_o[]" value="{$rs[soul_quality_id]}" />
+	<select name="soul_quality_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $soul_quality_list $sqrs}-->
+	 <option value="{$sqrs[id]}"  {if $sqrs[id] == $rs[soul_quality_id]}selected="selected"{/if}>{$sqrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	</td>
+    <td><input type="hidden" name="soul_location_id_o[]" value="{$rs[soul_location_id]}" />
+	<select name="soul_location_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $soul_location_list $slrs}-->
+	 <option value="{$slrs[id]}"  {if $slrs[id] == $rs[soul_location_id]}selected="selected"{/if}>{$slrs[describe]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	</td>
+	
+    <td><input name="probability[]" type="text" value="{$rs[probability]}"  size="20"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="10" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="layer_n" type="text" value=""  size="10"/></td>
+	<td><input name="sequence_n" type="text" value=""  size="10"/></td>
+    <td>
+	<select name="soul_quality_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $soul_quality_list $sqrs}-->
+	 <option value="{$sqrs[id]}">{$sqrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>
+	<select name="soul_location_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $soul_location_list $slrs}-->
+	 <option value="{$slrs[id]}" >{$slrs[describe]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	</td>
+    <td><input name="probability_n" type="text" value=""  size="20"/></td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="10" align="center">
+	<input type="hidden" name="action" value="SetTowerLayerSoul" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

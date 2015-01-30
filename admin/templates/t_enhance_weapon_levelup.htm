@@ -1,0 +1,85 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=weapon" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+   <tr>
+    <th colspan="14">神兵<span class="bluetext">{$name}</span> 的升级表</th>
+  </tr>
+  <tr align="center" class="title_2">
+  <td width="35">删除</td>
+    <td width="50">等级</td>
+	<td width="50">神兵效果</td>
+	<td width="50">升级需要天晶</td>	
+    <td width="50">升级需要玉牌</td>
+    <td width="50">触发概率</td>
+    <td width="50">增加值</td>
+    <td width="50">增加值2</td>
+    <td width="50">增加生命值</td>
+    <td width="50">增加绝技攻击</td>
+    <td width="50">增加绝技防御</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+    <td><input type="hidden" name="weapon_id[]" value="{$rs[weapon_id]}"/><input type="checkbox" name="id_del[]" value="{$rs[weapon_id]},{$rs[level]}" title="选择删除"/></td>
+    <td><input type="hidden" name="level[]" value="{$rs[level]}"/><strong>{$rs[level]}</strong></td>
+    <td>
+     <select name="effect_id[]" >
+     <option value="0">选择效果</option>
+     <!--{loop $effect_list $irs}-->
+     <option value="{$irs[id]}" {if $irs[id] == $rs[effect_id]}selected="selected"{/if}>{$irs[description]}</option>
+     <!--{/loop}--> 
+    </select>
+    </td>
+    <td><input name="need_crystal[]" type="text" value="{$rs[need_crystal]}"  size="10" id="m_need_crystal_{$rs[level]}" onChange="fill_data('m', this.id,{$rs[level]});" onClick="this.select();"/></td>
+    <td><input name="need_jade[]" type="text" value="{$rs[need_jade]}"  size="10" id="m_need_jade_{$rs[level]}" onChange="fill_data('m', this.id,{$rs[level]});" onClick="this.select();"/></td>
+    <td><input name="prob[]" type="text" value="{$rs[prob]}"  size="10" id="m_prob_{$rs[level]}" onChange="fill_data('m', this.id,{$rs[level]});" onClick="this.select();"/></td>
+    <td><input name="value[]" type="text" value="{$rs[value]}"  size="10" id="m_value_{$rs[level]}" onChange="fill_data('m', this.id,{$rs[level]});" onClick="this.select();"/></td>
+    <td><input name="value2[]" type="text" value="{$rs[value2]}"  size="10" id="m_value2_{$rs[level]}" onChange="fill_data('m', this.id,{$rs[level]});" onClick="this.select();"/></td>
+    <td><input name="inc_health[]" type="text" value="{$rs[inc_health]}"  size="10" id="m_inc_health_{$rs[level]}" onChange="fill_data('m', this.id,{$rs[level]});" onClick="this.select();"/></td>
+    <td><input name="inc_atk[]" type="text" value="{$rs[inc_atk]}"  size="10" id="m_inc_atk_{$rs[level]}" onChange="fill_data('m', this.id,{$rs[level]});" onClick="this.select();"/></td>
+    <td><input name="inc_def[]" type="text" value="{$rs[inc_def]}"  size="10" id="m_inc_def_{$rs[level]}" onChange="fill_data('m', this.id,{$rs[level]});" onClick="this.select();"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="14" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->  
+  <!--{else}-->
+  <tr>
+	<td colspan="14" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td>新增记录→</td>
+   <td><input name="level_n" type="text" value="{$rs[level_n]}"  size="10"/></td>
+    <td>
+     <select name="effect_id_n" >
+     <option value="0">选择效果</option>
+     <!--{loop $effect_list $irs}-->
+     <option value="{$irs[id]}" {if $irs[id] == $effect}selected="selected"{/if}>{$irs[description]}</option>
+     <!--{/loop}--> 
+    </select>
+    </td>
+    <td><input name="need_crystal_n" id="m_need_crystal_n" type="text" value="0" size="10" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td><input name="need_jade_n" id="m_need_jade_n" type="text" value=""  size="10" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td><input name="prob_n" id="m_prob_n" type="text" value=""  size="10" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td><input name="value_n" id="m_value_n" type="text" value=""  size="10" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td><input name="value2_n" id="m_value2_n" type="text" value=""  size="10" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td><input name="inc_health_n" id="m_inc_health_n" type="text" value=""  size="10" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td><input name="inc_atk_n" id="m_inc_atk_n" type="text" value=""  size="10" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td><input name="inc_def_n" id="m_inc_def_n" type="text" value=""  size="10" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="14" align="center">
+      <input name="weapon_id_n" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetEnhanceWeaponLevelup" />
+    <input type="hidden" name="winid" value="{$winid}" />    
+  <input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

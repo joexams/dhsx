@@ -1,0 +1,83 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="10"><a href="?in=code">{lang DHQPC}</a> ＞ {lang DHQJL}</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="10">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')"> 	
+	<!--{if $adminWebType == 's'}-->
+	<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+	 <option class="select">{lang COMPANY}</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	  
+	<!--{else}-->
+	<input name="cid" type="hidden" value="{$cid}" />
+	<!--{/if}-->
+	<select name="sid" id = "sid" onChange="selectAjax('call.php?action=CallCodeBatch','batch_id','sid',1)">
+	<option  value="">{lang ALLSERVER}</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<select name="batch_id" id = "batch_id">
+	<option  value="">{lang DHQXZPC}</option>
+	<!--{if $code_batch_list}-->
+	 <!--{loop $code_batch_list $cbrs}-->
+	 <option value="{$cbrs[id]}" {if $cbrs[id] == $batch_id} selected="selected" {/if}>{$cbrs[name]}({lang CREATE}:{$cbrs[ctime]})</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->	
+	
+	</select>	
+	<select name="is_code" id = "is_code">
+	<option value="">{lang DHQLQYN}</option>
+	 <option >{lang DHQLQALL}</option>
+	 <option value="1" {if $is_code == 1} selected="selected" {/if}>{lang DHQYLQ}</option>
+	 <option value="2" {if $is_code == 2} selected="selected" {/if}>{lang DHQWLQ}</option>
+	</select>	
+	
+	{lang DHQ}:<input name="code" type="text" value="{$code}" size="25"/>
+	{lang USER}:<input name="username" type="text" value="{$username}" size="15"/>
+	{lang USERID}:<input name="player_id" type="text" value="{$player_id}" size="10"/>
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="code" />
+	<input name="action" type="hidden" value="Code" />
+	<!--{if $adminWebType == 's'}--><a href="?in=code&action=CancelCode&cid={$cid}&sid={$sid}" class="list_red" onclick='javascript: return confirm("确定清空所有兑换券？这将使之可以再次被使用！");'>清空所有兑换券</a><!--{/if}-->
+	</form>	</td>
+  </tr>     
+
+  <tr class="title_2" align="center">
+    <td width="50">&nbsp;</td>
+	<td>{lang SERVER}</td>
+    <td>{lang DHQ}</td>
+    <td>{lang DHQHQNR}</td>
+    <td>{lang DHQLQSJ}</td>
+    <td>{lang DHQLQYH}</td>
+   <!--{if $adminWebType == 's'}--> <td>复原</td><!--{/if}-->
+  </tr> 
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="" >
+    <td><!--{if $adminWebType == 's'}-->{$rs[id]}<!--{else}-->><!--{/if}--></td>
+	<td><!--{if $adminWebType == 's'}-->{$rs[company_name]}-<!--{/if}--><span style="font-size:20px;">{$rs[servers_name]}</span></td>
+	<td>{$rs[code]}</td>
+	<td><!--{if $rs[item_name]}-->{$rs[item_name]}({$rs[item_val]})<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[ctime] != '0000-00-00 00:00:00'}-->{$rs[ctime]}<!--{else}-->-<!--{/if}--></td>
+    <td title="ID:{$rs[player_id]}"><!--{if $rs[username]}--><strong>{$rs[username]}</strong>({$rs[nickname]})<!--{else}-->-<!--{/if}--></td>
+	<!--{if $adminWebType == 's'}--><td><a href="?in=code&action=CancelCode&cid={$rs[cid]}&sid={$rs[sid]}&id={$rs[id]}" class="list_red" onclick='javascript: return confirm("确定复原此兑换券？这将使之可以再次被使用！");'>复原</a></td><!--{/if}-->
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="8">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+</table>

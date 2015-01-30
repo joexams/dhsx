@@ -1,0 +1,48 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table width="100%" class="table">
+  <tr>
+    <th colspan="5">版本更新日志</th>
+  </tr>  
+<form method="post" action="?in=server" name="form"  id="form" onSubmit="setSubmit('Submit')">      
+  <tr class="title_2" align="center">
+  	<td width="50">删除</td>
+	<td width="120">时间</td>
+	<td width="60">版本</td>
+	<td>更新内容</td>
+	</tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td"  align="center">
+	<td><input type="checkbox" name="id_del[]" value="{$rs[date]}"/></td>
+	<td>{$rs[date]}</td>
+	<td>{$rs[ver]}</td>
+	<td align="left">{echo dehtml($rs[contents])}</td>
+ 	</tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="5" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="5"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+ <!--{if !webAdmin('renew_log','y')}--> 
+   <tr class="td2" align="center" >
+	<td>新增→</td>
+	<td><input name="date_n" id="date_n" type="text" onclick="showcalendar(event, this)"   value="{echo date('Y-m-d')}" size="10" readonly /></td>
+	<td><input name="ver_n" type="text"  size="6"/></td>
+    <td align="left"><textarea name="contents_n" cols="60" rows="3"></textarea></td>
+    </tr>  
+ 
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="4">
+	<input type="hidden" name="action" value="SetRenewLog" />
+	<input type="submit" id="Submit" name="Submit" value="确认提交" onClick='javascript: return confirm("确定操作？");'  class="button"/></td>
+  </tr> 
+ <!--{/if}--> 
+</form>   
+</table>

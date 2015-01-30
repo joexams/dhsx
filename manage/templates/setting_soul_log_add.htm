@@ -1,0 +1,36 @@
+<table class="table">
+     
+  <tr class="title_2" align="center">
+    <td width="50">{lang CHOOSE}</td>
+    <td >{lang CZSJ}</td>
+	<td >{lang LJ}</td>
+    <td >{lang ATTRIBUTE}1</td>
+    <td >{lang ATTRIBUTE}3</td>
+    <td >{lang ATTRIBUTE}3</td>
+	<td >{lang KQQX}</td>
+	</tr>
+  <!--{if $list_array}-->
+  <!--{eval $i=0}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}"  align="center" >
+	<td><input name="soul_a" type="radio" title="{$rs[soul_attribute_id_location_1]}:{$rs[soul_attribute_value_location_1]}|{$rs[soul_attribute_id_location_2]}:{$rs[soul_attribute_value_location_2]}|{$rs[soul_attribute_id_location_3]}:{$rs[soul_attribute_value_location_3]}|{$rs[key]}" value="{$rs[soul_attribute_id_location_1]}:{$rs[soul_attribute_value_location_1]}|{$rs[soul_attribute_id_location_2]}:{$rs[soul_attribute_value_location_2]}|{$rs[soul_attribute_id_location_3]}:{$rs[soul_attribute_value_location_3]}|{$rs[key]}"/></td>
+	<td>{echo date('Y-m-d H:i:s',$rs[change_time])}</td>
+	<td title="{lang WJLJ}ID：{$rs[player_soul_id]}"><strong>{$rs[soul_name]}</strong> ({$rs[quality_name]})</td>
+	<td ><!--{if $rs[soul_attribute_id_location_1]}-->{$soula[$rs[soul_attribute_id_location_1]][name]}<span class="greentext smalltext">+{$rs[soul_attribute_value_location_1]}{$soula[$rs[soul_attribute_id_location_1]][unit]}</span><!--{else}-->-<!--{/if}--></td>
+	<td ><!--{if $rs[soul_attribute_id_location_2]}-->{$soula[$rs[soul_attribute_id_location_2]][name]}<span class="greentext smalltext">+{$rs[soul_attribute_value_location_2]}{$soula[$rs[soul_attribute_id_location_2]][unit]}</span><!--{else}-->-<!--{/if}--></td>
+	<td ><!--{if $rs[soul_attribute_id_location_3]}-->{$soula[$rs[soul_attribute_id_location_3]][name]}<span class="greentext smalltext">+{$rs[soul_attribute_value_location_3]}{$soula[$rs[soul_attribute_id_location_3]][unit]}</span><!--{else}-->-<!--{/if}--></td>
+	<td >{$rs[key]}</td>
+  </tr>
+  <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+	<td colspan="7" class="page">{$list_array_pages}</td>
+  </tr>  
+	<!--{/if}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="7">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

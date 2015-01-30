@@ -1,0 +1,21 @@
+<table class="table">
+  <tr>
+    <th colspan="2" class="title_1">{lang FSJL}</th>
+  </tr> 
+  <tr align="left" class="title_2">
+    <td colspan="24" style="color:green"><strong>{lang ZUIGAO}:{$maxOnlineNum}</strong></td>	
+  </tr> 
+  <!--{loop $array $rs}-->
+  <tr>
+  <td class="smalltext td4" width="80" align="center">{$rs[t]}</td>
+  <td class="smalltext" align="left">
+  <!--{if $rs[max_online_count]}-->
+  <img src="style/n.gif" width="{echo round(($rs[max_online_count]/$maxOnlineNum)*400)+1}px" height="5"/> {$rs[max_online_count]}
+  <!--{else}-->
+  <img src="style/n4.gif" width="1" height="5"/> 0
+  <!--{/if}-->
+  </td>	
+   
+  </tr>    
+<!--{/loop}-->
+</table>

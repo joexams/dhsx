@@ -1,0 +1,111 @@
+<form method="post" action="?in=pet" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table" id="table">
+  <tr>
+    <th colspan="20">宠物信息表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="50">LV</td>
+    <td>名称</td>
+	<td>颜色</td>
+    <td>需要玩家等级</td>
+    <td>普攻‰</td>
+    <td>魔法攻击‰</td>
+    <td>生命值‰</td>
+    <td>防御‰</td>
+    <td>法防‰</td>
+    <td>绝防‰</td>
+    <td>绝技攻击‰</td>
+    <td >暴击/闪避/档格/韧性/破击/命中/必杀‰</td>
+    <td>阶段</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center">
+	<td>{$rs[lv]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[lv]}" title="选择删除{$rs[name]}"/></td>
+    <td><input name="lv[{$rs[lv]}]" type="text" value="{$rs[lv]}" data="{$rs[lv]}" class="field"  size="6" data-id="{$rs[lv]}"/></td>
+    <td><input name="name[{$rs[lv]}]" type="text" value="{$rs[name]}" data="{$rs[name]}" class="field"  size="20" data-id="{$rs[lv]}"/></td>
+	<td><input name="color[{$rs[lv]}]" type="text" value="{$rs[color]}" data="{$rs[color]}" class="field"  size="10" data-id="{$rs[lv]}"/></td>
+	<td><input name="player_lv[{$rs[lv]}]" type="text" value="{$rs[player_lv]}" data="{$rs[player_lv]}" class="field"  size="10" data-id="{$rs[lv]}"/></td>
+	<td><input name="attack[{$rs[lv]}]" type="text" value="{$rs[attack]}" data="{$rs[attack]}" class="field"  size="10" data-id="{$rs[lv]}"/></td>
+	<td><input name="magic_attack[{$rs[lv]}]" type="text" value="{$rs[magic_attack]}" data="{$rs[magic_attack]}" class="field"  size="10" data-id="{$rs[lv]}"/></td>
+	<td><input name="health[{$rs[lv]}]" type="text" value="{$rs[health]}" data="{$rs[health]}" class="field" size="10" data-id="{$rs[lv]}"/></td>
+	<td><input name="defense[{$rs[lv]}]" type="text" value="{$rs[defense]}" data="{$rs[defense]}" class="field"  size="10" data-id="{$rs[lv]}"/></td>
+	<td><input name="magic_defense[{$rs[lv]}]" type="text" value="{$rs[magic_defense]}" data="{$rs[magic_defense]}" class="field"  size="10" data-id="{$rs[lv]}"/></td>
+	<td><input name="stunt_defense[{$rs[lv]}]" type="text" value="{$rs[stunt_defense]}" data="{$rs[stunt_defense]}" class="field"  size="10" data-id="{$rs[lv]}"/></td>
+	<td><input name="stunt_attack[{$rs[lv]}]" type="text" value="{$rs[stunt_attack]}" data="{$rs[stunt_attack]}" class="field"  size="10" data-id="{$rs[lv]}"/></td>
+	<td>
+	<input name="critical[{$rs[lv]}]" type="text" value="{$rs[critical]}" data="{$rs[critical]}" class="field"  size="1" data-id="{$rs[lv]}"/>
+	<input name="dodge[{$rs[lv]}]" type="text" value="{$rs[dodge]}" data="{$rs[dodge]}" class="field"  size="1" data-id="{$rs[lv]}"/>
+	<input name="block[{$rs[lv]}]" type="text" value="{$rs[block]}" data="{$rs[block]}" class="field"  size="1" data-id="{$rs[lv]}"/>
+	<input name="break_critical[{$rs[lv]}]" type="text" value="{$rs[break_critical]}" data="{$rs[break_critical]}" class="field"  size="1" data-id="{$rs[lv]}"/>
+	<input name="break_block[{$rs[lv]}]" type="text" value="{$rs[break_block]}" data="{$rs[break_block]}" class="field"  size="1" data-id="{$rs[lv]}"/>
+	<input name="hit[{$rs[lv]}]" type="text" value="{$rs[hit]}" data="{$rs[hit]}" class="field"  size="1" data-id="{$rs[lv]}"/>
+	<input name="kill[{$rs[lv]}]" type="text" value="{$rs[kill]}" data="{$rs[kill]}" class="field"  size="1" data-id="{$rs[lv]}"/>
+	</td>
+	
+	
+    <td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallPetAnimalStage&lv={$rs[lv]}&name={$rs[name_url]}')" class="list_menu">阶段</a></td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="20" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="lv_n" type="text" value=""  size="6"/></td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+	<td><input name="color_n" type="text" value=""  size="10"/></td>
+	<td><input name="player_lv_n" type="text" value=""  size="10"/></td>
+	<td><input name="attack_n" type="text" value=""  size="10"/></td>
+	<td><input name="magic_attack_n" type="text" value=""  size="10"/></td>
+	<td><input name="health_n" type="text" value=""  size="10"/></td>
+	<td><input name="defense_n" type="text" value=""  size="10"/></td>
+	<td><input name="magic_defense_n" type="text" value=""  size="10"/></td>
+	<td><input name="stunt_defense_n" type="text" value=""  size="10"/></td>
+	<td><input name="stunt_attack_n" type="text" value=""  size="10"/></td>
+	<td>
+	<input name="critical_n" type="text" value=""  size="1"/>
+	<input name="dodge_n" type="text" value=""  size="1"/>
+	<input name="block_n" type="text" value=""  size="1"/>
+	<input name="break_critical_n" type="text" value=""  size="1"/>
+	<input name="break_block_n" type="text" value=""  size="1"/>
+	<input name="hit_n" type="text" value=""  size="1"/>
+	<input name="kill_n" type="text" value=""  size="1"/>
+	</td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="20" align="center" id="hiddenarea">
+	<input type="hidden" name="action" value="SetPetAnimal" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>
+<script type="text/javascript" src="include/js/jquery.min.js"></script>
+<script type="text/javascript">
+jQuery.noConflict(); 
+jQuery(document).ready(function($){ 
+  var hiddenobj = $('#hiddenarea');
+
+  function changedata(obj){
+    var data = obj.attr('data'), id = obj.attr('data-id'), val = obj.val();
+    if (id > 0){
+      if (data != val){
+        if ($('#pet_id_'+id).html() == null){
+          hiddenobj.append('<input type="hidden" id="pet_id_'+id+'" name="lv_old[]" value="'+id+'" />');
+        }
+      }else {
+         $('#pet_id_'+id).remove();
+      }
+    }
+  }
+  $('#table').on('blur', 'input.field', function(){
+    changedata($(this));
+  });
+});
+</script>

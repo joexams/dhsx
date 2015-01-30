@@ -1,0 +1,97 @@
+<table class="table">
+  <tr>
+    <th colspan="11">仙奇术等级</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="11">
+	 <a href="?in=immortal" class="{if !$type_id} title_menu_on {else} title_menu {/if}">所有</a>
+	<!--{if $immortal_art_type_list}-->
+	  <!--{loop $immortal_art_type_list $iatrs}-->
+	  <a href="?in=immortal&type_id={$iatrs[id]}" class="{if $type_id == $iatrs[id]} title_menu_on {else} title_menu {/if}">{$iatrs[name]}</a>
+	  <!--{/loop}-->
+	<!--{/if}-->	</td>
+  </tr>  
+<form method="post" action="?in=immortal" name="form"  onSubmit="setSubmit('Submit')">
+  
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="50">删除</td>
+    <td width="150">仙奇术类型</td>
+    <td width="80">研究等级</td>
+    <td width="80">所需阅历</td>
+    <td width="80">所需铜钱</td>
+	<td width="100">所需八仙令</td>
+    <td width="60">增加值</td>
+    <td width="80">需求玩家等级</td>
+    <td width="80">需求八仙关卡</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id_old[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/></td>
+    <td>
+	<select name="immortal_art_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $immortal_art_type_list $iatrs}-->
+	 <option value="{$iatrs[id]}"  {if $iatrs[id] == $rs[immortal_art_id]}selected="selected"{/if}>{$iatrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="level[]" type="text" value="{$rs[level]}"  size="5"/></td>
+    <td><input name="skill[]" type="text" value="{$rs[skill]}"  size="5"/></td>
+    <td><input name="coins[]" type="text" value="{$rs[coins]}"  size="5"/></td>
+    <td><input name="ba_xian_ling[]" type="text" value="{$rs[ba_xian_ling]}"  size="5"/></td>
+    <td><input name="value[]" type="text" value="{$rs[value]}"  size="5"/></td>
+    <td><input name="player_level[]" type="text" value="{$rs[player_level]}"  size="5"/></td>
+    <td>
+	<select name="ba_xian_reqiure_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $bx_rs_array $bxrs}-->
+	 <option value="{$bxrs[id]}"  {if $bxrs[id] == $rs[ba_xian_reqiure_id]}selected="selected"{/if}>{$bxrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="10" align="center" height="40">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="immortal_art_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $immortal_art_type_list $iatrs}-->
+	 <option value="{$iatrs[id]}"  {if $iatrs[id] == $type_id}selected="selected"{/if}>{$iatrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td><input name="level_n" type="text" value=""  size="5" onChange="fill_data(this);"/></td>
+    <td><input name="skill_n" type="text" value=""  size="5" onChange="fill_data(this);"/></td>
+    <td><input name="coins_n" type="text" value=""  size="5" onChange="fill_data(this);"/></td>
+    <td><input name="ba_xian_ling_n" type="text" value=""  size="5" onChange="fill_data(this);"/></td>
+    <td><input name="value_n" type="text" value=""  size="5" onChange="fill_data(this);"/></td>
+    <td><input name="player_level_n" type="text" value=""  size="5" onChange="fill_data(this);"/></td>
+    <td>
+	<select name="ba_xian_reqiure_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $bx_rs_array $bxrs}-->
+	 <option value="{$bxrs[id]}" >{$bxrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>&nbsp;</td>
+   </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="11" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	     
+  <tr>
+    <td colspan="11" align="center">
+	<input type="hidden" name="action" value="SetImmortal" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>
+</form>
+</table>

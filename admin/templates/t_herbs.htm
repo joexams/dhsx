@@ -1,0 +1,82 @@
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="11">草药信息列表</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="11">
+	 <a href="?in=other&action=Herbs" class="{if !$herbs_type} title_menu_on {else} title_menu {/if}">所有</a>
+	<!--{if $herbs_type_list}-->
+	  <!--{loop $herbs_type_list $htrs}-->
+	  <a href="?in=other&action=Herbs&herbs_type={$htrs[id]}" class="{if $herbs_type == $htrs[id]} title_menu_on {else} title_menu {/if}">{$htrs[type_name]}</a>
+	  <!--{/loop}-->
+	<!--{/if}-->
+	</td>
+  </tr>  
+  
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td>草药类型</td>
+    <td>草药名称</td>
+	<td>标识</td>
+	<td>成长时间</td>
+    <td>种植获得经验</td>
+    <td>星级</td>
+    <td title="当town等于lock可种植改草药">权值</td>
+    <td>铜钱</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td>
+	<select name="herbs_type[]" >
+	 <option class="select">类型</option>
+	 <!--{loop $herbs_type_list $htrs}-->
+	 <option value="{$htrs[id]}"  {if $htrs[id] == $rs[herbs_type]}selected="selected"{/if}>{$htrs[type_name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+	<td><input name="sign[]" type="text" value="{$rs[sign]}"  size="15"/></td>	
+	<td><input name="ripe_time[]" type="text" value="{$rs[ripe_time]}"  size="10"/></td>	
+    <td><input name="experience[]" type="text" value="{$rs[experience]}"  size="10"/></td>
+    <td><input name="star_level[]" type="text" value="{$rs[star_level]}"  size="10"/></td>
+    <td><input name="lock[]" type="text" value="{$rs[lock]}"  size="10"/></td>
+    <td><input name="coin[]" type="text" value="{$rs[coin]}"  size="10"/></td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="11" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><select name="herbs_type_n" >
+	 <option class="select">类型</option>
+	 <!--{loop $herbs_type_list $htrs}-->
+	 <option value="{$htrs[id]}"  {if $htrs[id] == $herbs_type}selected="selected"{/if}>{$htrs[type_name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+	<td><input name="sign_n" type="text" value=""  size="15"/></td>
+	<td><input name="ripe_time_n" type="text" value=""  size="10"/></td>	
+    <td><input name="experience_n" type="text" value=""  size="10"/></td>
+    <td><input name="star_level_n" type="text" value=""  size="10"/></td>
+    <td><input name="lock_n" type="text" value=""  size="10"/></td>
+    <td><input name="coin_n" type="text" value=""  size="10"/></td>
+    </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="11" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="11" align="center">
+	<input type="hidden" name="action" value="SetHerbs" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

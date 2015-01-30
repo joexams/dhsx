@@ -1,0 +1,73 @@
+<form method="post" action="?in=item" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="13">属性石技能书</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	  <td width="35">删除</td>
+    <td width="150">技能书物品ID</td>
+    <td width="100">合成的仙石等级</td>
+    <td width="100">合成后仙石物品ID</td>
+    <td>&nbsp;</td>
+  </tr>
+    <!--{if $list_array}-->
+  <!--{loop $list_array $rs}--> 
+    <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+      <td>{$rs[item_id]}<input name="item_id_old[]" type="hidden" value="{$rs[item_id]}"/></td>
+      <td><input type="checkbox" name="id_del[]" value="{$rs[item_id]},{$rs[stone_lv]}" title="选择删除"/></td>
+      <td>
+        <select name="item_id[]" >
+        <option class="select" value="0">技能书物品</option>
+        <!--{loop $skillitem_list $irs}-->
+        <option value="{$irs[id]}"  {if $irs[id] == $rs[item_id]}selected="selected"{/if}>{$irs[name]}</option>
+        <!--{/loop}-->  
+        </select>
+      </td>
+      <td><input name="stone_lv_old[]" type="hidden" value="{$rs[stone_lv]}"/><input name="stone_lv[]" type="text" value="{$rs[stone_lv]}" size="10" /></td>
+      <td>
+        <select name="stone_item_id[]" >
+         <option class="select" value="0">选择合成后仙石物品</option>
+         <!--{loop $stoneitem_list $wrs}-->
+         <option value="{$wrs[id]}" {if $wrs[id] == $rs[stone_item_id]}selected="selected"{/if}>{$wrs[name]}</option>
+         <!--{/loop}-->  
+        </select>
+      </td>
+      <td>&nbsp;</td>
+      </tr>
+    <!--{/loop}-->
+    <!--{else}-->
+    <tr>
+    <td colspan="13" align="center">找不到相关信息</td>
+    </tr>  
+    <!--{/if}--> 
+
+      <tr class="td2" align="center" >
+      <td colspan="2">新增记录→</td>
+        <td><select name="item_id_n" >
+       <option class="select" value="0">技能书物品</option>
+       <!--{loop $skillitem_list $irs}-->
+       <option value="{$irs[id]}">{$irs[name]}</option>
+       <!--{/loop}-->  
+      </select></td>
+        <td><input name="stone_lv_n" type="text" value="" size="10" /></td>
+        <td><select name="stone_item_id_n" >
+       <option class="select" value="0">选择合成后仙石物品</option>
+       <!--{loop $stoneitem_list $wrs}-->
+       <option value="{$wrs[id]}">{$wrs[name]}</option>
+       <!--{/loop}-->  
+      </select></td>
+        <td>&nbsp;</td>
+      </tr> 
+      <!--{if $list_array_pages}--> 
+      <tr>
+        <td colspan="13" class="page">{$list_array_pages}</td>
+      </tr> 
+      <!--{/if}-->     
+      <tr>
+        <td colspan="13" align="center">
+      <input type="hidden" name="action" value="SetSkillBook" />
+      <input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+      </tr>  
+    </table>
+    </form>

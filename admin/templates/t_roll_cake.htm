@@ -1,0 +1,57 @@
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="10">博饼列表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="80">序号</td>
+    <td width="120">名称</td>
+    <td width="120">昵称</td>
+	<td width="80">阅历</td>
+	<td width="80">境界点</td>
+	<td width="80">铜钱</td>
+	<td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/></td>
+    <td><strong>{$rs[id]}</strong></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+    <td><input name="nick_name[]" type="text" value="{$rs[nick_name]}"  size="20"/></td>
+	<td><input name="skill[]" type="text" value="{$rs[skill]}"  size="10"/></td>	
+	<td><input name="state_point[]" type="text" value="{$rs[state_point]}"  size="10"/></td>	
+	<td><input name="coin[]" type="text" value="{$rs[coin]}"  size="10"/></td>	
+	<td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="10" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="id_n" type="text" value=""  size="10"/></td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+	<td><input name="nick_name_n" type="text" value=""  size="20"/></td>
+	<td><input name="skill_n" type="text" value=""  size="10"/></td>
+	<td><input name="state_point_n" type="text" value=""  size="10"/></td>	
+	<td><input name="coin_n" type="text" value=""  size="10"/></td>	
+	<td>&nbsp;</td>
+    </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->		   
+  <tr>
+    <td colspan="10" align="center">
+	<input type="hidden" name="action" value="SetRollCake" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

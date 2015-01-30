@@ -1,0 +1,48 @@
+<form method="post" action="?in=monster" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="5">世界BOSS数据</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="5">
+	<!--{if $town_list}-->
+	  <!--{loop $town_list $trs}-->
+	  <a href="?in=monster&action=WorldBoss&town_id={$trs[id]}" class="{if $town_id == $trs[id]} title_menu_on {else} title_menu {/if}">{$trs[name]}</a>
+	  <!--{/loop}-->
+	<!--{/if}-->	</td>
+  </tr>   
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td >所在位置X</td>
+	<td >所在位置Y</td>
+	<td>&nbsp;</td>
+	</tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="position_x[]" type="text" value="{$rs[position_x]}"  size="10"/></td>
+	<td><input name="position_y[]" type="text" value="{$rs[position_y]}"  size="10"/></td>
+	<td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallWorldBossData&id={$rs[id]}&name={$rs[name_url]}')" class="list_menu">怪物团</a></td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→<input type="hidden" name="town_id" value="{$town_id}" /></td>
+    <td><input name="position_x_n" type="text" value=""  size="10"/></td>
+	<td><input name="position_y_n" type="text" value=""  size="10"/></td>
+	<td>&nbsp;</td>
+    </tr>  
+  <tr>
+    <td colspan="5">
+	<input type="hidden" name="action" value="SetWorldBoss" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

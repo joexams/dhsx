@@ -1,0 +1,57 @@
+<form method="post" action="?in=monster" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="5">护送取经怪</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="50">玩家等级</td>
+	<td width="35">删除</td>
+    <td width="100">玩家等级</td>
+    <td width="100">怪物团</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[player_level]}<input name="id_old[]" type="hidden" value="{$rs[player_level]}" /></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[player_level]}" title="选择删除{$rs[name]}"/></td>
+    <td><input name="player_level[]" type="text" value="{$rs[player_level]}" size="10"/></td>	
+    <td>
+	<select name="mission_monster_team_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $monster_team_list $mtrs}-->
+	 <option value="{$mtrs[id]}"  {if $mtrs[id] == $rs[mission_monster_team_id]}selected="selected"{/if}>{$mtrs[monster_name]}-{$mtrs[level]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="player_level_n" type="text" value=""  size="10"/></td>
+    <td>
+	<select name="mission_monster_team_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $monster_team_list $mtrs}-->
+	 <option value="{$mtrs[id]}">{$mtrs[monster_name]}-{$mtrs[level]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="5" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="5" align="center">
+	<input type="hidden" name="action" value="SetTakeBibleMonster" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

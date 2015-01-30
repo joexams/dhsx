@@ -1,0 +1,59 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="6"><span class="bluetext">{$desc}</span> 的周排行奖励</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="30">删除</td>
+    <td width="100">排名</td>
+    <td width="150">奖励物品</td>
+    <td>&nbsp;</td>
+	</tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td><input name="week_ranking_id[]" type="hidden" value="{$rs[week_ranking_id]}"/><input type="checkbox" name="id_del[]" value="{$rs[week_ranking_id]},{$rs[rank]}" title="选择删除"/></td>
+    <td><input name="rank[]" type="hidden" value="{$rs[rank]}"/><strong>{$rs[rank]}</strong></td>
+	<td>
+	<select name="item_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}" {if $irs[id] == $rs[item_id]}selected="selected"{/if}>{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>&nbsp;</td>
+	</tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="7" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->  
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td>新增→</td>
+    <td><input name="rank_n" type="text" value=""  size="10"/></td>
+	<td>
+	<select name="item_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $item_list $irs}-->
+	 <option value="{$irs[id]}">{$irs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+    <td>&nbsp;</td>
+	</tr>  
+  <tr>
+    <td colspan="5" align="center">
+	<input name="week_ranking_id_n" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetWeekRankingAward" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

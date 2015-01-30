@@ -1,0 +1,47 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=fate" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="6"><span class="bluetext">{$name}</span> 的等级</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">Level</td>
+	<td width="35">删除</td>
+    <td width="100">等级</td>
+	<td width="100">影响值</td>
+  <td width="100">影响值2</td>
+  <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+  <td><input name="fateid[]" type="hidden" value="{$rs[fate_id]}"/><input name="id[]" type="hidden" value="{$rs[level]}"/>{$rs[level]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[level]},{$rs[fate_id]}" title="选择删除"/></td>
+    <td><strong>{$rs[level]}</strong>级</td>
+	<td><input name="addon_value[]" type="text" value="{$rs[addon_value]}"  size="10"/></td> 
+  <td><input name="addon_value2[]" type="text" value="{$rs[addon_value2]}"  size="10"/></td>  
+    <td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="6" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="level_n" type="text" value=""  size="10"/></td>
+	<td><input name="addon_value_n" type="text" value=""  size="10"/></td>	
+  <td><input name="addon_value2_n" type="text" value=""  size="10"/></td> 
+    <td>&nbsp;</td>
+  </tr>    
+  <tr>
+    <td colspan="6" align="center">
+	<input name="fate_id" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetFateLevel" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

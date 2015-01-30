@@ -1,0 +1,66 @@
+{template player_log_top}
+<table class="table">
+  <tr class="title_3">
+    <td colspan="8">
+	<form action="" method="get" name="form" id="form" onSubmit="setSubmit('Submit')">
+	{lang BPMC}：<input name="faction_name" type="text" value="{$faction_name}" size="20" maxlength="20"  /> {lang DATANUM}<br />
+	{lang TIMERANGE}：<select name="date" id="date" >
+	  <option value="" class="select">{lang XZTIME}</option>
+	<!--{if $day_moth_list}-->
+	  <!--{loop $day_moth_list $drs}-->
+	  <option value="{$drs[year]}-{$drs[month]}-{$drs[day]}" {if $date == $drs[year].'-'.$drs[month].'-'.$drs[day]} selected="selected" {/if}>{$drs[year]}-{$drs[month]}-{$drs[day]}</option>
+	  <!--{/loop}-->
+	  <!--{else}-->
+	  <option value="{$month}" >{$month}</option>
+	<!--{/if}-->		
+	</select><br />
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Logs" />
+	<input name="type" type="hidden" value="faction" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	
+	</form>	</td>
+  </tr>   
+  <tr class="title_2" align="center">
+    <td width="35">ID</td>
+    <td width="100">{lang DATE}</td>
+	<td width="100" >{lang DDJQ}</td>
+    <td width="150" >{lang BPMC}</td>
+    <td width="150" >{lang ZHANCHANG}</td>
+    <td width="100">{lang CYZ}</td>
+	<td >&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{eval $i=0}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}"  align="center" >
+	<td>{$rs[id]}</td>
+	<td>{$rs[year]}-{$rs[month]}-{$rs[day]}</td>
+	<td>
+	<!--{if $rs[rank] == 0}-->{lang NO1}<!--{/if}-->
+	<!--{if $rs[rank] == 1}-->{lang NO2}<!--{/if}-->
+	<!--{if $rs[rank] == 2}-->{lang NO3}<!--{/if}-->
+	<!--{if $rs[rank] == 4}-->{lang NO4}<!--{/if}-->
+	<!--{if $rs[rank] == 8}-->{lang NO5}<!--{/if}-->	
+	<!--{if $rs[rank] == 16}-->{lang NO6}<!--{/if}-->	
+	</td>
+	<td><strong>{$rs[faction_name]}</strong></td>
+	<td>{$rs[town_username]}</td>
+	<td><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=CallPlayerFactionWarMember&cid={$cid}&sid={$sid}&year={$rs[year]}&month={$rs[month]}&day={$rs[day]}&faction_id={$rs[faction_id]}&faction_war_id={$rs[faction_war_id]}&&member_count={$rs[member_count]}&name={$rs[name_url]}')" class="title_menu">{lang CYZ}</a></td>
+	<td >&nbsp;</td>
+  </tr>
+  <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+	<td colspan="8" class="page">{$list_array_pages}</td>
+  </tr>  
+	<!--{/if}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="8">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

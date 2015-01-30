@@ -1,0 +1,55 @@
+{template player_log_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">
+  <tr class="title_3">
+    <td colspan="10">
+	<form action="" method="get" name="form" id="form" onSubmit="setSubmit('Submit')">
+	{lang BPMC}：<input name="faction_name" type="text" value="{$faction_name}" size="20" maxlength="20"  /><br />
+	{lang TIMERANGE}：<input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly /><br />
+		
+	</select><br />
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Logs" />
+	<input name="type" type="hidden" value="roll_cake_faction" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr>   
+  <tr class="title_2" align="center">
+    <td width="35">ID</td>
+    <td width="100">{lang DATE}</td>
+	<td width="100" >{lang JXGZZF}</td>
+	<td width="100" >{lang JLTQ}</td>
+	<td width="100" >{lang CJRS}</td>
+	<td width="100" >{lang CJRSJLSW}</td>
+    <td width="150" >{lang BPMC}</td>
+    <td >&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{eval $i=0}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}"  align="center" >
+	<td>{$rs[id]}</td>
+	<td>{echo date('Y-m-d H:i:s',$rs[time])}</td>
+	<td>{$rs[score]}</td>
+	<td>{$rs[score_award_coin]}</td>
+	<td>{$rs[join_count]}</td>
+	<td>{$rs[join_award_fame]}</td>
+	<td><strong>{$faction_name}</strong></td>
+	<td >&nbsp;</td>
+  </tr>
+  <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+	<td colspan="10" class="page">{$list_array_pages}</td>
+  </tr>  
+	<!--{/if}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="10">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

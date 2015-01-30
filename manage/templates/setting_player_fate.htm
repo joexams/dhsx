@@ -1,0 +1,35 @@
+<table class="table"> 
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="150">{lang MG}</td>
+    <td width="100">{lang LV}</td>
+    <td width="100" >{lang JY}</td>
+	<td width="80">{lang CDJS}</td>
+	<td width="80">{lang BBGSY}</td>
+    <td width="80">{lang STATE}</td>
+	<td>&nbsp;</td> 
+	</tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td><input type="checkbox" name="fateids[]" value='{$rs[id]},{$rs[fate_name]}({$rs[quality_name]})' /></td>
+	<td><strong>{$rs[fate_name]}</strong> ({$rs[quality_name]})</td>
+    <td>{$rs[fate_level]}</td>
+    <td>{$rs[experience]}</td>
+    <td>{$rs[role_name]}</td>
+    <td>{$rs[grid]}</td>
+    <td>{$rs[status]}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+   <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <!--{else}-->
+  <tr>
+	<td colspan="8" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

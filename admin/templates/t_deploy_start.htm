@@ -1,0 +1,64 @@
+<form method="post" action="?in=deploy" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="6">阵盘星属性表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="150">属性</td>
+	<td width="150">仙石数量</td>
+    <td width="150">值</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/></td>
+    <td>
+	<select name="attribute_id[]" >
+	 <option class="select">选择属性</option>
+	 <!--{loop $war_attribute_type_list $rrs}-->
+	 <option value="{$rrs[id]}" {if $rrs[id] == $rs[attribute_id]}selected="selected"{/if}>{$rrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	
+	</td>
+    <td><input name="stone_amount[]" type="text" value="{$rs[stone_amount]}"  size="20"/></td>
+    <td><input name="value[]" type="text" value="{$rs[value]}"  size="20"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="6" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td>
+  <select name="attribute_id_n" >
+   <option class="select">选择属性</option>
+   <!--{loop $war_attribute_type_list $rrs}-->
+   <option value="{$rrs[id]}">{$rrs[name]}</option>
+   <!--{/loop}-->  
+  </select> 
+  </td>
+    <td><input name="stone_amount_n" type="text" value=""  size="20"/></td>
+    <td><input name="value_n" type="text" value=""  size="20"/></td>
+    <td>&nbsp;</td>
+	
+    <td colspan="2">&nbsp;</td>
+  </tr>  
+   <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="6" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->  
+  <tr>
+    <td colspan="6" align="center">
+	<input type="hidden" name="action" value="SetDeployStart" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

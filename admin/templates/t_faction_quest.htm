@@ -1,0 +1,115 @@
+<form method="post" action="?in=faction" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="13">帮派任务</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="100">英文标识</td>
+    <td width="100">任务标题</td>
+    <td width="100">任务描述</td>
+    <td width="100">任务类型</td>
+    <td width="100">任务NPC</td>
+    <td width="100">奖励帮贡</td>
+    <td width="100">需要金库等级</td>
+    <td width="100">给于物品</td>
+    <td width="100">初始铜钱</td>
+    <td width="100">需要铜钱</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id_old[]" type="hidden" value="{$rs[id]}" /></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+  <td><input name="sign[]" type="text" value="{$rs[sign]}"  size="20"/></td>
+  <td><input name="title[]" type="text" value="{$rs[title]}"  size="20"/></td>
+  <td><input name="discribe[]" type="text" value="{$rs[discribe]}"  size="20"/></td>
+  <td>
+    <select name="type[]">
+      <option value="0" {if $rs['type']==0}selected{/if}>跑商任务</option>
+      <option value="1" {if $rs['type']==1}selected{/if}>新跑商任务</option>
+    </select>
+
+  </td>
+    <td>
+    <select name="npc_id[]">
+      <option value="">任务NPC</option>
+      <!--{loop $npc_list $nrs}-->
+      <option value="{$nrs[id]}" {if $nrs['id']==$rs['npc_id']}selected{/if}>{$nrs['town_name']}-{$nrs['npc_name']}</option>
+      <!--{/loop}-->
+    </select>
+
+  </td>
+  <td><input name="award_faction_con[]" type="text" value="{$rs[award_faction_con]}"  size="20"/></td>
+  <td><input name="need_gold_room_lv[]" type="text" value="{$rs[need_gold_room_lv]}"  size="20"/></td>
+  <td>
+    <select name="use_item_id[]">
+      <option value="">选择物品</option>
+      <!--{loop $item_list $irs}-->
+      <option value="{$irs[id]}" {if $irs['id']==$rs['use_item_id']}selected{/if}>{$irs['name']}</option>
+      <!--{/loop}-->
+    </select>
+
+  </td>
+  <td><input name="init_coin[]" type="text" value="{$rs[init_coin]}"  size="20"/></td>
+  <td><input name="need_coin[]" type="text" value="{$rs[need_coin]}"  size="20"/></td>
+  <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+
+   <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="13" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}--> 
+  
+  <!--{else}-->
+  <tr>
+	<td colspan="13" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+  <td><input name="sign_n" type="text" value=""  size="20"/></td>
+  <td><input name="title_n" type="text" value=""  size="20"/></td>
+  <td><input name="discribe_n" type="text" value=""  size="20"/></td>
+  <td>
+    <select name="type_n">
+      <option value="0">跑商任务</option>
+      <option value="1">新跑商任务</option>
+    </select>
+
+  </td>
+    <td>
+    <select name="npc_id_n">
+      <option value="">任务NPC</option>
+      <!--{loop $npc_list $nrs}-->
+      <option value="{$nrs[id]}">{$nrs['town_name']}-{$nrs['npc_name']}</option>
+      <!--{/loop}-->
+    </select>
+
+  </td>
+  <td><input name="award_faction_con_n" type="text" value=""  size="20"/></td>
+  <td><input name="need_gold_room_lv_n" type="text" value=""  size="20"/></td>
+  <td>
+    <select name="use_item_id_n">
+      <option value="">选择物品</option>
+      <!--{loop $item_list $irs}-->
+      <option value="{$irs[id]}">{$irs['name']}</option>
+      <!--{/loop}-->
+    </select>
+
+  </td>
+  <td><input name="init_coin_n" type="text" value=""  size="20"/></td>
+  <td><input name="need_coin_n" type="text" value=""  size="20"/></td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="13" align="center">
+	<input type="hidden" name="action" value="SetFactionQuest" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

@@ -1,0 +1,89 @@
+{template player_log_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">
+  <tr class="title_3">
+    <td colspan="6">
+	<form action="" method="get" name="form" id="form" onSubmit="setSubmit('Submit')">
+	{lang WJCX}：<select name="usertype" id="usertype" >
+	<option value="1" {if $usertype == 1} selected="selected" {/if}>{lang USERNAME}</option>
+	<option value="2" {if $usertype == 2} selected="selected" {/if}>{lang USERNICK}</option>
+	</select>
+	<input name="username" type="text" value="{$username}" size="20" maxlength="20"  /><br />
+	{lang TIMERANGE}：<input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly /><br />
+	{lang CZLX}：({lang CZLXMSG})<br />
+	<!--{if $tree_log_type}-->
+	<!--{loop $tree_log_type $trs}-->
+	<input type="checkbox" id="tid_box_{$trs[id]}" {if in_array($trs[id],$tidArrList)} checked {/if} style="display:none;"/>
+	<a href="javascript:void(0)" id="tid_{$trs[id]}" class="{if in_array($trs[id],$tidArrList)} title_menu_on {else} title_menu {/if}" onclick="setTidArr({$trs[id]})" >{$trs[name]}</a>
+	<!--{/loop}-->
+	<!--{/if}-->
+	<br />	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Logs" />
+	<input name="type" type="hidden" value="tree" />
+	<input name="tidArr" id="tidArr" value="{$tidArr}" style="display:none;">
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr>   
+  <tr class="title_2" align="center">
+    <td width="35">ID</td>
+    <td >{lang CZSJ}</td>
+	<td >{lang ZENGJIAN}</td>
+    <td >{lang CZLX}</td>
+    <td >{lang USER}</td>
+	<td >{lang USERID}</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{eval $i=0}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}"  align="center" >
+	<td>{$rs[id]}</td>
+	<td>{echo date('Y-m-d H:i:s',$rs[op_time])}</td>
+	<td><!--{if $rs[value] >= 0}-->
+	<strong class="greentext">+{$rs[value]}</strong>
+	<!--{else}-->
+	<strong class="bluetext">{$rs[value]}</strong>
+	<!--{/if}--></td>
+	<td>{$treetype[$rs[op_type]][name]}</td>
+	<td align="left">
+	<strong><a href="?in=player&action=PlayerView&cid={$cid}&sid={$sid}&uid={$rs[player_id]}" target="_blank">{$rs[username]}</a></strong> ({$rs[nickname]})	</td>
+	<td>{$rs[player_id]}</td>
+  </tr>
+  <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+	<td colspan="6" class="page">{$list_array_pages}</td>
+  </tr>  
+	<!--{/if}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="6">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>
+<script language="javascript" type="text/javascript">
+function setTidArr(id) {
+	var tidValueOld = $('tidArr').value;
+	var tidValue = $('tidArr');
+
+	if ($('tid_box_'+id).checked ==false) {
+		$('tid_box_'+id).checked = true;
+		$('tid_'+id).className = 'title_menu_on';
+		var text;
+		if (!tidValueOld) {
+			text = id+',';
+		}else{
+			text = tidValueOld + id+',';
+		}
+		tidValue.value = text;
+	}else{
+		$('tid_box_'+id).checked = false;
+		$('tid_'+id).className = 'title_menu';
+		text = tidValueOld.replace(','+id+',',',');
+		tidValue.value = text;
+	}
+}	
+</script>

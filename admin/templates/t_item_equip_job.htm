@@ -1,0 +1,49 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=item" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="6"><span class="bluetext">{$name}</span> 的穿戴要求职业</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="35">删除</td>
+    <td width="150">职业</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[role_job_id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[item_id]},{$rs[role_job_id]}" title="选择删除"/></td>
+    <td>{$rs[role_job_name]}</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="7" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="role_job_id_n" >
+	 <option class="select">选择角色</option>
+	 <option value="99999999" >所有角色</option>
+	 <!--{loop $role_job_list $rrs}-->
+	 <option value="{$rrs[id]}" >{$rrs[name]}</option>
+	 <!--{/loop}-->	
+	</select>
+	</td>
+    <td>&nbsp;</td>
+    </tr>  
+  <tr>
+    <td colspan="7" align="center">
+	<input name="item_id_n" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetItemEquipJob" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

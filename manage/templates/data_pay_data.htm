@@ -1,0 +1,178 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<form method="post" action="" name="form" id="form"  onSubmit="setSubmit('Submit')">
+<table class="table" style="margin-bottom:5px;">
+  <tr class="title_3">
+	<td colspan="6"><input type="checkbox" name="allcid" value="allcid"  id="allcid" onclick="CheckAll(this,'form','ccid[]');setAllCIDArr();" {if $allcid == 'allcid'} checked="checked" {/if}/> 平台列表</td>
+  </tr>
+  <!--{if $company_list}-->  	
+  <!--{loop $crows $company_list}-->
+  <tr>
+	<!--{loop $company_list $crs}-->
+	<td><input type="checkbox" name="ccid[]" value="{$crs[cid]}"  id="c_{$crs[cid]}" onclick="setCIDArr({$crs[cid]});" {if in_array($crs[cid],$ccid)} checked="checked" {/if}/> {$crs[name]}</td>
+	<!--{/loop}-->
+  </tr>
+  <!--{/loop}-->
+  <!--{/if}--> 
+  <tr class="title_3">
+	<td colspan="6"><input type="checkbox" name="allsid" value="allsid"  id="allsid" onclick="setAllSIDArr();" {if $allsid == 'allsid'} checked="checked" {/if}/> 服务器列表(不选表示全部)</td>
+  </tr>  
+  <tr >
+    <td colspan="6">
+	<select name="servers[]" id = "servers" size="10" multiple="multiple" style="width:500px;">
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if in_array($srs[sid],$serversArr)} selected="selected" {/if}>{$srs[company_name]}-{$srs[name]}-{$srs[o_name]} ({$srs[server]})</option>
+	 <!--{/loop}-->	
+	 <!--{else}-->
+	 <option  class="select">请先从上面选择平台</option> 
+	 <!--{/if}-->
+	</select>	  
+    </td>
+  </tr> 
+
+  <!--tr class="title_3">
+	<td colspan="6">服务器列表</td>
+  </tr-->
+  <!--{if $servers_list}-->  
+  <!--{loop $srows $servers_list}-->
+  <tr>
+	<!--{loop $servers_list $srs}-->
+	<td><input type="checkbox" name="sid[]"  value="{$srs[sid]}"/> {$srs[name]}-{$srs[o_name]}</td>
+	<!--{/loop}-->
+  </tr>
+  <!--{/loop}-->
+  <!--{/if}-->
+  <tr>
+	<td colspan="6">时间范围： <input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly /> <input type="checkbox" name="all" value="1" {if $all == 1}checked="checked"{/if} onclick="setTimeAll(this)"/>全部日期 <span class="graytext">(勾选后则查询所有日期)</span></td>
+  </tr>  
+  
+  <tr>
+    <td colspan="6">
+	<input name="stime1" id="stime1" type="hidden" value="{$stime1}" />
+	<input name="etime1" id="etime1" type="hidden" value="{$etime1}"/>
+	<input type="hidden" name="companyArr" id="companyArr" value="{$companyArr}"/>
+	<input type="hidden" name="cidArr" id="cidArr" value="{$cidArr}"/>
+	<input type="hidden" name="in" value="data" />
+	<input type="hidden" name="action" value="DataPayData" />
+	<input type="submit" id="Submit" name="Submit" value=" 查询 " class="button"/></td>
+  </tr>  
+</table>  
+</form> 
+<table class="table">
+  <tr>
+    <th colspan="6">充值汇总</th>
+  </tr> 
+  <tr align="center" class="title_2">
+    <td width="150">日期</td>
+    <td width="150">总充值金额</td>
+    <td width="150">总充值次数</td>
+    <td width="150">总充值人数</td>
+    <td width="100">ARPU</td>
+	<td>&nbsp;</td>
+    </tr>  
+  <tr class="purpletext trtitle" align="center">
+    <td>总计</td>	
+    <td><!--{if $pay_amount}--><strong>{$pay_amount}</strong><!--{else}-->-<!--{/if}--></td>
+    <td><!--{if $pay_num}-->{$pay_num}<!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $pay_player_count}-->{$pay_player_count}<!--{else}-->-<!--{/if}--></td>	
+    <td ><!--{if $pay_amount}-->{echo round($pay_amount/$pay_player_count,2)}<!--{else}-->-<!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+<!--{if $day_list}-->	
+  <!--{loop $day_list $drs $day}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center">
+    <td><strong>{$day}</strong> <span class="graytext smalltext">{echo GetWeekDay($day)}</span></td>	
+    <td><!--{if $d[$day][pay_amount]}--><strong class="orangetext">{$d[$day][pay_amount]}</strong><!--{else}-->-<!--{/if}--></td>
+    <td><!--{if $d[$day][pay_num]}-->{$d[$day][pay_num]}<!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $d[$day][pay_player_count]}-->{$d[$day][pay_player_count]}<!--{else}-->-<!--{/if}--></td>	
+    <td class="bluetext"><!--{if $d[$day][pay_amount]}-->{echo round($d[$day][pay_amount]/$d[$day][pay_player_count],2)}<!--{else}-->-<!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+<!--{/if}-->     
+</table>
+
+     
+<script language="javascript" type="text/javascript">
+function setTimeAll(obj) {
+	if (obj.checked == true) {
+		$('stime').value = '';
+		$('etime').value = '';
+	}else{
+		$('stime').value = $('stime1').value;
+		$('etime').value = $('etime1').value;
+	}
+}	
+
+function setCIDArr(id) {
+	var companyArr = $('companyArr');
+	var text;
+	var re = new RegExp(id + ",", "g");
+	//var re2 =new RegExp("(?:" + id + ",)+", "g");
+
+	if ($('c_'+id).checked == true) {
+		if (!companyArr.value) {
+			text = id+',';
+			companyArr.value = text;
+		}else{
+			text = companyArr.value + id+',';  
+				
+			//} 
+			//text = companyArr.value + id+',';
+/*			text = companyArr.value + id+',';
+			companyArr.value = text;
+			var list = companyArr.value.split(",");
+			for (var i = list.length - 1; i > -1; i--) {
+				if (list[i] == id) {
+					list.splice(i, 1);
+				}
+			}*/
+			//alert(list.join());
+			//companyArr.value = list.join();
+		}
+		//text = companyArr.value.replace(re2,"");
+		companyArr.value = text;
+	}else{
+		
+		text = companyArr.value.replace(re,"");
+		companyArr.value = text;
+	}
+	if($('allsid').checked == true){
+		selectAjax('call.php?action=CallCompanyServersUrl','servers','companyArr',1);
+	}
+}
+
+
+function setAllCIDArr() {
+	var cidArr = $('cidArr').value;
+	var cidArrLength = cidArr.split(",");//拆分
+	for(var i = 0;i<cidArrLength.length;i++ ){
+		setCIDArr(cidArrLength[i]);
+	}	
+	if ($('allcid').checked == false) {
+
+		$('allsid').checked = false;
+		$('servers').options.length = 0;
+	}
+
+}
+
+function setAllSIDArr() {
+	if ($('allsid').checked == true) {
+		selectAjax('call.php?action=CallCompanyServersUrl','servers','companyArr',1);
+	}else{
+		$('servers').options.length = 0;
+	}
+}
+
+    String.prototype.noRepeatStr=function noRepeatStr(){     
+        var tempArr=new Array();     
+        for(var i=0;i<this.length;i++){     
+            if(tempArr.join('').indexOf(this.charAt(i))==-1)     
+                tempArr[tempArr.length]=this.charAt(i);     
+        }     
+        return tempArr.join('');     
+    }     
+
+</script>

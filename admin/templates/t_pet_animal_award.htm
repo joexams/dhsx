@@ -1,0 +1,77 @@
+<script type="text/javascript" src="include/js/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  var hiddenobj = $('#hiddenarea');
+
+  function changedata(obj){
+    var data = obj.attr('data'), id = obj.attr('data-id'), val = obj.val();
+    if (id > 0){
+      if (data != val){
+        if ($('#id_'+id).html() == null){
+          hiddenobj.append('<input type="hidden" id="id_'+id+'" name="id[]" value="'+id+'" />');
+        }
+      }else {
+         $('#id_'+id).remove();
+      }
+    }
+  }
+  $('#table').on('blur', 'input.field', function(){
+    changedata($(this));
+  });
+});
+</script>
+
+<form method="post" action="?in=pet" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table" id="table">
+  <tr>
+    <th colspan="16">宠物奖励信息表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="150">给予方式</td>
+	<td width="100">元宝</td>
+    <td width="100">铜钱</td>
+    <td width="100">经验</td>
+    <td width="100">等级</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/></td>
+    <td><input name="name[{$rs[id]}]" type="text" value="{$rs[name]}"  size="20" data="{$rs[name]}" data-id="{$rs[id]}" class="field"/></td>
+	<td><input name="ingot[{$rs[id]}]" type="text" value="{$rs[ingot]}"  size="10" data="{$rs[ingot]}" data-id="{$rs[id]}" class="field"/></td>
+	<td><input name="coin[{$rs[id]}]" type="text" value="{$rs[coin]}"  size="10" data="{$rs[coin]}" data-id="{$rs[id]}" class="field"/></td>
+	<td><input name="exp[{$rs[id]}]" type="text" value="{$rs[exp]}"  size="10" data="{$rs[exp]}" data-id="{$rs[id]}" class="field"/></td>
+	<td><input name="lv[{$rs[id]}]" type="text" value="{$rs[lv]}"  size="10" data="{$rs[lv]}" data-id="{$rs[id]}" class="field"/></td>
+	<td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="16" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+	<td><input name="ingot_n" type="text" value=""  size="10"/></td>
+	<td><input name="coin_n" type="text" value=""  size="10"/></td>
+	<td><input name="exp_n" type="text" value=""  size="10"/></td>
+	<td><input name="lv_n" type="text" value=""  size="10"/></td>
+	<td>&nbsp;</td>
+  </tr>  
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}--> 
+  <tr>
+    <td colspan="16" align="center" id="hiddenarea">
+	<input type="hidden" name="action" value="SetPetAnimalAward" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

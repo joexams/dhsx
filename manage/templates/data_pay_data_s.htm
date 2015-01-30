@@ -1,0 +1,228 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<form method="post" action="" name="form" id="form"  onSubmit="setSubmit('Submit')">
+<table class="table" style="margin-bottom:5px;">
+  <tr class="title_3">
+	<td colspan="6"><input type="checkbox" name="allcid" value="allcid"  id="allcid" onclick="CheckAll(this,'form','ccid[]');setAllCIDArr();" {if $allcid == 'allcid'} checked="checked" {/if}/> <strong>{lang COMPANY}</strong></td>
+  </tr>
+  <!--{if $company_list}-->  	
+  <!--{loop $crows $company_list}-->
+  <tr>
+	<!--{loop $company_list $crs}-->
+	<td><input type="checkbox" name="ccid[]" value="{$crs[cid]}"  id="c_{$crs[cid]}" onclick="setCIDArr({$crs[cid]});" {if in_array($crs[cid],$ccid)} checked="checked" {/if}/> {$crs[name]}</td>
+	<!--{/loop}-->
+  </tr>
+  <!--{/loop}-->
+  <!--{/if}--> 
+  <tr class="title_3">
+	<td colspan="6"><input type="checkbox" name="allsid" value="allsid"  id="allsid" onclick="setAllSIDArr();" {if $allsid == 'allsid'} checked="checked" {/if}/> <strong>{lang SERVERLIST}</strong> ({lang CZHZSERVERMSG})</td>
+  </tr>  
+  <tr >
+    <td colspan="6">
+	<select name="servers[]" id = "servers" size="10" multiple="multiple" style="width:500px;">
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if in_array($srs[sid],$serversArr)} selected="selected" {/if}>{$srs[company_name]}-{$srs[name]}-{$srs[o_name]} ({$srs[server]})</option>
+	 <!--{/loop}-->	
+	 <!--{else}-->
+	 <option  class="select" value="">{lang CZHZCOMPANYMSG}</option> 
+	 <!--{/if}-->
+	</select>	  
+    </td>
+  </tr> 
+
+  <!--tr class="title_3">
+	<td colspan="6">服务器列表</td>
+  </tr-->
+  <!--{if $servers_list}-->  
+  <!--{loop $srows $servers_list}-->
+  <tr>
+	<!--{loop $servers_list $srs}-->
+	<td><input type="checkbox" name="sid[]"  value="{$srs[sid]}"/> {$srs[name]}-{$srs[o_name]}</td>
+	<!--{/loop}-->
+  </tr>
+  <!--{/loop}-->
+  <!--{/if}-->
+  <tr>
+	<td colspan="6">{lang TIMERANGE}： <input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly /> <input type="checkbox" name="all" value="1" {if $all == 1}checked="checked"{/if} onclick="setTimeAll(this)"/> {lang CZHZALLTIME} <span class="graytext">({lang CZHZALLTIMEMSG})</span></td>
+  </tr>  
+   <tr>
+	<td colspan="6">
+	{lang CZHZSJZS}： 
+	<input type="checkbox" name="s_hits" value="1" {if $s_hits == 1}checked="checked"{/if} /> {lang CZHZPAYNUM}
+	<input type="checkbox" name="s_people" value="1" {if $s_people == 1}checked="checked"{/if}/> {lang CZHZPAYUSER}
+	<input type="checkbox" name="s_arpu" value="1" {if $s_arpu == 1}checked="checked"{/if}/> ARPU
+	</td>
+  </tr>  
+ 
+  <tr>
+    <td colspan="6">
+	<input name="stime1" id="stime1" type="hidden" value="{$stime1}" />
+	<input name="etime1" id="etime1" type="hidden" value="{$etime1}"/>
+	<input type="hidden" name="companyArr" id="companyArr" value="{$companyArr}"/>
+	<input type="hidden" name="cidArr" id="cidArr" value="{$cidArr}"/>
+	<input type="hidden" name="in" value="data" />
+	<input type="hidden" name="action" value="DataPayData" />
+	<input type="submit" id="Submit" name="Submit" value=" {lang SEARCH} " class="button"/> <strong class="redtext">{lang CZHZMSG}</strong></td>
+  </tr>  
+</table>  
+</form> 
+<!--{if $companyArr}-->
+<table class="table">
+  <tr>
+    <th colspan="100">{lang CZHZ}</th>
+  </tr> 
+
+  <tr align="center" class="title_2">
+    <td colspan="2">&nbsp;</td>
+	<td style="border-right:3px solid #CECFDA;"><strong>{lang ZONGJI}</strong></td>
+    <!--{loop $day_list $drs $day}--><td>{$day}<br /><span class="graytext smalltext">{echo GetWeekDay($day)}</span></td><!--{/loop}-->
+  </tr>  
+  <tr class="purpletext trtitle" align="center">
+    <td rowspan="4">{lang ZONGJI}</td>	
+    <td>{lang CZHZPAY}</td>
+	<td style="border-right:3px solid #CECFDA;"><!--{if $pay_amount}--><strong>{echo round($pay_amount,1)}</strong><!--{else}-->-<!--{/if}--></td>
+    <!--{loop $day_list $drs $day}--><td><!--{if $d[$day][pay_amount]}--><strong>{echo round($d[$day][pay_amount],2)}</strong><!--{else}-->-<!--{/if}--></td><!--{/loop}-->
+  </tr>
+  <tr class="purpletext trtitle" align="center">
+    <!--{if $s_hits == 1}-->
+    <td>{lang CZHZPAYNUM}</td>
+	<td style="border-right:3px solid #CECFDA;"><!--{if $pay_num}-->{$pay_num}<!--{else}-->-<!--{/if}--></td>
+    <!--{loop $day_list $drs $day}--><td><!--{if $d[$day][pay_num]}-->{$d[$day][pay_num]}<!--{else}-->-<!--{/if}--></td><!--{/loop}-->
+	<!--{/if}-->
+  </tr>
+  
+  <tr class="purpletext trtitle" align="center">
+  <!--{if $s_people == 1}-->
+    <td>{lang CZHZPAYUSER}</td>
+	<td style="border-right:3px solid #CECFDA;"><!--{if $pay_player_count}-->{$pay_player_count}<!--{else}-->-<!--{/if}--></td>
+    <!--{loop $day_list $drs $day}--><td><!--{if $d[$day][pay_player_count]}-->{$d[$day][pay_player_count]}<!--{else}-->-<!--{/if}--></td><!--{/loop}-->
+	<!--{/if}-->
+  </tr>
+  
+  <tr class="purpletext trtitle" align="center">
+  <!--{if $s_arpu == 1}-->
+    <td>ARPU</td>
+	<td style="border-right:3px solid #CECFDA;"><!--{if $pay_amount}-->{echo round($pay_amount/$pay_player_count,2)}<!--{else}-->-<!--{/if}--></td>
+    <!--{loop $day_list $drs $day}--><td><!--{if $d[$day][pay_amount]}-->{echo round($d[$day][pay_amount]/$d[$day][pay_player_count],2)}<!--{else}-->-<!--{/if}--></td><!--{/loop}-->
+	<!--{/if}-->
+  </tr>
+  <!--{if $servers_select_list}-->
+  <!--{loop $servers_select_list $srs}-->
+  <tr align="center">
+  
+    <td rowspan="4" class="td4" style="border-bottom:3px solid #CECFDA;"><strong>{$srs[company_name]}</strong><!--{if $allsid}--><strong>-{$srs[name]}</strong><!--{else}--><br /><span class="graytext">({$os[$srs[$s_val]][open_count]})</span><!--{/if}--></td>	
+    <td class="td4" >{lang CZHZPAY}</td>
+	<td class="td4"  style="border-right:3px solid #CECFDA;"><!--{if $c[$srs[$s_val]][pay_amount]}--><strong class="orangetext">{$c[$srs[$s_val]][pay_amount]}</strong><!--{else}-->-<!--{/if}--></td>
+    <!--{loop $day_list $drs $day}--><td><!--{if $s[$srs[$s_val]][$day][pay_amount]}--><strong class="orangetext">{$s[$srs[$s_val]][$day][pay_amount]}</strong><!--{else}-->-<!--{/if}--> <!--{if $adminWebName  == 'admin' && $pay}--> | {$s[$srs[$s_val]][$day][pay_amount2]}<!--{if $s[$srs[$s_val]][$day][pay_amount2]  != $s[$srs[$s_val]][$day][pay_amount]}--><strong class="greentext">(NO)</strong><!--{/if}--><!--{/if}--> </td><!--{/loop}-->
+  </tr>
+  
+  <tr align="center">
+  <!--{if $s_hits == 1}-->
+    <td class="td4" >{lang CZHZPAYNUM}</td>
+	<td class="td4"  style="border-right:3px solid #CECFDA;"><!--{if $c[$srs[$s_val]][pay_num]}-->{$c[$srs[$s_val]][pay_num]}<!--{else}-->-<!--{/if}--></td>
+   <!--{loop $day_list $drs $day}--> <td><!--{if $s[$srs[$s_val]][$day][pay_num]}-->{$s[$srs[$s_val]][$day][pay_num]}<!--{else}-->-<!--{/if}--></td><!--{/loop}-->
+   <!--{/if}-->
+  </tr>
+  
+  <tr align="center">
+  <!--{if $s_people == 1}-->
+    <td class="td4" >{lang CZHZPAYUSER}</td>
+	<td class="td4"  style="border-right:3px solid #CECFDA;"><!--{if $p[$srs[$s_val]][pay_player_count]}-->{$p[$srs[$s_val]][pay_player_count]}<!--{else}-->-<!--{/if}--></td>
+   <!--{loop $day_list $drs $day}--> <td><!--{if $s[$srs[$s_val]][$day][pay_player_count]}-->{$s[$srs[$s_val]][$day][pay_player_count]}<!--{else}-->-<!--{/if}--></td><!--{/loop}-->
+   <!--{/if}-->
+  </tr>
+  <tr align="center">
+  <!--{if $s_arpu == 1}-->
+    <td class="td4"  style="border-bottom:3px solid #CECFDA;">ARPU</td>
+	<td class="td4"  style="border-bottom:3px solid #CECFDA;border-right:3px solid #CECFDA;"><!--{if $p[$srs[$s_val]][pay_player_count]}--><span class="bluetext">{echo round($c[$srs[$s_val]][pay_amount]/$p[$srs[$s_val]][pay_player_count],2)}</span><!--{else}-->-<!--{/if}--></td>
+    <!--{loop $day_list $drs $day}--><td style="border-bottom:3px solid #CECFDA;"><!--{if $s[$srs[$s_val]][$day][pay_amount]}--><span class="bluetext">{echo round($s[$srs[$s_val]][$day][pay_amount]/$s[$srs[$s_val]][$day][pay_player_count],2)}</span><!--{else}-->-<!--{/if}--></td><!--{/loop}-->
+	<!--{/if}-->
+  </tr>
+  <!--{/loop}-->
+  <!--{/if}--> 
+</table>
+<!--{/if}--> 
+     
+<script language="javascript" type="text/javascript">
+function setTimeAll(obj) {
+	if (obj.checked == true) {
+		$('stime').value = '';
+		$('etime').value = '';
+	}else{
+		$('stime').value = $('stime1').value;
+		$('etime').value = $('etime1').value;
+	}
+}	
+
+function setCIDArr(id) {
+	var companyArr = $('companyArr');
+	var text;
+	var re = new RegExp(id + ",", "g");
+	//var re2 =new RegExp("(?:" + id + ",)+", "g");
+
+	if ($('c_'+id).checked == true) {
+		if (!companyArr.value) {
+			text = id+',';
+			companyArr.value = text;
+		}else{
+			text = companyArr.value + id+',';  
+				
+			//} 
+			//text = companyArr.value + id+',';
+/*			text = companyArr.value + id+',';
+			companyArr.value = text;
+			var list = companyArr.value.split(",");
+			for (var i = list.length - 1; i > -1; i--) {
+				if (list[i] == id) {
+					list.splice(i, 1);
+				}
+			}*/
+			//alert(list.join());
+			//companyArr.value = list.join();
+		}
+		//text = companyArr.value.replace(re2,"");
+		companyArr.value = text;
+	}else{
+		
+		text = companyArr.value.replace(re,"");
+		companyArr.value = text;
+	}
+	if($('allsid').checked == true){
+		selectAjax('call.php?action=CallCompanyServersUrl','servers','companyArr',1);
+	}
+}
+
+
+function setAllCIDArr() {
+	var cidArr = $('cidArr').value;
+	var cidArrLength = cidArr.split(",");//拆分
+	for(var i = 0;i<cidArrLength.length;i++ ){
+		setCIDArr(cidArrLength[i]);
+	}	
+	if ($('allcid').checked == false) {
+
+		$('allsid').checked = false;
+		$('servers').options.length = 0;
+	}
+
+}
+
+function setAllSIDArr() {
+	if ($('allsid').checked == true) {
+		selectAjax('call.php?action=CallCompanyServersUrl','servers','companyArr',1);
+	}else{
+		$('servers').options.length = 0;
+	}
+}
+
+    String.prototype.noRepeatStr=function noRepeatStr(){     
+        var tempArr=new Array();     
+        for(var i=0;i<this.length;i++){     
+            if(tempArr.join('').indexOf(this.charAt(i))==-1)     
+                tempArr[tempArr.length]=this.charAt(i);     
+        }     
+        return tempArr.join('');     
+    }     
+
+</script>

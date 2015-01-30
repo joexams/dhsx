@@ -1,0 +1,21 @@
+<table class="table">
+  <tr>
+    <th colspan="3"><span class="yellowtext">{$name} {$year}-{$month}-{$day}</span>  {lang BZCJCYMSG}</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td >{lang USER}</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[player_id]}</td>
+    <td align="left"><strong>{$rs[username]}</strong>({$rs[nickname]})</td>
+  </tr>
+  <!--{/loop}-->  
+  <!--{else}-->
+  <tr>
+	<td colspan="3" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

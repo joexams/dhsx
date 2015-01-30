@@ -1,0 +1,100 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">    
+  <tr>
+    <th colspan="20" class="title_1">{lang SJDB}</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="17">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">	 	
+	{lang KAIFUYU}： 
+	<select name="open_date" id="open_date" >
+	  <option value="" >{lang DATE}</option>
+	<!--{if $day_open_list}-->
+	  <!--{loop $day_open_list $drs}-->
+	  <option value="{$drs[odate]}" {if $drs[odate] == $open_date} selected="selected" {/if}>{$drs[odate]} 【{$drs[s_num]}{lang TAI}】</option>
+	  <!--{/loop}-->
+	  <!--{else}-->
+	<!--{/if}-->		
+	</select>
+	{lang QJTSJ}	
+	<input name="in" type="hidden" value="data" />
+	<input name="action" type="hidden" value="DataDay" />
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	</form>	</td>
+  </tr> 
+
+  <tr align="center" class="title_2">
+	<td rowspan="2">{lang FENSHI}</td>
+  	<td width="120" rowspan="2">{lang DATE}</td>
+	<td rowspan="2" >{lang ZCS}</td>
+	<td rowspan="2" >{lang CJS}</td>
+	<td rowspan="2">{lang CJL}</td>
+	<td rowspan="2" >{lang DLS}</td>
+	<td colspan="2">{lang ONLINE}</td>
+	<td colspan="2" title="{lang XYHLSRS}" style="border-right:3px;">{lang XSLS}</td>
+	<!--{if !serverAdmin('pay_data','y')}-->
+	<td rowspan="2" >{lang PAY}</td>
+	<td rowspan="2">{lang PAYUSER}</td>
+	<td rowspan="2">{lang NERUSERNUM}</td>
+	<td rowspan="2">{lang PAYNUM}</td>
+	<td rowspan="2">ARPU</td>
+	<!--{if !serverAdmin('data_key','y')}-->
+	<td rowspan="2" title="{lang XIAOFEIMSG}">{lang XIAOFEI}</td>
+	<td rowspan="2">{lang XFCZBL}</td>	
+	<!--{/if}-->
+	<!--{else}-->
+	<td rowspan="2">&nbsp;</td>	
+	<!--{/if}-->
+  </tr>
+  <tr align="center" class="title_2">
+    <td>{lang ZGZX}</td>
+    <td>{lang PJZX}</td>
+    <td title="{lang XYHLSRS}">{lang USERNUM}</td>
+    <td style="border-right:3px;" title="{lang XYHLSRL}">{lang LSL}%</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $srs}-->	  
+	  <tr  class="purpletext trtitle">
+		<td>&nbsp;</td>
+		<td colspan="16"><a href="?in=player&action=Data&cid={$srs[cid]}&sid={$srs[sid]}"><strong>{$srs[name]}-{$srs[o_name]}</strong></a></td>
+	  </tr>
+  
+	  <!--{if $day_list}-->
+	  <!--{loop $day_list $drs $day}-->	  
+	  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="right" >
+		<td align="center">
+		<!--{if $data[$srs[sid].'_'.$day][register_count]}-->
+		<a href="javascript:void(0)" onClick="pmwin('open','player_call.php?action=callPlayerDataRegHour&sid={$sid}&day={$day}')">{lang LOOK}</a>
+		<!--{else}-->-<!--{/if}-->	</td>
+		<td align="center"><strong>{$day}</strong> <span class="graytext smalltext">{echo GetWeekDay($day)}</span></td>
+		<td><!--{if $data[$srs[sid].'_'.$day][register_count]}-->{$data[$srs[sid].'_'.$day][register_count]}<!--{else}-->-<!--{/if}--></td>
+		<td><!--{if $data[$srs[sid].'_'.$day][create_count]}-->{$data[$srs[sid].'_'.$day][create_count]}<!--{else}-->-<!--{/if}--></td>
+		<td class="smalltext"><!--{if $data[$srs[sid].'_'.$day][create_count]}-->{echo round($data[$srs[sid].'_'.$day][create_count]/$data[$srs[sid].'_'.$day][register_count]*100,2)}%<!--{else}-->-<!--{/if}--></td>
+		<td><!--{if $data[$srs[sid].'_'.$day][login_count]}-->{$data[$srs[sid].'_'.$day][login_count]}<!--{else}-->-<!--{/if}--> </td>
+		<td><!--{if $data[$srs[sid].'_'.$day][max_online_count]}-->{$data[$srs[sid].'_'.$day][max_online_count]}<!--{else}-->-<!--{/if}--></td>
+		<td><!--{if $data[$srs[sid].'_'.$day][avg_online_count]}-->{$data[$srs[sid].'_'.$day][avg_online_count]}<!--{else}-->-<!--{/if}--></td>
+		<td><!--{if $data[$srs[sid].'_'.$day][out_count]}-->{$data[$srs[sid].'_'.$day][out_count]}<!--{else}-->-<!--{/if}--></td>	
+		<td style="border-right:3px;"><!--{if $data[$srs[sid].'_'.$day][out_rate]}-->{$data[$srs[sid].'_'.$day][out_rate]}%<!--{else}-->-<!--{/if}-->	</td>
+		<!--{if !serverAdmin('pay_data','y')}-->
+		<td><!--{if $data[$srs[sid].'_'.$day][pay_amount]}--><strong class="orangetext">{$data[$srs[sid].'_'.$day][pay_amount]}</strong><!--{else}-->-<!--{/if}--></td>
+		<td><!--{if $data[$srs[sid].'_'.$day][pay_player_count]}-->{$data[$srs[sid].'_'.$day][pay_player_count]}<!--{else}-->-<!--{/if}--></td>
+		<td><!--{if $data[$srs[sid].'_'.$day][new_player]}-->{$data[$srs[sid].'_'.$day][new_player]}<!--{else}-->-<!--{/if}--></td>
+		<td><!--{if $data[$srs[sid].'_'.$day][pay_num]}-->{$data[$srs[sid].'_'.$day][pay_num]}<!--{else}-->-<!--{/if}--></td>
+		<td><!--{if $data[$srs[sid].'_'.$day][pay_amount]}--><span class="bluetext">{echo round($data[$srs[sid].'_'.$day][pay_amount]/$data[$srs[sid].'_'.$day][pay_player_count],2)}</span><!--{else}-->-<!--{/if}--></td>
+		<!--{if !serverAdmin('data_key','y')}-->
+		<td><!--{if $data[$srs[sid].'_'.$day][consume]}--><span class="redtext">{$data[$srs[sid].'_'.$day][consume]}</span><!--{else}-->-<!--{/if}--></td>
+		<td><!--{if $data[$srs[sid].'_'.$day][consume] && $data[$srs[sid].'_'.$day][pay_amount] }-->{echo round((abs($data[$srs[sid].'_'.$day][consume])/$data[$srs[sid].'_'.$day][pay_amount]),2)}<!--{else}-->-<!--{/if}--></td>	
+		<!--{/if}-->
+		<!--{else}-->
+		<td>&nbsp;</td>	
+		<!--{/if}-->	
+	  </tr>
+	  <!--{/loop}-->
+	  <!--{/if}-->
+  <!--{/loop}-->  
+  <!--{else}--> 
+	  <tr >
+		<td colspan="17"  align="center">{lang NULL}</td>
+	  </tr>			  
+  <!--{/if}--> 
+</table>

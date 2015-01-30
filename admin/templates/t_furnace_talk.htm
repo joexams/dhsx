@@ -1,0 +1,73 @@
+<form method="post" action="?in=furnace" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="7">角色对话内容</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="8">
+	<a href="?in=furnace&action=FurnaceTalk" class="{if !$type} title_menu_on {else} title_menu {/if}">普通</a>
+	<a href="?in=furnace&action=FurnaceTalk&type=1" class="{if $type == 1} title_menu_on {else} title_menu {/if}">升级</a>
+	</td>
+  </tr>  
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="150">角色</td>
+    <td width="350">对话内容</td>
+    <td width="150">类型</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td><select name="role_id[]" >
+	 <option class="select" value="0">选择角色</option>
+	 <!--{loop $role_list $rrs}-->
+	 <option value="{$rrs[id]}"  {if $rrs[id] == $rs[role_id]}selected="selected"{/if}>{$rrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+    <td><textarea name="content[]" cols="40" ondblclick="textareasize(this)">{$rs[content]}</textarea></td>
+	<td>
+	<select name="type[]" >
+	 <option value="0"  {if $rs[type] == 0}selected="selected"{/if}>普通</option>
+	 <option value="1"  {if $rs[type] == 1}selected="selected"{/if}>升级</option>
+	</select>	</td>
+	
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="7" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><select name="role_id_n" >
+	 <option class="select" value="0">选择角色</option>
+	 <!--{loop $role_list $rrs}-->
+	 <option value="{$rrs[id]}">{$rrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select></td>
+	<td><textarea name="content_n" cols="40" ondblclick="textareasize(this)"></textarea></td>
+	<td>
+	<select name="type_n" >
+	 <option value="0">普通</option>
+	 <option value="1">升级</option>
+	</select>	</td>
+	<td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="7" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="7" align="center">
+	<input type="hidden" name="action" value="SetFurnaceTalk" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

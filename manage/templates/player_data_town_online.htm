@@ -1,0 +1,40 @@
+{template player_data_top}
+<table class="table" style="margin-bottom:5px;">   
+      
+  <tr align="center" class="title_2">
+  	<td width="50">ID</td>
+  	<td width="150">{lang TOWN} ({lang ONLINE}：{$all_onlie})</td>
+	<td width="100">{lang DQZX}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center">
+    <td>{$rs[id]}</td>  
+    <td><strong>{$rs[town_name]}</strong></td>
+	<td class="greentext" ><span id="online{$rs[id]}">0</span>{lang REN}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="4"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>
+<script language="javascript" type="text/javascript">
+<!--{if $list_array}-->
+<!--{loop $list_array $rs}-->
+		<!--{eval $rs[s] = SXD_SYSTEM_UP_ONLINE+($rs[i]*1000)}-->
+		
+		upTownOnline({$rs[id]});
+		//setInterval('upTownOnline({$rs[id]})',{$rs[s]});
+  <!--{/loop}-->
+<!--{/if}-->
+
+	function upTownOnline(id) {
+		selectAjax('player_call.php?action=callTownOnline&sid={$sid}&id='+id+'','online'+id+'','','',1);
+	}
+	
+
+</script>	

@@ -1,0 +1,32 @@
+{template player_data_top}
+<table class="table" style="margin-bottom:5px;">   
+  <tr class="title_3">
+    <td colspan="5">
+	<a href="?in=player&action=Data&type=power&cid={$cid}&sid={$sid}" class="{if !$level} title_menu_on {else} title_menu {/if}">{lang ESJYS}</a>
+	<a href="?in=player&action=Data&type=power&cid={$cid}&sid={$sid}&level=1" class="{if $level == 1} title_menu_on {else} title_menu {/if}">{lang ESJYX}</a>
+
+	</td>
+  </tr>    
+  <tr align="center" class="title_2">
+  	<td width="150">{lang TLFW}</td>
+	<td width="150">{lang JRDLWJ}/{lang BILI}</td>
+	<td width="150">{lang CZWJ}/{lang  BILI}</td>
+	<td width="150">{lang SYWJ}/{lang  BILI}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{if $level_power_list}-->
+  <!--{loop $level_power_list $rs $level}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="">
+    <td>{$level}</td>
+	<td><strong>{$power[$rs][player_today]}</strong> <span class="smalltext graytext">({echo round($power[$rs][player_today]/$power_player_today*100,2)}%)</span></td>
+	<td><strong>{$power[$rs][player_pay]}</strong> <span class="smalltext graytext">({echo round($power[$rs][player_pay]/$power_player_pay*100,2)}%)</span></td>
+	<td><strong>{$power[$rs][player]}</strong> <span class="smalltext graytext">({echo round($power[$rs][player]/$power_player*100,2)}%)</span></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="5"  align="center">{lang  NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>

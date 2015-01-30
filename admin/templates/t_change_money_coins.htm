@@ -1,0 +1,45 @@
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="6">玩家等级获得铜钱设定列表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="150">玩家等级</td>
+	<td width="150">铜钱获得</td>
+	<td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[level]}<input name="level[]" type="hidden" value="{$rs[level]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[level]}" title="选择删除"/></td>
+    <td><strong>{$rs[level]}</strong>级</td>
+	<td><input name="coins[]" type="text" value="{$rs[coins]}"  size="10"/></td>	
+	<td>&nbsp;</td>	
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="6" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="level_n" type="text" value=""  size="10"/> 级</td>
+	<td><input name="coins_n" type="text" value=""  size="10"/></td>
+	<td>&nbsp;</td>	
+    </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="6" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="6" align="center">
+	<input type="hidden" name="action" value="SetChangeMoneyCoins" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

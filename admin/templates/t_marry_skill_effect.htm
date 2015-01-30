@@ -1,0 +1,80 @@
+<table class="table">
+  <tr>
+    <th colspan="9">结婚技能效果表</th>
+  </tr> 
+<form method="post" action="?in=marry" name="form"  onSubmit="setSubmit('Submit')">   
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="100">图片id</td>
+	<td width="100">区块id</td>
+	<td width="100">结婚技能id</td>
+	<td width="100">效果值</td>
+	<td width="100">消耗亲密度</td>
+	<td width="100">是否百分比</td>
+	<td >&nbsp;</td>
+	</tr>
+  
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td><input name="picture_id[]" type="text" value="{$rs[picture_id]}" size="10"/></td>
+	<td><input name="panel_id[]" type="text" value="{$rs[panel_id]}" size="10"/></td>
+	<td>
+	<select name="skill_id[]" >
+	 <!--{loop $marry_skill_list $qrs}-->
+	 <option value="{$qrs[id]}"  {if $qrs[id] == $rs[skill_id]}selected="selected"{/if}>{$qrs[desc]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	</td>
+	<td><input name="effect_value[]" type="text" value="{$rs[effect_value]}" size="10"/></td>
+	<td><input name="need_favor[]" type="text" value="{$rs[need_favor]}" size="10"/></td>
+	<td>
+		<select name="is_percent[]">
+			<option value="0"{if 0 == $rs[is_percent]} selected="selected"{/if}>否</option>
+			<option value="1"{if 1 == $rs[is_percent]} selected="selected"{/if}>是</option>
+		</select>
+	</td>
+	<td>&nbsp;</td>
+	</tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="9" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+	<td><input name="picture_id_n" type="text" value="" size="10"/></td>
+	<td><input name="panel_id_n" type="text" value="" size="10"/></td>
+	<td>
+	<select name="skill_id_n" >
+	 <!--{loop $marry_skill_list $qrs}-->
+	 <option value="{$qrs[id]}" >{$qrs[desc]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	</td>
+	<td><input name="effect_value_n" type="text" value="" size="10"/></td>
+	<td><input name="need_favor_n" type="text" value="" size="10"/></td>
+	<td>
+		<select name="is_percent_n">
+			<option value="0">否</option>
+			<option value="1">是</option>
+		</select>
+	</td>
+	<td>&nbsp;</td>
+	</tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="9" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+  <tr>
+    <td colspan="9" align="center">
+	<input type="hidden" name="action" value="SetMarrySkillEffect" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr> 
+</form>    
+</table>

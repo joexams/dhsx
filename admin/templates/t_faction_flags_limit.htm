@@ -1,0 +1,88 @@
+<form method="post" action="?in=faction" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="19">帮派战旗限制</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">等级</td>
+	<td width="35">删除</td>
+    <td width="50">帮派等级</td>
+    <td width="50">生命战旗</td>
+	<td width="50">速度战旗</td>
+	<td width="50">格挡战旗</td>	
+    <td width="50">命中战旗</td>
+    <td width="50">闪避战旗</td>
+    <td width="50">暴击战旗</td>
+    <td width="50">气势</td>
+    <td width="50">破击</td>
+    <td width="50">韧性</td>
+    <td width="50">必杀</td>
+    <td width="50">伤害</td>
+    <td width="50">普攻战旗</td>
+    <td width="50">普防战旗</td>
+    <td width="50">绝攻战旗</td>
+    <td width="50">绝防战旗</td>
+    <td width="50">法攻战旗</td>
+    <td width="50">法防战旗</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[faction_level]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[faction_level]}" title="选择删除{$rs[faction_level]}"/><input name="id[]" type="hidden" value="{$rs[faction_level]}"/></td>
+    <td><input name="faction_level[]" type="text" value="{$rs[faction_level]}"  size="10"/></td>
+    <td><input name="health[]" type="text" value="{$rs[health]}"  size="10"/></td>
+    <td><input name="speed[]" type="text" value="{$rs[speed]}"  size="10"/></td>
+    <td><input name="block[]" type="text" value="{$rs[block]}"  size="10"/></td>
+    <td><input name="hit[]" type="text" value="{$rs[hit]}"  size="10"/></td>
+    <td><input name="dodge[]" type="text" value="{$rs[dodge]}"  size="10"/></td>
+    <td><input name="critical[]" type="text" value="{$rs[critical]}"  size="10"/></td>
+    <td><input name="momentum[]" type="text" value="{$rs[momentum]}"  size="10"/></td>
+    <td><input name="break_block[]" type="text" value="{$rs[break_block]}"  size="10"/></td>
+    <td><input name="break_critical[]" type="text" value="{$rs[break_critical]}"  size="10"/></td>
+    <td><input name="kill[]" type="text" value="{$rs[kill]}"  size="10"/></td>
+    <td><input name="normal_attack[]" type="text" value="{$rs[normal_attack]}"  size="10"/></td>
+    <td><input name="attack[]" type="text" value="{$rs[attack]}"  size="10"/></td>
+    <td><input name="defense[]" type="text" value="{$rs[defense]}"  size="10"/></td>
+    <td><input name="stunt_attack[]" type="text" value="{$rs[stunt_attack]}"  size="10"/></td>
+    <td><input name="stunt_defense[]" type="text" value="{$rs[stunt_defense]}"  size="10"/></td>
+    <td><input name="magic_attack[]" type="text" value="{$rs[magic_attack]}"  size="10"/></td>
+    <td><input name="magic_defense[]" type="text" value="{$rs[magic_defense]}"  size="10"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="19" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+   <td><input name="faction_level_n" type="text" value=""  size="10"/></td>
+    <td><input name="health_n" type="text" value=""  size="10"/></td>
+    <td><input name="speed_n" type="text" value=""  size="10"/></td>
+    <td><input name="block_n" type="text" value=""  size="10"/></td>
+    <td><input name="hit[_n" type="text" value=""  size="10"/></td>
+    <td><input name="dodge_n" type="text" value=""  size="10"/></td>
+    <td><input name="critical_n" type="text" value=""  size="10"/></td>
+    <td><input name="momentum_n" type="text" value=""  size="10"/></td>
+    <td><input name="break_block_n" type="text" value=""  size="10"/></td>
+    <td><input name="break_critical_n" type="text" value=""  size="10"/></td>
+    <td><input name="kill_n" type="text" value=""  size="10"/></td>
+    <td><input name="normal_attack_n" type="text" value=""  size="10"/></td>
+    <td><input name="attack_n" type="text" value=""  size="10"/></td>
+    <td><input name="defense_n" type="text" value=""  size="10"/></td>
+    <td><input name="stunt_attack_n" type="text" value=""  size="10"/></td>
+    <td><input name="stunt_defense_n" type="text" value=""  size="10"/></td>
+    <td><input name="magic_attack_n" type="text" value=""  size="10"/></td>
+    <td><input name="magic_defense_n" type="text" value=""  size="10"/></td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="19" align="center">
+	<input type="hidden" name="action" value="SetFactionFlagsLimit" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

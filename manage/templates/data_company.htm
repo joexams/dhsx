@@ -1,0 +1,52 @@
+<table class="table">
+  <tr>
+    <th colspan="14">{lang YYSZT}</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="14">{lang GYJJLY}</td>
+  </tr>    
+  
+  <tr align="center" class="title_2">
+    <td width="50">{lang ORDER}</td>
+	<td width="90">{lang COMPANY}</td>
+    <td width="50">{lang SERVER}</td>
+	<td width="50">{lang YHF}</td>
+    <td width="50">{lang YKQ}</td>
+    <td width="50">{lang JINKAI}</td>
+    <td width="50">{lang DATKAI}</td>
+	<td width="70"><a href="?in=data&action=DataCompany&order=pay_amount_t">{lang JRSR}<!--{if $order == 'pay_amount_t' || !$order}-->↓<!--{/if}--></a></td>
+	<td width="70"><a href="?in=data&action=DataCompany&order=pay_amount_y" >{lang ZRSR}<!--{if $order == 'pay_amount_y'}-->↓<!--{/if}--></a></td>
+	<td width="80"><a href="?in=data&action=DataCompany&order=pay_amount_thismonth" >{lang BYSR}<!--{if $order == 'pay_amount_thismonth'}-->↓<!--{/if}--></a></td>
+	<td width="80"><a href="?in=data&action=DataCompany&order=pay_amount_lastmonth">{lang SYSR}<!--{if $order == 'pay_amount_lastmonth'}-->↓<!--{/if}--></a></td>
+	<td width="80"><a href="?in=data&action=DataCompany&order=pay_amount">{lang ZSR}<!--{if $order == 'pay_amount'}-->↓<!--{/if}--></a></td>
+	<td width="70">{lang PJMFSR}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{eval $i = 1;}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$i}</td>
+	<td><a href="?in=server&action=ServersPost&cid={$rs[cid]}" target="_blank"><strong>{$rs[name]}</strong></a> <span class="graytext">({lang TYPE}{$rs[type]})</span></td>
+    <td><!--{if $s[$rs[cid]][s_count]}-->{echo $s[$rs[cid]][s_count] - $s[$rs[cid]][merger_count]}<!--{else}-->-<!--{/if}--> </td>
+    <td class="greentext"><!--{if $s[$rs[cid]][merger_count]}-->{$s[$rs[cid]][merger_count]}<!--{else}-->-<!--{/if}--></td>
+    <td class="greentext"><!--{if $s[$rs[cid]][open_count]}-->{echo $s[$rs[cid]][open_count] - $s[$rs[cid]][merger_count]}<!--{else}-->-<!--{/if}--></td>
+    <td class="greentext"><!--{if $s[$rs[cid]][open_today_count]}-->{$s[$rs[cid]][open_today_count]}<!--{else}-->-<!--{/if}--></td>
+    <td class="bluetext"><!--{if $s[$rs[cid]][wait_open_count]}-->{$s[$rs[cid]][wait_open_count]}<!--{else}-->-<!--{/if}--></td>
+	<td class="orangetext" align="right"><!--{if $rs[pay_amount_t]}--><strong>{echo round($rs[pay_amount_t],1)}</strong>{lang YUAN}<!--{else}-->-<!--{/if}--></td>
+	<td class="greentext" align="right"><!--{if $rs[pay_amount_y]}-->{$rs[pay_amount_y]}元<!--{else}-->-<!--{/if}--></td>
+	<td align="right"><!--{if $rs[pay_amount_thismonth]}-->{echo round($rs[pay_amount_thismonth]+$rs[pay_amount_t],1)}{lang YUAN}<!--{else}-->-<!--{/if}--></td>
+	<td align="right"><!--{if $rs[pay_amount_lastmonth]}-->{$rs[pay_amount_lastmonth]}元<!--{else}-->-<!--{/if}--></td>
+	
+	<td class="bluetext" align="right"><!--{if $rs[pay_amount]}-->{echo round($rs[pay_amount]+$rs[pay_amount_t],1)}{lang YUAN}<!--{else}-->-<!--{/if}--></td>
+	<td align="right"><!--{if $rs[pay_amount]}-->≈{echo round($rs[pay_amount]/($s[$rs[cid]][open_count] - $s[$rs[cid]][merger_count]))}{lang YUAN}<!--{else}-->-<!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{eval $i++;}-->
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="14" align="center">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

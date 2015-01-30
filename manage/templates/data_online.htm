@@ -1,0 +1,100 @@
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <th colspan="24" class="title_1">{lang SDZXDB}/{lang CZCSDB}</th>
+  </tr> 
+  <tr class="title_3">
+    <td colspan="24">
+	<form action="" method="get" name="formd" onSubmit="setSubmit('Submitd')">	 		
+	<select name="day_h2" id="day_h2">
+	  <option value="" >{lang DATE}1</option>
+	<!--{if $day_list}-->
+	  <!--{loop $day_list $drs $day}-->
+	  <option value="{$day}" {if $day == $day_h2} selected="selected" {/if}>{$day}</option>
+	  <!--{/loop}-->
+	  <!--{else}-->
+	<!--{/if}-->		
+	</select>	
+
+	<select name="day_h" id="day_h">
+	  <option value="" >{lang DATE}2</option>
+	<!--{if $day_list}-->
+	  <!--{loop $day_list $drs $day}-->
+	  <option value="{$day}" {if $day == $day_h} selected="selected" {/if}>{$day}</option>
+	  <!--{/loop}-->
+	  <!--{else}-->
+	<!--{/if}-->		
+	</select>	
+	<input name="in" type="hidden" value="data" />
+	<input name="action" type="hidden" value="DataOnline" />
+	<input type="submit" name="Submit" id="Submitd" value="{lang YJRDB}" class="button"/>
+	</form>
+	</td>
+  </tr> 
+  <tr class="title_2">
+    <td colspan="24">{lang SDZXDB}</td>
+  </tr>  
+  <tr>
+    <td colspan="24">{$starLineData}</td>
+  </tr>  
+  <tr class="title_2">
+    <td colspan="24">{lang CZCSDB}</td>
+  </tr>
+  <tr>
+    <td colspan="24">{$starLineData2}</td>
+  </tr>     
+     
+</table>
+<table class="table" style="margin-bottom:5px;">
+  <tr style="font-size:14px;" align="center">
+    <td width="110"  height="30">
+	<select name="month" id="month" onChange="jumpMenu(this)">
+	<!--{if $day_moth_list}-->
+	  <!--{loop $day_moth_list $drs}-->
+	  <option value="{$drs[time]}" {if $drs[time] == $month} selected="selected" {/if}>{$drs[time]}</option>
+	  <!--{/loop}-->
+	  <!--{else}-->
+	  <option value="{$month}" >{$month}</option>
+	<!--{/if}-->		
+	</select>	
+	</td>
+	<td align="left">{lang LSZGZX}:<strong>{$max_online}</strong>{lang REN} <span class="graytext">{lang FSY}{$max_online_time}</span></td>
+  </tr>
+</table>
+<table class="table">    
+   
+  <tr align="center" class="title_2">
+    <td width="120">{lang DATE}</td>
+    <!--{loop $hour_list $rs $hour}--><td>{$hour}</td><!--{/loop}-->
+  </tr>
+  
+  
+  <!--{if $day_list}-->
+  <!--{eval $i=0}-->
+  <!--{loop $day_list $drs $day}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}" align="right" >
+	<td align="center" nowrap="nowrap">
+	<!--{if $day <= date('Y-m-d')}-->
+	<a href="javascript:void(0)" onClick="pmwin('open','call.php?action=CallOnlineDetail&day={$day}')"><strong>{$day}</strong></a>
+	<!--{else}-->
+	<strong>{$day}</strong>
+	<!--{/if}-->
+	<span class="graytext smalltext">{echo GetWeekDay($day)}</span></td>
+	<!--{loop $hour_list $rs $hour}-->
+	
+	<td nowrap="nowrap" class="smalltext{if $hour == 12 || $hour == 20} bluetext{/if}">{$data[$day][$hour][online_count]}<br /><span class="graytext">{$pay[$day][$hour][pay_count]}</span></td>
+	<!--{/loop}-->
+  </tr>
+   <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="2"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>
+
+<script type="text/JavaScript">
+	function jumpMenu(selObj){
+		location="?in=data&action=DataOnline&month="+selObj.options[selObj.selectedIndex].value+"";
+	}
+</script>

@@ -1,0 +1,160 @@
+<!--{if !$ok}-->
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<form action="?in=data&action=DataPlayerOut" method="post" name="form" id="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2">分级流失</th>
+    </tr>
+    <tr>
+      <td align="right" valign="top"><strong>{lang COMPANY}</strong></td>
+      <td>
+	  <select name="cid" id="cid">
+		 <option class="select">{lang ALL}</option>
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>      </td>
+    </tr>
+    <tr>
+      <td align="right" valign="top"><strong>天数范围</strong></td>
+      <td><input name="day" type="text" value="{$day}" size="10" /> 天未登陆(1天按24小时计算)</td>
+    </tr>
+    	
+    <tr>
+      <td align="right" valign="top"><strong>注册时间</strong></td>
+      <td><input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly />
+        -
+        <input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly /> (不选择为全部)
+      </td>
+    </tr>
+    <tr>
+      <td align="right" valign="top"><strong>等级范围</strong></td>
+      <td>
+	  <input name="slevel" type="text" value="{$slevel}" size="10" /> - <input name="elevel" type="text" value="{$elevel}" size="10" />
+	  <input type="button" name="button" value=" {lang SEARCH} " class="button" onclick="selectAjax('call.php?action=CallOpenDateServers','sid','cid',1);"/>
+	  </td>
+    </tr>	
+    <tr>
+      <td align="right" valign="top"><strong>{lang SERVER}</strong></td>
+      <td>
+	  单选或多选以下服务器<br />
+	  <select name="sid[]" id="sid" size="30" multiple="multiple"  >
+          <!--{if $servers_list}-->
+          <!--{loop $servers_list $srs}-->
+          <option value="{$srs[sid]}" >{$srs[name]}-{$srs[o_name]} ({$srs[server]})</option>
+          <!--{/loop}-->
+          <!--{else}-->
+          <option  class="select">---------------------{lang CHOOSE}---------------------</option>
+          <!--{/if}-->
+        </select>      </td>
+    </tr>
+    <tr>
+      <td width="100"><input name="ok" type="hidden" value="1" />
+          <input name="action" type="hidden" value="DataPlayerOut" /></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" {lang SUBMITOK} " class="button"/></td>
+    </tr>
+  </table>
+</form >
+<!--{else}-->
+<table class="table">    
+    <tr>
+      <th colspan="20">分级流失 - {$day}天未登陆;<!--{if $slevel && $elevel}-->等级范围{$slevel}到{$elevel};<!--{/if}--><!--{if $stime && $etime}-->注册时间{$stime}到{$etime};<!--{/if}--></th>
+    </tr>
+  <tr align="center" class="title_2">
+  	<td width="80">等级</td>
+	<td width="80">{lang CJS}</td>
+	<td width="80">{lang LSRS}</td>
+	<td width="80" style="border-right:3px;">{lang LSL}</td>
+	<td width="80">{lang PAYUSER}</td>
+	<td width="80">{lang CZLSRS}</td>
+	<td width="80" style="border-right:3px;">{lang CZLSL}</td>
+    <td width="80">VIP{lang USERNUM}</td>
+    <td width="80">VIP{lang LSRS}</td>
+    <td width="80">VIP{lang LSL}</td>
+	<td><span id="sss" onmouseover="showMenu(this.id);" class="bluetext">{lang CYTJFWQ}</span></td>
+  </tr>
+  <tr align="center" class="purpletext trtitle">
+    <td>{lang ZONGJI}</td>
+	<td><!--{if $pall[player_count]}-->{$pall[player_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $pall[player_out_count]}-->{$pall[player_out_count]}<!--{else}-->-<!--{/if}--></td>
+	<td style="border-right:3px;"><!--{if $pall[player_count]}-->{echo round($pall[player_out_count]/$pall[player_count],2)*100}%<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $pall[player_pay_count]}-->{$pall[player_pay_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $pall[player_out_pay_count]}-->{$pall[player_out_pay_count]}<!--{else}-->-<!--{/if}--></td>
+	<td style="border-right:3px;"><!--{if $pall[player_pay_count]}-->{echo round($pall[player_out_pay_count]/$pall[player_pay_count],2)*100}%<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $vall[player_vip_count]}-->{$vall[player_vip_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $vall[player_out_vip_count]}-->{$vall[player_out_vip_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $vall[player_vip_count]}-->{echo round($vall[player_out_vip_count]/$vall[player_vip_count],2)*100}%<!--{else}-->-<!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+  
+  <!--{if $level_list}-->
+  <!--{eval $i=0}-->
+  <!--{loop $level_list $rs $level}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}"  align="center">
+    <td>Lv.{$level}</td>
+	<td><!--{if $prs[$level][player_count]}-->{$prs[$level][player_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $prs[$level][player_out_count]}-->{$prs[$level][player_out_count]}<!--{else}-->-<!--{/if}--></td>
+	<td style="border-right:3px;"><!--{if $prs[$level][player_count]}-->{echo round($prs[$level][player_out_count]/$prs[$level][player_count],2)*100}%<!--{else}-->-<!--{/if}--></td>
+	<td class="bluetext"><!--{if $prs[$level][player_pay_count]}-->{$prs[$level][player_pay_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $prs[$level][player_out_pay_count]}-->{$prs[$level][player_out_pay_count]}<!--{else}-->-<!--{/if}--></td>
+	<td style="border-right:3px;"><!--{if $prs[$level][player_pay_count]}-->{echo round($prs[$level][player_out_pay_count]/$prs[$level][player_pay_count],2)*100}%<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $vrs[$level][player_vip_count]}-->{$vrs[$level][player_vip_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $vrs[$level][player_out_vip_count]}-->{$vrs[$level][player_out_vip_count]}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $vrs[$level][player_vip_count]}-->{echo round($vrs[$level][player_out_vip_count]/$vrs[$level][player_vip_count],2)*100}%<!--{else}-->-<!--{/if}--></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="12"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}--> 
+</table>
+<div id="sss_menu" class="table" style="display:none;width:300px;padding:10px;">
+<span onclick="CycleUpdate()">{lang GXWCHQSX}</span>
+<table width="100%" class="table">   
+  <!--{if $list_array}-->
+	<!--{loop $list_array $srs}-->	  
+  <tr>
+	<td><strong>{$srs[name]}</strong></td>
+	<td><!--{if time()-$srs[filetime] > 3600}--><span id="s_{$srs[sid]}" ><input type="hidden" name="sid[]" value="{$srs[cid]}|{$srs[sid]}"/><a href="#" onclick="CycleUpdate()">{lang SJYGQCXSC}</a></span><iframe id="d_{$srs[sid]}" name="d_{$srs[sid]}" width="0" height="0" frameborder="0"></iframe><!--{/if}--></td>
+	</tr>
+  <!--{/loop}--> 
+  <!--{/if}--> 
+</table>
+<input name="day" id="day" type="hidden"  value="{$day}" />
+<input name="stime" id="stime" type="hidden"  value="{$stime}" />
+<input name="etime" id="etime" type="hidden" value="{$etime}"/>
+
+<input name="slevel" id="slevel" type="hidden"  value="{$slevel}" />
+<input name="elevel" id="elevel" type="hidden" value="{$elevel}"/>
+
+</div>
+
+
+<!--{/if}-->
+<script language="javascript" type="text/javascript">
+var day = $('day').value;
+var stime = $('stime').value;
+var etime = $('etime').value;	
+
+function CycleUpdate(){
+	var sidArr = document.getElementsByName("sid[]");
+	var sidArrL = sidArr.length;
+	var sidArrL = sidArr.length;
+	if(sidArrL > 0){
+		var sidVal = sidArr[0].value;
+		var val = sidVal.split("|");
+		SetUrl('?in=player&action=Data&type=player_out&cid='+val[0]+'&sid='+val[1]+'&&stime='+stime+'&etime='+etime+'&day='+day+'&s=s_'+val[1]+'',val[1]);
+	}else{
+		location.reload();
+	}
+
+}
+
+function SetUrl(url,sid){
+	top.frames['d_'+ sid].location.href  = url;
+	$('s_'+ sid).innerHTML='updating...';
+}
+</script>

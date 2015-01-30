@@ -1,0 +1,65 @@
+{template player_log_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">
+  <tr class="title_3">
+    <td colspan="11">
+	<form action="" method="get" name="form" id="form" onSubmit="setSubmit('Submit')">
+	{lang BPMC}：<input name="faction_name" type="text" value="{$faction_name}" size="20" maxlength="20"  /><br />
+	{lang WJCX}：<select name="usertype" id="usertype" >
+	<option value="1" {if $usertype == 1} selected="selected" {/if}>{lang USERNAME}</option>
+	<option value="2" {if $usertype == 2} selected="selected" {/if}>{lang USERNICK}</option>
+	</select>
+	<input name="username" type="text" value="{$username}" size="20" maxlength="20"  /><br />
+	{lang TIMERANGE}：<input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly /><br />
+		
+	</select><br />
+	<input type="submit" name="Submit" id="Submit" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="action" type="hidden" value="Logs" />
+	<input name="type" type="hidden" value="roll_cake_member" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	</td>
+  </tr>   
+  <tr class="title_2" align="center">
+    <td width="35">ID</td>
+    <td width="100">{lang DATE}</td>
+	<td width="100" >{lang ORDER}</td>
+	<td width="100" >{lang BPPMJLSW}</td>
+	<td width="100" >{lang BPPMJLTQ}</td>
+	<td width="100" >{lang BPZFJLTQ}</td>
+	<td width="100" >{lang CJRSJLSW}</td>
+    <td width="150" >{lang BPMC}</td>
+    <td width="150" >{lang USER}</td>
+    <td >&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{eval $i=0}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr class="{if $i % 2!=0}td{else}td4{/if}"  align="center" >
+	<td>{$rs[id]}</td>
+	<td>{echo date('Y-m-d H:i:s',$rs[time])}</td>
+	<td>{$rs[rank]}</td>
+	<td>{$rs[rank_award_fame]}</td>
+	<td>{$rs[rank_award_coin]}</td>
+	<td>{$rs[score_award_coin]}</td>
+	<td>{$rs[join_award_fame]}</td>
+	<td><strong>{$faction_name}</strong></td>
+	<td align="left">
+	<!--{if $rs[is_tester] == 1}--><span class="right graytext">{lang CSH}</span><!--{elseif $rs[is_tester] == 2}--><span class="right graytext">{lang GJCSH}</span><!--{elseif $rs[is_tester] == 3}--><span class="right bluetext">GM</span><!--{/if}--><strong><a href="?in=player&action=PlayerView&cid={$cid}&sid={$sid}&uid={$rs[player_id]}" target="_blank">{$rs[username]}</a></strong> ({$rs[nickname]})	</td>
+	<td >&nbsp;</td>
+  </tr>
+  <!--{eval $i++}-->
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+	<td colspan="11" class="page">{$list_array_pages}</td>
+  </tr>  
+	<!--{/if}-->
+  <!--{else}-->
+  <tr align="center">
+    <td colspan="11">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

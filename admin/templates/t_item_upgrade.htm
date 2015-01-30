@@ -1,0 +1,40 @@
+<form method="post" action="?in=item" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="5">物品强化等级</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">LEVEL</td>
+	<td width="35">删除</td>
+    <td width="100">等级</td>
+    <td width="150">名称</td>
+	<td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[level]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[level]}" title="选择删除"/><input name="level[]" type="hidden" value="{$rs[level]}"/></td>
+    <td><strong>{$rs[level]}级</strong></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td ><input name="level_n" type="text" value=""  size="10"/></td>
+    <td ><input name="name_n" type="text" value=""  size="20"/></td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="5" align="center">
+	<input type="hidden" name="action" value="SetItemUpgrade" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

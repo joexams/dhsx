@@ -1,0 +1,67 @@
+<form method="post" action="?in=role" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="21">称号</th>
+  </tr>  
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td>名称</td>
+	<td>标识</td>
+	<td>来源</td>
+	<td>称号类别</td>
+    <td>生命加成</td>	
+    <td>铜钱奖励</td>
+    <td>声望奖励</td>
+    <td>普通攻击</td>
+    <td>速度</td>
+    <td>天数</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input name="name[]" type="text" value="{$rs[name]}"  size="10"/></td>
+    <td><input name="sign[]" type="text" value="{$rs[sign]}"  size="10"/></td>
+    <td><input name="content[]" type="text" value="{$rs[content]}"  size="25"/></td>
+    <td><input name="type[]" type="text" value="{$rs[type]}"  size="10"/></td>
+	<td><input name="health[]" type="text" value="{$rs[health]}"  size="5"/></td>
+	<td><input name="award_coins[]" type="text" value="{$rs[award_coins]}"  size="5"/></td>
+	<td><input name="award_fame[]" type="text" value="{$rs[award_fame]}"  size="5"/></td>
+	<td><input name="award_attack[]" type="text" value="{$rs[award_attack]}"  size="5"/></td>
+	<td><input name="award_speed[]" type="text" value="{$rs[award_speed]}"  size="5"/></td>
+	<td><input name="day[]" type="text" value="{$rs[day]}"  size="5"/></td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="21" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <
+    <td><input name="name_n" type="text" value=""  size="10"/></td>
+    <td><input name="sign_n" type="text" value=""  size="10"/></td>
+    <td><input name="content_n" type="text" value=""  size="25"/></td>
+    <td><input name="type_n" type="text" value=""  size="10"/></td>
+	<td><input name="health_n" type="text" value=""  size="5"/></td>
+	<td><input name="award_coins_n" type="text" value=""  size="5"/></td>
+	<td><input name="award_fame_n" type="text" value=""  size="5"/></td>
+	<td><input name="award_attack_n" type="text" value=""  size="5"/></td>
+	<td><input name="award_speed_n" type="text" value=""  size="5"/></td>
+	<td><input name="day_n" type="text" value=""  size="5"/></td>
+    </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="21" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="21" align="center">
+	<input type="hidden" name="action" value="SetTitle" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

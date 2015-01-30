@@ -1,0 +1,120 @@
+<form method="post" action="?in=item" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="14">商城物品表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="150">分类</td>
+    <td width="100">出售类型</td>
+    <td width="100">物品</td>
+    <td width="100">物品数量</td>
+    <td width="100">单价</td>
+    <td width="100">原价</td>
+    <td width="100">是否首页显示</td>
+    <td width="100">销售状态</td>
+    <td>&nbsp;</td>
+    </tr>
+    <!--{if $list_array}-->
+    <!--{loop $list_array $rs}-->   
+    <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+    <td>{$rs[id]}<input name="id_old[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td>
+      <select name="category[]">
+    <!--{loop $category $crs}-->
+     <option value="{$crs[id]}" {if $crs[id] == $rs[category]}selected="selected"{/if}>{$crs[name]}</option>
+     <!--{/loop}--> 
+      </select>
+    </td>
+    <td>
+      <select name="sell_type[]">
+         <option value="0">请选择出售类型</option>
+        <!--{loop $sell_type $srs}-->
+     <option value="{$srs[id]}" {if $srs[id] == $rs[sell_type]}selected="selected"{/if}>{$srs[name]}</option>
+     <!--{/loop}--> 
+      </select>
+    </td>
+    <td><select name="item_id[]" >
+     <option class="select" value="0">选择物品</option>
+     <!--{loop $item_list $irs}-->
+     <option value="{$irs[id]}" {if $irs[id] == $rs[item_id]}selected="selected"{/if}>{$irs[name]}</option>
+     <!--{/loop}-->  
+    </select></td>
+      <td><input name="item_amount[]" type="text" value="{$rs[item_amount]}" size="10" /></td>
+      <td><input name="price[]" type="text" value="{$rs[price]}" size="10" /></td>
+      <td><input name="org_price[]" type="text" value="{$rs[org_price]}" size="10" /></td>
+      <td>
+      <select name="is_first_page[]">
+        <option value="0" {if $rs[is_first_page] == 0}selected="selected"{/if}>否</option>
+        <option value="1" {if $rs[is_first_page] == 1}selected="selected"{/if}>是</option>
+      </select>
+      </td>
+      <td>
+      <select name="is_on_sell[]">
+        <option value="1" {if $rs[is_on_sell] == 1}selected="selected"{/if}>销售</option>
+        <option value="0" {if $rs[is_on_sell] == 0}selected="selected"{/if}>停售</option>
+      </select>
+      </td>
+      <td>&nbsp;</td>
+      </tr>
+    <!--{/loop}-->
+    <!--{else}-->
+    <tr>
+    <td colspan="14" align="center">找不到相关信息</td>
+    </tr>  
+    <!--{/if}--> 
+    <tr class="td2" align="center" >
+  <td colspan="2">新增记录→</td>
+  <td>
+    <select name="category_n">
+ <!--{loop $category $crs}-->
+     <option value="{$crs[id]}">{$crs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+  </td>
+  <td>
+    <select name="sell_type_n">
+      <option value="0">请选择出售类型</option>
+       <!--{loop $sell_type $srs}-->
+     <option value="{$srs[id]}">{$srs[name]}</option>
+     <!--{/loop}--> 
+    </select>
+  </td>
+  <td><select name="item_id_n" >
+   <option class="select" value="0">选择物品</option>
+
+   <!--{loop $item_list $irs}-->
+   <option value="{$irs[id]}">{$irs[name]}</option>
+   <!--{/loop}-->  
+  </select></td>
+    <td><input name="item_amount_n" type="text" value="" size="10" /></td>
+    <td><input name="price_n" type="text" value="" size="10" /></td>
+    <td><input name="org_price_n" type="text" value="" size="10" /></td>
+    <td>
+    <select name="is_first_page_n">
+      <option value="0">否</option>
+      <option value="1">是</option>
+    </select>
+    </td>
+      <td>
+      <select name="is_on_sell[]">
+        <option value="1">销售</option>
+        <option value="0">停售</option>
+      </select>
+      </td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="14" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->     
+  <tr>
+    <td colspan="14" align="center">
+  <input type="hidden" name="action" value="SetOnlineShopItem" />
+  <input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

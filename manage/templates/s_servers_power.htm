@@ -1,0 +1,48 @@
+<form method="post" action="?in=setup" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="6">单服权限列表</th>
+  </tr>
+       
+  <tr class="title_2" align="center">
+    <td width="35">ID</th>
+    <td width="35">删除</th>
+    <td width="100">排序</thd>
+    <td width="250">名称</td>
+    <td width="150">权限值</td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $prs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center">
+	<td>{$prs[pid]}</td>
+	<td><!--{if $prs[pid]!=1}--><input type="checkbox" name="id_del[]" value="{$prs[pid]}" title="选择删除{$prs[pname]}" /><!--{else}-->-<!--{/if}--></td>
+	<td><input name="porder[]" type="text" value="{$prs[porder]}" size="10" maxlength="2"/></td>
+	<td>	
+	<input name="id[]" type="hidden" value="{$prs[pid]}"/>
+	<input name="pname[]" type="text" value="{$prs[pname]}" size="40"/>	</td>
+	<td><input name="power[]" type="text" value="{$prs[power]}" size="20" /></td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="6">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+    <td colspan="2" align="center">新增→</td>
+    <td><input name="porder_n" type="text" value="" size="10" maxlength="2"/></td>
+	<td><input name="pname_n" type="text" value="" size="40"/></td>
+	<td><input name="power_n" type="text" value="" size="20" /></td>
+	<td>&nbsp;</td>
+  </tr>  
+  <tr align="left">
+    <td colspan="2" >&nbsp;</td>
+    <td colspan="5">
+	<input type="hidden" name="action" value="SetServersPower" />
+	<input type="submit" id="Submit" name="Submit" value="执 行 操 作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/>
+	<span class="bluetext">这里设置的是远程服务器管理员的权限</span>	</td>
+  </tr>	
+</table>
+</form>

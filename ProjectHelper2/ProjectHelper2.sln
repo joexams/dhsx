@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectHelper2", "ProjectHelper2\ProjectHelper2.csproj", "{8A9A3746-E885-4D6A-A7DE-7E42FEDC5134}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProtoSpec", "ProtoSpec\ProtoSpec.csproj", "{5BD84C83-8D20-4790-A425-4C3495779469}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperCore", "HelperCore\HelperCore.csproj", "{94CD0AED-EFF2-4532-833E-5E2FA83F59B2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BD84C83-8D20-4790-A425-4C3495779469}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5BD84C83-8D20-4790-A425-4C3495779469}.Debug|x86.Build.0 = Debug|Any CPU
+		{5BD84C83-8D20-4790-A425-4C3495779469}.Release|x86.ActiveCfg = Release|Any CPU
+		{5BD84C83-8D20-4790-A425-4C3495779469}.Release|x86.Build.0 = Release|Any CPU
+		{8A9A3746-E885-4D6A-A7DE-7E42FEDC5134}.Debug|x86.ActiveCfg = Debug|x86
+		{8A9A3746-E885-4D6A-A7DE-7E42FEDC5134}.Debug|x86.Build.0 = Debug|x86
+		{8A9A3746-E885-4D6A-A7DE-7E42FEDC5134}.Release|x86.ActiveCfg = Release|x86
+		{8A9A3746-E885-4D6A-A7DE-7E42FEDC5134}.Release|x86.Build.0 = Release|x86
+		{94CD0AED-EFF2-4532-833E-5E2FA83F59B2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{94CD0AED-EFF2-4532-833E-5E2FA83F59B2}.Debug|x86.Build.0 = Debug|Any CPU
+		{94CD0AED-EFF2-4532-833E-5E2FA83F59B2}.Release|x86.ActiveCfg = Release|Any CPU
+		{94CD0AED-EFF2-4532-833E-5E2FA83F59B2}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = ProjectHelper2\ProjectHelper2.csproj
+	EndGlobalSection
+EndGlobal

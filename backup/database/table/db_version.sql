@@ -1,0 +1,3 @@
+CREATE TABLE `db_version` (
+  `version` int(11) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

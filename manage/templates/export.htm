@@ -1,0 +1,106 @@
+{template player_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table" style="margin-bottom:5px;">
+  <tr>
+    <td valign="top"  style="font-size:14px;line-height:30px;background:#fbfbe0;" class="redtext" align="center"><strong>{lang DAOCHUMSG}</strong></td>
+  </tr>
+</table>
+<form action="export.php?action=CallServersExport&cid={$cid}&sid={$sid}&r={RAND_NUM}" method="post" name="form"  target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="2">{lang DCWJLB}</th>
+  </tr>
+   <tr>
+    <td width="100" align="right"><strong>{lang SOURCE}</strong></td>
+	<td>
+	<select name="source">
+	 <option value="">{lang ALL}</option>
+	<!--{if $source_list}-->
+	 <!--{loop $source_list $rs}-->
+	 <option value="{$rs[source]}">{$rs[source]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->	
+	</select>
+	<span class="graytext">{lang BXZBXZMSG}</span>
+	</td>
+  </tr> 
+   <tr>
+    <td width="100" align="right"><strong>{lang CJJS}</strong></td>
+	<td>
+	<select name="role">
+	 <option value="1">{lang YCJ}</option>
+	 <option value="2">{lang WCJ}</option>
+	 <option value="0">{lang ALL}</option>
+	</select>
+	</td>
+  </tr> 
+  <tr>
+    <td align="right"><strong>{lang ZHUCSJ}</strong></td>
+	<td>
+	<input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="" size="10" readonly /> - 
+	<input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="" size="10" readonly />
+	<span class="graytext">{lang BXZQLKMSG}</span>
+	</td>
+  </tr> 
+      
+  <tr>
+    <td align="right"><strong>VIP</strong></td>
+	<td>
+	<select name="vip_s">
+	 <option value="0">----</option>
+	 <option value="999">{lang NOTOVIP1}</option>
+	<!--{if $vip_list}-->
+	 <!--{loop $vip_list $vrs $v}-->
+	 <option value="{$v}">VIP{$v}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->	
+	</select>
+	 -	
+	<select name="vip_e">
+	 <option value="0">----</option>
+	<!--{if $vip_list}-->
+	 <!--{loop $vip_list $vrs $v}-->
+	 <option value="{$v}">VIP{$v}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->	
+	</select>
+	<span class="graytext">{lang BXZBXZMSG}</span>
+	</td>
+  </tr>  
+   <tr>
+    <td align="right"><strong>{lang LEVELFW}</strong></td>
+	<td>
+	<select name="level_s">
+	 <option value="0">----</option>
+	<!--{if $level_list}-->
+	 <!--{loop $level_list $lrs $l}-->
+	 <option value="{$l}">Lv.{$l}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->	
+	</select>
+	 -	
+	<select name="level_e">
+	 <option value="0">----</option>
+	<!--{if $level_list}-->
+	 <!--{loop $level_list $lrs $l}-->
+	 <option value="{$l}">Lv.{$l}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->	
+	</select>
+	<span class="graytext">{lang BXZBXZMSG}</span>
+	</td>
+  </tr>  
+  <tr>
+    <td align="right" valign="top" ><strong>{lang USERNAME}</strong></td>
+	<td><textarea name="usernameArr" cols="60" rows="10"></textarea><br /><span class="graytext">{lang YZYHDCSYQLKMSG}</span></td>
+  </tr>       
+  <tr>
+    <td>
+	<input type="hidden" name="action" value="CallServersExport" />
+	<input type="hidden" name="cid" value="{$cid}" />
+	<input type="hidden" name="sid" value="{$sid}" />
+	</td>
+    <td>
+	<input type="submit" id="Submit" name="Submit" value="{lang QUEDDC}" onClick='javascript: return confirm("{lang DOYOUDOZXJM}");'  class="button"/></td>
+  </tr>    
+</table>

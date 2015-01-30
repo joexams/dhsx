@@ -1,0 +1,45 @@
+<!--{eval $now_url = urlencode($_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'])}-->
+<table class="table" style="margin-bottom:5px;">
+  <tr align="center">
+ 	<th style="padding-left:15px;" align="left" class="td2" colspan="11">
+	<span id="other_servers" class="right" onclick="selectAjax('call.php?action=CallServers&cid={$cid}&sid={$sid}&url={$now_url}','other_servers_menu','','',1);showMenu('other_servers');">{lang OTHERSERVER}</span>
+	<a href="?in=server&cid={$cid}&action=ServersPost">{lang SERVERLIST}</a> ＞ <strong class="yellowtext">{$server[company_name]}-{$server[name]}-{$server[o_name]} {$server[server]}</strong> 
+	<!--{if !webAdmin('server','y')}-->
+	API:{$server[api_server]}({$server[api_port]}) / DB主:{$server[name2]} / DB从:{$server[db_server]} 
+	<!--{/if}-->
+	
+	</th>
+  </tr>
+  <tr style="font-size:14px;" align="center">
+ 	<td style="padding-left:15px;" align="left">
+	<span class="greentext">{lang ZXRS}:<span id="online">0</span>{lang REN}</span><br />
+	<!--{if !serverAdmin('pay','y')}--><span class="orangetext">{lang JRSR}:<strong id="todaypay">0</strong>{lang YUAN}</span><!--{/if}-->
+	</td>
+    <!--{if !serverAdmin('player','y')}--><td width="60" {if !ReqStr('action') || ReqStr('action') == 'PlayerView'} class="td2" {/if}><a href="?in=player&cid={$cid}&sid={$sid}">{lang USER}</a></td><!--{/if}-->
+	<!--{if !serverAdmin('source','y')}--><td width="60" {if ReqStr('action') == 'DataSource' } class="td2" {/if}><a href="?in=player&action=DataSource&cid={$cid}&sid={$sid}">渠道统计</a></td><!--{/if}-->
+	<!--{if !serverAdmin('data','y')}--><td width="60" {if ReqStr('action') == 'Data' } class="td2" {/if}><a href="?in=player&action=Data&cid={$cid}&sid={$sid}">{lang SJBB}</a></td><!--{/if}-->
+	<!--{if !serverAdmin('data_key','y')}--><td width="60" {if ReqStr('action') == 'TollGate' } class="td2" {/if}><a href="?in=player&action=TollGate&cid={$cid}&sid={$sid}">{lang GKBB}</a></td><!--{/if}-->	
+	<!--{if !serverAdmin('data_key','y')}--><!--td width="60" {if ReqStr('action') == 'BossGift' } class="td2" {/if}><a href="?in=player&action=BossGift&cid={$cid}&sid={$sid}">BOSS<br />今日记录</a></td--><!--{/if}-->	
+	<!--{if !serverAdmin('data_key','y')}--><td width="60" {if ReqStr('action') == 'SuperSportRanking' } class="td2" {/if}><a href="?in=player&action=SuperSportRanking&cid={$cid}&sid={$sid}">{lang JJC}</a></td><!--{/if}-->	
+	<!--{if !serverAdmin('faction','y')}--><td width="60" {if ReqStr('action') == 'Faction' } class="td2" {/if}><a href="?in=player&action=Faction&cid={$cid}&sid={$sid}">{lang BANGPAI}</a></td><!--{/if}-->
+	<!--{if !serverAdmin('logs','y')}--><td width="60" {if ReqStr('action') == 'Logs' } class="td2" {/if}><a href="?in=player&action=Logs&cid={$cid}&sid={$sid}">{lang YXJL}</a></td><!--{/if}-->	
+	<!--{if !serverAdmin('t','y')}--><td width="60"><a href="player_call.php?action=CallTemplates&cid={$cid}&sid={$sid}" target="_blank">模版数据</a></td><!--{/if}-->
+
+  </tr>
+</table>
+<div id="other_servers_menu" class="table" style="display:none;width:700px;padding:10px;">{lang LOADDING}...</div>
+<script language="javascript" type="text/javascript">
+	upOnline();
+	setInterval('upOnline()',{SXD_SYSTEM_UP_ONLINE});
+	function upOnline() {
+		selectAjax('player_call.php?action=callNowOnline&cid={$cid}&sid={$sid}&r={RAND_NUM}','online','','',1);
+	}	
+	<!--{if !serverAdmin('pay','y')}-->
+	upTodayPay();
+	setInterval('upTodayPay()',{SXD_SYSTEM_UP_ONLINE});
+	function upTodayPay() {
+		selectAjax('call.php?action=CallTodayPayS&cid={$cid}&sid={$sid}&r={RAND_NUM}','todaypay','','',1);
+	}	
+	<!--{/if}-->
+	
+</script>

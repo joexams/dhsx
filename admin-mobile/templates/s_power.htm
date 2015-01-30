@@ -1,0 +1,64 @@
+<form method="post" action="?in=setup" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="7">权限值列表</th>
+  </tr>
+  <tr class="title_3">
+    <td colspan="7">
+	<a href="?in=setup&action=Power"  class="{if !$type} title_menu_on {else} title_menu {/if}">无只看判断</a>
+	<a href="?in=setup&action=Power&type=two"  class="{if $type == 'two'} title_menu_on {else} title_menu {/if}">有只看判断</a>
+	</td>
+  </tr>     
+  <tr class="title_2" align="center">
+    <td width="35">ID</th>
+    <td width="35">删除</th>
+    <td width="100">排序</thd>
+    <td width="150">名称</td>
+    <td width="150">权限值</td>
+    <td width="150">类型</td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--{if $menu_array}-->
+  <!--{loop $menu_array $mrs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center">
+	<td>{$mrs[Mid]}</td>
+	<td><!--{if $mrs[Mid]!=1}--><input type="checkbox" name="delMid[]" value="{$mrs[Mid]}" title="选择删除{$mrs[Mname]}" /><!--{else}-->-<!--{/if}--></td>
+	<td><input name="Morder[]" type="text" value="{$mrs[Morder]}" size="10" maxlength="2"/></td>
+	<td>	
+	<input name="Mid[]" type="hidden" value="{$mrs[Mid]}"/>
+	<input name="Mname[]" type="text" value="{$mrs[Mname]}" size="20"/>	</td>
+	<td><input name="Mpower[]" type="text" value="{$mrs[Mpower]}" size="20" /></td>
+	<td>
+	<select name="Mtype[]" >
+	 <option value="1" {if $mrs[Mtype]==1} selected="selected" {/if} class="select">无只看判断</option>
+	 <option value="2" {if $mrs[Mtype]==2} selected="selected" {/if}>有只看判断</option>
+	</select>
+	</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="7">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+    <td colspan="2" align="center">新增→</td>
+    <td><input name="nMorder" type="text" value="" size="10" maxlength="2"/></td>
+	<td><input name="nMname" type="text" value="" size="20"/></td>
+	<td><input name="nMpower" type="text" value="" size="20" /></td>
+	<td>
+	<select name="nMtype" >
+	 <option value="1"  class="select">无只看判断</option>
+	 <option value="2" >有只看判断</option>
+	</select>
+	</td>
+	<td>&nbsp;</td>
+  </tr>  
+  <tr align="center">
+    <td colspan="7">
+	<input type="hidden" name="action" value="SetPower" />
+	<input type="submit" id="Submit" name="Submit" value="执 行 操 作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/>	</td>
+  </tr>	
+</table>
+</form>

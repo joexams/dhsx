@@ -1,0 +1,50 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=town" name="form"  onSubmit="setSubmit('Submit2')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="6"><span class="bluetext">{$name}</span> 的携带灵件</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="35">删除</td>
+    <td width="150">灵件</td>
+    <!--td width="150" title="功能解锁KEY大于此值才可见">权值</td-->
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}<input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td><strong>{$rs[soul_name]}</strong></td>
+	<!--td><input name="func_lock[]" type="text" size="10" value="{$rs[func_lock]}"/></td-->
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="7" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+    <td>
+	<select name="soul_id_n" >
+	 <option class="select">选择灵件</option>
+	 <!--{loop $soul_list $irs}-->
+	 <option value="{$irs[id]}" >{$irs[name]}</option>
+	 <!--{/loop}-->	
+	</select>	</td>
+	<!--td><input name="func_lock_n" type="text" size="10" value=""/></td-->
+    <td>&nbsp;</td>
+    </tr>  
+  <tr>
+    <td colspan="7" align="center">
+	<input name="town_npc_id" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetTownNpcSoul" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit2" name="Submit2" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

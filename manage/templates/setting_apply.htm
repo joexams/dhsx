@@ -1,0 +1,150 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="10">{lang WPSQ} <!--{if $adminWebType == 'c' || $adminWebType == 'u'}--><a href="?in=apply&action=ApplyAdd"><span class="yellowtext" style="font-size:15px;">[{lang WPSQADD}]</span></a><!--{/if}--></th>
+  </tr> 
+  <tr class="title_3">
+    <td colspan="10">
+	<form action="" method="get" name="forms" id="forms" onSubmit="setSubmit('Submits')"> 	
+	<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+	 <option class="select">{lang COMPANY}</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	  
+	
+	<select name="sid" id = "sid">
+	<option  value="">{lang ALLSERVER}</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<select name="type">
+	<option  value="">{lang TYPE}</option>
+	 <option value="item" {if $type == 'item'} selected="selected" {/if}>{lang WPZB}</option>
+	 <option value="soul" {if $type == 'soul'} selected="selected" {/if}>{lang LJ}</option>
+	 <option value="ingot" {if $type == 'ingot'} selected="selected" {/if}>{lang YB}</option>
+	 <option value="coins" {if $type == 'coins'} selected="selected" {/if}>{lang TQ}</option>
+	 <option value="mg" {if $type == 'mg'} selected="selected" {/if}>{lang MG}</option>
+	 <option value="skill" {if $type == 'skill'} selected="selected" {/if}>{lang YL}</option>
+	 <option value="thew" {if $type == 'thew'} selected="selected" {/if}>{lang TL}</option>
+	 <option value="repute" {if $type == 'repute'} selected="selected" {/if}>{lang SW}</option>
+	 <option value="point" {if $type == 'point'} selected="selected" {/if}>{lang JJD}</option>
+	 <option value="vip" {if $type == 'vip'} selected="selected" {/if}>VIP</option>
+	</select>
+	<select name="status">
+	<option  value="">{lang STATE}</option>
+	 <option value="1" {if $status == 1} selected="selected" {/if}>{lang WPSQWCL}</option>
+	 <option value="2" {if $status == 2} selected="selected" {/if}>{lang WPSQGB}</option>
+	 <option value="3" {if $status == 3} selected="selected" {/if}>{lang WPSQYHP}</option>
+	 <!--{if !webAdmin('c_apply_set','y')}--><option value="4" {if $status == 4} selected="selected" {/if}>{lang WPSQYHL}</option><!--{/if}-->
+	</select>	
+	{lang BAOHAN}： <input name="text" type="text" value="{$text}" size="20"/>
+	<input type="submit" name="Submit" id="Submits" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="apply" />
+	<input name="action" type="hidden" value="Apply" />
+	</form>	</td>
+  </tr>   
+<form method="post" action="" name="form" id="form"  onSubmit="setSubmit('Submit')">
+  
+  <tr class="title_2" align="center">
+    <!--{if !webAdmin('c_apply_set','y') && $adminWebType == 'c'}--><td width="50">{lang CHOOSE}</td><!--{/if}-->
+    <td width="50">{lang STATE}</td>
+    <td>{lang USERNAME}</td>
+    <td>{lang WPSQRN}</td>
+    <td>{lang SERVER}</td>
+    <td align="left">{lang WPSQADDMSG}</td>
+    <td>{lang REPLYCONTENT}</td>
+	<!--{if !webAdmin('c_apply_set','y') && $adminWebType == 'c'}-->
+    <td width="50">{lang WPSQOK}</td>
+    <td width="50">{lang REPLY}</td>
+	<!--{/if}-->
+    <td width="50">{lang WPSQDEL}</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	 
+	<!--{if $rs[atype]=='vip'}-->
+	<!--{eval $p = 'c_upvip'}-->
+	<!--{else}-->
+	<!--{eval $p = 'increase_'.$rs[atype]}-->
+	<!--{/if}-->   
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="td" >
+  	<!--{if !webAdmin('c_apply_set','y') && $adminWebType == 'c'}--><td><!--{if $rs[status] == 1 && !webAdmin($p,'y')}--><input type="checkbox" name="aid[]" value="{$rs[aid]}"/><!--{else}-->-<!--{/if}--></td><!--{/if}-->
+	<td>
+	<!--{if $rs[status]=='1'}--><span class="redtext">{lang WPSQWCL}</span><!--{/if}-->
+	<!--{if $rs[status]=='2'}--><span class="graytext" >{lang WPSQGB}</span><!--{/if}-->
+	<!--{if $rs[status]=='3'}-->
+	<!--{if !webAdmin('c_apply_set','y') && !webAdmin($p,'y')}-->
+	<a href="?in=apply&action=CancelApply&cid={$rs[cid]}&sid={$rs[sid]}&aid={$rs[aid]}" onClick='javascript: return confirm("{lang QDCXCP}");' title="{lang WPSQCX}"><strong class="greentext">√{lang WPSQYHP}</strong></a>
+	<!--{else}--><strong class="greentext">√{lang WPSQYHP}</strong><!--{/if}-->
+	<!--{/if}-->
+	<!--{if $rs[status]=='4'}-->
+	<!--{if !webAdmin('c_apply_set','y')}-->
+	<span class="graytext">{lang WPSQYHL}</span>
+	<!--{else}-->
+	<span class="redtext">{lang WPSQWCL}</span>
+	<!--{/if}-->
+	<!--{/if}-->
+	</td>
+	<td align="left">
+	
+	<!--{if  $adminWebType == 's'}--><span class="right">{$rs[r_adminName]}</span><!--{/if}-->
+	<a href="?in=player&action=PlayerView&cid={$rs[cid]}&sid={$rs[sid]}&uid={$rs[player_id]}" target="_blank"><strong>{$rs[username]}</strong></a>
+	<!--{if in_array($rs[username],$s[$rs[sid]][testUserArr])}--><span class="redtext">({lang CSH})</span><!--{/if}--></td>
+	<td class="bluetext">
+	<!--{if $rs[nn]}-->
+		<!--{if $rs[atype]=='item'}-->{echo urldecode($rs[nn][name])}({$rs[nn][level]}{lang LEVEL}):<strong>{$rs[val]}</strong>{lang JIAN}<!--{/if}-->
+		<!--{if $rs[atype]=='soul'}-->{lang LJ}:{echo urldecode($rs[nn][name])} <!--br /><span class="smalltext">{$soula[$rs[nn][a1]][name]}+{echo $rs[nn][av1]/10}{$soula[$rs[nn][a1]][unit]} / {$soula[$rs[nn][a2]][name]}+{echo $rs[nn][av2]/10}{$soula[$rs[nn][a2]][unit]} / {$soula[$rs[nn][a3]][name]}+{echo $rs[nn][av3]/10}{$soula[$rs[nn][a3]][unit]}</span--><!--{/if}-->
+		<!--{if $rs[atype]=='mg'}-->{lang MG}:{echo urldecode($rs[nn][name])}({$rs[nn][level]}{lang LEVEL}) <strong>{$rs[val]}</strong>{lang JIAN} <!--{/if}-->
+	<!--{else}-->
+		<!--{if $rs[atype]=='item'}-->{$rs[item_name]}({$rs[item_level]}{lang LEVEL}):<strong>{$rs[val]}</strong>{lang JIAN}<!--{/if}-->
+		<!--{if $rs[atype]=='soul'}-->{lang LJ}:{$rs[soul_name]}<!--{/if}-->
+		<!--{if $rs[atype]=='mg'}-->{lang MG}:{$rs[fate_name]}({$rs[fate_level]}{lang LEVEL}) <strong>{$rs[val]}</strong>{lang JIAN} <!--{/if}-->
+	<!--{/if}-->
+	<!--{if $rs[atype]=='ingot'}-->{lang YB}:<strong>{$rs[val]}</strong><!--{/if}-->
+	<!--{if $rs[atype]=='coins'}-->{lang TQ}:<strong>{$rs[val]}</strong><!--{/if}-->
+	<!--{if $rs[atype]=='skill'}-->{lang YL}:<strong>{$rs[val]}</strong><!--{/if}-->
+	<!--{if $rs[atype]=='thew'}-->{lang TL}:<strong>{$rs[val]}</strong><!--{/if}-->
+	<!--{if $rs[atype]=='repute'}-->{lang SW}:<strong>{$rs[val]}</strong><!--{/if}-->
+	<!--{if $rs[atype]=='point'}-->{lang JJD}:<strong>{$rs[val]}</strong><!--{/if}-->
+	<!--{if $rs[atype]=='vip'}-->VIP<strong>{$rs[val]}</strong><!--{/if}-->
+	</td>
+	<td>{$s[$rs[sid]][company_name]}-{$s[$rs[sid]][servers_name]}</td>
+	<td align="left">{echo dehtml($rs[cause])}<br /><span class="graytext smalltext">Post:<strong>{$rs[adminName]}</strong> {$rs[apply_time]}</span></td>
+	<td class="greentext" align="left"><!--{if $rs[reply]}-->{echo dehtml($rs[reply])}<br /><span class="smalltext">Reply:{$rs[reply_time]}</span><!--{/if}-->	</td>
+	<!--{if !webAdmin('c_apply_set','y') && $adminWebType == 'c'}-->
+	<td>
+	<!--{if $rs[status] == 1}-->
+	<!--{if !webAdmin($p,'y')}-->
+	<a href="javascript:void(0)" onclick="pmwin('open','call.php?action=CallApplySet&cid={$rs[cid]}&aid={$rs[aid]}')" class="title_menu">{lang WPSQOK}</a>
+	<!--{else}--><span class="graytext">{lang NOPOWER}</span><!--{/if}-->
+	<!--{else}-->-<!--{/if}-->	</td>
+	<td><a href="javascript:void(0)" onclick="pmwin('open','call.php?action=CallApplyReply&cid={$rs[cid]}&aid={$rs[aid]}')" class="title_menu">{lang REPLY}</a></td>
+	<!--{/if}-->
+	<td><!--{if $rs[status]=='1' && $rs[adminID] == $adminWebID}--><a href="?in=apply&action=DelApply&cid={$rs[cid]}&aid={$rs[aid]}" class="title_menu" onclick='javascript: return confirm("{lang DOYOUDO}");'>{lang WPSQDEL}</a><!--{else}-->-<!--{/if}--></td>
+  </tr>    
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="10" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="10"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}-->
+  <!--{if !webAdmin('c_apply_set','y') && $adminWebType == 'c'}--> 
+  <tr>
+    <td colspan="15">
+	<input type="checkbox" name="allaid" onclick="CheckAll(this,'form','aid[]');" />{lang ALLCHOOSE}
+	<input name="setype" type="radio" value="3" checked="checked" /> <span class="greentext">{lang WPSQOK}</span>	
+	<input name="setype" type="radio" value="2" /> <span class="graytext">{lang WPSQGB}</span>	
+	<input name="setype" type="radio" value="4" /> <span class="graytext">{lang WPSQHL}</span>	
+	<input type="hidden" name="action" value="SetApplyAll" />
+	<input type="submit" id="Submit" name="Submit" value="{lang SUBMITOK}" onClick='javascript: return confirm("{lang DOYOUDO}");'  class="button"/></td>
+  </tr>   
+  <!--{/if}-->
+  </form> 
+</table>

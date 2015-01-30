@@ -1,0 +1,73 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<table class="table">
+  <tr>
+    <th colspan="14">{lang PTSJMRHZ}</th>
+  </tr> 
+ <form action="" method="get" name="form" id="form" onSubmit="setSubmit('Submit')">  
+    <tr class="title_2">
+      <td colspan="14">
+	  <input name="stime" id="stime" type="text" onclick="showcalendar(event, this)"   value="{$stime}" size="10" readonly />
+        -
+        <input name="etime" id="etime" type="text" onclick="showcalendar(event, this)"   value="{$etime}" size="10" readonly />
+		<input name="in" type="hidden" value="data"/>
+		<input name="action" type="hidden" value="DataDayData"/>
+        <input type="submit" name="submit" value=" {lang SEARCH} " class="button" />
+		<strong class="bluetext">
+		{lang ZCS}:{$reg_user} / 
+		{lang PAYUSER}:{$pay_user} / 
+		{lang NERUSERNUM}:{$pay_new_user} / 
+		{lang PAY}:{$pay_amount} / 
+		ARPU:<!--{if $pay_amount}-->{echo round($pay_amount/$pay_user,2)}<!--{else}-->0<!--{/if}--></strong>
+      </td>
+    </tr> 
+</form >	 
+  <!--{if $adminWebType == 's'}-->
+  <tr class="title_3">
+    <td colspan="14">
+	
+	<!--{if $company_list}-->
+	  <!--{loop $company_list $crs}-->
+	  <a href="?in=data&action=DataDayData&cid={$crs[cid]}" class="{if $cid == $crs[cid]} title_menu_on {else} title_menu {/if}">{$crs[name]}</a>
+	  <!--{/loop}-->
+	<!--{/if}-->	</td>
+  </tr>
+  <!--{/if}-->
+  <tr align="center" class="title_2">
+    <td width="50">{lang LOOK}</td>
+    <td width="100">{lang DATE}</td>
+    <td >{lang SERVER}</td>
+    <td >{lang ZCS}</td>
+    <td >{lang CJS}/{lang CJL}</td>
+    <td >{lang DLS}</td>
+    <td >{lang ONLINE}</td>
+    <td >{lang PAYUSER}</td>
+	<td >{lang NERUSERNUM}</td>
+    <td >{lang PAYNUM}</td>
+    <td >{lang PAY}</td>
+    <td>ARPU</td>
+	<td>{lang XIAOFEI}</td>
+    </tr>  
+<!--{if $list_array}-->
+<!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center">
+	<td align="center"><a href="?in=data&action=DataDayServersData&cid={$cid}&day={$rs[gdate]}">{lang LOOK}</a></td>
+    <td><strong>{$rs[gdate]}</strong></td>
+	<td><!--{if $rs[servers_count]}-->{$rs[servers_count]}<!--{else}-->-<!--{/if}--></td>	
+	<td><!--{if $rs[register_count]}-->{$rs[register_count]}<!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $rs[create_count]}-->{$rs[create_count]} <span class="graytext smalltext">({echo round($rs[create_count]/$rs[register_count]*100,2)}%)</span><!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $rs[login_count]}-->{$rs[login_count]}<!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $rs[avg_online_count]}-->≈{$rs[avg_online_count]}<!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $rs[pay_player_count]}-->{$rs[pay_player_count]}<!--{else}-->-<!--{/if}--></td>	
+    <td><!--{if $rs[new_player]}-->{$rs[new_player]}<!--{else}-->-<!--{/if}--></td>	
+	<td><!--{if $rs[pay_num]}-->{$rs[pay_num]}<!--{else}-->-<!--{/if}--></td>	
+    <td class="orangetext"><!--{if $rs[pay_amount]}--><strong>{$rs[pay_amount]}</strong><!--{else}-->-<!--{/if}--></td>
+    <td class="bluetext"><!--{if $rs[pay_amount]}-->{echo round($rs[pay_amount]/$rs[pay_player_count],2)}<!--{else}-->-<!--{/if}--></td>
+	<td><!--{if $rs[consume]}-->{$rs[consume]}<!--{else}-->-<!--{/if}--></td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="14" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}-->      
+</table>

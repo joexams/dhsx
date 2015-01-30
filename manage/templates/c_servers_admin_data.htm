@@ -1,0 +1,64 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="8">{lang CZJL}</th>
+  </tr> 
+  <tr class="title_3">
+    <td colspan="8">
+	<form action="" method="get" name="form" onSubmit="setSubmit('Submits')">  	
+	<select name="sid" id = "sid">
+	<option  value="">{lang ALLSERVER}</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<select name="aid" id = "aid">
+	<option  value="">{lang ALLADMIN}</option>
+	<!--{if $admin_array}-->
+	 <!--{loop $admin_array $ars}-->
+	 <option value="{$ars[adminID]}" {if $ars[adminID] == $aid} selected="selected" {/if}>{$ars[adminName]}<!--{if $ars[adminType] == 'u'}--> ({lang KF})<!--{/if}--></option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>		
+	<!--玩家ID： <input name="player_id" type="text" value="{$player_id}" size="10"/>-->
+	{lang NRBH}： <input name="text" type="text" value="{$text}" size="20"/>
+	<input type="submit" name="Submit" id="Submits" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="servers" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="action" type="hidden" value="ServersAdminData" />
+	</form>	</td>
+  </tr> 
+  <tr class="title_2" align="center">
+  	<td width="50">&nbsp;</td>
+  	<td width="120">{lang SERVER}</td>
+	<td width="100">{lang CZR}</td>
+	<td width="100">{lang DX}</td>
+	<td width="150">{lang SUBMITIME}</td>
+	<td align="left">{lang NOTE}</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td"  align="center">
+	<td><!--{if $adminWebType == 's'}-->{$rs[id]}<!--{else}-->><!--{/if}--></td>
+	<td>{$s[$rs[sid]][company_name]}-{$s[$rs[sid]][servers_name]}</td>
+ 	<td>
+	<!--{if $rs[adminID]}-->
+	<strong>{$a[$rs[adminID]][adminName]}</strong></span>
+	<!--{else}-->{lang SYSTEM}<!--{/if}-->	</td> 
+	<td><!--{if $rs[player_id]}--><a href="?in=server&action=ServersAdminData&cid={$rs[cid]}&sid={$rs[sid]}&player_id={$rs[player_id]}" title="所有记录"><strong>{$rs[username]}</strong></a><br /><a href="?in=player&action=PlayerView&cid={$rs[cid]}&sid={$rs[sid]}&uid={$rs[player_id]}" target="_blank" class="smalltext"><span class="graytext">ID:{$rs[player_id]}</span></a><!--{else}-->{$rs[username]}<!--{/if}--></td>
+	<td>{$rs[stime]}</td>
+	<td align="left">{$rs[contents]}</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="8"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}-->   
+</table>

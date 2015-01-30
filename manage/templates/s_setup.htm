@@ -1,0 +1,84 @@
+<form method="post" action="?in=setup" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+	<th colspan="9">系统设置</th>
+  </tr>
+  <tr class="title_2" align="center">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+	<td width="50">排序</td>
+	<td width="200">用途名称</td>
+	<td width="80">类型</td>
+	<td width="180">标识</td>
+	<td width="250">内容</td>
+	<td width="50">可删除</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="td">
+	<td>{$rs[sid]}<input name="id[]" type="hidden" value="{$rs[sid]}" /></td>
+	<td><!--{if $rs[sdel] == 1}--><input type="checkbox" name="id_del[]" value="{$rs[sid]}" title="选择删除{$rs[name]}"/><!--{else}-->-<!--{/if}--></td>
+	<td><input name="sorder[]" type="text" value="{$rs[sorder]}" size="4" ></td>
+	<td><input name="sname[]" type="text" value="{$rs[sname]}" size="30" ></td>
+	<td>
+	<select name="stype[]">
+		<option class="select">类型</option>
+		<!--{loop $setup_type $trs}-->
+		<option value="{$trs[tval]}" {if $trs[tval] == $rs[stype]} selected="selected" {/if}>{$trs[tname]}</option>
+		<!--{/loop}-->
+	</select>	
+	</td>	
+	<td><input name="skey[]" type="text" value="{$rs[skey]}" size="30" ></td>
+	<td>
+	<!--{if $rs[stype] == 1}-->
+		<input name="sval[]" type="text" value="{$rs[sval]}" size="35" >
+	<!--{else}-->
+		<textarea name="sval[]" cols="36" rows="2"  ondblclick="textareasize(this)">{$rs[sval]}</textarea>
+	<!--{/if}-->
+	</td>
+	<td>
+	<select name="sdel[]">
+		<option value="0" {if $rs[sdel] == 0} selected="selected" {/if} class="select">否</option>
+		<option value="1" {if $rs[sdel] == 1} selected="selected" {/if}>是</option>
+	</select>	
+	</td>
+	<td>&nbsp;</td>
+  </tr>	  
+   <!--{/loop}-->
+   <!--{else}-->
+  <tr>
+	<td colspan="9" align="center">暂无信息</td>
+  </tr>		   
+   <!--{/if}-->	   
+  <tr class="td2" align="center">
+	<td colspan="2">新增记录→</td>
+	<td><input name="sorder_n" type="text" value="" size="4" ></td>
+	<td><input name="sname_n" type="text" value="" size="30"></td>
+	<td>
+	<select name="stype_n">
+		<option class="select">类型</option>
+		<!--{loop $setup_type $trs}-->
+		<option value="{$trs[tval]}" >{$trs[tname]}</option>
+		<!--{/loop}-->
+	</select>
+	</td>	
+	<td><input name="skey_n" type="text" value="" size="30"></td>
+	<td><textarea name="sval_n" cols="36" rows="2" ondblclick="textareasize(this)" ></textarea></td>
+	<td>
+	<select name="sdel_n">
+		<option value="0" class="select">否</option>
+		<option value="1">是</option>
+	</select>	
+	</td>	
+	<td>&nbsp;</td>
+  </tr>
+  <tr>
+	<td colspan="2" align="center"><input type="hidden" name="action" value="SetSetup" /></td>
+	<td colspan="7" style="color:blue;">
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/>
+	 <span class="bluetext">选择[数组]类型，每个元素一行，此表直接输出为常量，设置后可以直接复制[标识]内容进行使用</span> 
+	</td>
+  </tr>
+</table>
+</form>

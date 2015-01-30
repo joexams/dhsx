@@ -1,0 +1,322 @@
+{template player_top}
+<table class="table">
+  <!--tr>
+    <th colspan="2"> <a href="?in=server&cid={$cid}&action=ServersPost">服务器列表</a> ＞ <a href="?in=player&cid={$cid}&sid={$sid}"><span class="yellowtext">{$server[company_name]}-{$server[name]}</span> 玩家列表</a> ＞ <span class="yellowtext">{$player[username]} ({$player[nickname]})</span> 的信息</th>
+  </tr--> 
+  <tr class="title_2">
+    <td colspan="2">
+	<span class="right">
+	<form action="" method="get" name="form" id="form" onSubmit="setSubmit('Submit')">
+	帐号：	
+	<input name="username" type="text" value="" size="20" maxlength="20"  /> 
+	<input type="submit" name="Submit" id="Submit" value="搜索玩家" class="button"/>
+	<input name="in" type="hidden" value="player" />
+	<input name="cid" type="hidden" value="{$cid}" />
+	<input name="sid" type="hidden" value="{$sid}" />
+	</form>	
+	</span>
+	</td>
+  </tr>
+  <tr>
+    <td valign="top"  align="center" width="70" nowrap="nowrap">
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerFate&sid={$sid}&uid={$uid}')" class="title_menu">玩家命格</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerResearch&sid={$sid}&uid={$uid}')" class="title_menu">奇术阵法</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerItem&sid={$sid}&uid={$uid}')" class="title_menu">背包仓库</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerMissionRecord&sid={$sid}&uid={$uid}')" class="title_menu">玩家副本</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerQuest&sid={$sid}&uid={$uid}')" class="title_menu">玩家任务</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerDayQuest&sid={$sid}&uid={$uid}')" class="title_menu">每日任务</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerFriends&sid={$sid}&uid={$uid}')" class="title_menu">玩家好友</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerFarmland&sid={$sid}&uid={$uid}')" class="title_menu">玩家药园</a><br /><br />
+
+	<!--{if !serverAdmin('logs','y')}-->
+	<a href="?in=player&action=Logs&type=ingot&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">元宝记录</a><br />
+	<a href="?in=player&action=Logs&type=coins&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">铜钱记录</a><br />
+	<a href="?in=player&action=Logs&type=item&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">物品记录</a><br />
+	<a href="?in=player&action=Logs&type=fate&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">猎命记录</a><br />
+	<a href="?in=player&action=Logs&type=fame&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">声望记录</a><br />
+	<a href="?in=player&action=Logs&type=power&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">体力记录</a><br />
+	<a href="?in=player&action=Logs&type=exp&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">经验记录</a><br />
+	<a href="?in=player&action=Logs&type=take&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">取经记录</a><br />
+	<a href="?in=player&action=Logs&type=skill&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">阅历记录</a><br />
+	<a href="?in=player&action=Logs&type=farmland&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">药园记录</a><br />
+	<a href="?in=player&action=Logs&type=boss&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}" class="title_menu" target="_blank">BOSS记录</a><br />
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerLevelUpRecord&sid={$sid}&uid={$uid}')" class="title_menu">升级记录</a><br />
+	<!--{/if}-->
+	<!--{if !serverAdmin('pay','y')}-->
+	<a href="?in=player&action=Data&type=pay&usertype=1&cid={$cid}&sid={$sid}&username={echo urlencode($player[username])}&uid={$uid}" class="title_menu" target="_blank">充值记录</a><br />
+	<!--{/if}-->	
+	<!--{if $adminWebType == 's'}-->
+	<a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerKey&sid={$sid}&uid={$uid}')" class="title_menu">玩家权值</a><br />
+	<!--{/if}-->	
+	</td>
+    <td valign="top" >
+		<table class="table" style="margin-bottom:5px;"> 
+		  <tr class="title_3">
+			<td colspan="6"><strong>玩家数据</strong></td>
+		  </tr>		
+		  <tr>
+			<td width="150" align="right"><strong>ID</strong></td>
+			<td colspan="3"><strong >{$player[id]}</strong> <!--{if $server[slug] == 'verycd'}-->(网站用户名:{$username_web})<!--{/if}--></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td align="right"><strong>帐号</strong></td>
+			<td colspan="3"><strong >{$player[username]}</strong> <span class="graytext"><!--{if $player[is_tester] == 1}-->测试号<!--{elseif $player[is_tester] == 2}-->高级测试号<!--{elseif $player[is_tester] == 3}--><span class="right bluetext">GM号</span><!--{/if}--></span></td>
+			<td>&nbsp;</td>
+		  </tr>	  		
+		  <tr>
+			<td align="right"><strong>呢称</strong></td>
+			<td colspan="3">{$player[nickname]} <!--{if $player[camp_name]}--><span class="graytext" title="阵营/帮派">({$player[camp_name]}<!--{if $faction_name}--> - {$faction_name}<!--{/if}-->)</span><!--{/if}--></td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>
+			<td align="right"><strong>竞技场排名</strong></td>
+			<td colspan="3">{$player[ranking]}</td>
+			<td>&nbsp;</td>
+		  </tr>		  
+		  <tr>
+			<td align="right"><strong>是否禁言/冻结</strong></td>
+			<td colspan="3">
+			<!--{if $player[disable_login] > time()}-->
+			<strong class="redtext" title="冻结时间：{echo date('Y-m-d H:i:s',$player[disable_login])}">冻结中</strong>
+			<!--{/if}-->
+			<!--{if $player[disable_talk] > time()}-->
+			<strong class="redtext" title="禁言时间：{echo date('Y-m-d H:i:s',$player[disable_talk])}">禁言中</strong>
+			<!--{/if}-->			</td>
+			<td>&nbsp;</td>
+		  </tr>		  
+		  
+		  <tr>
+			<td align="right"><strong>vip等级</strong></td>
+			<td colspan="3">{$player[vip_level]}级</td>
+			<td>&nbsp;</td>
+		  </tr>		  
+		  <!--{if !serverAdmin('pay','y')}-->	
+	  
+		   <tr>
+			<td align="right"><strong>到该级别后充值元宝</strong></td>
+			<td colspan="3">{$player[ingot_vip]} <span class="graytext">(升级到当前级别时间：<!--{if $player[level_up_time]}-->{echo date('Y-m-d H:i:s',$player[level_up_time])}<!--{else}-->-<!--{/if}-->)</span></td>
+			<td>&nbsp;</td>
+		  </tr>
+		   <tr>
+			<td align="right"><strong>累计充值元宝</strong></td>
+			<td colspan="3">{$player[total_ingot]}</td>
+			<td>&nbsp;</td>
+		  </tr>
+		   <tr>
+			<td align="right"  style="border-bottom:3px solid #CECFDA;"><strong>累计消费元宝</strong></td>
+			<td colspan="3" style="border-bottom:3px solid #CECFDA;"><!--{if !serverAdmin('data_key','y')}--><a href="?in=player&action=Data&type=consume&cid={$cid}&sid={$sid}&username={$player[username]}">{$consume_ingot}</a><!--{else}-->{$consume_ingot}<!--{/if}--></td>
+			<td style="border-bottom:3px solid #CECFDA;">&nbsp;</td>
+		  </tr>		  
+		  <!--{/if}-->	  			  	  
+		  <tr>
+			<td align="right"><strong>元宝</strong></td>
+			<td width="150"><!--a href="?in=player&sid={$sid}&action=Money&uid={$player[id]}" title="所有元宝记录"--><strong class="greentext">{$player[ingot]}</strong><!--/a--></td>
+			<td align="right" width="150"><strong>铜钱</strong></td>
+			<td width="150">{$player[coins]}</td>
+			<td>&nbsp;</td>
+	      </tr>	
+		  
+		  <tr>	
+			<td align="right"><strong>声望</strong></td>
+			<td>{$player[fame]}</td>
+			<td align="right"><strong>声望等级</strong></td>
+			<td >{$player[fame_level]}</td>
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>	
+			<td align="right"><strong>阅历</strong></td>
+			<td>{$player[skill]}</td>
+			<td align="right"><strong>气血包/初始</strong></td>
+			<td>{$player[medical]}/{$player[init_medical]}</td>		
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>	
+			<td align="right"><strong>体力/上限</strong></td>
+			<td >{$player[power]}/{$player[max_power]}</td>
+			<td align="right"><strong>体力最后更新</strong></td>
+			<td><!--{if $player[power_up_at]}-->{echo date('Y-m-d H:i:s',$player[power_up_at])}<!--{else}-->-<!--{/if}--></td>
+			<td>&nbsp;</td>
+		  </tr>	
+		  <tr>	
+			<td align="right"><strong>额外体力/最大</strong></td>
+			<td >{$player[extra_power]}/{$player[max_extra_power]}</td>
+			<td align="right"><strong>额外体力获取时间</strong></td>
+			<td><!--{if $player[last_extra_power_date]}-->{echo date('Y-m-d H:i:s',$player[last_extra_power_date])}<!--{else}-->-<!--{/if}--></td>
+			<td>&nbsp;</td>
+		  </tr>		
+		  
+		  <tr>	
+			<td align="right"><strong>练功开始</strong></td>
+			<td><!--{if $player[practice_start]}-->{echo date('Y-m-d H:i:s',$player[practice_start])}<!--{else}-->-<!--{/if}--></td>
+			<td align="right"><strong>练功结束</strong></td>
+			<td><!--{if $player[practice_end]}-->{echo date('Y-m-d H:i:s',$player[practice_end])}<!--{else}-->-<!--{/if}--></td>		
+			<td>&nbsp;</td>
+		  </tr>
+		  <tr>	
+			<td align="right"><strong>练功经验</strong></td>
+			<td>{$player[practice_experience]}</td>
+			<td align="right"><strong>练功状态</strong></td>
+			<td><!--{if $player[practice_status] == 0}-->没挂机<!--{elseif $player[practice_status] == 1}-->正在挂机<!--{elseif $player[practice_status] == 2}-->挂机结束<!--{/if}--></td>		
+			<td>&nbsp;</td>
+		  </tr>	
+		  <tr>	
+			<td align="right"><strong>命格背包数</strong></td>
+			<td>{$player[fate_grid_number]}</td>		
+			<td align="right"><strong>默认阵行</strong></td>
+			<td>{$player[deploy_mode_name]}</td>		
+			<td>&nbsp;</td>
+		  </tr>			  	  
+	
+		  <tr>	
+			<td align="right" title="招财神符今日累积次数"><strong>招财神符累积</strong></td>
+			<td title="最后更新：{echo date('Y-m-d H:i:s',$player[change_money_last_date])}">{$player[change_money_count]}次</td>
+			<td align="right"><strong>每日任务星级</strong></td>
+			<td title="最后更新：{echo date('Y-m-d H:i:s',$player[day_quest_last_date])}">{$player[quest_star]}级</td>		
+			<td>&nbsp;</td>
+		  </tr>
+
+		  <tr>	
+			<td align="right"><strong>气血包最后领取</strong></td>
+			<td><!--{if $player[get_medical_last_date]}-->{echo date('Y-m-d H:i:s',$player[get_medical_last_date])}<!--{else}-->-<!--{/if}--></td>
+			<td align="right"><strong>帮派俸禄最后领取</strong></td>
+			<td><!--{if $player[get_faction_salary_last_date]}-->{echo date('Y-m-d H:i:s',$player[get_faction_salary_last_date])}<!--{else}-->-<!--{/if}--></td>		
+			<td>&nbsp;</td>
+		  </tr>	
+		  <tr>	
+			<td align="right"><strong>今天购买体力</strong></td>
+			<td>{$player[buy_power_times_today]}次</td>
+			<td align="right"><strong>最后购买体力时间</strong></td>
+			<td><!--{if $player[last_buy_power_time]}-->{echo date('Y-m-d H:i:s',$player[last_buy_power_time])}<!--{else}-->-<!--{/if}--></td>		
+			<td>&nbsp;</td>
+		  </tr>		
+		  <tr>	
+			<td align="right"><strong>仙旅奇缘参加</strong></td>
+			<td>{$player[travel_event_join_count]}次</td>
+			<td align="right"><strong>仙旅奇缘最后参加</strong></td>
+			<td><!--{if $player[travel_event_last_time]}-->{echo date('Y-m-d H:i:s',$player[travel_event_last_time])}<!--{else}-->-<!--{/if}--></td>		
+			<td>&nbsp;</td>
+		  </tr>	
+		  <tr>	
+			<td align="right"><strong>最后刷新神秘商人</strong></td>
+			<td><!--{if $player[last_refresh_lucky_shop_time]}-->{echo date('Y-m-d H:i:s',$player[last_refresh_lucky_shop_time])}<!--{else}-->-<!--{/if}--></td>
+			<td align="right"><strong>是否自动招财</strong></td>
+			<td><!--{if $player[is_auto_rune]}-->是<!--{else}-->否<!--{/if}--></td>		
+			<td>&nbsp;</td>
+		  </tr>
+		 <tr>	
+			<td align="right"><strong>已上香次数</strong></td>
+			<td>{$player[incense_count]}</td>
+			<td align="right"><strong>最后上香时间</strong></td>
+			<td>{echo date('Y-m-d H:i:s',$player[last_increase_time])}</td>		
+			<td>&nbsp;</td>
+		  </tr>	
+	  		  		  	  			  	  	  	  			  	  		  	   	      
+		</table>
+		<!--{if !serverAdmin('pay','y')}-->
+		<table class="table" style="margin-bottom:5px;">
+		  <tr class="title_3">
+			<td colspan="5"><strong>其它服充值情况</strong></td>
+		  </tr>
+		  <tr align="center" class="title_2">
+			<td>服务器</td>
+			<td width="100">充值金额</td>
+			<td width="80">充值次数</td>
+		  </tr>
+		  <!--{if $other_servers_pay_array}-->
+		  <!--{loop $other_servers_pay_array $prs}-->	  
+		  <tr onmouseover=this.className="td3" onmouseout=this.className="" align="center" >
+			<td>{$prs[name]}-{$prs[o_name]} <span class="graytext">{$prs[server]}</span></td>
+			<td><strong class="orangetext">{$prs[pay_amount]}</strong></td>
+			<td>{$prs[pay_count]}次</td>
+		  </tr>
+		  <!--{/loop}-->
+		  <!--{else}-->
+		  <tr>
+			<td colspan="6" align="center">找不到相关信息</td>
+		  </tr>  
+		  <!--{/if}--> 
+		</table>
+		<!--{/if}-->			
+		<table class="table" style="margin-bottom:5px;">
+		  <tr class="title_3">
+			<td colspan="14"><strong>伙伴 (点伙伴名查看装备)</strong></td>
+		  </tr>
+		  <tr align="center" class="title_2">
+			<td width="35" rowspan="2" >ID</td>
+			<td rowspan="2">名称</td>
+			<td rowspan="2">经验</td>
+			<td rowspan="2">生命值/HP上限</td>
+			<td rowspan="2">攻击/防御</td>
+			<td>法术</td>
+			<td>绝技</td>
+			<td rowspan="2">暴击/闪避/命中/格挡</td>
+			<td rowspan="2" title="基础值+丹药/培养/副本加成">武力</td>
+			<td rowspan="2" title="基础值+丹药/培养/副本加成">绝技</td>
+			<td rowspan="2" title="基础值+丹药/培养/副本加成">法术</td>
+			<td rowspan="2">命格</td>
+			<td rowspan="2">丹药记录</td>
+			<!--{if !webAdmin('u_increase','y')}-->
+			<!--td rowspan="2">送经验</td-->
+			<!--{/if}-->
+		  </tr>
+		  <tr align="center" class="title_2">
+		    <td>攻/防</td>
+		    <td>攻/防</td>
+		  </tr>
+		  <!--{if $player_role_array}-->
+		  <!--{loop $player_role_array $rs}-->	  
+		  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+			<td>{$rs[id]}</td>
+			<td align="left"><span class="right"><!--{if $player[follow_role_id] == $rs[id]}--><span class="bluetext">跟随<br /></span><!--{/if}--><!--{if $rs[state]}--><span class="graytext">下野</span><!--{else}--><!--{if $rs[deploy_mode_id]}-->上阵<br /><!--{/if}-->正常<!--{/if}--></span><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerRoleEqui&sid={$sid}&uid={$uid}&role_id={$rs[id]}&role_name={$rs[role_name_url]}')"><strong>{$rs[role_name]}</strong></a> ({$rs[level]}级)</td>
+			<td>{$rs[experience]}</td>
+			<td>{$rs[health]}/{$rs[max_health]}</td>
+			<td><span class="redtext">{$rs[attack]}</span>/<span class="bluetext">{$rs[defense]}</span></td>
+			<td><span class="redtext">{$rs[magic_attack]}</span>/<span class="bluetext">{$rs[magic_defense]}</span></td>
+			<td><span class="redtext">{$rs[stunt_attack]}</span>/<span class="bluetext">{$rs[stunt_defense]}</span></td>
+			<td>{$rs[critical]}/{$rs[dodge]}/{$rs[hit]}/{$rs[block]}</td>
+			<td>{$rs[strength]}<span class="greentext smalltext">(+{$rs[strength_additional]} +{$rs[mission_strength]})</span></td>
+			<td>{$rs[agile]}<span class="greentext smalltext">(+{$rs[agile_additional]} +{$rs[mission_agile]})</span></td>
+			<td>{$rs[intellect]}<span class="greentext smalltext">(+{$rs[intellect_additional]} +{$rs[mission_intellect]})</span></td>
+			<td><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerRoleFate&sid={$sid}&uid={$uid}&role_id={$rs[id]}&role_name={$rs[role_name_url]}')" class="title_menu">命格{$rs[can_wear_fate_number]}</a></td>
+			<td><a href="javascript:void(0)" onclick="pmwin('open','player_call.php?action=callPlayerRoleElixir&sid={$sid}&uid={$uid}&role_id={$rs[id]}&role_name={$rs[role_name_url]}')" class="title_menu">丹药记录</a></td>
+		  </tr>
+		  <!--{/loop}-->
+		  <!--{else}-->
+		  <tr>
+			<td colspan="14" align="center" height="100">找不到相关信息</td>
+		  </tr>  
+		  <!--{/if}--> 
+		</table>
+		<table class="table"> 
+		  <tr class="title_3">
+			<td colspan="13"><strong>注册登陆信息</strong></td>
+		  </tr>
+		  <tr>
+			<td align="right"><strong>注册</strong></td>
+			<td class="graytext">{echo date('Y-m-d H:i:s',$player[first_login_time])} / {$player[first_login_ip]}</td>
+		  </tr>  
+		  <tr>
+			<td align="right"><strong>最后登陆</strong></td>
+			<td class="graytext">{echo date('Y-m-d H:i:s',$player[last_login_time])} / {$player[last_login_ip]}</td>
+		  </tr>  
+		  <!--{if !serverAdmin('player_edit','y')}-->
+		  <tr>
+			<td align="right" width="100"><strong>呢 称</strong></td>
+			<td>
+			<form action="?in=player&action=SavePlayerEdit" method="post" name="form" id="form" onSubmit="setSubmit('SubmitEdit')">
+			<input name="nickname" type="text" id="nickname" size="20" value="{$player[nickname]}"  maxlength="20" />
+			<input type="hidden" name="uid" value="{$uid}" />
+			<input type="hidden" name="cid" value="{$cid}" />
+			<input type="hidden" name="sid" value="{$sid}" />
+			<input type="hidden" name="nickname_old" value="{$player[nickname]}" />
+			<input type="submit" name="Submit" id="SubmitEdit" value="修改呢称"  class="button"/>
+			<span class="bluetext">非必要勿修改</span>
+			</form >
+			</td>
+		  </tr>	 
+		<!--{/if}--> 	    
+	  </table>
+	</td>
+  </tr>
+</table>  

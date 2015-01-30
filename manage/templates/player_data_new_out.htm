@@ -1,0 +1,58 @@
+{template player_data_top}
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">	
+<table class="table">
+  <tr>
+	<td width="150" align="right">总注册数</td>
+	<td>{$player_num}</td>
+  </tr>
+
+  <tr>
+	<td width="150" align="right">没有创建角色数</td>
+	<td>{$player_no_role}</td>
+  </tr>
+  <tr>
+	<td width="150" align="right">到达2级的人数</td>
+	<td>{$player_2_level}</td>
+  </tr>
+  <tr>
+	<td width="150" align="right">未到2级的人数</td>
+	<td>{$player_1_level}</td>
+  </tr>
+   
+  <tr>
+	<td width="150" align="right">未移动过</td>
+	<td>{$no_move}</td>
+  </tr>
+  <tr>
+	<td align="right">未接过第一个任务</td>
+	<td>{$quser_1}</td>
+  </tr>
+  <tr>
+	<td align="right">未提交第一个任务</td>
+	<td>{$quser_1_no}</td>
+  </tr> 
+  <tr>
+	<td align="right">未接过第二个任务</td>
+	<td>{$quser_2}</td>
+  </tr>
+  <tr>
+	<td align="right">未穿过装备</td>
+	<td>{$no_item}</td>
+  </tr>  
+   <tr>
+	<td align="right">进第一副本未杀怪</td>
+	<td>{$no_kill_mission}</td>
+  </tr> 
+  
+   <tr>
+	<td align="right">未杀过任何怪</td>
+	<td>{$no_kill}</td>
+  </tr> 
+   <tr class="title_2">
+	<td >&nbsp;</td>
+	<td><strong class="bluetext">以上只统计新入游戏等级在2级以下的非测试号玩家</strong></td>
+  </tr> 
+  
+</table>
+</form>

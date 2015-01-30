@@ -1,0 +1,103 @@
+<script language='JavaScript' type='text/JavaScript' src='include/js/calendar.js'></script>
+<form action="?in=gift" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table" style="margin-bottom:5px">
+    <tr>
+      <th colspan="2"><a href="?in=gift">活动列表</a> ＞ 活动修改</th>
+    </tr>
+         	
+    <tr>
+      <td width="100" align="right"><strong>服务器</strong></td>
+      <td>{$rs[company_name]}-{$rs[servers_name]}-{$rs[servers_o_name]}</td>
+    </tr>	
+    <tr>
+      <td align="right"><strong>活动模版</strong></td>
+      <td>{$rs[gift_data_name]}</td>
+    </tr>
+
+   <tr>
+      <td align="right"><strong>开始时间</strong></td>
+      <td> <input name="stime" id="stime" type="text" onclick="showcalendar(event, this,true)"   value="{$rs[stime]}" size="18" readonly /> <span class="graytext">活动开始时间</span></td>
+   </tr>     
+   <tr>
+      <td align="right"><strong>过期时间</strong></td>
+      <td> <input name="etime" id="etime" type="text" onclick="showcalendar(event, this,true)"   value="{$rs[etime]}" size="18" readonly /> <span class="graytext">活动过期时间，不选择为永久不过期</span></td>
+   </tr>              
+    <tr>
+      <td>
+	  <input name="gid" type="hidden" value="{$gid}"/>
+	  <input name="sid" type="hidden" value="{$rs[sid]}"/>
+	  <input name="cid" type="hidden" value="{$rs[cid]}"/>
+	  <input name="action" type="hidden" value="SaveGiftDataServersEdit"/></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" 发 布 " class="button"/></td>
+    </tr>
+    <tr class="title_2">
+      <td>&nbsp;</td>
+      <td><span class="bluetext">注意：3个活动默认开启，无需手动添加！</span></td>
+    </tr>		
+    <!--tr class="title_2">
+      <td>&nbsp;</td>
+      <td><span class="bluetext">注意：请勿将[过期时间]设置与[活动奖励执行时间]相同，避免服务器之间出现时差，导致活动未执行！如[活动奖励执行时间]在每晚23:59，则可将[过期时间]设置成隔天凌晨01:00，以此类推</span></td>
+    </tr-->		
+  </table>
+</form >
+<!--{if $rs[type] == 3 || $rs[type] == 4 || $rs[type] == 5}-->
+<!--{if $rs[gift_type] != 2}-->
+<table class="table" style="margin-bottom:5px">
+  <tr>
+    <th colspan="4">赠送的元宝列表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="80">类型</td>
+    <td width="80">数量</td>
+    <td width="150">属于排名第几的奖励</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $gold_list_array}-->
+  <!--{loop $gold_list_array $grs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td><!--{if $grs[type] == 1}-->元宝<!--{/if}--><!--{if $grs[type] == 2}-->铜钱<!--{/if}--></td>
+    <td>{$grs[number]}</td>
+    <td>{$grs[order]}</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="4" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+</table>
+<!--{/if}-->
+<!--{/if}-->
+<!--{if $rs[gift_type] != 1}-->
+<table class="table">
+  <tr>
+    <th colspan="4">赠送的物品列表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="250">物品</td>
+    <td width="80">数量</td>
+    <!--{if $rs[type] == 3 || $rs[type] == 4 || $rs[type] == 5}--><td width="150">属于排名第几的奖励</td><!--{/if}-->
+	
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $irs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$irs[item_name]}</td>
+    <td>{$irs[number]}</td>
+    <!--{if $rs[type] == 3 || $rs[type] == 4 || $rs[type] == 5}--><td>{$irs[order]}</td><!--{/if}-->
+    <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="4" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+</table>
+<script language="javascript">
+ selectAjax('player_call.php?action=callItemType&sid=1','type_id','',1);
+ </script>
+<!--{/if}-->
+<script language="javascript">

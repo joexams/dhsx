@@ -1,0 +1,12 @@
+--------------------------------------------------------
+"AKuan",     "A - 阿宽",
+"ChuChu",     "C - 楚楚",
+"DaDaDaoZhang",     "D - 达达道长",
+"HuaShiYan",     "H - 画师燕",
+"JinMingCheng",     "J - 金明成",
+"MuTingTao",     "M - 木听涛",
+"NieXiaoQian",     "N - 聂小倩",
+"NingCaiChen",     "N - 宁采臣",
+"ShuShengXian",     "S - 书生贤",
+"XiaoShiMei",     "X - 小师妹",
+"XiaoXianTong",     "X - 小仙童",

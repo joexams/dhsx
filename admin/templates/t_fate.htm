@@ -1,0 +1,155 @@
+<form method="post" action="?in=fate" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="20">命格信息列表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+  <td>名称</td>
+  <td>命格类型</td>
+  <td>标识</td>
+  <td>品质等级</td>
+  <td >影响战争属性</td>
+  <td >影响战争属性2</td>
+  <td >激活命格</td>
+  <td >激活命格2</td> 
+  <td >是否需要激活</td>
+  <td >穿戴需要等级</td>
+  <td>掉落需求等级</td>
+    <td >需要碎片</td>
+  <td>描述</td>
+    <td width="50">等级</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[name]}"/><input name="id[]" type="hidden" value="{$rs[id]}"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+    <td>
+      <select name="type[]" >
+        <option value="0" class="select">命格类型</option>
+       <option value="1"  {if 1 == $rs[type]}selected="selected"{/if}>普通命格</option>
+       <option value="2"  {if 2 == $rs[type]}selected="selected"{/if}>暗命格</option>
+      </select> </td> 
+    <td><input name="sign[]" type="text" value="{$rs[sign]}"  size="20"/></td>
+	<td>
+	<select name="fate_quality_id[]" >
+	 <!--{loop $fate_quality_list $qrs}-->
+	 <option value="{$qrs[id]}"  {if $qrs[id] == $rs[fate_quality_id]}selected="selected"{/if}>{$qrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>	
+        <td>
+
+	<select name="war_attribute_type_id[]" >
+	 <option value="0" class="select">战争属性</option>
+	 <!--{loop $war_attribute_type_list $wrs}-->
+	 <option value="{$wrs[id]}"  {if $wrs[id] == $rs[war_attribute_type_id]}selected="selected"{/if}>{$wrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+      <td>
+    <select name="war_attribute_type_id2[]" >
+     <option value="0" class="select">战争属性</option>
+     <!--{loop $war_attribute_type_list $wrs}-->
+     <option value="{$wrs[id]}"  {if $wrs[id] == $rs[war_attribute_type_id2]}selected="selected"{/if}>{$wrs[name]}</option>
+     <!--{/loop}-->  
+    </select> </td> 
+      <td>
+    <select name="actived_fate_id[]" >
+     <option value="0" class="select">激活命格</option>
+     <!--{loop $fate_list $frs}-->
+     <option value="{$frs[id]}"  {if $frs[id] == $rs[actived_fate_id]}selected="selected"{/if}>{$frs[name]}</option>
+     <!--{/loop}-->  
+    </select> </td>
+      <td>
+    <select name="actived_fate_id2[]" >
+     <option value="0" class="select">激活命格</option>
+     <!--{loop $fate_list $frs}-->
+     <option value="{$frs[id]}"  {if $frs[id] == $rs[actived_fate_id2]}selected="selected"{/if}>{$frs[name]}</option>
+     <!--{/loop}-->  
+    </select> </td>
+      <td>
+    <select name="need_actived[]" >
+     <option value="0"  {if $rs[need_actived] == 0}selected="selected"{/if}>否</option>
+     <option value="1"  {if $rs[need_actived] == 1}selected="selected"{/if}>是</option>
+    </select> </td> 
+      <td><input name="wear_level[]" type="text" value="{$rs[wear_level]}"  size="6"/> 级</td>
+    <td><input name="request_level[]" type="text" value="{$rs[request_level]}"  size="6"/> 级</td>
+        <td><input name="exchange_require[]" type="text" value="{$rs[exchange_require]}"  size="10"/></td>
+    <td><input name="description[]" type="text" value="{$rs[description]}"  size="30"/></td>
+    <td><a href="javascript:void(0)" onclick="pmwin('open','t_call.php?action=CallFateLevel&id={$rs[id]}&name={$rs[name_url]}')" class="list_menu">等级</a></td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="10" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+
+    <td>
+      <select name="type_n" >
+        <option value="0" class="select">命格类型</option>
+       <option value="1">普通命格</option>
+       <option value="2">暗命格</option>
+      </select> </td> 
+    <td><input name="sign_n" type="text" value=""  size="20"/></td>
+	<td>
+	<select name="fate_quality_id_n" >
+	 <!--{loop $fate_quality_list $qrs}-->
+	 <option value="{$qrs[id]}">{$qrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>	
+    <td><select name="war_attribute_type_id_n" >
+	 <option value="0" class="select">战争属性</option>
+	 <!--{loop $war_attribute_type_list $wrs}-->
+	 <option value="{$wrs[id]}">{$wrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+      <td><select name="war_attribute_type_id2_n" >
+     <option value="0" class="select">战争属性</option>
+     <!--{loop $war_attribute_type_list $wrs}-->
+     <option value="{$wrs[id]}">{$wrs[name]}</option>
+     <!--{/loop}-->  
+    </select> </td> 
+      <td><select name="actived_fate_id_n" >
+     <option value="0" class="select">激活命格</option>
+     <!--{loop $fate_list $frs}-->
+     <option value="{$frs[id]}">{$frs[name]}</option>
+     <!--{/loop}-->  
+    </select> </td>
+      <td><select name="actived_fate_id2_n" >
+     <option value="0" class="select">激活命格</option>
+     <!--{loop $fate_list $frs}-->
+     <option value="{$frs[id]}">{$frs[name]}</option>
+     <!--{/loop}-->  
+    </select> </td>
+      <td>
+    <select name="need_actived_n" >
+     <option value="0" >否</option>
+     <option value="1" >是</option>
+    </select> </td> 
+      <td><input name="wear_level_n" type="text" value=""  size="6"/> 级</td>
+    <td><input name="request_level_n" type="text" value=""  size="6"/> 级</td>
+        <td><input name="exchange_require_n" type="text" value=""  size="10"/></td>
+    <td><input name="description_n" type="text" value=""  size="30"/></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="20" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	   
+  <tr>
+    <td colspan="20" align="center">
+	<input type="hidden" name="action" value="SetFate" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

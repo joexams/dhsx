@@ -1,0 +1,184 @@
+<!--{if !$type}-->
+<form action="" method="get" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2"><a href="?in=apply">{lang WPSQ}</a> ＞ {lang WPSQADDN} ＞ {lang STEP1}</th>
+    </tr>
+    <tr>
+      <td width="100" align="right"><strong>{lang TYPE}</strong></td>
+      <td>
+		<select name="type">
+		 <option value="item" >{lang WPZB}</option>
+		 <option value="soul" >{lang LJ}</option>
+		 <option value="ingot" >{lang YB}</option>
+		 <option value="coins">{lang TQ}</option>
+		 <option value="mg">{lang MG}</option>
+		 <option value="skill">{lang YL}</option>
+		 <option value="thew">{lang TL}</option>
+		 <option value="repute">{lang SW}</option>
+		 <option value="point">{lang JJD}</option>
+		 <option value="vip">VIP</option>
+		</select>
+		</td>
+    </tr>
+    <tr>
+      <td><input name="in" type="hidden" value="apply" /><input name="cid" type="hidden" value="{$cid}" /><input name="action" type="hidden" value="ApplyAdd"/></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" {lang NEXT} " class="button"/></td>
+    </tr>
+    <tr class="title_2">
+      <td>&nbsp;</td>
+      <td><span class="bluetext">{lang WPSQADDTESTMSG}</span></td>
+    </tr>	
+  </table>
+</form >
+<!--{else}-->
+<form action="?in=apply" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2"><a href="?in=apply">{lang WPSQ}</a> ＞ <a href="?in=apply&action=ApplyAdd&cid={$cid}">{lang WPSQADDN}</a> ＞ {lang STEP2}</th>
+    </tr>
+    <tr>
+      <td width="100" align="right"><strong>{lang TYPE}</strong></td>
+      <td>
+	  <!--{if $type=='item'}-->{lang WPZB}<!--{/if}-->
+	  <!--{if $type=='soul'}-->{lang LJ}<!--{/if}-->
+	  <!--{if $type=='ingot'}-->{lang YB}<!--{/if}-->
+	  <!--{if $type=='coins'}-->{lang TQ}<!--{/if}-->
+	  <!--{if $type=='mg'}-->{lang MG}<!--{/if}-->
+	  <!--{if $type=='skill'}-->{lang YL}<!--{/if}-->
+	  <!--{if $type=='thew'}-->{lang TL}<!--{/if}-->
+	  <!--{if $type=='repute'}-->{lang SW}<!--{/if}-->
+	  <!--{if $type=='vip'}-->VIP<!--{/if}-->
+	  <!--{if $type=='point'}-->{lang JJD}<!--{/if}-->
+	  </td>
+    </tr>	
+    <tr>
+      <td align="right"><strong>{lang SERVER}</strong></td>
+      <td>
+		<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+		 <option class="select">{lang COMPANY}</option>
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}" >{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>	  
+
+	  
+		<select name="sid" id = "sid"  {$call}>
+		<option value="" class="select">{lang ALLSERVER}</option>
+		<!--{if $servers_list}-->
+		 <!--{loop $servers_list $srs}-->
+		 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->		
+		
+		</select>
+	  </td>
+    </tr>
+    <tr>
+      <td align="right"><strong>{lang USERNAME}</strong></td>
+      <td><input name="usertype" id="usertype" value="1" type="hidden" />
+	  <input name="username" id="username" type="text" value="" size="40" {$u_call}/> 
+	     <span class="graytext">{lang WPSQADDUSERMSG}</span>
+	  </td>
+    </tr>
+   <!--{if $type == 'soul'}-->
+     <tr>
+      <td align="right"><strong>{lang LJ}</strong></td>
+      <td>
+  
+		<select name="soul_id"  id="soul_id" onchange="selectInput(this,'soul_name')">
+		 <option class="select">{lang CHOOSE}</option>
+		</select>	
+		<input name="soul_name" id="soul_name" type="hidden" />
+		
+	  </td>
+   </tr>
+     <!--tr>
+      <td align="right" valign="top">{lang LJMCMSG}</td>
+      <td id="soul_list">-</td>
+   </tr-->      
+   <!--{/if}-->   	
+   <!--{if $type == 'item'}-->
+     <tr>
+      <td align="right"><strong>{lang WPZB}</strong></td>
+      <td>
+		<select name="type_id" id="type_id" onChange="selectAjax('player_call.php?action=callItem','item_id','type_id|sid',1)">
+		 <option class="select">{lang TYPE}</option> 
+		</select>	  
+		<select name="item_id"  id="item_id" onchange="selectInput(this,'item_name')">
+		 <option class="select">{lang CHOOSE}</option>
+		</select>
+		<select name="item_level"  id="item_level" >
+		<!--{if $item_level_list}-->
+		 <!--{loop $item_level_list $rs $val}-->
+		 <option value="{$val}">{$val}{lang LEVEL}</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->		
+		</select>		
+			
+		<input name="item_name" id="item_name" type="hidden" />
+	  </td>
+   </tr>
+   <!--{/if}--> 
+   <!--{if $type == 'mg'}-->
+     <tr>
+      <td align="right"><strong>{lang MG}</strong></td>
+      <td>
+		<select name="fate_id"  id="fate_id" onchange="selectInput(this,'fate_name')">
+		 <option class="select">{lang CHOOSE}</option>
+		</select>
+		<select name="fate_level"  id="fate_level" >
+		<!--{if $fate_level_list}-->
+		 <!--{loop $fate_level_list $rs $val}-->
+		 <option value="{$val}">{$val}{lang LEVEL}</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->		
+		</select>		
+		<input name="fate_name" id="fate_name" type="hidden" />
+	  </td>
+   </tr>
+   <!--{/if}-->    	
+	
+     <tr {if $type == 'soul'} style="display:none;"{/if}>
+      <td align="right"><strong><!--{if $type == 'vip'}-->VIP<!--{else}-->{lang NUMBER}<!--{/if}--></strong></td>
+      <td>
+	  <!--{if $type == 'vip'}-->
+		<select name="val">
+			<option value="1">VIP1</option>
+			<option value="2">VIP2</option>
+			<option value="3">VIP3</option>
+			<option value="4">VIP4</option>
+			<option value="5">VIP5</option>
+			<option value="6">VIP6</option>
+			<option value="7">VIP7</option>
+			<option value="8">VIP8</option>
+			<option value="9">VIP9</option>
+			<option value="10">VIP10</option>
+			<option value="11">VIP11</option>
+			<option value="12">VIP12</option>
+			
+		</select>	
+	  <!--{else}-->
+	  <input name="val" type="text" value="1" size="40"/>
+	  <!--{/if}-->
+	  </td>
+   </tr> 
+  
+     <tr>
+       <td align="right" valign="top"><strong>{lang WPSQADDMSG}</strong></td>
+      <td><textarea name="cause" cols="60" rows="5"></textarea></td>
+   </tr>
+           
+    <tr>
+      <td><input name="type" type="hidden" value="{$type}"/><input name="action" type="hidden" value="SaveApplyAdd"/></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" {lang SUBMITOK} " class="button"/> <a href="?in=apply&action=ApplyAdd&cid={$cid}" class="bluetext">{lang BACK}</a></td>
+    </tr>
+  </table>
+</form >
+<script language="javascript">
+ function selectInput(choose,id)
+ {  
+   $(id).value = (choose.options[choose.selectedIndex].text); 
+ }
+</script>
+<!--{/if}-->

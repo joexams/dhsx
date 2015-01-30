@@ -1,0 +1,85 @@
+<!--{if $msg}-->{template msg}<!--{/if}-->
+<form method="post" action="?in=other" name="form"  onSubmit="setSubmit('Submit')" target="gopost">
+<table class="table">
+  <tr>
+    <th colspan="8"><span class="bluetext">{$name}</span> 的等级需求</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="30">删除</td>
+    <td>境界层次</td>
+    <td>角色等级需求</td>
+    <td>需要的境界点</td>
+    <td>渡劫副本</td>
+	<td>怪物团</td>
+    <td>到此阶段增加的总血量</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td><input name="spirit_state_id[]" type="hidden" value="{$rs[spirit_state_id]}"/><input type="checkbox" name="id_del[]" value="{$rs[spirit_state_id]},{$rs[level]}" title="选择删除"/></td>
+    <td><input name="level[]" type="hidden" value="{$rs[level]}"/><strong>{$rs[level]}</strong></td>
+    <td><input name="role_level[]" type="text" value="{$rs[role_level]}"  size="10"/></td>
+	<td><input name="state_point[]" type="text" value="{$rs[state_point]}" size="10"/></td>
+	<td>
+	<select name="multiple_mission_id[]" >
+	 <option class="select">选择副本</option>
+	 <!--{loop $mission_list $mrs}-->
+	 <option value="{$mrs[id]}" {if $mrs[id] == $rs[multiple_mission_id]}selected="selected"{/if}>{$mrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	</td>
+	<td>
+	<select name="monster_team_id[]" >
+	 <option class="select">选择</option>
+	 <!--{loop $monster_team_list $mtrs}-->
+	 <option value="{$mtrs[id]}"  {if $mtrs[id] == $rs[monster_team_id]}selected="selected"{/if}>{$mtrs[level]}级-{$mtrs[monster_name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	</td>	
+	<td><input name="health[]" type="text" value="{$rs[health]}" size="10"/></td>
+	</tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="9" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->  
+  <!--{else}-->
+  <tr>
+	<td colspan="7" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center">
+	<td>新增→</td>
+    <td><input name="level_n" type="text" value=""  size="10"/></td>
+    <td><input name="role_level_n" type="text" value=""  size="10"/></td>
+	<td><input name="state_point_n" type="text" value="" size="10"/></td>
+	<td>
+	<select name="multiple_mission_id_n" >
+	 <option class="select">选择副本</option>
+	 <!--{loop $mission_list $mrs}-->
+	 <option value="{$mrs[id]}">{$mrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	
+	</td>
+	<td>
+	<select name="monster_team_id_n" >
+	 <option class="select">选择</option>
+	 <!--{loop $monster_team_list $mtrs}-->
+	 <option value="{$mtrs[id]}">{$mtrs[level]}级-{$mtrs[monster_name]}</option>
+	 <!--{/loop}-->	 
+	</select>
+	</td>	
+	<td><input name="health_n" type="text" value="" size="10"/></td>
+	</tr>  
+  <tr>
+    <td colspan="7" align="center">
+	<input name="spirit_state_id_n" type="hidden" value="{$id}"/>
+	<input type="hidden" name="action" value="SetSpiritStateRequire" />
+	<input type="hidden" name="winid" value="{$winid}" />
+	<input name="url" type="text" value="{echo $_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']}" style="display:none;"/>
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick="javascript: return confirm('你确定执行操作？');"  class="button"/></td>
+  </tr>	
+</table>
+</form>

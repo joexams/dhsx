@@ -1,0 +1,86 @@
+<form action="?in=apply" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2">{lang WPSQREPLY}</th>
+    </tr>
+    <tr>
+      <td width="100" align="right"><strong>{lang TYPE}</strong></td>
+      <td>
+	  <!--{if $rs[atype]=='item'}-->{lang WPZB}<!--{/if}-->
+	  <!--{if $rs[atype]=='soul'}-->{lang LJ}<!--{/if}-->
+	  <!--{if $rs[atype]=='ingot'}-->{lang YB}<!--{/if}-->
+	  <!--{if $rs[atype]=='coins'}-->{lang TQ}<!--{/if}-->
+	  <!--{if $rs[atype]=='mg'}-->{lang MG}<!--{/if}-->
+	  <!--{if $rs[atype]=='exp'}-->{lang JY}<!--{/if}-->
+	  <!--{if $rs[atype]=='thew'}-->{lang TL}<!--{/if}-->
+	  <!--{if $rs[atype]=='repute'}-->{lang SW}<!--{/if}-->	  	  
+	  <!--{if $rs[atype]=='vip'}-->VIP<!--{/if}-->
+	  </td>
+    </tr>	
+    <tr>
+      <td align="right"><strong>{lang SERVER}</strong></td>
+      <td>{$rs[company_name]}-{$rs[servers_name]}<input name="sid" type="hidden" value="{$rs[sid]}"></td>
+    </tr>
+    <tr>
+      <td align="right"><strong>{lang USERNAME}</strong></td>
+      <td>{$rs[username]} <input name="username" type="hidden" value="{$rs[username]}"></td>
+    </tr>
+   <!--{if $rs[atype] == 'soul'}-->
+     <tr>
+      <td align="right"><strong>{lang LJ}</strong></td>
+      <td>{$rs[soul_name]}<input name="soul_id" type="hidden" value="{$rs[soul_id]}"><input name="soul_name"  value="{$rs[soul_name]}" type="hidden" /></td>
+   </tr>
+   <!--{/if}-->
+   <!--{if $rs[atype] == 'item'}-->
+     <tr>
+      <td align="right"><strong>{lang WPZB}</strong></td>
+      <td>{$rs[item_name]} ({$rs[item_level]}{lang LEVEL}) <input name="item_id" type="hidden" value="{$rs[item_id]}"><input name="item_name"  value="{$rs[item_name]}" type="hidden" /></td>
+   </tr>
+   <!--{/if}--> 
+    <!--{if $rs[atype] == 'mg'}-->
+     <tr>
+      <td align="right"><strong>{lang MG}</strong></td>
+      <td>{$rs[fate_name]} ({$rs[fate_level]}{lang LEVEL}) <input name="fate_id" type="hidden" value="{$rs[fate_id]}"><input name="fate_name"  value="{$rs[fate_name]}" type="hidden" /></td>
+   </tr>
+   <!--{/if}-->  
+    	
+     <tr>
+      <td align="right"><strong><!--{if $rs[atype] == 'vip'}-->VIP<!--{else}-->{lang NUMBER}<!--{/if}--></strong></td>
+      <td>{$rs[val]}<input name="val" type="hidden" value="{$rs[val]}"></td>
+   </tr> 
+  
+     <tr>
+       <td align="right" valign="top"><strong>{lang WPSQADDMSG}</strong></td>
+      <td>{$rs[cause]}</td>
+   </tr>
+     <tr>
+       <td align="right" valign="top"><strong>{lang SUBMITIME}</strong></td>
+      <td>{$rs[apply_time]}</td>
+   </tr>   	
+     <tr>
+       <td width="100" align="right" valign="top"><strong>{lang REPLYCONTENT}</strong></td>
+      <td><textarea name="reply" cols="60" rows="5">{$rs[reply]}</textarea></td>
+   </tr> 
+   <!--{if $rs[status] == 1}-->
+    <tr>
+       <td align="right" valign="top"><strong>{lang STATE}</strong></td>
+      <td>
+	<select name="status">
+	 <option value="1" {if $rs[status] == 1} selected="selected" {/if}>{lang WPSQWCL}</option>
+	 <option value="2" {if $rs[status] == 2} selected="selected" {/if}>{lang WPSQGB}</option>
+	</select>
+	<span class="bluetext">{lang WPSQSTATEMSG}</span>
+	</td>
+   </tr>  
+   <!--{/if}-->              
+    <tr>
+      <td>
+	  <input name="type" type="hidden" value="{$set_type}"/>
+	  <input name="cid" type="hidden" value="{$rs[cid]}" />
+	  <input name="aid" type="hidden" value="{$aid}" />
+	  <input name="action" type="hidden" value="ReplyApply"/>
+	  </td>
+      <td><input type="submit" name="Submit" id="Submit" value=" {lang SUBMITOK} " class="button"/> </td>
+    </tr>
+  </table>
+</form >

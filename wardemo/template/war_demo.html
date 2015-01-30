@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>战争模拟</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+
+  <style type="text/css">
+      .report_item{
+          float: left;
+          height: 100%;
+          width: 49%;
+          border:1px solid teal;
+      }
+  </style>
+
+  <center>
+        <a href="index.php?ac=rank">副本评价模拟器</a>
+          </table><span style="color:red;font-weight: bold;font-size: 12px;"> 备注:下列表格中蓝色值表示支持从Excel中直接复制粘贴</span><br><br>
+          <!-- <form action="index.php" method="post">
+            <?php
+                $PKWithPlayer = '';
+                $PKlable = '玩家ID:';
+                if ($PKType === 'with_monster') {
+                    $PKWithPlayer = 'checked';
+                    $PKlable = '怪物团:';
+                }
+            ?>
+            与怪PK<input name="pk_type" type="checkbox" value="with_monster" <?=$PKWithPlayer?> onchange="change_pk(this);" />
+            <input id="rac"  name="rac" type="hidden" value="pk" />
+            玩家:<input id="master_player" name="master_player" type="text" size="5" value="<?=$MasterPlayer?>" /> PK <span id="pk_type_label"><?=$PKlable?></span><input id="slave_player" name="slave_player" type="text" size="5" value="<?=$SlavePlayer?>" />
+            <input name="submit" type="submit" value="获取战争数据" />
+          </form> -->
+          <form id="war_form" name="war_form" action="index.php" method="post">
+            <input id="rac"  name="rac" type="hidden" value="war_demo" />
+            <input id="pk_type"  name="pk_type" type="hidden" value="<?=$PKType?>" />
+            <input id="master_player"  name="master_player" type="hidden" value="<?=$MasterPlayer?>" />
+            <input id="slave_player"  name="slave_player" type="hidden" value="<?=$SlavePlayer?>" />
+            
+          <table width="1300px" border="0" bgcolor="#333333">
+              <tr align="center" bgcolor="#FFFFFF">
+                  <td>
+                    <table border="0" cellspacing="1" bgcolor="#333222" width="100%">
+                          <?php foreach($SoldierAttributeList as $ArmyType => $SoldierAttribute) {
+                            if ('attack' == $ArmyType) {
+                                $CheckSoldierList = $AttackSoldierList;
+                                $ArmyTypeText = '攻击方';
+                            }
+                            else {
+                                $CheckSoldierList = $DefenseSoldierList;
+                                $ArmyTypeText = '防守方';
+                            }
+                  ?>
+
+              <tr align="center" bgcolor="#FFFFFF">
+
+              <td width="80px"><?=$ArmyTypeText?></td>
+              <td width="1120px">
+                <div id="<?=$ArmyType?>_param">
+                    <?php 
+                        echo GetSoldierAttributeHtml(0, $ArmyType, $CheckSoldierList, $SoldierAttribute);
+                    ?>
+                </div>
+              </td>
+          </tr>
+          <?php } ?>
+              
+              <tr bgcolor="#FFFFFF" align="center">
+                  <td colspan="2">
+					  攻击方龙珠: <input name="dragonball1" type="text" value="<?=$DragonBall1?>" size="50" />
+					  防守方龙珠: <input name="dragonball2" type="text" value="<?=$DragonBall2?>" size="50" /><br>			  
+                      限制回合数: <input name="max_bout_number" type="text" value="<?=$MaxBoutNumber?>" size="4" />
+                      需求回合数: <input name="request_bout_number" type="text" value="<?=$RequestBoutNumber?>" size="4" />
+                      N个都不能死: <input name="attack_can_not_dead_number" type="text" value="<?=$AttackCanNotDeadNumber?>" size="4" />
+                      战争次数: <input name="runtimes" type="text" value="<?=$Runtimes?>" size="4" />
+                      <input name="submit" type="button" value="开 始" onclick="call_war_ajax('war_form');" />
+                  </td>
+              </tr>
+              
+              <tr bgcolor="#FFFFFF">
+                <td  height="100px" align="center">结果</td>
+                <td>
+                    <table width="100%" border="0" cellspacing="0" bgcolor="#333222">
+                      <tr bgcolor="#FFFFFF"><td height="100%" colspan="2">
+                         <div id="war_result">
+                            
+                         </div>
+                         </td>
+                      </tr>
+                    </table>
+                </td>
+              </tr>
+          </table>
+          </form>
+      </center>
+
+      <script language="javascript">
+            var gwp_army_type = 'attack';
+            var xmlrequest = false;
+            
+          function fill_data (army_type, role_id, text_id) {
+              ele = document.getElementById(text_id);
+              text_value = ele.value;
+              values = text_value.split('\t');
+              if (values.length != 27) {
+                  if (values.length > 1) {
+                      alert('参数无效');
+                      ele.focus();
+                  }
+                  return true;
+              }
+              document.getElementById(army_type + '_' + role_id + '_health').value        = values[0];
+              document.getElementById(army_type + '_' + role_id + '_attack').value        = values[1];
+              document.getElementById(army_type + '_' + role_id + '_defense').value       = values[2];
+              document.getElementById(army_type + '_' + role_id + '_magic_attack').value  = values[3];
+              document.getElementById(army_type + '_' + role_id + '_magic_defense').value = values[4];
+              document.getElementById(army_type + '_' + role_id + '_stunt_attack').value  = values[5];
+              document.getElementById(army_type + '_' + role_id + '_stunt_defense').value = values[6];
+              document.getElementById(army_type + '_' + role_id + '_hit').value           = values[7];
+              document.getElementById(army_type + '_' + role_id + '_base_hit').value      = values[8];
+              document.getElementById(army_type + '_' + role_id + '_block').value         = values[9];
+              document.getElementById(army_type + '_' + role_id + '_base_block').value    = values[10];
+              document.getElementById(army_type + '_' + role_id + '_break_block').value   = values[11];
+              document.getElementById(army_type + '_' + role_id + '_base_break_block').value   = values[12];
+              document.getElementById(army_type + '_' + role_id + '_dodge').value              = values[13];
+              document.getElementById(army_type + '_' + role_id + '_base_dodge').value         = values[14];
+              document.getElementById(army_type + '_' + role_id + '_critical').value           = values[15];
+              document.getElementById(army_type + '_' + role_id + '_base_critical').value      = values[16];
+              document.getElementById(army_type + '_' + role_id + '_break_critical').value     = values[17];
+              document.getElementById(army_type + '_' + role_id + '_base_break_critical').value = values[18];
+              document.getElementById(army_type + '_' + role_id + '_kill').value                = values[19];
+              document.getElementById(army_type + '_' + role_id + '_speed').value               = values[20];
+              document.getElementById(army_type + '_' + role_id + '_normal_attack').value       = values[21];
+              document.getElementById(army_type + '_' + role_id + '_dec_kill').value            = values[22];
+              document.getElementById(army_type + '_' + role_id + '_inc_jiangxing_injure').value = values[23];
+              document.getElementById(army_type + '_' + role_id + '_inc_jianxiu_injure').value   = values[24];
+              document.getElementById(army_type + '_' + role_id + '_inc_wudao_injure').value     = values[25];
+              document.getElementById(army_type + '_' + role_id + '_inc_lieshou_injure').value   = values[26];
+          }
+
+          function choose (chk, tr_id) {
+              trcolor = '#FFFFFF';
+              if(chk.checked == true) {
+                  trcolor = 'gray';
+              }
+              tr_obj = document.getElementById(tr_id);
+              tr_obj.style.backgroundColor = trcolor;
+          }
+
+          function checkForm (f) {
+              attack = "attack_role_list[]";
+              defense = "defense_role_list[]";
+              attack_role = false;
+              defense_role = false;
+              
+              for(i=0; i<f.elements.length; i++) {
+                  obj = f.elements[i];
+                  if(obj.type == "checkbox") {
+                      if(obj.checked == true) {
+                          if(obj.name == attack) {
+                              attack_role = true;
+                          }
+                          else {
+                              defense_role = true;
+                          }
+                      }
+                  }
+              }
+              if(attack_role != true) {
+                  alert("请选择攻方出战角色");
+                  return false;
+              }
+              if(defense_role != true) {
+                  alert("请选择守方出战角色");
+                  return false;
+              }
+              
+              return true;
+          }
+          
+          function change_pk (Obj) {
+            DivObje = document.getElementById('attack_param');
+            alert(DivObje.innerHTML);
+            DivObje.innerHTML = 'hello';
+            pk_label = document.getElementById("pk_type_label");
+            if (Obj.checked == false) {
+                pk_label.innerHTML = '玩家ID:';
+            }
+            else {
+                pk_label.innerHTML = '怪物ID:';
+            }
+          }
+          
+          function call_war_ajax (form_id) {
+            url = 'index.php';
+            f = document.getElementById(form_id);
+            if(checkForm(f)) {
+                param = '';
+                for (i = 0; i < f.elements.length; i++) {
+                    f_element = f.elements[i];
+                    s = '&';
+                    if (param == '') {
+                        s = '';
+                    }
+                    if (f_element.name && f_element.value) {
+                        if (f_element.type == 'checkbox') {
+                            if (f_element.checked) {
+                                param += s + f.elements[i].name + '=' + f.elements[i].value;
+                            }
+                        }
+                        else {
+                            param += s + f.elements[i].name + '=' + f.elements[i].value;
+                        }
+                        
+                    }
+                }
+                document.getElementById("war_result").innerHTML= "运算中，请稍候...";
+                call_ajax_post(url, param, UpdateWarResult);
+            }
+          }
+          
+          function UpdateWarResult () {
+            if(xmlrequest.readyState==4)
+            {
+                var response = xmlrequest.responseText;
+                if (response == 'error') {
+                    alert('系统出错，请检查参数是否正确。');
+                }
+                else {
+                    document.getElementById("war_result").innerHTML=response;
+                }
+            }
+          }
+          
+          function call_gwp_ajax (army_type, player_type) {
+            id = document.getElementById(army_type + '_gwp_id').value;
+            gwp_army_type = army_type;
+            
+            url = "index.php?ac=gwp&act=" + player_type + "&at=" + army_type + "&id=" + id;
+            call_ajax_get(url, UpdateParam);
+          }
+          
+          function UpdateParam () {
+            if(xmlrequest.readyState==4)
+            {
+                var response = xmlrequest.responseText;
+                if (response == 'error') {
+                    alert('系统出错，请检查参数是否正确。');
+                }
+                else {
+                    document.getElementById(gwp_army_type + "_param").innerHTML=response;
+                }
+            }
+          }
+          
+          
+          function get_xmlrequest () {
+            if(window.ActiveXObject)
+            {
+                xmlrequest=new ActiveXObject("Msxml2.XMLHTTP");
+                if(!xmlrequest) {
+                    xmlrequest = new ActionXObject("Microsoft.XMLHTTP");
+                }
+            }
+            else {
+                xmlrequest = new XMLHttpRequest();
+            }
+            
+            return xmlrequest;
+          }
+          
+          
+          function call_ajax_get (url, call_back) {
+                xmlrequest = get_xmlrequest();
+                xmlrequest.open("GET", url, true);
+                xmlrequest.onreadystatechange = call_back;
+                xmlrequest.send(null);
+          }
+          
+          
+          function call_ajax_post (url, param, call_back) {
+                xmlrequest = get_xmlrequest();
+                
+                xmlrequest.open("POST", url, true);
+                xmlrequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                
+                xmlrequest.onreadystatechange = call_back;
+                xmlrequest.send(param);
+          }
+          
+      </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<table class="table">
+  <tr>
+    <th colspan="5"><span class="yellowtext">{$name}</span>  {lang BPSQ}</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35" >ID</td>
+    <td width="100">{lang USER}</td>
+    <td width="120">{lang SUBMITIME}</td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[id]}</td>
+    <td><strong>{$rs[username]}</strong></td>
+    <td>{$rs[req_time]}</td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="5" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	  
+  <!--{else}-->
+  <tr>
+	<td colspan="5" align="center" height="100">{lang NULL}</td>
+  </tr>  
+  <!--{/if}--> 
+</table>

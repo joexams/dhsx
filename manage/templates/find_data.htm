@@ -1,0 +1,126 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="8">{lang BDZH}</th>
+  </tr> 
+  <tr class="title_3">
+    <td colspan="8">
+	<form action="" method="get" name="forms" id="forms" onSubmit="setSubmit('Submits')"> 	
+	<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+	 <option class="select">{lang COMPANY}</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	  	
+	<select name="sid" id = "sid">
+	<option  value="">{lang ALLSERVER}</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	<select name="type">
+	<option  value="">{lang TYPE}</option>
+	 <option value="1" {if $type == 1} selected="selected" {/if}>{lang LJ}</option>
+	 <option value="2" {if $type == 2} selected="selected" {/if}>{lang WPZB}</option>
+	 <option value="3" {if $type == 3} selected="selected" {/if}>{lang MG}</option>
+	</select>
+	<select name="state">
+	<option  value="">{lang STATE}</option>
+	 <option value="1" {if $state == 1} selected="selected" {/if}>{lang WPSQWCL}</option>
+	 <option value="2" {if $state == 2} selected="selected" {/if}>{lang WPSQGB}</option>
+	 <option value="3" {if $state == 3} selected="selected" {/if}>{lang WPSQYHP}</option>
+	 <!--{if !webAdmin('c_apply_set','y')}--><option value="4" {if $status == 4} selected="selected" {/if}>{lang WPSQYHL}</option><!--{/if}-->
+	</select>	
+	{lang USER}： <input name="username" type="text" value="{$username}" size="20"/>
+	<input type="submit" name="Submit" id="Submits" value=" {lang SEARCH} " class="button"/>
+	<input name="in" type="hidden" value="apply" />
+	<input name="action" type="hidden" value="FindData" />
+	</form>	</td>
+  </tr>   
+<form method="post" action="" name="form" id="form"  onSubmit="setSubmit('Submit')">
+  
+  <tr class="title_2" align="center">
+    <!--{if !webAdmin('c_apply_set','y') && $adminWebType == 'c'}--><td width="50">{lang CHOOSE}</td><!--{/if}-->
+    <td width="50">{lang STATE}</td>
+    <td>{lang USERNAME}</td>
+	<td>{lang TYPE}</td>
+    <td>{lang WPSQRN}</td>
+    <td>{lang SERVER}</td>
+    <td align="left">{lang BDZHYY}</td>
+    <td width="50">{lang WPSQDEL}</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	 
+ 
+  <tr align="center" onmouseover=this.className="td3" onmouseout=this.className="td" >
+  	<!--{if !webAdmin('c_apply_set','y') && $adminWebType == 'c'}--><td><!--{if $rs[state] == 1}--><input type="checkbox" name="id[]" value="{$rs[id]}"/><!--{else}-->-<!--{/if}--></td><!--{/if}-->
+	<td>
+	<!--{if $rs[state]=='1'}--><span class="redtext">{lang WPSQWCL}</span><!--{/if}-->
+	<!--{if $rs[state]=='2'}--><span class="graytext" >{lang WPSQGB}</span><!--{/if}-->
+	<!--{if $rs[state]=='3'}-->
+	<!--{if !webAdmin('c_apply_set','y')}-->
+	<a href="?in=apply&action=CancelFindData&cid={$rs[cid]}&sid={$rs[sid]}&id={$rs[id]}" onClick='javascript: return confirm("{lang QDCXCP}");' title="{lang WPSQCX}"><strong class="greentext">√{lang WPSQYHP}</strong></a>
+	<!--{else}--><strong class="greentext">√{lang WPSQYHP}</strong><!--{/if}-->
+	<!--{/if}-->
+	<!--{if $rs[state]=='4'}-->
+	<!--{if !webAdmin('c_apply_set','y')}-->
+	<span class="graytext">{lang WPSQYHL}</span>
+	<!--{else}-->
+	<span class="redtext">{lang WPSQWCL}</span>
+	<!--{/if}-->
+	<!--{/if}-->	</td>
+	<td align="left">
+	<!--{if in_array($rs[username],$s[$rs[sid]][testUserArr])}--><span class="graytext right">({lang CSH})</span><!--{/if}-->
+	<a href="?in=player&action=PlayerView&cid={$rs[cid]}&sid={$rs[sid]}&uid={$rs[player_id]}" target="_blank"><strong>{$rs[username]}</strong></a> ({$rs[nickname]})<br /><a href="?in=apply&username={echo urlencode($rs[username])}&action=FindData" class="graytext">{lang SERACHALL}</a>
+	</td>
+	<td>
+	<!--{if $rs[type]==1}-->{lang LJ}<!--{/if}-->
+	<!--{if $rs[type]==2}-->{lang WPZB}<!--{/if}-->
+	<!--{if $rs[type]==3}-->{lang MG}<!--{/if}-->	</td>
+	<td class="bluetext"  align="left">
+	<!--{if $rs[val]}-->
+	<!--{loop $rs[val] $val}-->
+	<!--{eval $val = json_decode($val, true);}-->
+		
+		{echo $val[name]} <span class="smalltext greentext">
+		<!--{if $val[level]}-->Lv.{$val[level]}<!--{/if}-->
+		<!--{if $val[sn1]}--> / {$val[sn1]}<!--{/if}-->
+		<!--{if $val[sn2]}--> / {$val[sn2]}<!--{/if}-->
+		<!--{if $val[sn3]}--> / {$val[sn3]}<!--{/if}-->
+		<!--{if $val[sn4]}--> / {$val[sn4]}<!--{/if}-->
+		<!--{if $val[gn]}--> / {$val[gn]}<!--{/if}-->
+		<!--{if $val[nn]}--> / {$val[nn]}<!--{/if}-->
+		<!--{if $val[fn1]}--> / {$val[fn1]}<!--{/if}-->
+		<!--{if $val[fn2]}--> / {$val[fn2]}<!--{/if}-->
+		</span><br />
+	<!--{/loop}-->
+	<!--{/if}-->	</td>
+	<td>{$s[$rs[sid]][company_name]}-{$s[$rs[sid]][servers_name]}</td>
+	<td align="left">{echo dehtml($rs[cause])}<br /><span class="graytext smalltext">Post:<strong>{$rs[adminName]}</strong> {$rs[postime]}</span></td>
+	<td><!--{if $rs[state]==1 && $rs[adminID] == $adminWebID}--><a href="?in=apply&action=DelFindData&cid={$rs[cid]}&sid={$rs[sid]}&id={$rs[id]}" class="title_menu" onclick='javascript: return confirm("{lang DOYOUDO}");'>{lang WPSQDEL}</a><!--{else}-->-<!--{/if}--></td>
+  </tr>    
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="8"  align="center">{lang NULL}</td>
+  </tr>			  
+  <!--{/if}-->
+  <!--{if !webAdmin('c_apply_set','y') && $adminWebType == 'c'}--> 
+  <tr>
+    <td colspan="13">
+	<input type="checkbox" name="allaid" onclick="CheckAll(this,'form','id[]');" />{lang ALLCHOOSE}
+	<input name="setype" type="radio" value="3" checked="checked" /> <span class="greentext">{lang WPSQOK}</span>	
+	<input name="setype" type="radio" value="2" /> <span class="graytext">{lang WPSQGB}</span>	
+	<input name="setype" type="radio" value="4" /> <span class="graytext">{lang WPSQHL}</span>	
+	<input type="hidden" name="action" value="SetFindData" />
+	<input type="submit" id="Submit" name="Submit" value="{lang SUBMITOK}" onClick='javascript: return confirm("{lang DOYOUDO}");'  class="button"/></td>
+  </tr>   
+  <!--{/if}-->
+  </form> 
+</table>

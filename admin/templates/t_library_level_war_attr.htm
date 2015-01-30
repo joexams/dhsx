@@ -1,0 +1,176 @@
+<table class="table">
+  <tr>
+    <th colspan="18">藏经阁等级属性</th>
+  </tr> 
+  <tr class="title_3">
+    <td colspan="18">
+	<!--{if $role_job_list}-->
+	  <!--{loop $role_job_list $rrs}-->
+	  <a href="?in=library&role_job_id={$rrs[id]}" class="{if $role_job_id == $rrs[id]} title_menu_on {else} title_menu {/if}">{$rrs[name]}</a>
+	  <!--{/loop}-->
+	<!--{/if}-->
+	</td>
+  </tr>      
+<form method="post" action="?in=library" name="form"  onSubmit="setSubmit('Submit')">   
+  <tr align="center" class="title_2">
+    <td width="35" rowspan="2">Lv</td>
+	<td width="35" rowspan="2">删除</td>
+    <td rowspan="2" >等级</td>
+	<td rowspan="2" >绝招</td>
+	<td colspan="5" >需求</td>
+	<td rowspan="2" >武力</td>
+	<td rowspan="2" >绝技</td>
+	<td rowspan="2" >法术</td>
+	<td rowspan="2" >生命</td>
+    <td rowspan="2" >普攻/普防</td>
+    <td rowspan="2" >法攻/法防</td>	
+    <td rowspan="2" >绝攻/绝防</td>
+    <td rowspan="2" >命中/格挡/闪避/暴击/破击/韧性/必杀/守护(%)</td>
+	</tr>
+  <tr align="center" class="title_2">
+    <td >仙令</td>
+    <td >玩家等级</td>
+    <td >武圣藏经阁等级</td>
+    <td >剑灵藏经阁等级</td>
+    <td >飞羽藏经阁等级</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[library_level]}<input name="role_job_id[]" type="hidden" value="{$rs[role_job_id]}"/></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[role_job_id]},{$rs[library_level]}" title="选择删除"/></td>
+    <td><input name="library_level[]" type="hidden" value="{$rs[library_level]}"/>{$rs[library_level]}</td>
+	<td>
+	<select name="role_stunt_id[]" >
+	 <option class="select" value="0">选择</option>
+	 <!--{loop $role_stunt_list $rrs}-->
+	 <option value="{$rrs[id]}"  {if $rrs[id] == $rs[role_stunt_id]}selected="selected"{/if}>{$rrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+	<td><input name="need_xian_ling[]" id="m_need_xian_ling_{$rs[library_level]}" type="text" value="{$rs[need_xian_ling]}"  size="5" onChange="fill_data('m', this.id,{$rs[library_level]});"/></td>
+	<td><input name="need_player_lavel[]" id="m_need_player_lavel_{$rs[library_level]}" type="text" value="{$rs[need_player_lavel]}"  size="5" onChange="fill_data('m', this.id,{$rs[library_level]});"/></td>
+	<td><input name="need_wusheng_lib_lv[]" id="m_need_wusheng_lib_lv_{$rs[library_level]}" type="text" value="{$rs[need_wusheng_lib_lv]}"  size="5" onChange="fill_data('m', this.id,{$rs[library_level]});"/></td>
+	<td><input name="need_jianling_lib_lv[]" id="m_need_jianling_lib_lv_{$rs[library_level]}" type="text" value="{$rs[need_jianling_lib_lv]}"  size="5" onChange="fill_data('m', this.id,{$rs[library_level]});"/></td>
+	<td><input name="need_feiyu_lib_lv[]" id="m_need_feiyu_lib_lv_{$rs[library_level]}" type="text" value="{$rs[need_feiyu_lib_lv]}"  size="5" onChange="fill_data('m', this.id,{$rs[library_level]});"/></td>
+	<td><input name="strength[]" id="m_strength_{$rs[library_level]}" type="text" value="{$rs[strength]}"  size="5" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/></td>
+	<td><input name="agile[]" id="m_agile_{$rs[library_level]}" type="text" value="{$rs[agile]}"  size="5" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/></td>
+	<td><input name="intellect[]" id="m_intellect_{$rs[library_level]}" type="text" value="{$rs[intellect]}"  size="5" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/></td>
+    <td><input name="health[]" id="m_health_{$rs[library_level]}" type="text" value="{$rs[health]}"  size="5" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/></td>
+    <td>
+	<input name="attack[]" id="m_attack_{$rs[library_level]}" type="text" value="{$rs[attack]}"  size="2" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/><input name="defense[]" id="m_defense_{$rs[library_level]}" type="text" value="{$rs[defense]}"  size="2" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/>	</td>
+    <td>
+	<input name="magic_attack[]" id="m_magic_attack_{$rs[library_level]}" type="text" value="{$rs[magic_attack]}"  size="2" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/><input name="magic_defense[]" id="m_magic_defense_{$rs[library_level]}" type="text" value="{$rs[magic_defense]}"  size="2" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/>	</td>	
+    <td>
+	<input name="stunt_attack[]" id="m_stunt_attack_{$rs[library_level]}" type="text" value="{$rs[stunt_attack]}"  size="2" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/><input name="stunt_defense[]" id="m_stunt_defense_{$rs[library_level]}" type="text" value="{$rs[stunt_defense]}"  size="2" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/>	</td>
+
+	<td>
+	<input name="hit[]" id="m_hit_{$rs[library_level]}" type="text" value="{$rs[hit]}" size="1" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/>
+	<input name="block[]" id="m_block_{$rs[library_level]}" type="text" value="{$rs[block]}" size="1" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/>	
+	<input name="dodge[]" id="m_dodge_{$rs[library_level]}" type="text" value="{$rs[dodge]}"  size="1" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/>
+	<input name="critical[]" id="m_critical_{$rs[library_level]}" type="text" value="{$rs[critical]}" size="1" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/>
+	<input name="break_block[]" id="m_break_block_{$rs[library_level]}" type="text" value="{$rs[break_block]}" size="1" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/>
+	<input name="break_critical[]" id="m_break_critical_{$rs[library_level]}" type="text" value="{$rs[break_critical]}" size="1" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/>
+	<input name="kill[]" id="m_kill_{$rs[library_level]}" type="text" value="{$rs[kill]}" size="1" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/>
+	<input name="protect[]" id="m_protect_{$rs[library_level]}" type="text" value="{$rs[protect]}" size="1" onChange="fill_data('m', this.id,{$rs[library_level]});" onClick="this.select();"/>
+	</td>
+	</tr>
+  <!--{/loop}-->
+  <!--{else}-->
+  <tr>
+	<td colspan="18" align="center" height="100">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→<input name="role_job_id_n" type="hidden" value="{$role_job_id}"  size="10"/></td>
+    <td><input name="library_level_n" type="text" value=""  size="6"/></td>
+	<td>
+	<select name="role_stunt_id_n" >
+	 <option class="select" value="0">选择</option>
+	 <!--{loop $role_stunt_list $rrs}-->
+	 <option value="{$rrs[id]}">{$rrs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	</td>
+	<td><input name="need_xian_ling_n" id="m_need_xian_ling_n" type="text" value="0"  size="5" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+	<td><input name="need_player_lavel_n" id="m_need_player_lavel_n" type="text" value="0"  size="5" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+	<td><input name="need_wusheng_lib_lv_n" id="m_need_wusheng_lib_lv_n" type="text" value="0"  size="5" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+	<td><input name="need_jianling_lib_lv_n" id="m_need_jianling_lib_lv_n" type="text" value="0"  size="5" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+	<td><input name="need_feiyu_lib_lv_n" id="m_need_feiyu_lib_lv_n" type="text" value="0"  size="5" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+	<td><input name="strength_n" id="m_strength_n" type="text" value="0"  size="5" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+	<td><input name="agile_n" id="m_agile_n" type="text" value="0"  size="5" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+	<td><input name="intellect_n" id="m_intellect_n" type="text" value="0"  size="5" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td><input name="health_n" id="m_health_n" type="text" value="0"  size="5" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/></td>
+    <td>
+	<input name="attack_n" id="m_attack_n" type="text" value="0"  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/><input name="defense_n" id="m_defense_n" type="text" value="0"  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>	</td>
+    <td>
+	<input name="magic_attack_n" id="m_magic_attack_n" type="text" value="0"  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/><input name="magic_defense_n" id="m_magic_defense_n" type="text" value="0"  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>	</td>	
+    <td>
+	<input name="stunt_attack_n" id="m_stunt_attack_n" type="text" value="0"  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/><input name="stunt_defense_n" id="m_stunt_defense_n" type="text" value="0"  size="2" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>	</td>
+
+	<td>
+	<input name="hit_n" id="m_hit_n" type="text" value="0" size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	<input name="block_n" id="m_block_n" type="text" value="0" size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>	
+	<input name="dodge_n" id="m_dodge_n" type="text" value="0"  size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	<input name="critical_n" id="m_critical_n" type="text" value="0" size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	<input name="break_block_n" id="m_break_block_n" type="text" value="0" size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	<input name="break_critical_n" id="m_break_critical_n" type="text" value="0" size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	<input name="kill_n" id="m_kill_n" type="text" value="0" size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	<input name="protect_n" id="m_protect_n" type="text" value="0" size="1" onChange="fill_data('m', this.id,'n');" onClick="this.select();"/>
+	</td>
+    </tr> 
+  <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="18" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}-->	
+  <tr>
+    <td colspan="18" align="center">
+	<input type="hidden" name="action" value="SetLibraryLevelWarAttr" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr> 
+</form>    
+</table>
+  <script language="javascript">
+		
+	  function fill_data (army_type, text_id,id) {
+	  		
+		ele = document.getElementById(text_id);
+		
+		  text_value = ele.value;
+		  values = text_value.split('\t');
+		  var l = 23;
+		  if (values.length != l) {
+			  //alert('参数无效');
+			  ele.focus();
+			  return true;
+		  }
+		  document.getElementById(army_type +  '_need_xian_ling_' + id).value        = values[0];
+		  document.getElementById(army_type +  '_need_player_lavel_' + id).value        = values[1];
+		  document.getElementById(army_type +  '_need_wusheng_lib_lv_' + id).value        = values[2];
+		  document.getElementById(army_type +  '_need_jianling_lib_lv_' + id).value        = values[3];
+		  document.getElementById(army_type +  '_need_feiyu_lib_lv_' + id).value        = values[4];
+		  
+		  document.getElementById(army_type +  '_strength_' + id).value        = values[5];
+		  document.getElementById(army_type +  '_agile_' + id).value        = values[6];
+		  document.getElementById(army_type +  '_intellect_' + id).value        = values[7];
+		  
+		  document.getElementById(army_type +  '_health_' + id).value        = values[8];
+		  document.getElementById(army_type +  '_attack_' + id).value       = values[9];
+		  document.getElementById(army_type +  '_defense_' + id).value  = values[10];
+		  document.getElementById(army_type +  '_magic_attack_' + id).value  = values[11];
+		  document.getElementById(army_type +  '_magic_defense_' + id).value  = values[12];
+		  document.getElementById(army_type +  '_stunt_attack_' + id).value  = values[13];
+		  document.getElementById(army_type +  '_stunt_defense_' + id).value  = values[14];
+		  
+		  document.getElementById(army_type +  '_hit_' + id).value  = values[15];
+		  document.getElementById(army_type +  '_block_' + id).value  = values[16];
+		  document.getElementById(army_type +  '_dodge_' + id).value  = values[17];
+		  document.getElementById(army_type +  '_critical_' + id).value  = values[18];
+		  document.getElementById(army_type +  '_break_block_' + id).value  = values[19];
+		  document.getElementById(army_type +  '_break_critical_' + id).value  = values[20];
+		  document.getElementById(army_type +  '_kill_' + id).value  = values[21];
+		  document.getElementById(army_type +  '_protect_' + id).value  = values[22];
+		  
+		  
+	  }
+
+</script>

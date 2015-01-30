@@ -1,0 +1,122 @@
+<form method="post" action="?in=runbusiness" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="11">跑商物品价格范围</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="100">跑商的城镇</td>
+    <td width="100">物品</td>
+    <td width="100">类型</td>
+    <td width="100">最低价</td>
+    <td width="100">最高价</td>
+    <td width="100">商品数量</td>
+    <td width="100">材料类型</td>
+    <td width="100">材料名称</td>
+    <td width="100">图片标示</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[run_business_town_id]}<input name="id_old[]" type="hidden" value="{$rs[run_business_town_id]}_{$rs[item_id]}_{$rs[type]}" /></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[run_business_town_id]}_{$rs[item_id]}_{$rs[type]}" title="选择删除"/></td>
+  <td>
+    <select name="run_business_town_id[]">
+      <option value="">选择城镇</option>
+      <!--{loop $rb_town_list $rrs}-->
+      <option value="{$rrs['id']}" {if $rrs['id']==$rs['run_business_town_id']}selected{/if}>{$rrs['name']}</option>
+      <!--{/loop}-->
+    </select>
+  </td>
+  <td>
+    <select name="item_id[]">
+      <option value="">选择物品</option>
+      <!--{loop $item_list $irs}-->
+      <option value="{$irs[id]}" {if $irs['id']==$rs['item_id']}selected{/if}>{$irs['name']}</option>
+      <!--{/loop}-->
+    </select>
+
+  </td>
+  <td>
+  <select name="type[]" id="">
+    <option value="0"{if $rs[type] == 0} selected{/if}>卖价</option>
+    <option value="1"{if $rs[type] == 1} selected{/if}>买价</option>
+  </select>
+</td>
+  <td><input name="min_price[]" type="text" value="{$rs[min_price]}"  size="20"/></td>
+  <td><input name="max_price[]" type="text" value="{$rs[max_price]}"  size="20"/></td>
+	<td><input name="count[]" type="text" value="{$rs[count]}"  size="20"/></td>
+	<td>
+    <select name="item_type[]">
+      <option value="">选择材料类型</option>
+      <!--{loop $item_type_list $itrs}-->
+      <option value="{$itrs[item_type]}" {if $itrs['item_type']==$rs['item_type']}selected{/if}>{$itrs['item_name']}</option>
+      <!--{/loop}-->
+    </select>
+  </td>
+	<td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+	<td><input name="pic_sine[]" type="text" value="{$rs[pic_sine]}"  size="20"/></td>
+  <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+
+   <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="11" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}--> 
+  
+  <!--{else}-->
+  <tr>
+	<td colspan="8" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+  <td>
+  <select name="run_business_town_id_n">
+    <option value="">选择城镇</option>
+    <!--{loop $rb_town_list $rrs}-->
+    <option value="{$rrs['id']}">{$rrs['name']}</option>
+    <!--{/loop}-->
+  </select>
+</td>
+<td>
+    <select name="item_id_n">
+      <option value="">选择物品</option>
+      <!--{loop $item_list $irs}-->
+      <option value="{$irs[id]}">{$irs['name']}</option>
+      <!--{/loop}-->
+    </select>
+
+  </td>
+    <td>
+      <select name="type_n">
+        <option value="0">卖价</option>
+        <option value="1">买价</option>
+      </select>
+    </td>
+    <td><input name="min_price_n" type="text" value=""  size="10"/></td>
+    <td><input name="max_price_n" type="text" value=""  size="20"/></td>
+    <td><input name="count_n" type="text" value=""  size="20"/></td>
+    <td>
+    <select name="item_type_n">
+      <option value="">选择材料类型</option>
+      <!--{loop $item_type_list $itrs}-->
+      <option value="{$itrs[item_type]}">{$itrs['item_name']}</option>
+      <!--{/loop}-->
+    </select>
+  </td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+    <td><input name="pic_sine_n" type="text" value=""  size="20"/></td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="11" align="center">
+	<input type="hidden" name="action" value="SetRunBusinessItem" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

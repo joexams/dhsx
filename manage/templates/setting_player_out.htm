@@ -1,0 +1,64 @@
+<form action="?in=setting" method="post" name="form" onSubmit="setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2">{lang JYDJ}</th>
+    </tr>
+    	
+    <tr>
+      <td width="100" align="right"><strong>{lang SERVER}</strong></td>
+      <td>
+		<!--{if $adminWebType == 's'}-->
+		<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+		 <option class="select">{lang COMPANY}</option>
+		 <!--{loop $company_list $crs}-->
+		 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+		 <!--{/loop}-->	 
+		</select>	  
+		<!--{else}-->
+		<input name="cid" type="hidden" value="{$cid}" />
+		<!--{/if}-->
+		<select name="sid" id = "sid"  onChange="selectAjax('call.php?action=CallItemType','type_id','sid',1);$('item_id').options.length = 0;">
+		<option value="" class="select">{lang ALLSERVER}</option>
+		<!--{if $servers_list}-->
+		 <!--{loop $servers_list $srs}-->
+		 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}-{$srs[o_name]}</option>
+		 <!--{/loop}-->	
+		 <!--{/if}-->		
+		</select>
+		</td>
+    </tr>
+    <tr>
+      <td align="right"><strong>{lang USER}</strong></td>
+      <td>
+		<select name="usertype" >
+		<option value="1">{lang USERNAME}</option>
+		<option value="2">{lang USERNICK}</option>
+		</select>  
+	  <input name="username" id="username" type="text" value="" size="40" /></td>
+    </tr>	
+     <tr>
+      <td align="right"><strong>{lang CZLX}</strong></td>
+      <td>
+		<select name="type">
+		 <option value="1" >{lang CZLXJY}</option>
+		 <option value="2" >{lang CZLXDJ}</option>
+		</select>	  
+	  </td>
+   </tr> 	
+     <tr>
+      <td align="right"><strong>{lang SJXZ}</strong></td>
+      <td><input name="minute" type="text" value="9999999" size="20"/> {lang MINUTES} <span class="graytext">{lang JYDJMSG}</span></td>
+   </tr> 
+  
+     <tr>
+       <td align="right" valign="top"><strong>{lang SETREASON}</strong></td>
+      <td><textarea name="cause" cols="60" rows="5">{lang JYDJVAL}</textarea> <br />
+      <span class="graytext">{lang SETREASONMSG}</span></td>
+   </tr>
+           
+    <tr>
+      <td><input name="action" type="hidden" value="SetPlayerOut"/></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" {lang SUBMITOK} " class="button"/></td>
+    </tr>
+  </table>
+</form >

@@ -1,0 +1,114 @@
+<form method="post" action="?in=runbusiness" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="8">城镇间距离时间表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+	<td width="35">删除</td>
+    <td width="100">起始城镇</td>
+    <td width="100">目标城镇</td>
+    <td width="100">左边城镇</td>
+    <td width="100">右边城镇</td>
+    <td width="100">所需时间</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+	<td>{$rs[from_run_business_town_id]}<input name="id_old[]" type="hidden" value="{$rs[from_run_business_town_id]}_{$rs[to_run_business_town_id]}" /></td>
+	<td><input type="checkbox" name="id_del[]" value="{$rs[from_run_business_town_id]}_{$rs[to_run_business_town_id]}" title="选择删除"/></td>
+  <td>
+    <select name="from_run_business_town_id[]">
+      <option value="">选择城镇</option>
+      <!--{loop $rb_town_list $rrs}-->
+      <option value="{$rrs['id']}" {if $rrs['id']==$rs['from_run_business_town_id']}selected{/if}>{$rrs['name']}</option>
+      <!--{/loop}-->
+    </select>
+  </td>
+  <td>
+    <select name="to_run_business_town_id[]">
+      <option value="">选择城镇</option>
+      <!--{loop $rb_town_list $rrs}-->
+      <option value="{$rrs['id']}" {if $rrs['id']==$rs['to_run_business_town_id']}selected{/if}>{$rrs['name']}</option>
+      <!--{/loop}-->
+    </select>
+  </td>
+
+  <td>
+    <select name="left[]">
+      <option value="">选择左边城镇</option>
+      <!--{loop $rb_town_list $rrs}-->
+      <option value="{$rrs['id']}" {if $rrs['id']==$rs['left']}selected{/if}>{$rrs['name']}</option>
+      <!--{/loop}-->
+    </select>
+  </td>
+
+  <td>
+    <select name="right[]">
+      <option value="">选择右边城镇</option>
+      <!--{loop $rb_town_list $rrs}-->
+      <option value="{$rrs['id']}" {if $rrs['id']==$rs['right']}selected{/if}>{$rrs['name']}</option>
+      <!--{/loop}-->
+    </select>
+  </td>
+	<td><input name="need_time[]" type="text" value="{$rs[need_time]}"  size="20"/></td>
+  <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+
+   <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}--> 
+  
+  <!--{else}-->
+  <tr>
+	<td colspan="8" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+	<td colspan="2">新增记录→</td>
+  <td>
+  <select name="from_run_business_town_id_n">
+    <option value="">选择城镇</option>
+    <!--{loop $rb_town_list $rrs}-->
+    <option value="{$rrs['id']}">{$rrs['name']}</option>
+    <!--{/loop}-->
+  </select>
+</td>
+<td>
+     <select name="to_run_business_town_id_n">
+    <option value="">选择城镇</option>
+    <!--{loop $rb_town_list $rrs}-->
+    <option value="{$rrs['id']}">{$rrs['name']}</option>
+    <!--{/loop}-->
+  </select>
+  </td>
+<td>
+     <select name="left_n">
+    <option value="">选择左边城镇</option>
+    <!--{loop $rb_town_list $rrs}-->
+    <option value="{$rrs['id']}">{$rrs['name']}</option>
+    <!--{/loop}-->
+  </select>
+  </td>
+<td>
+     <select name="right_n">
+    <option value="">选择右边城镇</option>
+    <!--{loop $rb_town_list $rrs}-->
+    <option value="{$rrs['id']}">{$rrs['name']}</option>
+    <!--{/loop}-->
+  </select>
+  </td>
+    <td><input name="need_time_n" type="text" value=""  size="20"/></td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="8" align="center">
+	<input type="hidden" name="action" value="SetRunBusinessDistance" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

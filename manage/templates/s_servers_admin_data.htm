@@ -1,0 +1,72 @@
+<table width="100%" class="table">
+  <tr>
+    <th colspan="9">服务器操作记录</th>
+  </tr> 
+  <tr class="title_3">
+    <td colspan="9">
+	<form action="" method="get" name="forms" onSubmit="setSubmit('Submits')">
+	<select name="cid" id="cid"  onChange="selectAjax('call.php?action=CallCompanyServers','sid','cid',1)">
+	 <option class="select">运营商</option>
+	 <!--{loop $company_list $crs}-->
+	 <option value="{$crs[cid]}" {if $crs[cid] == $cid} selected="selected" {/if}>{$crs[name]}</option>
+	 <!--{/loop}-->	 
+	</select>	  	
+	<select name="sid" id = "sid">
+	<option  value="">全部服务器</option>
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if $srs[sid] == $sid} selected="selected" {/if}>{$srs[name]}</option>
+	 <!--{/loop}-->	
+	 <!--{/if}-->
+	</select>	
+	玩家ID： <input name="player_id" type="text" value="{$player_id}" size="10"/>
+	内容包含： <input name="text" type="text" value="{$text}" size="20"/>
+	<input type="submit" name="Submit" id="Submits" value=" 查 询 " class="button"/>
+	<input name="in" type="hidden" value="servers" />
+	<input name="action" type="hidden" value="ServersAdminData" />
+	</form>	</td>
+  </tr> 
+<form method="post" action="?in=server" name="form"  id="form"  onSubmit="setSubmit('Submit')">      
+  <tr class="title_2" align="center">
+  	<td width="50">ID</td>
+  	<td width="50"><input type="checkbox" name="allid"  onclick="CheckAll(this,'form','id_del[]');" /></td>
+	<td width="120">服务器</td>
+	<td width="100">操作人</td>
+	<td width="100">对象</td>
+	<td width="150">提交时间</td>
+	<td align="left">操作备注</td>
+  </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->	  
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td"  align="center">
+	<td>{$rs[id]}</td>
+	<td><!--{if $adminWebName == 'admin'}--><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除{$rs[id]}"/><!--{else}-->-<!--{/if}--></td>
+	<td>{$s[$rs[sid]][company_name]}-{$s[$rs[sid]][servers_name]}</td>
+ 	<td>
+	<!--{if $rs[adminID]}-->
+	<a href="?in=server&action=ServersAdminData&aid={$rs[adminID]}" title="所有记录"><strong>{$a[$rs[adminID]][adminName]}</strong></a> <span class="graytext"><!--{if $a[$rs[adminID]][adminType]=='s'}-->开发<!--{/if}--><!--{if $a[$rs[adminID]][adminType]=='u'}-->客服<!--{/if}--><!--{if $a[$rs[adminID]][adminType]=='c'}-->运营商<!--{/if}--></span>
+	<!--{else}-->系统<!--{/if}-->
+	</td> 
+	<td><!--{if $rs[player_id]}--><a href="?in=server&action=ServersAdminData&cid={$rs[cid]}&sid={$rs[sid]}&player_id={$rs[player_id]}" title="所有记录"><strong>{$rs[username]}</strong></a><br /><a href="?in=player&action=PlayerView&cid={$rs[cid]}&sid={$rs[sid]}&uid={$rs[player_id]}" target="_blank" class="smalltext"><span class="graytext">ID:{$rs[player_id]}</span></a><!--{else}-->{$rs[username]}<!--{/if}--></td>
+	<td>{$rs[stime]}</td>
+	<td align="left">{$rs[contents]}</td>
+  </tr>
+  <!--{/loop}-->
+  <!--{if $list_array_pages}-->
+   <tr>
+    <td colspan="9" class="page">{$list_array_pages}</td>
+  </tr>    
+  <!--{/if}-->
+  <!--{else}--> 
+  <tr >
+	<td colspan="9"  align="center">暂无记录</td>
+  </tr>			  
+  <!--{/if}--> 
+  <tr>
+    <td colspan="9" align="center">
+	<input type="hidden" name="action" value="DelServersAdminData" />
+	<input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</form> 
+  
+</table>

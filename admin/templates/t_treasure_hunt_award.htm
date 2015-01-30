@@ -1,0 +1,80 @@
+<form method="post" action="?in=treasurehunt" name="form"  onSubmit="setSubmit('Submit')">
+<table class="table">
+  <tr>
+    <th colspan="8">寻宝奖励表</th>
+  </tr>
+  <tr align="center" class="title_2">
+    <td width="35">ID</td>
+  <td width="35">删除</td>
+  <td width="100">奖励名称</td>
+    <td width="100">奖励铜钱</td>
+    <td width="100">奖励声望</td>
+    <td width="100">奖励阅历</td>
+    <td width="100">奖励体力</td>
+  <td width="100">奖励物品</td>
+    <td width="100">物品数量</td>
+    <td width="100">寻宝经验</td>
+    <td>&nbsp;</td>
+    </tr>
+  <!--{if $list_array}-->
+  <!--{loop $list_array $rs}-->   
+  <tr onmouseover=this.className="td3" onmouseout=this.className="td" align="center" >
+  <td>{$rs[id]}<input name="id[]" type="hidden" value="{$rs[id]}" /></td>
+  <td><input type="checkbox" name="id_del[]" value="{$rs[id]}" title="选择删除"/></td>
+    <td><input name="name[]" type="text" value="{$rs[name]}"  size="20"/></td>
+    <td><input name="coins[]" type="text" value="{$rs[coins]}"  size="20"/></td>
+    <td><input name="fame[]" type="text" value="{$rs[fame]}"  size="20"/></td>
+    <td><input name="skill[]" type="text" value="{$rs[skill]}"  size="20"/></td>
+    <td><input name="power[]" type="text" value="{$rs[power]}"  size="20"/></td>
+   <td>
+     <select name="item_id[]">
+       <option value="">选择奖励物品</option>
+       <!--{loop $item_list $irs}-->
+       <option value="{$irs['id']}" {if $irs['id']==$rs['item_id']}selected{/if}>{$irs['name']}</option>
+       <!--{/loop}-->
+     </select>
+
+   </td>
+  <td><input name="item_amount[]" type="text" value="{$rs[item_amount]}"  size="20"/></td>
+  <td><input name="exp[]" type="text" value="{$rs[exp]}"  size="20"/></td>
+  <td>&nbsp;</td>
+    </tr>
+  <!--{/loop}-->
+
+   <!--{if $list_array_pages}--> 
+  <tr>
+    <td colspan="8" class="page">{$list_array_pages}</td>
+  </tr> 
+  <!--{/if}--> 
+  
+  <!--{else}-->
+  <tr>
+  <td colspan="8" align="center">找不到相关信息</td>
+  </tr>  
+  <!--{/if}--> 
+  <tr class="td2" align="center" >
+  <td colspan="2">新增记录→</td>
+    <td><input name="name_n" type="text" value=""  size="20"/></td>
+    <td><input name="coins_n" type="text" value=""  size="20"/></td>
+    <td><input name="fame_n" type="text" value=""  size="20"/></td>
+    <td><input name="skill_n" type="text" value=""  size="20"/></td>
+    <td><input name="power_n" type="text" value=""  size="20"/></td>
+    <td>
+      <select name="item_id_n">
+        <option value="">选择奖励物品</option>
+        <!--{loop $item_list $irs}-->
+        <option value="{$irs['id']}" {if $irs['id']==$rs['item_id']}selected{/if}>{$irs['name']}</option>
+        <!--{/loop}-->
+      </select>
+    </td>
+    <td><input name="item_amount_n" type="text" value=""  size="20"/></td>
+    <td><input name="exp" type="text" value=""  size="20"/></td>
+    <td>&nbsp;</td>
+  </tr>  
+  <tr>
+    <td colspan="8" align="center">
+  <input type="hidden" name="action" value="SetTreasureHuntAward" />
+  <input type="submit" id="Submit" name="Submit" value="执行操作" onClick='javascript: return confirm("你确定执行操作？");'  class="button"/></td>
+  </tr>  
+</table>
+</form>

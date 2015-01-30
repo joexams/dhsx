@@ -1,0 +1,135 @@
+<form action="?in=admin&action=SaveEditAdmin" method="post" name="form" id="form" onSubmit="return ckform();setSubmit('Submit')">
+  <table class="table">
+    <tr>
+      <th colspan="2"><a href="?in=admin">管理员列表</a> ＞ 修改</th>
+    </tr>
+    <tr>
+      <td width="120" align="right"><strong>帐户名称</strong></td>
+      <td><input name="adminName" type="text" id="adminName" value="{$rs[adminName]}" size="40" maxlength="45" /></td>
+    </tr>
+    <tr>
+      <td align="right"><strong>帐户密码</strong></td>
+      <td><input name="adminPassWord" type="text" id="adminPassWord" value="" size="40" maxlength="45" autocomplete="off"/> 不修改留空</td>
+   </tr>
+    <tr>
+      <td align="right"><strong>帐户类型</strong></td>
+      <td><!--{if $rs[adminType]=='s'}-->开发<!--{/if}--><!--{if $rs[adminType]=='u'}-->客服<!--{/if}--><!--{if $rs[adminType]=='c'}-->运营<!--{/if}--></td>
+   </tr>     
+     <tr>
+       <td align="right" valign="top"><strong>系统权限</strong></td>
+      <td>
+		<select name="adminPower[]" id = "adminPower" size="10" multiple="multiple"  >
+		<option class="select" value="" {if !$adminPowerArr} selected="selected" {/if}>无</option> 
+		<!--{if $power_array}-->
+		 <!--{loop $power_array $prs}-->
+		 <option value="{$prs[power]}" {if in_array($prs[power],$adminPowerArr) || $rs[adminID]==1} selected="selected" {/if}>{$prs[pname]}</option>
+		 <!--{/loop}-->		 
+		 <!--{/if}-->
+		</select>
+
+	  </td>
+   </tr> 
+  <tr>
+    <td align="right" valign="top" ><strong>允许登陆IP</strong></td>
+	<td><textarea name="adminAllowLoginIP" cols="31" rows="5">{$rs[adminAllowLoginIP]}</textarea><br /><span class="graytext">一个IP一行</span></td>
+  </tr>  
+    <tr>
+      <td width="120" align="right"><strong>错误登陆</strong></td>
+      <td><input name="adminLoginErr" type="text" id="adminLoginErr" value="{$rs[adminLoginErr]}" size="20" maxlength="2" /> 时间:{echo date('Y-m-d H:i:s',$rs[adminLoginErrTime])}</td>
+    </tr>
+     <tr>
+      <td align="right"><strong>语言包</strong></td>
+      <td>
+		<select name="adminLang" >
+		 <option value="zh_CN" {if $rs[adminLang]=='zh_CN'} selected="selected" {/if}>中文</option>
+		 <option value="zh_EN" {if $rs[adminLang]=='zh_EN'} selected="selected" {/if}>英文</option>
+		 <option value="zh_KOR" {if $rs[adminLang]=='zh_KOR'} selected="selected" {/if}>韩文</option>
+		</select>	  
+	  
+	  </td>
+   </tr>       
+     <tr>
+      <td align="right"><strong>锁定</strong></td>
+      <td>
+		<select name="adminLock">
+		 <option value="1" {if $rs[adminLock]==1} selected="selected" {/if}>正常</option>
+		 <option value="0" {if $rs[adminLock]==0} selected="selected" {/if}>锁定</option>
+		</select>	 
+		 <span class="bluetext">选择[锁定]帐号将无法登陆</span> 
+	  </td>
+   </tr>        
+    <tr>
+      <th colspan="2">帐号的远程服务器设置(以下可不设置)</th>
+    </tr>   
+    <tr {if $rs[adminType]=='s'}style="display:none;"{/if}>
+      <td align="right" valign="top"><strong>负责运营商</strong></td>
+      <td>
+	  <input name="companyArr" type="hidden" id="companyArr" value=""/>
+	  <!--{loop $company_list $crs}-->
+	  <input name="cid[]" type="checkbox" value="{$crs[cid]}"  id="c_{$crs[cid]}" onclick="setCIDArr({$crs[cid]});" {if in_array($crs[cid],$adminCidArr)} checked="checked" {/if}/> {$crs[name]}<br />
+	  <!--{/loop}-->
+	   </td>
+   </tr> 
+    <tr {if ($rs[adminType]=='s' || $rs[adminType]=='c')}style="display:none;"{/if}>
+      <td align="right" valign="top"><strong>负责服务器</strong></td>
+      <td>
+	<select name="servers[]" id = "servers" size="10" multiple="multiple"  >
+	<!--{if $servers_list}-->
+	 <!--{loop $servers_list $srs}-->
+	 <option value="{$srs[sid]}" {if in_array($srs[sid],$adminServersArr)} selected="selected" {/if}>{$srs[company_name]}-{$srs[name]}-{$srs[o_name]} ({$srs[server]})</option>
+	 <!--{/loop}-->	
+	 <!--{else}-->
+	 <option  class="select">请先从上面选择运营商</option> 
+	 <!--{/if}-->
+	</select>	  
+	  </td>
+   </tr> 
+     <tr>
+       <td align="right" valign="top"><strong>服务器权限</strong></td>
+      <td>
+	  <input name="checkbox" type="checkbox" title="全选/取消" onClick="CheckAll(this,'form','serversPower[]')" value="checkbox" /> <strong>所有</strong><br /><br />
+
+	  <!--{if $servers_power_array}-->
+	    <!--{loop $servers_power_array $prs}-->
+		<input name="serversPower[]" type="checkbox" value="{$prs[power]}" {if in_array($prs[power],$serversPowerArr)} checked {/if}/> {$prs[pname]} 
+		<!--{if $prs[ptype]==2}-->
+		<!--{eval $prs[powerLook]=$prs[power].'-look'}-->
+		<input name="serversPower[]" type="checkbox" value="{$prs[powerLook]}" {if in_array($prs[powerLook],$serversPowerArr)} checked {/if}/>  <span class="graytext">只看</span>
+		<!--{/if}-->
+		<br />
+		<!--{/loop}-->
+	  <!--{/if}-->
+	  </td>
+   </tr>
+    <tr>
+      <td><input name="id" type="hidden" value="{$adminID}"/></td>
+      <td><input type="submit" name="Submit" id="Submit" value=" 提 交 " class="button"/> <span class="bluetext"><!--这里[只看]的意思是指只拥有查看权限，没有操作权限！--></span></td>
+    </tr>
+  </table>
+</form >
+<script language="javascript" type="text/javascript">
+function setCIDArr(id) {
+	var companyArr = $('companyArr');
+	var text;
+	if ($('c_'+id).checked == true) {
+		if (!companyArr.value) {
+			text = id+',';
+		}else{
+			text = companyArr.value + id+',';
+		}
+		companyArr.value = text;
+	}else{
+		text = companyArr.value.replace(id+',','');
+		companyArr.value = text;
+	}
+	selectAjax('call.php?action=CallCompanyServersUrl','servers','companyArr',1);
+}	
+function ckform(){
+	var adminPower=document.getElementsByName('adminPower[]');
+	var obj = document.form;
+	if(obj.adminName.value==""){
+		alert("名称不能为空");
+		return false;
+	}
+}
+</script>
